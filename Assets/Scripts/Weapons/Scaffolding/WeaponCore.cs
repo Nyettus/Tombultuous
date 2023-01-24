@@ -16,7 +16,7 @@ public class WeaponCore : MonoBehaviour
     [Header("Special Traits")]
     protected float specialCooldown;
     protected float specialTime;
-    protected bool specialUsed;
+    protected bool specialUsed=false;
 
     [Header("Inventory Traits")]
     public bool equipped = false;

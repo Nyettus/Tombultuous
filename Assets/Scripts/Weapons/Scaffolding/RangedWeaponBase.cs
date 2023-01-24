@@ -22,13 +22,14 @@ public class RangedWeaponBase : WeaponCore
     [Header("Reloadable Traits")]
     protected bool requireReload;
     public int magSize;
-    protected float reloadTime;
+    public float reloadTime;
+
 
     [Header("Out of card logic times")]
     protected float shootSetTime;
     public int curMag;
     protected float reloadSetTime;
-    protected bool reloading;
+    public bool reloading;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -97,7 +98,7 @@ public class RangedWeaponBase : WeaponCore
     }
     protected void ReloadFire()
     {
-        if (shooting && shootSetTime < Time.time&&curMag>0)
+        if (shooting && shootSetTime < Time.time&&curMag>0 && !reloading)
         {
             if (fullAuto)
             {
@@ -120,7 +121,7 @@ public class RangedWeaponBase : WeaponCore
     }
 
 
-    protected Vector3 bulletSpread()
+    protected Vector3 bulletSpread(float spread)
     {
         Vector3 targetPos = Camera.main.transform.position + Camera.main.transform.forward * 2;
         targetPos = new Vector3(

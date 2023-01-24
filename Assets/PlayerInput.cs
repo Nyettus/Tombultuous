@@ -98,6 +98,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""73515985-de75-4549-ae4f-f939a08bf0f2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28f8e22f-cbe5-4cd7-97a5-325fafba26ca"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_KeyboardMap_Interact = m_KeyboardMap.FindAction("Interact", throwIfNotFound: true);
         m_KeyboardMap_Attack = m_KeyboardMap.FindAction("Attack", throwIfNotFound: true);
         m_KeyboardMap_Special = m_KeyboardMap.FindAction("Special", throwIfNotFound: true);
+        m_KeyboardMap_Reload = m_KeyboardMap.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +336,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMap_Interact;
     private readonly InputAction m_KeyboardMap_Attack;
     private readonly InputAction m_KeyboardMap_Special;
+    private readonly InputAction m_KeyboardMap_Reload;
     public struct KeyboardMapActions
     {
         private @PlayerInput m_Wrapper;
@@ -327,6 +349,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_KeyboardMap_Interact;
         public InputAction @Attack => m_Wrapper.m_KeyboardMap_Attack;
         public InputAction @Special => m_Wrapper.m_KeyboardMap_Special;
+        public InputAction @Reload => m_Wrapper.m_KeyboardMap_Reload;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -360,6 +383,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Special.started -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnSpecial;
                 @Special.performed -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnSpecial;
                 @Special.canceled -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnSpecial;
+                @Reload.started -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_KeyboardMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -388,6 +414,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Special.started += instance.OnSpecial;
                 @Special.performed += instance.OnSpecial;
                 @Special.canceled += instance.OnSpecial;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -402,5 +431,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

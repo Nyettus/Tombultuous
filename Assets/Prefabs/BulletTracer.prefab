@@ -65,7 +65,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,6 +89,7 @@ LineRenderer:
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -97,36 +98,45 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0.8114674
-        outSlope: 0.8114674
+        value: 0.00680542
+        inSlope: 0.44452345
+        outSlope: 0.44452345
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.20958084
+        outWeight: 0.27890587
       - serializedVersion: 3
-        time: 1
-        value: 0.54421806
-        inSlope: 0.32130963
-        outSlope: 0.32130963
+        time: 0.49380296
+        value: 0.231264
+        inSlope: 1.1071819
+        outSlope: 1.1071819
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.29640716
+        inWeight: 0.22391404
+        outWeight: 0.31389284
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -0.92949915
+        outSlope: -0.92949915
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.13173652
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.4020164, b: 0, a: 0.41568628}
-      key1: {r: 1, g: 0.95616955, b: 0.7122642, a: 1}
+      key0: {r: 1, g: 0.7250945, b: 0, a: 0}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 1, g: 1, b: 1, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 1}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 38936
+      ctime0: 37201
       ctime1: 65535
       ctime2: 65535
       ctime3: 0
@@ -135,7 +145,7 @@ LineRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
+      atime1: 33924
       atime2: 65535
       atime3: 65535
       atime4: 0
@@ -144,7 +154,7 @@ LineRenderer:
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0

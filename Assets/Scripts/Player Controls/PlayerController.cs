@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("General Movement")]
     public float height = 2;
     private Vector2 vertMove;
-    private Rigidbody rb;
+    public Rigidbody rb;
     public float b_MoveSpeed;
     public float moveSpeed;
 
@@ -183,14 +183,23 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time > dashFreezeTime)
         {
-            dashTick = true;
-            Vector3 flatvel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-            if (flatvel.magnitude > moveSpeed)
+            if (dashTick == false)
             {
-                Vector3 limitedVel = flatvel.normalized * moveSpeed;
-                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+                Vector3 flatvel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+                if (flatvel.magnitude > moveSpeed)
+                {
+                    Vector3 limitedVel = flatvel.normalized * moveSpeed;
+                    rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+                }
             }
+            dashTick = true;
+
         }
+    }
+
+    private void resetVel()
+    {
+
     }
 
 
@@ -216,11 +225,7 @@ public class PlayerController : MonoBehaviour
         Master.grounded = grounded;
         Master.dashing = !dashTick;
     }
-    IEnumerator groundDelay()
-    {
-        yield return new WaitForSeconds(0.1f);
-        grounded = false;
-    }
+
     public void PhysicsMod()
     {
         Ray cast = new Ray(transform.position, Vector3.down);

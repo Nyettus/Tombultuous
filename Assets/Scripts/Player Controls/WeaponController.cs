@@ -36,6 +36,19 @@ public class WeaponController : MonoBehaviour
 
     }
 
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        if(context.performed&&equippedGuns[selectedWeapon].TryGetComponent(out RangedWeaponBase yep))
+        {
+            if (yep.curMag != yep.magSize)
+            {
+                yep.reloading = true;
+                yep.Invoke("Reload", yep.reloadTime);
+            }
+
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
