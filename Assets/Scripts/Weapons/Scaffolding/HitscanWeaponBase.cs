@@ -24,7 +24,6 @@ public class HitscanWeaponBase : RangedWeaponBase
                 {
                     script.EstablishTrails(transform.position, hit.point);
                 }
-                Debug.Log(hit.collider.gameObject.layer);
 
             }
 

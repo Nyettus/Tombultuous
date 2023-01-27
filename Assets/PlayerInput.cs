@@ -107,6 +107,24 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Weapon Switch"",
+                    ""type"": ""Value"",
+                    ""id"": ""491fff6b-ba05-4ca2-8046-70d40b31919b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""QuickSwitch"",
+                    ""type"": ""Button"",
+                    ""id"": ""d29a049d-ecf1-48fa-b6f5-e86e5c2c4c78"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -252,6 +270,127 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b3cc2ac-8b5a-494c-b250-e155bdb44a79"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""Weapon Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c433a126-371b-4457-86c9-d23522f3a991"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""Weapon Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12f4ba14-6e91-4738-b6cd-bc1b53be1940"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": """",
+                    ""action"": ""Weapon Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad0329c5-d0a1-4b72-96cb-aa637799cd0d"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": """",
+                    ""action"": ""Weapon Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d6545ac-166d-47ff-ba05-d10f62a4ef30"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=5)"",
+                    ""groups"": """",
+                    ""action"": ""Weapon Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5119eb08-3653-43d6-bb72-f88b30ee4540"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=6)"",
+                    ""groups"": """",
+                    ""action"": ""Weapon Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42db1119-2721-476a-b2c9-a43a0260a78a"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=7)"",
+                    ""groups"": """",
+                    ""action"": ""Weapon Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""005766d7-dd0b-4362-94e4-0e2c420680c6"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=8)"",
+                    ""groups"": """",
+                    ""action"": ""Weapon Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33c235a0-4526-48ac-bd1b-adb50ec35243"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=9)"",
+                    ""groups"": """",
+                    ""action"": ""Weapon Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e444c46-53ca-4b1e-82e8-8f15ac91bb41"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=10)"",
+                    ""groups"": """",
+                    ""action"": ""Weapon Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c5c8278-08a9-4199-a22a-e9e99cd50bc5"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,6 +408,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_KeyboardMap_Attack = m_KeyboardMap.FindAction("Attack", throwIfNotFound: true);
         m_KeyboardMap_Special = m_KeyboardMap.FindAction("Special", throwIfNotFound: true);
         m_KeyboardMap_Reload = m_KeyboardMap.FindAction("Reload", throwIfNotFound: true);
+        m_KeyboardMap_WeaponSwitch = m_KeyboardMap.FindAction("Weapon Switch", throwIfNotFound: true);
+        m_KeyboardMap_QuickSwitch = m_KeyboardMap.FindAction("QuickSwitch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -337,6 +478,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMap_Attack;
     private readonly InputAction m_KeyboardMap_Special;
     private readonly InputAction m_KeyboardMap_Reload;
+    private readonly InputAction m_KeyboardMap_WeaponSwitch;
+    private readonly InputAction m_KeyboardMap_QuickSwitch;
     public struct KeyboardMapActions
     {
         private @PlayerInput m_Wrapper;
@@ -350,6 +493,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_KeyboardMap_Attack;
         public InputAction @Special => m_Wrapper.m_KeyboardMap_Special;
         public InputAction @Reload => m_Wrapper.m_KeyboardMap_Reload;
+        public InputAction @WeaponSwitch => m_Wrapper.m_KeyboardMap_WeaponSwitch;
+        public InputAction @QuickSwitch => m_Wrapper.m_KeyboardMap_QuickSwitch;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -386,6 +531,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Reload.started -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnReload;
+                @WeaponSwitch.started -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnWeaponSwitch;
+                @WeaponSwitch.performed -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnWeaponSwitch;
+                @WeaponSwitch.canceled -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnWeaponSwitch;
+                @QuickSwitch.started -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnQuickSwitch;
+                @QuickSwitch.performed -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnQuickSwitch;
+                @QuickSwitch.canceled -= m_Wrapper.m_KeyboardMapActionsCallbackInterface.OnQuickSwitch;
             }
             m_Wrapper.m_KeyboardMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -417,6 +568,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @WeaponSwitch.started += instance.OnWeaponSwitch;
+                @WeaponSwitch.performed += instance.OnWeaponSwitch;
+                @WeaponSwitch.canceled += instance.OnWeaponSwitch;
+                @QuickSwitch.started += instance.OnQuickSwitch;
+                @QuickSwitch.performed += instance.OnQuickSwitch;
+                @QuickSwitch.canceled += instance.OnQuickSwitch;
             }
         }
     }
@@ -432,5 +589,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnWeaponSwitch(InputAction.CallbackContext context);
+        void OnQuickSwitch(InputAction.CallbackContext context);
     }
 }

@@ -36,7 +36,7 @@ public class Shardenfreude : HitscanWeaponBase
             movement.rb.AddForce(Camera.main.transform.forward * (curMag*-5),ForceMode.Impulse);
             curMag = 0;
             base.Special();
-            StartCoroutine(startSpecialCooldown());
+
         }
     }
 }

@@ -11,14 +11,15 @@ public class WeaponAesthetic : MonoBehaviour
     private CanvasGroup opacity;
     public TextMeshProUGUI weaponName, atkDesc, spkDesc,lore;
 
-    private Transform loreHolder;
+    private Transform loreHolderBase,loreHolder;
     private float UIdistance;
 
     private void Start()
     {
         master = GetComponent<WeaponCore>();
         canvas = GetComponentInChildren<Canvas>();
-        loreHolder = transform.GetChild(0);
+        loreHolderBase = transform.GetChild(0);
+        loreHolder = transform.GetChild(0).GetChild(0);
         opacity = GetComponentInChildren<CanvasGroup>();
         opacity.alpha = 0;
 
@@ -30,11 +31,11 @@ public class WeaponAesthetic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!master.equipped)
-            transform.Rotate(new Vector3(0, 1, 0));
         UIdistance = Mathf.Clamp(-0.2f * Vector3.Distance(this.transform.position, GameManager.instance.Master.transform.position) + 1.6f, 0, 1);
         if (UIdistance != 0)
         {
+            loreHolderBase.LookAt(GameManager.instance.Master.transform);
+            loreHolderBase.eulerAngles = new Vector3(0, loreHolderBase.eulerAngles.y + 180f, loreHolderBase.eulerAngles.z);
             loreHolder.LookAt(GameManager.instance.Master.transform);
             loreHolder.eulerAngles = new Vector3(0, loreHolder.eulerAngles.y + 180f, loreHolder.eulerAngles.z);
             opacity.alpha = UIdistance;

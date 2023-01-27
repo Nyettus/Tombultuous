@@ -20,7 +20,7 @@ public class RangedWeaponBase : WeaponCore
     protected float maxRange;
 
     [Header("Reloadable Traits")]
-    protected bool requireReload;
+    public bool requireReload;
     public int magSize;
     public float reloadTime;
 
@@ -66,8 +66,9 @@ public class RangedWeaponBase : WeaponCore
         }
     }
 
-    public virtual void Update()
+    public override void Update()
     {
+        base.Update();
         if (requireReload)
             ReloadFire();
         else

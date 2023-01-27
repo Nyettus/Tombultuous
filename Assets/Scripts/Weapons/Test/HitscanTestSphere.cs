@@ -13,7 +13,7 @@ public class HitscanTestSphere : RangedWeaponBase
         if (specialTime < Time.time)
         {
             base.Special();
-            StartCoroutine(startSpecialCooldown());
+
         }
 
     }

@@ -33,12 +33,13 @@ public class WeaponCore : MonoBehaviour
     public virtual void Special()
     {
         specialUsed = true;
+        specialTime = Time.time + specialCooldown;
     }
 
-    protected IEnumerator startSpecialCooldown()
+    public virtual void Update()
     {
-        yield return new WaitForSeconds(specialCooldown);
-        specialUsed = false;
+        if (specialTime < Time.time)
+            specialUsed = false;
     }
 
 

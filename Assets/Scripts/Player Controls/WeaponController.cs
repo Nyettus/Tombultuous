@@ -10,6 +10,7 @@ public class WeaponController : MonoBehaviour
 
 
     public int selectedWeapon = 0;
+    private int previousWeapon = -1;
     [SerializeField]
     public WeaponCore[] equippedGuns;
     // Start is called before the first frame update
@@ -36,11 +37,43 @@ public class WeaponController : MonoBehaviour
 
     }
 
+    public void OnSelect(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            int val = (int)context.ReadValue<float>()-1;
+            if (equippedGuns.Length>val&&equippedGuns[val] != null&&val!=selectedWeapon)
+            {
+                previousWeapon = selectedWeapon;
+                Debug.Log(previousWeapon);
+                selectedWeapon = val;
+                SelectWeapon();
+            }
+        }
+    }
+
+    public void OnQuickSwitch(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if(previousWeapon != -1)
+            {
+                int temp = selectedWeapon;
+                selectedWeapon = previousWeapon;
+                Debug.Log(selectedWeapon);
+                SelectWeapon();
+                previousWeapon = temp;
+            }
+
+
+        }
+    }
+
     public void OnReload(InputAction.CallbackContext context)
     {
         if(context.performed&&equippedGuns[selectedWeapon].TryGetComponent(out RangedWeaponBase yep))
         {
-            if (yep.curMag != yep.magSize)
+            if (yep.requireReload&&(yep.curMag != yep.magSize))
             {
                 yep.reloading = true;
                 yep.Invoke("Reload", yep.reloadTime);
@@ -52,14 +85,7 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            selectedWeapon++;
-            if (selectedWeapon >= equippedGuns.Length)
-                selectedWeapon = 0;
-            SelectWeapon();
 
-        }
     }
 
     private void Establish()
