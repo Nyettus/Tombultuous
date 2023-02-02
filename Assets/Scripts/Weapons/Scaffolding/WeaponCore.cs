@@ -6,6 +6,7 @@ public class WeaponCore : MonoBehaviour
 {
     public bool shooting;
     protected ObjectPooler ObjectPool;
+    private Transform modelHolder;
 
     [Header("Lore Traits")]
     public string weaponName;
@@ -24,6 +25,7 @@ public class WeaponCore : MonoBehaviour
     protected virtual void Start()
     {
         ObjectPool = ObjectPooler.Instance;
+        modelHolder = transform.GetChild(1);
     }
 
     public virtual void Shoot()
@@ -55,6 +57,7 @@ public class WeaponCore : MonoBehaviour
                 transform.SetParent(master.transform);
                 transform.localPosition = Vector3.zero;
                 transform.localRotation = Quaternion.identity;
+                modelHolder.localRotation = Quaternion.identity;
                 GetComponent<Collider>().enabled = false;
                 master.updateEquipped();
                 master.SelectWeapon();
