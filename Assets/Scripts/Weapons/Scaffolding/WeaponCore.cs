@@ -75,6 +75,7 @@ public class WeaponCore : MonoBehaviour
             replaced.transform.SetParent(null);
             replaced.transform.position = transform.position;
             replaced.transform.rotation = transform.rotation;
+            modelHolder.localRotation = Quaternion.identity;
             replaced.GetComponent<Collider>().enabled = true;
             replaced.GetComponent<WeaponCore>().equipped = false;
 

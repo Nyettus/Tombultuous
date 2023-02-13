@@ -15,8 +15,11 @@ public class HitscanWeaponBase : RangedWeaponBase
                 if(hit.transform.tag == "Enemy")
                 {
                     float damage = damageFalloff(hit.distance) * GameManager.instance.Master.damage;
-                    rayLine(hit.point);
                     hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
+                }
+                else if(hit.transform.tag == "ItemChest")
+                {
+                    hit.transform.GetComponent<ChestCore>().SpawnItem();
                 }
 
                 GameObject tracer = ObjectPool.SpawnFromPool("Tracer", Camera.main.transform.position, transform.rotation);
