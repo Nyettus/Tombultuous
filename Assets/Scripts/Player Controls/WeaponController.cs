@@ -7,7 +7,9 @@ public class WeaponController : MonoBehaviour
 {
     public PlayerMaster master;
 
-
+    public float damageMult;
+    public float hasteMult;
+    public int pockets;
 
     public int selectedWeapon = 0;
     private int previousWeapon = -1;
@@ -17,7 +19,7 @@ public class WeaponController : MonoBehaviour
     void Start()
     {
         Establish();
-        updateEquipped();
+        UpdateEquipped();
         //SelectWeapon();
 
     }
@@ -91,7 +93,11 @@ public class WeaponController : MonoBehaviour
     private void Establish()
     {
         master = GetComponentInParent<PlayerMaster>();
-        equippedGuns = new WeaponCore[master.pockets];
+        damageMult = master.damage;
+        hasteMult = master.haste;
+        pockets = master.pockets;
+        equippedGuns = new WeaponCore[pockets];
+
     }
 
     public void SelectWeapon()
@@ -110,7 +116,7 @@ public class WeaponController : MonoBehaviour
 
     }
 
-    public void updateEquipped()
+    public void UpdateEquipped()
     {
         int i = 0;
         foreach(Transform weapon in transform)
@@ -119,6 +125,48 @@ public class WeaponController : MonoBehaviour
             i++;
         }
         
+    }
+
+    public void RefreshPockets()
+    {
+        if (pockets != equippedGuns.Length)
+        {
+            WeaponCore[] newArray = new WeaponCore[pockets];
+            equippedGuns.CopyTo(newArray, 0);
+            equippedGuns = newArray;
+        }
+    }
+
+
+    public void GetBuff(int[] statRef, float[] statChange)
+    {
+        for (int i = 0; i < statRef.Length; i++)
+        {
+            if (statRef.Length == statChange.Length)
+            {
+                switch (statRef[i])
+                {
+                    case 1:
+                        damageMult += statChange[i];
+                        break;
+                    case 2:
+                        hasteMult += statChange[i];
+                        break;
+                    case 3:
+                        pockets += (int)statChange[i];
+                        RefreshPockets();
+                        break;
+                    default:
+                        Debug.LogError("Stat out of range");
+                        break;
+
+                }
+            }
+            else
+                Debug.LogError("Buff arrays not equal");
+
+        }
+
     }
 
 }

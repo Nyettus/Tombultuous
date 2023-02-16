@@ -93,7 +93,7 @@ public class RangedWeaponBase : WeaponCore
                 Shoot();
                 shooting = false;
             }
-            shootSetTime = Time.time + fireRate;
+            shootSetTime = Time.time + (1 / GameManager.instance.Master.weaponMaster.hasteMult);
         }
 
     }
@@ -112,11 +112,11 @@ public class RangedWeaponBase : WeaponCore
                 shooting = false;
                 curMag -= 1;
             }
-            shootSetTime = Time.time + fireRate;
+            shootSetTime = Time.time + fireRate* (1/GameManager.instance.Master.weaponMaster.hasteMult);
         }
         if (curMag <= 0&&!reloading)
         {
-            Invoke("Reload", reloadTime);
+            Invoke("Reload", reloadTime* (1 / GameManager.instance.Master.weaponMaster.hasteMult));
             reloading = true;
         }
     }

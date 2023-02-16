@@ -20,7 +20,7 @@ public class Shardenfreude : HitscanWeaponBase
                 {
                     if (hit.transform.tag == "Enemy")
                     {
-                        float damage = damageFalloff(hit.distance) * GameManager.instance.Master.damage;
+                        float damage = damageFalloff(hit.distance) * GameManager.instance.Master.weaponMaster.damageMult;
                         rayLine(hit.point);
                         hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
                     }

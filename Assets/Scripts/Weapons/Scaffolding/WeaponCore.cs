@@ -59,7 +59,7 @@ public class WeaponCore : MonoBehaviour
                 transform.localRotation = Quaternion.identity;
                 modelHolder.localRotation = Quaternion.identity;
                 GetComponent<Collider>().enabled = false;
-                master.updateEquipped();
+                master.UpdateEquipped();
                 master.SelectWeapon();
                 ticked = true;
                 Debug.Log("Normal Pickup");
@@ -87,7 +87,7 @@ public class WeaponCore : MonoBehaviour
             transform.localRotation = Quaternion.identity;
             GetComponent<Collider>().enabled = false;
 
-            master.updateEquipped();
+            master.UpdateEquipped();
             master.SelectWeapon();
 
         }
