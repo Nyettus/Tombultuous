@@ -19,8 +19,9 @@ public class PlayerController : MonoBehaviour
     public int jumpCount;
     public float b_JumpPower;
     public float jumpPower;
-    [SerializeField]
+
     private bool jumpTick = true;
+    [SerializeField]
     private float coyoteTime = 0f;
 
     [Header("Grounded")]
