@@ -7,9 +7,9 @@ public class CameraControls : MonoBehaviour
 {
     public PlayerMaster Master;
     //Variables
-    public Transform player;
     public float sens;
     private float cameraVerticalRotation = 0f;
+    private float cameraHorizontalRotation = 0f;
 
     //Input gathering
     public Vector2 lookAng;
@@ -35,8 +35,10 @@ public class CameraControls : MonoBehaviour
     {
         cameraVerticalRotation -= lookAng.y*sens* Time.deltaTime;
         cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -90, 90);
-        transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
+        cameraHorizontalRotation += lookAng.x * sens * Time.deltaTime;
 
-        player.Rotate(Vector3.up * lookAng.x*sens*Time.deltaTime);
+        transform.eulerAngles = Vector3.right * cameraVerticalRotation + Vector3.up * cameraHorizontalRotation;
+
+        Master.movementMaster.rb.rotation = Quaternion.Euler( Vector3.up * cameraHorizontalRotation);
     }
 }

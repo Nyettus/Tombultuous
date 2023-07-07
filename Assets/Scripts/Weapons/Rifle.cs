@@ -14,7 +14,7 @@ public class Rifle : HitscanWeaponBase
             if (Physics.Raycast(Camera.main.transform.position, shootDir, out hit, 100f, ~(1 << 6)))
             {
                 Vector3 pos = Vector3.Lerp(GameManager.instance.Master.transform.position, hit.point, 0.9f);
-                GameManager.instance.Master.transform.position = pos;
+                GameManager.instance.Master.movementMaster.rb.MovePosition(pos);
                 if (hit.transform.tag == "Enemy")
                 {
                     float damage = damageFalloff(hit.distance) * GameManager.instance.Master.weaponMaster.damageMult*2f;
