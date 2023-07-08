@@ -560,9 +560,17 @@ MonoBehaviour:
   m_Container: {fileID: 27941130}
   m_ItemsToInstantiate:
   - prefab: {fileID: 0}
-    Prefab: {fileID: 2543027192073040390, guid: 5f8345c68bb913146b27890ee2c5c03c, type: 3}
+    Prefab: {fileID: 6924163020406209725, guid: 5f8345c68bb913146b27890ee2c5c03c, type: 3}
     probability: 0
-    Probability: 0
+    Probability: 60
+  - prefab: {fileID: 0}
+    Prefab: {fileID: 4550992813450759492, guid: 1127b144b0336d34a98e44e3bfaf25d8, type: 3}
+    probability: 0
+    Probability: 20
+  - prefab: {fileID: 0}
+    Prefab: {fileID: 7930451165931208198, guid: 55dcf53c93eedfd4880824fc115adb54, type: 3}
+    probability: 0
+    Probability: 20
   m_Method: 1
   m_Space: 0
   m_Spacing: {x: 3, y: 3}
@@ -577,7 +585,7 @@ MonoBehaviour:
     randomZ: 0
     space: 0
   m_RotationOffset:
-    setup: 1
+    setup: 0
     min: {x: -90, y: 0, z: 0}
     max: {x: 1.86, y: 0, z: 8.17}
     randomX: 0
@@ -594,7 +602,7 @@ MonoBehaviour:
     space: 0
   m_DeprecatedInstances: []
   m_AutoRefresh: 1
-  m_Seed: -1521508
+  m_Seed: -786838603
 --- !u!114 &27941130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7058,7 +7066,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
