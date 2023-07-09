@@ -14,4 +14,14 @@ public class Buttons : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void GoToHub()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void GoToMobility()
+    {
+        SceneManager.LoadScene(1);
+    }
 }
