@@ -33,9 +33,9 @@ public class CameraControls : MonoBehaviour
 
     private void CameraController()
     {
-        cameraVerticalRotation -= lookAng.y*sens* Time.deltaTime;
+        cameraVerticalRotation -= lookAng.y*sens* Time.fixedDeltaTime;
         cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -90, 90);
-        cameraHorizontalRotation += lookAng.x * sens * Time.deltaTime;
+        cameraHorizontalRotation += lookAng.x * sens * Time.fixedDeltaTime;
 
         transform.eulerAngles = Vector3.right * cameraVerticalRotation + Vector3.up * cameraHorizontalRotation;
 
