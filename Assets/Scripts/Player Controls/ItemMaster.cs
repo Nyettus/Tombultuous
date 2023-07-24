@@ -32,4 +32,24 @@ public class ItemMaster : MonoBehaviour
     public float M_GoldMultiplier;
     public float MIN_GoldMultiplier = 0f;
 
+
+    public void ResetStats()
+    {
+        M_Health = 0;
+        M_DamageMult = 0;
+        M_Haste = 0;
+        M_Pockets = 0;
+        M_MoveSpeed = 0;
+        M_AirAcceleration = 0;
+        M_JumpPower = 0;
+        M_JumpCount = 0;
+        M_DashCooldown = 0;
+        M_DashSpeed = 0;
+        M_GoldRetention = 0;
+        M_GoldMultiplier = 0;
+    }
+
+
+
+
 }
