@@ -9,7 +9,7 @@ public class MovementItem : ItemCore
     public override void PickupItem()
     {
         base.PickupItem();
-        GameManager.instance.Master.movementMaster.GetBuff(card.statRef, card.statChange);
+        //GameManager.instance.Master.movementMaster.GetBuff(card.statRef, card.statChange);
     }
 
     protected override void Start()

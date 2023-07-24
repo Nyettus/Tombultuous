@@ -11,6 +11,9 @@ public class PlayerMaster : MonoBehaviour
     public string characterName;
     public string description;
 
+    [Header("Stat Additions")]
+    public ItemMaster itemMaster;
+
     [Header("Combat Variables (Base)")]
     public WeaponController weaponMaster;
     public int health;
@@ -41,8 +44,6 @@ public class PlayerMaster : MonoBehaviour
     void Awake()
     {
         Establish();
-        movementMaster.Establish(moveSpeed, jumpPower,jumpCount,airAccel,dashCooldown,dashSpeed);
-
     }
 
     // Update is called once per frame
@@ -57,6 +58,7 @@ public class PlayerMaster : MonoBehaviour
         movementMaster = GetComponent<PlayerController>();
         cameraEffects = GetComponentInChildren<CameraEffects>();
         weaponMaster = GetComponentInChildren<WeaponController>();
+        itemMaster = GetComponent<ItemMaster>();
         //Name text
         characterName = card.characterName;
         description = card.description;

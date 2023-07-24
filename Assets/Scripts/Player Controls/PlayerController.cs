@@ -11,14 +11,32 @@ public class PlayerController : MonoBehaviour
     public float height = 2;
     private Vector2 vertMove;
     public Rigidbody rb;
-    public float b_MoveSpeed;
-    public float moveSpeed;
+    public float moveSpeed
+    {
+        get
+        {
+            return Mathf.Clamp(Master.moveSpeed + Master.itemMaster.M_MoveSpeed,Master.itemMaster.MIN_MoveSpeed,Mathf.Infinity);
+        }
+    }
 
     [Header("Jump")]
-    public int b_jumpCount;
     public int jumpCount;
-    public float b_JumpPower;
-    public float jumpPower;
+    public int b_jumpCount
+    {
+        get
+        {
+            return Mathf.Clamp(Master.jumpCount + Master.itemMaster.M_JumpCount, Master.itemMaster.MIN_JumpCount, 1000000);
+        }
+    }
+    
+
+    public float jumpPower
+    {
+        get
+        {
+            return Mathf.Clamp(Master.jumpPower + Master.itemMaster.M_JumpPower, Master.itemMaster.MIN_JumpPower, Mathf.Infinity);
+        }
+    }
 
     private bool jumpTick = true;
     [SerializeField]
@@ -34,33 +52,42 @@ public class PlayerController : MonoBehaviour
 
     private float accel;
     private float gaccel = 1;
-    public float b_aaccel;
-    public float aaccel;
 
-    [Header("Dash Movement")]
-    public float b_dashSpeed;
-    public float dashSpeed;
+    public float aaccel
+    {
+        get
+        {
+            return Mathf.Clamp(Master.airAccel + Master.itemMaster.M_AirAcceleration, Master.itemMaster.MIN_AirAcceleration, Mathf.Infinity);
+        }
+    }
+
+    public float dashSpeed
+    {
+        get
+        {
+            return Master.dashSpeed + Master.itemMaster.M_DashSpeed;
+        }
+    }
     [SerializeField]
     private float dashBuff;
     private bool dashTick = true;
     private float dashEndTime;
     private float dashFreezeTime;
-    public float b_dashCooldown;
-    public float dashCooldown = 2f;
+    public float dashCooldown
+    {
+        get
+        {
+            return Mathf.Clamp(Master.dashCooldown + Master.itemMaster.M_DashCooldown, Master.itemMaster.MIN_DashCooldown, Mathf.Infinity);
+        }
+    }
     public float dashDuration = 0.1f;
 
 
 
 
-    public void Establish(float move, float jumpP, int jumpC, float AirAccel, float dCool, float dSpeed)
+    public void Establish()
     {
         Master = GetComponent<PlayerMaster>();
-        b_MoveSpeed = moveSpeed = move;
-        b_aaccel = aaccel = AirAccel;
-        b_JumpPower = jumpPower = jumpP;
-        b_jumpCount = jumpCount = jumpC;
-        b_dashCooldown =dashCooldown = dCool;
-        b_dashSpeed = dashSpeed =dSpeed;
         rb = GetComponent<Rigidbody>();
         
     }
@@ -72,13 +99,13 @@ public class PlayerController : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-
+        Debug.Log(b_jumpCount);
 
         if (jumpCount > 0 && context.ReadValue<float>() > 0.5f&& jumpTick&&dashTick)
         {
             if (jumpCount == b_jumpCount)
             {
-                if (grounded)
+                if (Master.grounded)
                 {
                     jumpCompress();
                 }
@@ -96,9 +123,9 @@ public class PlayerController : MonoBehaviour
 
     private void jumpCompress(int decrement = 1)
     {
-        if (grounded)
+        if (Master.grounded)
         {
-        grounded = false;
+            Master.grounded = false;
         }
 
         rb.velocity -= new Vector3(0, rb.velocity.y, 0);
@@ -198,11 +225,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void resetVel()
-    {
-
-    }
-
 
 
     public void Detections()
@@ -211,7 +233,7 @@ public class PlayerController : MonoBehaviour
         Ray cast = new Ray(transform.position, Vector3.down);
         if (Physics.Raycast(cast, height * 0.5f + 0.4f, whatIsGround)&&jumpTick)
         {
-            grounded = true;
+            Master.grounded = true;
             coyoteTime = Time.time + 0.16f;
         }
         else
@@ -219,11 +241,10 @@ public class PlayerController : MonoBehaviour
            
                 
             if (coyoteTime < Time.time)
-                grounded = false;
+                Master.grounded = false;
 
 
         }
-        Master.grounded = grounded;
         Master.dashing = !dashTick;
     }
 
@@ -242,7 +263,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (grounded)
+        if (Master.grounded)
         {
             if (tflop)
             {
@@ -275,47 +296,7 @@ public class PlayerController : MonoBehaviour
         jumpTick = true;
     }
 
-    public void GetBuff(int[] statRef, float[] statChange)
-    {
-        for(int i = 0; i<statRef.Length; i++)
-        {
-            if (statRef.Length == statChange.Length)
-            {
-                switch (statRef[i])
-                {
-                    case 1:
-                        moveSpeed += b_MoveSpeed * statChange[i];
-                        if (moveSpeed > dashSpeed / 4)
-                            dashSpeed = moveSpeed * 4;
-                        break;
-                    case 2:
-                        aaccel += b_aaccel * statChange[i];
-                        break;
-                    case 3:
-                        jumpPower += b_JumpPower * statChange[i];
-                        break;
-                    case 4:
-                        b_jumpCount += (int)statChange[i];
-                        jumpCount += (int)statChange[i];
-                        break;
-                    case 5:
-                        dashCooldown = Mathf.Clamp(dashCooldown+ b_dashCooldown * statChange[i],0.2f,1);
-                        break;
-                    case 6:
-                        dashBuff += b_dashSpeed * statChange[i];
-                        break;
-                    default:
-                        Debug.LogError("Stat out of range");
-                        break;
-
-                }
-            }
-            else
-                Debug.LogError("Buff arrays not equal");
-
-        }
-
-    }
+    
 
 
 
