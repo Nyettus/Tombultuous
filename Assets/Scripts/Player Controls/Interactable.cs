@@ -18,7 +18,7 @@ public class Interactable : MonoBehaviour
 
                 if(collider.TryGetComponent(out ItemCore itemCore))
                 {
-                    itemCore.PickupItem();
+                    itemCore.PickupItem(GameManager.instance.Master.itemMaster);
                 }
                 else if(collider.TryGetComponent(out WeaponCore weaponCore))
                 {

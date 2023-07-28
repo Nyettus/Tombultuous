@@ -65,11 +65,17 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            return Master.dashSpeed + Master.itemMaster.M_DashSpeed;
+              return Master.dashSpeed;
         }
     }
     [SerializeField]
-    private float dashBuff;
+    private float dashBuff
+    {
+        get
+        {
+            return Master.itemMaster.M_DashSpeed;
+        }
+    }
     private bool dashTick = true;
     private float dashEndTime;
     private float dashFreezeTime;
@@ -99,7 +105,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        Debug.Log(b_jumpCount);
+
 
         if (jumpCount > 0 && context.ReadValue<float>() > 0.5f&& jumpTick&&dashTick)
         {
@@ -135,18 +141,22 @@ public class PlayerController : MonoBehaviour
     }
     public void OnDash(InputAction.CallbackContext context)
     {
-
-
+        float localDashSpeed;
+        if (dashSpeed > moveSpeed * 4)
+            localDashSpeed = dashSpeed;
+        else
+            localDashSpeed = moveSpeed * 4;
+        Debug.Log(localDashSpeed);
         if (Time.time > dashEndTime&& context.ReadValue<float>() > 0.5)
         {
             rb.velocity = new Vector3(0,0,0);
             if (vertMove.y != 0 || vertMove.x != 0)
             {
                 Vector3 movementDir = (transform.forward *vertMove.y + transform.right * vertMove.x).normalized;
-                rb.AddForce(movementDir * (dashSpeed+dashBuff), ForceMode.Impulse);
+                rb.AddForce(movementDir * (localDashSpeed+dashBuff), ForceMode.Impulse);
             }
             else
-                rb.AddForce(transform.forward * (dashSpeed+dashBuff), ForceMode.Impulse);
+                rb.AddForce(transform.forward * (localDashSpeed + dashBuff), ForceMode.Impulse);
             rb.drag = 0;
             dashEndTime = Time.time + dashCooldown;
             dashFreezeTime = Time.time + dashDuration;
