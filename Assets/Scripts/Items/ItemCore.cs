@@ -90,6 +90,10 @@ public class ItemCore : MonoBehaviour
                         master.M_GoldMultiplier += value[i] * stacks;
                         break;
 
+                    default:
+                        Debug.LogError("Stat reference out of bounds");
+                        break;
+
                 }
             }
         }
