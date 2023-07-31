@@ -11,32 +11,17 @@ public class PlayerController : MonoBehaviour
     public float height = 2;
     private Vector2 vertMove;
     public Rigidbody rb;
-    public float moveSpeed
-    {
-        get
-        {
-            return Mathf.Clamp(Master.moveSpeed + Master.itemMaster.M_MoveSpeed,Master.itemMaster.MIN_MoveSpeed,Mathf.Infinity);
-        }
-    }
+    public float moveSpeed => Mathf.Clamp(Master.moveSpeed + Master.itemMaster.M_MoveSpeed,Master.itemMaster.MIN_MoveSpeed,Mathf.Infinity);
+
 
     [Header("Jump")]
     public int jumpCount;
-    public int b_jumpCount
-    {
-        get
-        {
-            return Mathf.Clamp(Master.jumpCount + Master.itemMaster.M_JumpCount, Master.itemMaster.MIN_JumpCount, 1000000);
-        }
-    }
+    public int b_jumpCount => Mathf.Clamp(Master.jumpCount + Master.itemMaster.M_JumpCount, Master.itemMaster.MIN_JumpCount, 1000000);
+
     
 
-    public float jumpPower
-    {
-        get
-        {
-            return Mathf.Clamp(Master.jumpPower + Master.itemMaster.M_JumpPower, Master.itemMaster.MIN_JumpPower, Mathf.Infinity);
-        }
-    }
+    public float jumpPower => Mathf.Clamp(Master.jumpPower + Master.itemMaster.M_JumpPower, Master.itemMaster.MIN_JumpPower, Mathf.Infinity);
+
 
     private bool jumpTick = true;
     [SerializeField]
@@ -53,39 +38,18 @@ public class PlayerController : MonoBehaviour
     private float accel;
     private float gaccel = 1;
 
-    public float aaccel
-    {
-        get
-        {
-            return Mathf.Clamp(Master.airAccel + Master.itemMaster.M_AirAcceleration, Master.itemMaster.MIN_AirAcceleration, Mathf.Infinity);
-        }
-    }
+    public float aaccel => Mathf.Clamp(Master.airAccel + Master.itemMaster.M_AirAcceleration, Master.itemMaster.MIN_AirAcceleration, Mathf.Infinity);
 
-    public float dashSpeed
-    {
-        get
-        {
-              return Master.dashSpeed;
-        }
-    }
+    public float dashSpeed => Master.dashSpeed;
+
     [SerializeField]
-    private float dashBuff
-    {
-        get
-        {
-            return Master.itemMaster.M_DashSpeed;
-        }
-    }
+    private float dashBuff => Master.itemMaster.M_DashSpeed;
+
     private bool dashTick = true;
     private float dashEndTime;
     private float dashFreezeTime;
-    public float dashCooldown
-    {
-        get
-        {
-            return Mathf.Clamp(Master.dashCooldown + Master.itemMaster.M_DashCooldown, Master.itemMaster.MIN_DashCooldown, Mathf.Infinity);
-        }
-    }
+    public float dashCooldown => Mathf.Clamp(Master.dashCooldown + Master.itemMaster.M_DashCooldown, Master.itemMaster.MIN_DashCooldown, Mathf.Infinity);
+
     public float dashDuration = 0.1f;
 
 

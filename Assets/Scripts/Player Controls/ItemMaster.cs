@@ -55,10 +55,12 @@ public class ItemMaster : MonoBehaviour
         ResetStats();
         foreach(ItemList i in itemList)
         {
-            i.item.PermanantBuff(this, Master, i.stacks);
+            i.item.PermanentBuff(this, Master, i.stacks);
         }
 
     }
+    
+
 
 
 }

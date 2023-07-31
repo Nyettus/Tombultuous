@@ -6,6 +6,13 @@ public class ItemCore : MonoBehaviour
 {
     [SerializeField]
     private BasicStatChange card;
+
+    //  0 : permanent buff
+    //  1 : once off buff
+    //  2 : on hit effect
+    //  3 : on kill effect
+    //  4 : in player hurt effect
+    public int[] itemType;
     // Start is called before the first frame update
 
     public virtual string GiveName()
@@ -30,8 +37,30 @@ public class ItemCore : MonoBehaviour
         player.RefreshEffects();
     }
 
+    public bool HasAssociatedBuff(int buffType)
+    {
+        if (itemType.Length == 1)
+        {
+            if (itemType[0] == buffType)
+                return true;
+            else
+                return false;
+        }
+        else if (itemType.Length > 1)
+        {
+            if (itemType[0] == buffType)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            Debug.LogError("Buff Array Empty");
+            return false;
+        }
 
-    public virtual void PermanantBuff(ItemMaster master, PlayerMaster origin, int stacks)
+    }
+    public virtual void PermanentBuff(ItemMaster master, PlayerMaster origin, int stacks)
     {
         int[] reference = card.statRef;
         float[] value = card.statChange;
@@ -117,6 +146,10 @@ public class ItemCore : MonoBehaviour
     public virtual void OnHurtEffect()
     {
 
+    }
+
+    public virtual void OnRoomClear()
+    {
 
     }
 
