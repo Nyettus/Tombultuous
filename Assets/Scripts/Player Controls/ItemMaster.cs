@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ItemMaster : MonoBehaviour
 {
     public PlayerMaster Master;
     public List<ItemList> itemList = new List<ItemList>();
-    
+
+    public OnKillItemHandler onKIllItemHandler;
+
     public int M_Health;
     public int MIN_Health = 1;
     public int M_OverHealth;
@@ -17,7 +20,8 @@ public class ItemMaster : MonoBehaviour
     public float MIN_Haste;
     public int M_Pockets;
     public int MIN_Pockets = 1;
-    public float M_MoveSpeed;
+    public float Perm_MoveSpeed;
+    public float M_MoveSpeed => Perm_MoveSpeed + onKIllItemHandler.BigBootsAdd();
     public float MIN_MoveSpeed = 0.1f;
     public float M_AirAcceleration;
     public float MIN_AirAcceleration = 0.1f;
@@ -40,7 +44,7 @@ public class ItemMaster : MonoBehaviour
         M_DamageMult = 0;       //2
         M_Haste = 0;            //3
         M_Pockets = 0;          //4
-        M_MoveSpeed = 0;        //5
+        Perm_MoveSpeed = 0;        //5
         M_AirAcceleration = 0;  //6
         M_JumpPower = 0;        //7
         M_JumpCount = 0;        //8
@@ -53,10 +57,13 @@ public class ItemMaster : MonoBehaviour
     public void RefreshEffects()
     {
         ResetStats();
-        foreach(ItemList i in itemList)
+        var allBuffItems = itemList.Where(il => il.item.HasAssociatedBuff(0));
+        foreach(ItemList i in allBuffItems)
         {
             i.item.PermanentBuff(this, Master, i.stacks);
         }
+ 
+
 
     }
     

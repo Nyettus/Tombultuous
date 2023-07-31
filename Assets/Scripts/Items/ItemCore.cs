@@ -88,7 +88,7 @@ public class ItemCore : MonoBehaviour
                         break;
 
                     case 4:
-                        master.M_MoveSpeed += (origin.moveSpeed * value[i]) * stacks;
+                        master.Perm_MoveSpeed += (origin.moveSpeed * value[i]) * stacks;
                         break;
 
                     case 5:
