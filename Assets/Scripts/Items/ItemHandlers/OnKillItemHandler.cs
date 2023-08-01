@@ -43,25 +43,14 @@ public class OnKillItemHandler : MonoBehaviour
     }
     private void EnableBoots()
     {
-        var boots = itemMaster.itemList.FirstOrDefault(il => il.item == bootsCard);
-        if (boots == null) return;
+        int bootsCount = itemMaster.GetItemCount(bootsCard);
+        if (bootsCount == 0) return;
         bigBootsTimer = 0;
-        bigBootsBuffTime = boots.stacks * bootsCard.bootTimeIncrease;
+        bigBootsBuffTime = bootsCount * bootsCard.bootTimeIncrease;
         bigBootsEnabled = true;
     }
 
     #endregion
-
-
-    //debuging
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            OnKill();
-        }
-    }
-
 
     public void OnKill()
     {
