@@ -16,7 +16,7 @@ public class SensSlider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cameraControl = GameManager.instance.Master.GetComponentInChildren<CameraControls>();
+        cameraControl = GameManager._.Master.GetComponentInChildren<CameraControls>();
         sensSlider.onValueChanged.AddListener((v) =>
         {
             text.text = v.ToString("0.00");

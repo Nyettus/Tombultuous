@@ -12,7 +12,8 @@ public class EditorCustomCommands : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            GameManager.instance.Master.itemMaster.onKillItemHandler.OnKill();
+
+            GameManager._.Master.itemMaster.onKillItemHandler.OnKill();
         }
     }
 #endif

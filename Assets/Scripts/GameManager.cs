@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonPersist<GameManager>
 {
-    public static GameManager instance = null;
     public PlayerMaster Master;
     //Basic menu
     public bool paused = false;
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
+        Startup(this);
+    }
+    protected override void RunOnce()
+    {
+        base.RunOnce();
 
         Application.targetFrameRate = 99999;
-
     }
     // Start is called before the first frame update
     void Start()
@@ -59,9 +58,6 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 1;
             }
         }
-        
     }
-    
-    
 
 }

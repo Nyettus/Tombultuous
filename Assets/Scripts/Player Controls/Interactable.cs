@@ -23,7 +23,7 @@ public class Interactable : MonoBehaviour
                 {
                     foreach (var baseItem in itemCore.baseItems)
                     {
-                        GameManager.instance.Master.itemMaster.GetItem(baseItem);
+                        GameManager._.Master.itemMaster.GetItem(baseItem);
                     }
 
                 }

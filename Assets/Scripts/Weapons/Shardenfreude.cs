@@ -20,7 +20,7 @@ public class Shardenfreude : HitscanWeaponBase
                 {
                     if (hit.transform.tag == "Enemy")
                     {
-                        float damage = damageFalloff(hit.distance) * GameManager.instance.Master.weaponMaster.damageMult;
+                        float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult;
                         rayLine(hit.point);
                         hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
                     }
@@ -31,7 +31,7 @@ public class Shardenfreude : HitscanWeaponBase
                     }
                 }
             }
-            PlayerController movement = GameManager.instance.Master.movementMaster;
+            PlayerController movement = GameManager._.Master.movementMaster;
             movement.rb.velocity = Vector3.zero;
             movement.rb.AddForce(Camera.main.transform.forward * (curMag*-5),ForceMode.Impulse);
             curMag = 0;

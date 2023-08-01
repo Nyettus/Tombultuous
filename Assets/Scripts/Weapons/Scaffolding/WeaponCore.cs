@@ -48,7 +48,7 @@ public class WeaponCore : MonoBehaviour
     public void pickUpWeapon()
     {
         bool ticked = false;
-        WeaponController master = GameManager.instance.Master.weaponMaster;
+        WeaponController master = GameManager._.Master.weaponMaster;
         for(int i = 0; i < master.equippedGuns.Length; i++)
         {
             if (master.equippedGuns[i] == null)
