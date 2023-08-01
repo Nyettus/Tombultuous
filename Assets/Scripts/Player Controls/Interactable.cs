@@ -11,16 +11,21 @@ public class Interactable : MonoBehaviour
         if (context.performed)
         {
             float range = 0.5f;
-            Collider [] colliderArray = Physics.OverlapSphere(transform.position + transform.forward*2f, range);
+            Collider[] colliderArray = Physics.OverlapSphere(transform.position + transform.forward * 2f, range);
 
-            foreach(Collider collider in colliderArray)
+            foreach (Collider collider in colliderArray)
             {
 
-                if(collider.TryGetComponent(out ItemCore itemCore))
+                if (collider.TryGetComponent(out ItemCore itemCore))
                 {
-                    itemCore.PickupItem(GameManager.instance.Master.itemMaster);
+                    //itemCore.PickupItem(GameManager.instance.Master.itemMaster);
+                    foreach (var baseItem in itemCore.baseItems)
+                    {
+                        GameManager.instance.Master.itemMaster.GetItem(baseItem);
+                    }
+
                 }
-                else if(collider.TryGetComponent(out WeaponCore weaponCore))
+                else if (collider.TryGetComponent(out WeaponCore weaponCore))
                 {
                     weaponCore.pickUpWeapon();
                 }

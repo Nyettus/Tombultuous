@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44533a0116d13a24490f2bee0b28d903, type: 3}
-  m_Name: TestJumpPower
+  m_Script: {fileID: 11500000, guid: 27e6f1fd5d3ec6b408e889fb0bdb0ee8, type: 3}
+  m_Name: Test
   m_EditorClassIdentifier: 
-  itemName: Test Jump power
-  itemDesc: ooh yes bby give me those rabbit legs, let me kiss the sun<br> +50% jump
-    Powa
-  statRef: 03000000
-  statChange:
-  - 0.5
+  itemName: MovementItem
+  itemDesc: Gof aster
+  prefab: {fileID: 0}
+  buffs:
+  - type: 6
+    change: 1.5

@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
 
-public class ItemList
+public class ItemStack
 {
-    public ItemCore item;
+    public ItemBase item;
     public int stacks;
-    public string name;
 
 
-    public ItemList(ItemCore newItem, string newName, int newStacks = 1)
+    public ItemStack(ItemBase newItem, int newStacks = 1)
     {
         item = newItem;
-        name = newName;
         stacks = newStacks;
     }
 }

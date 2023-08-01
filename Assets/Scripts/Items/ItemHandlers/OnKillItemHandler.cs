@@ -5,25 +5,7 @@ using System.Linq;
 
 public class OnKillItemHandler : MonoBehaviour
 {
-
-    public float bigBootsBuffTime = 10f;
-
-    public float bigBootsTimer = 0f;
-    public bool bigBootsEnabled = false;
-    
-
     public ItemMaster itemMaster;
-
-
-    public float bootTimeIncrease = 2f;
-    public float bootSpeedIncrease = 10f;
-    public AnimationCurve bootTimingCurve;
-    public float BigBootsAdd() 
-    {
-        var timeEval = bootTimingCurve.Evaluate(bigBootsTimer / bigBootsBuffTime);
-        return timeEval * bootSpeedIncrease;
-    }
-
     void FixedUpdate()
     {
         HandleBoots();
@@ -31,6 +13,18 @@ public class OnKillItemHandler : MonoBehaviour
 
 
     #region Boots
+
+    public float bigBootsBuffTime = 10f;
+    public float bigBootsTimer = 0f;
+    public bool bigBootsEnabled = false;
+
+    public BigBoots bootsCard;
+    public float BigBootsAdd() 
+    {
+        var timeEval = bootsCard.bootTimingCurve.Evaluate(bigBootsTimer / bigBootsBuffTime);
+        return timeEval * bootsCard.bootSpeedIncrease;
+    }
+
     private void HandleBoots()
     {
         if (bigBootsEnabled == true)
@@ -49,14 +43,17 @@ public class OnKillItemHandler : MonoBehaviour
     }
     private void EnableBoots()
     {
-        var boots = itemMaster.itemList.FirstOrDefault(il => il.name == "Big_Boots");
+        var boots = itemMaster.itemList.FirstOrDefault(il => il.item == bootsCard);
         if (boots == null) return;
         bigBootsTimer = 0;
-        bigBootsBuffTime = boots.stacks * bootTimeIncrease;
+        bigBootsBuffTime = boots.stacks * bootsCard.bootTimeIncrease;
         bigBootsEnabled = true;
     }
 
     #endregion
+
+
+    //debuging
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
@@ -65,18 +62,10 @@ public class OnKillItemHandler : MonoBehaviour
         }
     }
 
-    private void EnableSecondItem()
-    {
-        var item = itemMaster.itemList.FirstOrDefault(il => il.name == "Second_Itme");
-
-
-    }
 
     public void OnKill()
     {
         EnableBoots();
-        EnableSecondItem();
-
     }
 
 }

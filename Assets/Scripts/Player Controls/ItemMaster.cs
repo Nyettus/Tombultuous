@@ -6,9 +6,11 @@ using System.Linq;
 public class ItemMaster : MonoBehaviour
 {
     public PlayerMaster Master;
-    public List<ItemList> itemList = new List<ItemList>();
+    public List<ItemStack> itemList = new List<ItemStack>();
 
-    public OnKillItemHandler onKIllItemHandler;
+    public OnKillItemHandler onKillItemHandler;
+    public OnPermanantBuffHandler onPBuffHandler;
+
 
     public int M_Health;
     public int MIN_Health = 1;
@@ -21,7 +23,7 @@ public class ItemMaster : MonoBehaviour
     public int M_Pockets;
     public int MIN_Pockets = 1;
     public float Perm_MoveSpeed;
-    public float M_MoveSpeed => Perm_MoveSpeed + onKIllItemHandler.BigBootsAdd();
+    public float M_MoveSpeed => Perm_MoveSpeed + onKillItemHandler.BigBootsAdd();
     public float MIN_MoveSpeed = 0.1f;
     public float M_AirAcceleration;
     public float MIN_AirAcceleration = 0.1f;
@@ -36,6 +38,30 @@ public class ItemMaster : MonoBehaviour
     public float MIN_GoldRetention = 0f;
     public float M_GoldMultiplier;
     public float MIN_GoldMultiplier = 0f;
+
+    /// <summary>
+    /// Adds a item to the master with side effects (PBuffItem)
+    /// </summary>
+    /// <returns>ItemStack with stacks</returns>
+    public ItemStack GetItem(ItemBase newItem)
+    {
+        
+        ItemStack itemStack = itemList.FirstOrDefault(i => i.item == newItem);
+
+        if (itemStack == null)
+        {
+            itemStack = new ItemStack(newItem, 0);
+            itemList.Add(itemStack);
+        }
+        itemStack.stacks++;
+
+        if (newItem is PermanentBuffItem pBuffItem)
+        {
+            RefreshEffects();
+        }
+
+        return itemStack;
+    }
 
 
     public void ResetStats()
@@ -57,17 +83,12 @@ public class ItemMaster : MonoBehaviour
     public void RefreshEffects()
     {
         ResetStats();
-        var allBuffItems = itemList.Where(il => il.item.HasAssociatedBuff(0));
-        foreach(ItemList i in allBuffItems)
+        var allBuffItems = itemList.Where(il => il.item is PermanentBuffItem);
+        foreach (var i in allBuffItems)
         {
-            i.item.PermanentBuff(this, Master, i.stacks);
+            onPBuffHandler.PermanentBuff(i.stacks, i.item as PermanentBuffItem);
+
         }
- 
-
-
     }
-    
-
-
 
 }
