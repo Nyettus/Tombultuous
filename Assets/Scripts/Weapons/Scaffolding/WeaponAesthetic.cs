@@ -29,7 +29,7 @@ public class WeaponAesthetic : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         UIdistance = Mathf.Clamp(-0.2f * Vector3.Distance(this.transform.position, GameManager.instance.Master.transform.position) + 1.6f, 0, 1);
         if (UIdistance != 0)
