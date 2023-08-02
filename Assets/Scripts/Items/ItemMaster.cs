@@ -6,7 +6,8 @@ using System.Linq;
 public class ItemMaster : MonoBehaviour
 {
     public PlayerMaster Master;
-    public List<ItemStack> itemList = new List<ItemStack>();
+    
+    public Dictionary<ItemBase, ItemStack> itemList = new Dictionary<ItemBase, ItemStack>();
 
     public OnKillItemHandler onKillItemHandler;
     public OnPermanantBuffHandler onPBuffHandler;
@@ -45,14 +46,12 @@ public class ItemMaster : MonoBehaviour
     /// <returns>ItemStack with stacks</returns>
     public ItemStack GetItem(ItemBase newItem)
     {
-        
-        ItemStack itemStack = itemList.FirstOrDefault(i => i.item == newItem);
-
-        if (itemStack == null)
+        if (!itemList.TryGetValue(newItem, out var itemStack))
         {
             itemStack = new ItemStack(newItem, 0);
-            itemList.Add(itemStack);
+            itemList.Add(newItem, itemStack);
         }
+
         itemStack.stacks++;
 
         if (newItem is PermanentBuffItem pBuffItem)
@@ -61,6 +60,15 @@ public class ItemMaster : MonoBehaviour
         }
 
         return itemStack;
+    }
+
+    public int GetItemCount(ItemBase item)
+    {
+        if (itemList.TryGetValue(item, out var itemStack))
+        {
+            return itemStack.stacks;
+        }
+        return 0;
     }
 
 
@@ -83,11 +91,10 @@ public class ItemMaster : MonoBehaviour
     public void RefreshEffects()
     {
         ResetStats();
-        var allBuffItems = itemList.Where(il => il.item is PermanentBuffItem);
+        var allBuffItems = itemList.Where(il => il.Key is PermanentBuffItem);
         foreach (var i in allBuffItems)
         {
-            onPBuffHandler.PermanentBuff(i.stacks, i.item as PermanentBuffItem);
-
+            onPBuffHandler.PermanentBuff(i.Value.stacks, i.Key as PermanentBuffItem);
         }
     }
 

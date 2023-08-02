@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 public class Interactable : MonoBehaviour
 {
 
+    /// <summary>
+    /// Press e on object to interact on it, done through new input system
+    /// </summary>
+    /// <param name="context"></param>
     public void InteractWithItem(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -15,10 +19,8 @@ public class Interactable : MonoBehaviour
 
             foreach (Collider collider in colliderArray)
             {
-
                 if (collider.TryGetComponent(out ItemCore itemCore))
                 {
-                    //itemCore.PickupItem(GameManager.instance.Master.itemMaster);
                     foreach (var baseItem in itemCore.baseItems)
                     {
                         GameManager.instance.Master.itemMaster.GetItem(baseItem);
@@ -31,7 +33,5 @@ public class Interactable : MonoBehaviour
                 }
             }
         }
-
     }
-
 }
