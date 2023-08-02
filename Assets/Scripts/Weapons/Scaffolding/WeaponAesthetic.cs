@@ -31,12 +31,12 @@ public class WeaponAesthetic : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        UIdistance = Mathf.Clamp(-0.2f * Vector3.Distance(this.transform.position, GameManager.instance.Master.transform.position) + 1.6f, 0, 1);
+        UIdistance = Mathf.Clamp(-0.2f * Vector3.Distance(this.transform.position, GameManager._.Master.transform.position) + 1.6f, 0, 1);
         if (UIdistance != 0)
         {
-            loreHolderBase.LookAt(GameManager.instance.Master.transform);
+            loreHolderBase.LookAt(GameManager._.Master.transform);
             loreHolderBase.eulerAngles = new Vector3(0, loreHolderBase.eulerAngles.y + 180f, loreHolderBase.eulerAngles.z);
-            loreHolder.LookAt(GameManager.instance.Master.transform);
+            loreHolder.LookAt(GameManager._.Master.transform);
             loreHolder.eulerAngles = new Vector3(0, loreHolder.eulerAngles.y + 180f, loreHolder.eulerAngles.z);
             opacity.alpha = UIdistance;
         }

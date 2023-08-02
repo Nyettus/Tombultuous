@@ -26,7 +26,7 @@ public class CameraControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.instance.paused)
+        if (!GameManager._.paused)
             CameraController();
 
     }

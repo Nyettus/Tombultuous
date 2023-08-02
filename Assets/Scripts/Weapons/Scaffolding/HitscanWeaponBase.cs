@@ -14,7 +14,7 @@ public class HitscanWeaponBase : RangedWeaponBase
             {
                 if(hit.transform.tag == "Enemy")
                 {
-                    float damage = damageFalloff(hit.distance) * GameManager.instance.Master.weaponMaster.damageMult;
+                    float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult;
                     hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
                 }
                 else if(hit.transform.tag == "ItemChest")
