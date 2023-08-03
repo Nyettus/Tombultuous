@@ -15,6 +15,10 @@ public class EditorCustomCommands : MonoBehaviour
 
             GameManager._.Master.itemMaster.onKillItemHandler.OnKill();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            GameManager._.Master.healthMaster.takeDamage(10);
+        }
     }
 #endif
 }

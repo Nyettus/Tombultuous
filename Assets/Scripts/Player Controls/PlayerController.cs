@@ -110,7 +110,6 @@ public class PlayerController : MonoBehaviour
             localDashSpeed = dashSpeed;
         else
             localDashSpeed = moveSpeed * 4;
-        Debug.Log(localDashSpeed);
         if (Time.time > dashEndTime&& context.ReadValue<float>() > 0.5)
         {
             rb.velocity = new Vector3(0,0,0);

@@ -39,7 +39,7 @@ public class OnKillItemHandler : MonoBehaviour
             }
 
         }
-        Debug.Log(BigBootsAdd());
+
     }
     private void EnableBoots()
     {

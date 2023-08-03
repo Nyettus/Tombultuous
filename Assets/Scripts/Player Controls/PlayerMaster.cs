@@ -16,6 +16,7 @@ public class PlayerMaster : MonoBehaviour
 
     [Header("Combat Variables (Base)")]
     public WeaponController weaponMaster;
+    public PlayerHealth healthMaster;
     public int health;
     public float damage;
     public float haste;

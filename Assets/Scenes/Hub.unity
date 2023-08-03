@@ -68499,6 +68499,7 @@ GameObject:
   - component: {fileID: 4932724599582674605}
   - component: {fileID: 6822315721116218727}
   - component: {fileID: 1397767884415090602}
+  - component: {fileID: 8570039552274879175}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -68541,6 +68542,7 @@ MonoBehaviour:
   description: 
   itemMaster: {fileID: 1397767884415090602}
   weaponMaster: {fileID: 1649892379521184291}
+  healthMaster: {fileID: 8570039552274879175}
   health: 0
   damage: 0
   haste: 0
@@ -68555,6 +68557,20 @@ MonoBehaviour:
   grounded: 0
   dashing: 0
   cameraEffects: {fileID: 5640681430350871616}
+--- !u!114 &8570039552274879175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6893549234363606265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165207f983b59364895dc79fd1ce1eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemMaster: {fileID: 1397767884415090602}
+  flesh: 0
 --- !u!1 &8878471251996600939
 GameObject:
   m_ObjectHideFlags: 0
