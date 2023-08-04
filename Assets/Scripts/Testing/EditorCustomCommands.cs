@@ -19,6 +19,10 @@ public class EditorCustomCommands : MonoBehaviour
         {
             GameManager._.Master.healthMaster.takeDamage(10);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            Debug.Log(GameManager._.Master.itemMaster.hasteEquation(0));
+        }
     }
 #endif
 }

@@ -27,13 +27,11 @@ public class PlayerHealth : MonoBehaviour
     {
         if (itemMaster.M_OverHealth + itemMaster.M_DecayHealth > 0)
         {
-            Debug.Log(amount);
+
             //Damage decay health
             int overflow = DamageStep(amount,ref itemMaster.M_DecayHealth);
-            Debug.Log(overflow);
             //leftovers damage overhealth
             overflow = DamageStep(overflow, ref itemMaster.M_OverHealth);
-            Debug.Log(overflow);
             //remaining goes into flesh health
             flesh -= overflow;
         }

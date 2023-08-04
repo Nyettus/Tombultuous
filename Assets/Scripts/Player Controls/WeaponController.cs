@@ -7,8 +7,8 @@ public class WeaponController : MonoBehaviour
 {
     public PlayerMaster master;
 
-    public float damageMult;
-    public float hasteMult;
+    public float damageMult => master.damage + master.itemMaster.M_DamageMult;
+    public float hasteMult => master.itemMaster.M_Haste;
     public int pockets;
 
     public int selectedWeapon = 0;
@@ -93,8 +93,6 @@ public class WeaponController : MonoBehaviour
     private void Establish()
     {
         master = GetComponentInParent<PlayerMaster>();
-        damageMult = master.damage;
-        hasteMult = master.haste;
         pockets = master.pockets;
         equippedGuns = new WeaponCore[pockets];
 
@@ -138,35 +136,6 @@ public class WeaponController : MonoBehaviour
     }
 
 
-    public void GetBuff(int[] statRef, float[] statChange)
-    {
-        for (int i = 0; i < statRef.Length; i++)
-        {
-            if (statRef.Length == statChange.Length)
-            {
-                switch (statRef[i])
-                {
-                    case 1:
-                        damageMult += statChange[i];
-                        break;
-                    case 2:
-                        hasteMult += statChange[i];
-                        break;
-                    case 3:
-                        pockets += (int)statChange[i];
-                        RefreshPockets();
-                        break;
-                    default:
-                        Debug.LogError("Stat out of range");
-                        break;
-
-                }
-            }
-            else
-                Debug.LogError("Buff arrays not equal");
-
-        }
-
-    }
+    
 
 }

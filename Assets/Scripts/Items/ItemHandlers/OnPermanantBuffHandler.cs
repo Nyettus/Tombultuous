@@ -44,7 +44,7 @@ public class OnPermanantBuffHandler : MonoBehaviour
                     break;
 
                 case StatType.Haste:
-                    Debug.Log("Stat not implemented");
+                    itemMaster.Perm_Haste += (origin.haste * stat.change) * stacks;
                     break;
 
                 case StatType.Pockets:

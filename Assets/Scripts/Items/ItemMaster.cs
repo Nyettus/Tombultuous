@@ -19,8 +19,8 @@ public class ItemMaster : MonoBehaviour
     public int M_DecayHealth;
     public float M_DamageMult;
     public float MIN_DamageMult = 0.1f;
-    public float M_Haste;
-    public float MIN_Haste;
+    public float Perm_Haste;
+    public float M_Haste => hasteEquation(0);
     public int M_Pockets;
     public int MIN_Pockets = 1;
     public float Perm_MoveSpeed;
@@ -39,6 +39,20 @@ public class ItemMaster : MonoBehaviour
     public float MIN_GoldRetention = 0f;
     public float M_GoldMultiplier;
     public float MIN_GoldMultiplier = 0f;
+
+
+    #region Haste Equations
+    public float hasteEquation(float addition)
+    {
+        float a = 5.2f;
+        float b = 1f;
+        float d = 0.001f;
+        float additionCombine = (1 - Master.haste + addition);
+        float c = -(Mathf.Log((a/(1-d))-1)-b);
+        float output = (a/(1+Mathf.Exp(b*(1+ additionCombine - c))))+d;
+        return output;
+    }
+    #endregion
 
     /// <summary>
     /// Adds a item to the master with side effects (PBuffItem)
@@ -76,7 +90,7 @@ public class ItemMaster : MonoBehaviour
     {
         M_Health = 0;           //1
         M_DamageMult = 0;       //2
-        M_Haste = 0;            //3
+        Perm_Haste = 0;            //3
         M_Pockets = 0;          //4
         Perm_MoveSpeed = 0;        //5
         M_AirAcceleration = 0;  //6
