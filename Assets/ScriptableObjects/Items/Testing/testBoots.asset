@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: 
   itemDesc: 
   prefab: {fileID: 0}
-  bootTimeIncrease: 2
+  bootTimeIncrease: 0.5
   bootSpeedIncrease: 10
   bootTimingCurve:
     serializedVersion: 2
@@ -32,17 +32,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.02293349
       value: 1.0491316
-      inSlope: -1.5216422
-      outSlope: -1.5216422
+      inSlope: -0.123917654
+      outSlope: -0.123917654
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.032409348
+      outWeight: 0.06278055
+    - serializedVersion: 3
+      time: 0.5993228
+      value: 0.9021165
+      inSlope: -0.47124025
+      outSlope: -0.47124025
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.07492972
+      outWeight: 0.23945673
     - serializedVersion: 3
       time: 1
       value: 0.000000059604645
-      inSlope: -1.0737566
-      outSlope: -1.0737566
+      inSlope: -2.2514791
+      outSlope: -2.2514791
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

@@ -22,7 +22,8 @@ public class OnKillItemHandler : MonoBehaviour
     public float BigBootsAdd() 
     {
         var timeEval = bootsCard.bootTimingCurve.Evaluate(bigBootsTimer / bigBootsBuffTime);
-        return timeEval * bootsCard.bootSpeedIncrease;
+        int bootsCount = itemMaster.GetItemCount(bootsCard);
+        return timeEval * bootsCount * bootsCard.bootSpeedIncrease;
     }
 
     private void HandleBoots()
@@ -46,7 +47,7 @@ public class OnKillItemHandler : MonoBehaviour
         int bootsCount = itemMaster.GetItemCount(bootsCard);
         if (bootsCount == 0) return;
         bigBootsTimer = 0;
-        bigBootsBuffTime = bootsCount * bootsCard.bootTimeIncrease;
+        bigBootsBuffTime = bootsCard.bootTimeIncrease;
         bigBootsEnabled = true;
     }
 

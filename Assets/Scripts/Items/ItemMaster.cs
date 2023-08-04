@@ -20,7 +20,7 @@ public class ItemMaster : MonoBehaviour
     public float M_DamageMult;
     public float MIN_DamageMult = 0.1f;
     public float Perm_Haste;
-    public float M_Haste => hasteEquation(0);
+    public float M_Haste => hasteEquation(Perm_Haste);
     public int M_Pockets;
     public int MIN_Pockets = 1;
     public float Perm_MoveSpeed;
