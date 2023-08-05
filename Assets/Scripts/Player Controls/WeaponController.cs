@@ -20,7 +20,7 @@ public class WeaponController : MonoBehaviour
     {
         Establish();
         UpdateEquipped();
-        //SelectWeapon();
+
 
     }
 

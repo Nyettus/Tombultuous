@@ -94,5 +94,9 @@ public class WeaponCore : MonoBehaviour
 
     }
 
+    private void OnDisable()
+    {
+        shooting = false;
+    }
 
 }
