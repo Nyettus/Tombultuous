@@ -9877,7 +9877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f568e23aedf404e927a3f1de4df933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
+  intRange: 2
   flickerTime: 2
   speedRandomness: 0.2
 --- !u!114 &232604400
@@ -10140,12 +10140,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -14380,12 +14388,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -48158,12 +48174,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -48601,7 +48625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f568e23aedf404e927a3f1de4df933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
+  intRange: 10
   flickerTime: 2
   speedRandomness: 0.2
 --- !u!114 &1361070492
@@ -48639,8 +48663,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.56404436, b: 0, a: 1}
-  m_Intensity: 100
-  m_Range: 8.1
+  m_Intensity: 30.83
+  m_Range: 13.27
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -48742,12 +48766,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -49161,12 +49193,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -57178,12 +57218,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -58454,12 +58502,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -59492,12 +59548,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -60386,12 +60450,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -63373,12 +63445,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -68260,12 +68340,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -68366,12 +68454,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ef862a20d33113c45bcf56b11d782869, type: 2}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_Name
       value: PyreLog (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9233daa921b6e34f9eab034c5fa4eda, type: 3}
       propertyPath: m_StaticEditorFlags

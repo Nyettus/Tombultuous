@@ -6,8 +6,10 @@ public class CampfireFlicker : MonoBehaviour
 {
     Light fire;
     private float initInt;
+    private float initRan;
     [SerializeField]
-    private float range = 10f;
+    private float intRange = 2f;
+    private float ranRange = 1f;
     [SerializeField]
     private float flickerTime = 1;
     private float moveSpeed = 10;
@@ -20,6 +22,7 @@ public class CampfireFlicker : MonoBehaviour
     {
         fire = GetComponent<Light>();
         initInt = fire.intensity;
+        initRan = fire.range;
     }
 
     // Update is called once per frame
@@ -32,7 +35,8 @@ public class CampfireFlicker : MonoBehaviour
     private void Flicker()
     {
         float randomTime = Random.Range(-speedRandomness, speedRandomness);
-        fire.intensity = range * Mathf.Sin((Time.time+randomTime) * flickerTime) + initInt;
+        fire.intensity = intRange * Mathf.Sin((Time.time+randomTime) * flickerTime) + initInt;
+        fire.range = ranRange * Mathf.Cos((Time.time + randomTime) * flickerTime) + initRan;
         movement.x = Mathf.Sin(Time.time*moveSpeed);
         movement.z = Mathf.Cos(Time.time*moveSpeed);
         transform.position += (movement*0.0005f);

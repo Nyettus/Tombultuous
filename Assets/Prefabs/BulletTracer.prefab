@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!120 &8749308409023121290
 LineRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,14 +107,14 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.27890587
       - serializedVersion: 3
-        time: 0.49380296
-        value: 0.231264
-        inSlope: 1.1071819
-        outSlope: 1.1071819
+        time: 0.6445722
+        value: 0.16084146
+        inSlope: 0.4234346
+        outSlope: 0.4234346
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.22391404
-        outWeight: 0.31389284
+        outWeight: 0.30097154
       - serializedVersion: 3
         time: 1
         value: 0
@@ -153,13 +154,17 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
     textureMode: 0
+    textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
+  m_MaskInteraction: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+  m_ApplyActiveColorSpace: 0
