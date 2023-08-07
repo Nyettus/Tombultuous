@@ -34,6 +34,7 @@ public class WeaponCore : MonoBehaviour
     }
     public virtual void Special()
     {
+        if (GameManager._.paused) return;
         specialUsed = true;
         specialTime = Time.time + specialCooldown;
     }

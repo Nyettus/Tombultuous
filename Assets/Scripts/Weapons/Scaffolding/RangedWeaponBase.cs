@@ -84,6 +84,7 @@ public class RangedWeaponBase : WeaponCore
 
     protected void FreeFire()
     {
+        if (GameManager._.paused) return;
         if (shooting && shootSetTime < Time.time)
         {
             if (fullAuto)
@@ -99,6 +100,7 @@ public class RangedWeaponBase : WeaponCore
     }
     protected void ReloadFire()
     {
+        if (GameManager._.paused) return;
         if (shooting && shootSetTime < Time.time&&curMag>0 && !reloading)
         {
             if (fullAuto)
