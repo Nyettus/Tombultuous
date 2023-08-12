@@ -21,6 +21,8 @@ public class HitscanTracers : MonoBehaviour
 
     public void EstablishTrails(Vector3 pos1, Vector3 pos2)
     {
+        //transform.position = pos2;
+        //transform.LookAt(GameManager._.Master.transform);
         startPos = pos1;
         endPos = pos2;
         lr.SetPosition(0, startPos);

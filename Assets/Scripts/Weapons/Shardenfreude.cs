@@ -24,11 +24,11 @@ public class Shardenfreude : HitscanWeaponBase
                         rayLine(hit.point);
                         hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
                     }
-                    GameObject tracer = ObjectPool.SpawnFromPool("Tracer", Camera.main.transform.position, transform.rotation);
-                    if (tracer.TryGetComponent(out HitscanTracers script))
+                    else
                     {
-                        script.EstablishTrails(transform.position, hit.point);
+                        SummonWallHit(hit);
                     }
+                    summonTracer(hit);
                 }
             }
             PlayerController movement = GameManager._.Master.movementMaster;

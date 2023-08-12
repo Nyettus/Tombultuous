@@ -21,17 +21,36 @@ public class HitscanWeaponBase : RangedWeaponBase
                 {
                     hit.transform.GetComponent<ChestCore>().SpawnItem();
                 }
-
-                GameObject tracer = ObjectPool.SpawnFromPool("Tracer", Camera.main.transform.position, transform.rotation);
-                if(tracer.TryGetComponent(out HitscanTracers script))
+                else
                 {
-                    script.EstablishTrails(transform.position, hit.point);
+                    SummonWallHit(hit);
                 }
+                summonTracer(hit);
+
+                
 
             }
 
         }
 
+    }
+
+    protected void summonTracer(RaycastHit hit)
+    {
+        GameObject tracer = ObjectPool.SpawnFromPool("Tracer", Camera.main.transform.position, transform.rotation);
+        if (tracer.TryGetComponent(out HitscanTracers TracerScript))
+        {
+            TracerScript.EstablishTrails(transform.position, hit.point);
+        }
+    }
+
+    protected void SummonWallHit(RaycastHit hit)
+    {
+        GameObject Splash = ObjectPool.SpawnFromPool("Splash", hit.point, Quaternion.LookRotation(hit.normal));
+        if (Splash.TryGetComponent(out WallHitEffect SplashScript))
+        {
+            SplashScript.Establish();
+        }
     }
 
 
