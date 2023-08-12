@@ -4,28 +4,30 @@ using UnityEngine;
 
 public class WallHitEffect : MonoBehaviour
 {
-    ParticleSystem ps;
+    ParticleSystem[] ps;
     float spawnTime;
     // Start is called before the first frame update
     private void OnEnable()
     {
-        ps = GetComponent<ParticleSystem>();
+        ps = GetComponents<ParticleSystem>();
 
     }
 
     private void OnDisable()
     {
-
-        ps.Clear();
-
+        foreach(ParticleSystem i in ps)
+        {
+        i.Clear();
+        }
 
     }
 
     public void Establish()
     {
-
-        ps.Play();
-
+        foreach (ParticleSystem i in ps)
+        {
+            i.Play();
+        }
 
         spawnTime = Time.time;
     }
@@ -33,7 +35,7 @@ public class WallHitEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(spawnTime+ps.time > spawnTime + 1)
+        if(spawnTime+ps[0].time > spawnTime + 1)
         {
             gameObject.SetActive(false);
         }
