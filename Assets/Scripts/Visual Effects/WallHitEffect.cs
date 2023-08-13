@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class WallHitEffect : MonoBehaviour
 {
-    ParticleSystem[] ps;
-    float spawnTime;
+    [SerializeField]
+    private ParticleSystem[] ps;
+    private float spawnTime;
     // Start is called before the first frame update
     private void OnEnable()
     {

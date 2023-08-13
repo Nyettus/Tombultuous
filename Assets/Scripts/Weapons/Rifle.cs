@@ -19,10 +19,13 @@ public class Rifle : HitscanWeaponBase
                 {
                     float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult*2f;
                     hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
-                    StartCoroutine(GameManager._.Master.cameraEffects.DashShake(0.1f, 0.1f));
+
                 }
+                GameManager._.Master.cameraEffects.DashShake(10f);
+                base.Special();
             }
-          base.Special();
+
+
         }
     }
 }

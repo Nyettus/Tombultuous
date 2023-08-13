@@ -57,7 +57,6 @@ public class PlayerMaster : MonoBehaviour
     public void Establish()
     {
         movementMaster = GetComponent<PlayerController>();
-        cameraEffects = GetComponentInChildren<CameraEffects>();
         weaponMaster = GetComponentInChildren<WeaponController>();
         itemMaster = GetComponent<ItemMaster>();
         //Name text

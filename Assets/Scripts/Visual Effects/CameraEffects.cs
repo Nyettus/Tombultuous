@@ -1,22 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraEffects : MonoBehaviour
 {
-    public IEnumerator DashShake(float duration, float magnitude)
-    {
-        Vector3 originalPos = transform.localPosition;
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            float x = Random.Range(-1, 1) * magnitude;
-            float y = Random.Range(-1, 1) * magnitude;
-            transform.localPosition = new Vector3(x, y, originalPos.z);
-            elapsed += Time.deltaTime;
+    [SerializeField]
+    private CinemachineVirtualCamera VC;
+    private float shakeTimer;
+    [SerializeField]
+    private CinemachineBasicMultiChannelPerlin perlin;
 
-            yield return null;
-        }
-        transform.localPosition = originalPos;
+    private void Awake()
+    {
+        VC = GetComponent<CinemachineVirtualCamera>();
+        perlin = VC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
+    public void DashShake(float intensity, float time = 0.1f)
+    {
+        perlin.m_AmplitudeGain = intensity;
+        shakeTimer = Time.time+time;
+    }
+
+    private void Update()
+    {
+        if (shakeTimer < Time.time)
+        {
+            perlin.m_AmplitudeGain = 0f;
+        }
+    }
+
 }
