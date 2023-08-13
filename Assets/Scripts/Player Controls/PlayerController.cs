@@ -11,14 +11,14 @@ public class PlayerController : MonoBehaviour
     public float height = 2;
     private Vector2 vertMove;
     public Rigidbody rb;
-    public float moveSpeed => Mathf.Clamp(Master.moveSpeed + Master.itemMaster.M_MoveSpeed,Master.itemMaster.MIN_MoveSpeed,Mathf.Infinity);
+    public float moveSpeed => Mathf.Clamp(Master.moveSpeed + Master.itemMaster.M_MoveSpeed, Master.itemMaster.MIN_MoveSpeed, Mathf.Infinity);
 
 
     [Header("Jump")]
     public int jumpCount;
     public int b_jumpCount => Mathf.Clamp(Master.jumpCount + Master.itemMaster.M_JumpCount, Master.itemMaster.MIN_JumpCount, 1000000);
 
-    
+
 
     public float jumpPower => Mathf.Clamp(Master.jumpPower + Master.itemMaster.M_JumpPower, Master.itemMaster.MIN_JumpPower, Mathf.Infinity);
 
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         Master = GetComponent<PlayerMaster>();
         rb = GetComponent<Rigidbody>();
-        
+
     }
 
     //Input gather
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        if (jumpCount > 0 && context.ReadValue<float>() > 0.5f&& jumpTick&&dashTick)
+        if (jumpCount > 0 && context.ReadValue<float>() > 0.5f && jumpTick && dashTick)
         {
             if (jumpCount == b_jumpCount)
             {
@@ -110,20 +110,20 @@ public class PlayerController : MonoBehaviour
             localDashSpeed = dashSpeed;
         else
             localDashSpeed = moveSpeed * 4;
-        if (Time.time > dashEndTime&& context.ReadValue<float>() > 0.5)
+        if (Time.time > dashEndTime && context.ReadValue<float>() > 0.5)
         {
-            rb.velocity = new Vector3(0,0,0);
+            rb.velocity = new Vector3(0, 0, 0);
             if (vertMove.y != 0 || vertMove.x != 0)
             {
-                Vector3 movementDir = (transform.forward *vertMove.y + transform.right * vertMove.x).normalized;
-                rb.AddForce(movementDir * (localDashSpeed+dashBuff), ForceMode.Impulse);
+                Vector3 movementDir = (transform.forward * vertMove.y + transform.right * vertMove.x).normalized;
+                rb.AddForce(movementDir * (localDashSpeed + dashBuff), ForceMode.Impulse);
             }
             else
                 rb.AddForce(transform.forward * (localDashSpeed + dashBuff), ForceMode.Impulse);
             rb.drag = 0;
             dashEndTime = Time.time + dashCooldown;
             dashFreezeTime = Time.time + dashDuration;
-            StartCoroutine(Master.cameraEffects.DashShake(dashDuration, 0.1f));
+            //StartCoroutine(Master.cameraEffects.DashShake(dashDuration, 0.1f));
             dashTick = false;
 
         }
@@ -149,9 +149,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        MatchRotation();
         if (dashTick)
         {
-          BasicWalk();
+            BasicWalk();
         }
 
     }
@@ -174,10 +175,13 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(movementRig, ForceMode.Force);
         }
 
+    }
 
-
-
-
+    public Transform WeaponHolder;
+    private void MatchRotation()
+    {
+        WeaponHolder.transform.localRotation = Quaternion.Euler(new Vector3(Camera.main.transform.eulerAngles.x,0,0));
+        rb.rotation = Quaternion.Euler(new Vector3(0,Camera.main.transform.eulerAngles.y,0));
     }
 
     public void DashDisable()
@@ -204,15 +208,15 @@ public class PlayerController : MonoBehaviour
     {
 
         Ray cast = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(cast, height * 0.5f + 0.4f, whatIsGround)&&jumpTick)
+        if (Physics.Raycast(cast, height * 0.5f + 0.4f, whatIsGround) && jumpTick)
         {
             Master.grounded = true;
             coyoteTime = Time.time + 0.16f;
         }
         else
         {
-           
-                
+
+
             if (coyoteTime < Time.time)
                 Master.grounded = false;
 
@@ -264,12 +268,12 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator jumpTimer()
     {
-        jumpTick =false;
-        yield  return new WaitForSeconds(0.1f);
+        jumpTick = false;
+        yield return new WaitForSeconds(0.1f);
         jumpTick = true;
     }
 
-    
+
 
 
 
