@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
             rb.drag = 0;
             dashEndTime = Time.time + dashCooldown;
             dashFreezeTime = Time.time + dashDuration;
-            GameManager._.Master.cameraEffects.DashShake(5f, dashDuration);
+            GameManager._.Master.cameraEffects.DashShake(2f, dashDuration);
             dashTick = false;
 
         }
