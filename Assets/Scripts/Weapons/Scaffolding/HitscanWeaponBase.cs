@@ -21,6 +21,10 @@ public class HitscanWeaponBase : RangedWeaponBase
                 {
                     hit.transform.GetComponent<ChestCore>().SpawnItem();
                 }
+                else if(hit.transform.tag == "MasterTomb")
+                {
+                    hit.transform.GetComponentInParent<MasterTomb>().DestroySelf();
+                }
                 else
                 {
                     SummonWallHit(hit);
