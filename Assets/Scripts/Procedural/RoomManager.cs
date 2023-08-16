@@ -17,12 +17,14 @@ public class RoomManager : SingletonPersist<RoomManager>
 
     }
 
+    public GameObject PrefabToSpawn;
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown("p"))
         {
-            SceneManager.LoadScene(2, LoadSceneMode.Additive);
+            Instantiate(PrefabToSpawn, new Vector3(50,0,0), Quaternion.identity);
+            //SceneManager.LoadScene(2, LoadSceneMode.Additive);
             
         }
     }
