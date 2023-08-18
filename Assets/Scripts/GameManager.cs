@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class GameManager : SingletonPersist<GameManager>
 {
     public PlayerMaster Master;
@@ -10,8 +11,12 @@ public class GameManager : SingletonPersist<GameManager>
     public bool paused = false;
     private void Awake()
     {
+
         Startup(this);
+
     }
+    
+
     protected override void RunOnce()
     {
         base.RunOnce();

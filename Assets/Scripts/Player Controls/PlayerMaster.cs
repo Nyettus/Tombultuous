@@ -45,6 +45,7 @@ public class PlayerMaster : MonoBehaviour
     void Awake()
     {
         Establish();
+        ReturnPlayer();
     }
 
     // Update is called once per frame
@@ -76,6 +77,19 @@ public class PlayerMaster : MonoBehaviour
         jumpCount = card.jumpCount;
         dashCooldown = card.dashCooldown;
         dashSpeed = card.dashSpeed;
+
+    }
+    private void ReturnPlayer()
+    {
+        GameObject[] playerTagged = GameObject.FindGameObjectsWithTag("Player");
+        if (playerTagged.Length == 1)
+        {
+            GameManager._.Master = playerTagged[0].GetComponent<PlayerMaster>();
+        }
+        else
+        {
+            Debug.LogError("There is more than 1 player");
+        }
 
     }
 }
