@@ -3,19 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RoomManager : SingletonPersist<RoomManager>
+
+public class RoomManager : Singleton<RoomManager>
 {
+    public float roomSize = 50;
+    [SerializeField]
+    private RoomGridder RG;
+    [SerializeField]
+    private int RoomCount = 10;
+
+
+
     // Start is called before the first frame update
     void Awake()
     {
         Startup(this);
+        RG = GetComponent<RoomGridder>();
     }
 
-    protected override void RunOnce()
+    private void Start()
     {
-        base.RunOnce();
-
+        RG.InitialiseGrid();
+        Generation();
     }
+
 
     public GameObject PrefabToSpawn;
     // Update is called once per frame
@@ -28,4 +39,21 @@ public class RoomManager : SingletonPersist<RoomManager>
             
         }
     }
+
+    private void Generation()
+    {
+        while(RoomCount > 0)
+        {
+            RoomCount += RG.SetNextRoom();
+
+        }
+        RG.SpawnTestRooms();
+    }
+
+    public void SpawnTestRooms(RoomGrid position)
+    {
+        if(position.state==RoomGrid.State.occupied)
+        Instantiate(PrefabToSpawn, position.worldPos, Quaternion.identity);
+    }
+
 }
