@@ -93,7 +93,7 @@ public class RoomGridder : MonoBehaviour
                 CreateAdjacent(roomToUpdate.position);
                 return -1;
             }
-            else if (randomRoom.state == RoomGrid.State.unlikely && Random.value <= 0.25f)
+            else if (randomRoom.state == RoomGrid.State.unlikely && Random.value <= 0.1f)
             {
                 Debug.Log("Unlikely Room hit");
                 roomToUpdate.state = RoomGrid.State.occupied;
