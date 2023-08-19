@@ -11,6 +11,7 @@ public class RoomManager : Singleton<RoomManager>
     private RoomGridder RG;
     [SerializeField]
     private int RoomCount = 10;
+    private int EmergencyStop = 100;
 
 
 
@@ -23,6 +24,7 @@ public class RoomManager : Singleton<RoomManager>
 
     private void Start()
     {
+        EmergencyStop = RoomCount * 2;
         RG.InitialiseGrid();
         Generation();
     }
@@ -42,10 +44,10 @@ public class RoomManager : Singleton<RoomManager>
 
     private void Generation()
     {
-        while(RoomCount > 0)
+        while(RoomCount > 0 && EmergencyStop > 0)
         {
             RoomCount += RG.SetNextRoom();
-
+            EmergencyStop -= 1;
         }
         RG.SpawnTestRooms();
     }

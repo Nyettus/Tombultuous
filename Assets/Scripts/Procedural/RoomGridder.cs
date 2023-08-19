@@ -81,15 +81,30 @@ public class RoomGridder : MonoBehaviour
     public int SetNextRoom()
     {
         List<RoomGrid> availableRooms = activeGrid.Where(room => room.state == RoomGrid.State.available || room.state == RoomGrid.State.unlikely).ToList();
-        
-        int RandomPos = Random.Range(0, availableRooms.Count-1);
+
+        int RandomPos = Random.Range(0, availableRooms.Count - 1);
         RoomGrid randomRoom = availableRooms[RandomPos];
         RoomGrid roomToUpdate = activeGrid.Find(room => room.position == randomRoom.position);
         if (roomToUpdate != null)
         {
-            roomToUpdate.state = RoomGrid.State.occupied;
-            CreateAdjacent(roomToUpdate.position);
-            return -1;
+            if (randomRoom.state == RoomGrid.State.available)
+            {
+                roomToUpdate.state = RoomGrid.State.occupied;
+                CreateAdjacent(roomToUpdate.position);
+                return -1;
+            }
+            else if (randomRoom.state == RoomGrid.State.unlikely && Random.value <= 0.25f)
+            {
+                Debug.Log("Unlikely Room hit");
+                roomToUpdate.state = RoomGrid.State.occupied;
+                CreateAdjacent(roomToUpdate.position);
+                return -1;
+            }
+            else
+            {
+                Debug.Log("Unlikely Room missed");
+                return 0;
+            }
         }
         else
         {
@@ -105,7 +120,7 @@ public class RoomGridder : MonoBehaviour
         foreach (RoomGrid room in availableRooms)
         {
 
-            Debug.Log(""+room.state+" | "+room.position);
+            Debug.Log("" + room.state + " | " + room.position);
         }
     }
 
