@@ -11,8 +11,8 @@ public class RoomManager : Singleton<RoomManager>
     private RoomGridder RG;
     [SerializeField]
     private int RoomCount = 10;
-    private int EmergencyStop = 100;
-    private bool once = false;
+    private int EmergencyStop = 20;
+    public GameObject[] PrefabToSpawn;
 
 
     // Start is called before the first frame update
@@ -24,53 +24,62 @@ public class RoomManager : Singleton<RoomManager>
 
     private void Start()
     {
-        //EmergencyStop = RoomCount * 2;
+        EmergencyStop = RoomCount * 2;
         RG.InitialiseGrid();
+        //RG.debugger();
         Generation();
     }
 
 
-    public GameObject PrefabToSpawn;
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (RoomCount > 0 && EmergencyStop > 0)
-        {
-            RoomCount += RG.SetNextRoom();
-            EmergencyStop -= 1;
-        }
-        else if (EmergencyStop == 0 || RoomCount ==0)
-        {
-            once = true;
-            EmergencyStop = -1;
-            RoomCount = -1;
-        }
 
-        if (once)
-        {
 
-            RG.SpawnTestRooms();
-            once = false;
-        }
-   
+        //if (Input.GetKeyDown("p"))
+        //{
+        //    Instantiate(PrefabToSpawn, new Vector3(50, 0, 0), Quaternion.identity);
+        //    //SceneManager.LoadScene(2, LoadSceneMode.Additive);
 
-        if (Input.GetKeyDown("p"))
-        {
-            Instantiate(PrefabToSpawn, new Vector3(50,0,0), Quaternion.identity);
-            //SceneManager.LoadScene(2, LoadSceneMode.Additive);
-            
-        }
+        //}
     }
 
     private void Generation()
     {
 
+        while (RoomCount > 0 && EmergencyStop > 0)
+        {
+            RoomCount += RG.SetNextRoom();
+            EmergencyStop -= 1;
+        }
+        if (EmergencyStop == 0)
+        {
+            Debug.Log("Emergency stop hit");
+        }
+        SpawnTestRooms();
+
+
     }
 
-    public void SpawnTestRooms(RoomGrid position)
+    public void SpawnTestRooms()
     {
-        if(position.state==RoomGrid.State.occupied)
-        Instantiate(PrefabToSpawn, position.worldPos, Quaternion.identity);
+        foreach (RoomGrid room in RG.activeGrid)
+        {
+            if (room.state == RoomGrid.State.occupied)
+            {
+                if (room.shape == RoomGrid.Shape._1x1)
+                    SpawnAndRotate(PrefabToSpawn[0], room);
+                else if (room.shape == RoomGrid.Shape._2x2)
+                    SpawnAndRotate(PrefabToSpawn[1], room);
+            }
+        }
+    }
+
+    public void SpawnAndRotate(GameObject room, RoomGrid position)
+    {
+        GameObject ParentRoom = Instantiate(room, position.worldPos, Quaternion.identity);
+        ParentRoom.transform.Rotate(Vector3.up, position.cartesianPlane * -90f);
     }
 
 }

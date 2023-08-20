@@ -13,7 +13,7 @@ public class RoomGrid
     public Shape shape;
     public int cartesianPlane = 0;
 
-    public enum State { available, forbidden, occupied, unlikely };
+    public enum State { available, forbidden, occupied, unlikely, empty };
     public enum Shape { _1x1, _2x2, _L, _3x3 };
 
     public RoomGrid(Vector2Int gridPosition, State state)
@@ -29,13 +29,13 @@ public class RoomGridder : MonoBehaviour
     [SerializeField]
     public List<RoomGrid> activeGrid = new List<RoomGrid>();
 
-    Vector2Int[] cartesian = new Vector2Int[]
-{
+    private Vector2Int[] cartesian = new Vector2Int[]
+    {
             new Vector2Int(0,1),    //North
             new Vector2Int(0,-1),    //South
             new Vector2Int(1,0),    //East
             new Vector2Int(-1,0)     //West
-};
+    };
 
     private void Start()
     {
@@ -43,13 +43,14 @@ public class RoomGridder : MonoBehaviour
 
     }
 
+    #region Neutral Room Creators
     public void InitialiseGrid()
     {
         Vector2Int start = new Vector2Int(0, 0);
 
         activeGrid.Add(new RoomGrid(start, RoomGrid.State.forbidden));
         CreateAdjacent(start);
-        SpawnTestRooms();
+        //SpawnTestRooms();
     }
 
 
@@ -74,18 +75,37 @@ public class RoomGridder : MonoBehaviour
         }
     }
 
-    private RoomGrid CreateAtPosition(Vector2Int position)
+
+    private RoomGrid CreateAtPosition(Vector2Int position, RoomGrid.State state)
     {
         RoomGrid existingRoom = activeGrid.Find(room => room.position == position);
         if (existingRoom == null)
         {
-            RoomGrid returnRoom = new RoomGrid(position, RoomGrid.State.available);
+            RoomGrid returnRoom = new RoomGrid(position, state);
             activeGrid.Add(returnRoom);
             return returnRoom;
         }
         else
+        {
             return existingRoom;
+        }
+
     }
+    #endregion
+
+    #region Multi Grid Room Logic
+    private Vector2Int[] CartesianBounds(Vector2Int position,Vector2Int size)
+    {
+        Vector2Int[] furthestPoints =
+        {
+            position+cartesian[0]*size.x+cartesian[2]*size.y,
+            position+cartesian[0]*size.x+cartesian[3]*size.y,
+            position+cartesian[1]*size.x+cartesian[3]*size.y,
+            position+cartesian[1]*size.x+cartesian[2]*size.y
+        };
+        return furthestPoints;
+    }
+
     private List<Vector2Int> GridPoints(Vector2Int start, Vector2Int furthest)
     {
         List<Vector2Int> AllPoints = new List<Vector2Int>();
@@ -95,7 +115,7 @@ public class RoomGridder : MonoBehaviour
         int maxZ = Mathf.Max(start.y, furthest.y);
         for (int x = minX; x <= maxX; x++)
         {
-            for (int z = minZ; x <= maxZ; z++)
+            for (int z = minZ; z <= maxZ; z++)
             {
                 AllPoints.Add(new Vector2Int(x, z));
             }
@@ -108,33 +128,46 @@ public class RoomGridder : MonoBehaviour
         RoomGrid tested;
         foreach (Vector2Int point in AllPoints)
         {
-            tested = CreateAtPosition(point);
-            if (!(tested.state == RoomGrid.State.available || tested.state == RoomGrid.State.unlikely))
+            tested = CreateAtPosition(point, RoomGrid.State.empty);
+            if (!(tested.state == RoomGrid.State.available || tested.state == RoomGrid.State.unlikely || tested.state == RoomGrid.State.empty))
+            {
                 return false;
+            }
+
         }
         return true;
     }
-    private void ReservePoints(Vector2Int start, Vector2Int furthest,RoomGrid.Shape shape)
+
+    private void ReservePoints(Vector2Int start, Vector2Int furthest, RoomGrid.Shape shape)
     {
         RoomGrid changedOne;
         List<Vector2Int> AllPoints = GridPoints(start, furthest);
         foreach (Vector2Int point in AllPoints)
         {
             changedOne = activeGrid.Find(room => room.position == point);
+            CreateAdjacent(changedOne.position);
             changedOne.state = RoomGrid.State.forbidden;
+
         }
         changedOne = activeGrid.Find(room => room.position == start);
         changedOne.state = RoomGrid.State.occupied;
         changedOne.shape = shape;
     }
 
+    #endregion
 
-    public void SpawnTestRooms()
+    
+
+    #region Room Shape Checks and sets
+    
+    private int SelectRoom(RoomGrid position)
     {
-        foreach (RoomGrid room in activeGrid)
-        {
-            RoomManager._.SpawnTestRooms(room);
-        }
+        //Simple for debugging
+        float random = Random.value;
+        if (random >= 0.9)
+            return Set_1x1(position);
+        else
+            return Set_2x2(position);
     }
 
 
@@ -170,18 +203,6 @@ public class RoomGridder : MonoBehaviour
         }
     }
 
-    #region Room Shape Checks and sets
-    private int SelectRoom(RoomGrid position)
-    {
-        //Simple for debugging
-        float random = Random.value;
-        if (random >= 1)
-            return Set_1x1(position);
-        else
-            return Set_2x2(position);
-    }
-
-
 
     private int Set_1x1(RoomGrid room)
     {
@@ -202,16 +223,10 @@ public class RoomGridder : MonoBehaviour
 
         //Quadrants like in math, Z up X right
         bool[] quadrants = { true, true, true, true };
-        Vector2Int[] furthestPoints =
-        {
-            checkRoom.position+cartesian[0]+cartesian[2],
-            checkRoom.position+cartesian[0]+cartesian[3],
-            checkRoom.position+cartesian[1]+cartesian[3],
-            checkRoom.position+cartesian[1]+cartesian[2]
-        };
+        var furthestPoints = CartesianBounds(checkRoom.position,new Vector2Int(1,1));
 
         List<int> trueIndecies = new List<int>();
-        for(int i=0; i < quadrants.Length; i++)
+        for (int i = 0; i < quadrants.Length; i++)
         {
             quadrants[i] = CheckGrid(checkRoom.position, furthestPoints[i]);
             if (quadrants[i]) trueIndecies.Add(i);
@@ -219,14 +234,14 @@ public class RoomGridder : MonoBehaviour
 
         if (trueIndecies.Count == 0)
         {
-            Debug.Log("2x2 cannot fit");
+
             return 0;
         }
         int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];
         checkRoom.cartesianPlane = randomIndex;
         ReservePoints(checkRoom.position, furthestPoints[randomIndex], RoomGrid.Shape._2x2);
         return -1;
-        
+
 
 
 
@@ -237,13 +252,8 @@ public class RoomGridder : MonoBehaviour
 
     public void debugger()
     {
-        List<RoomGrid> availableRooms = activeGrid.Where(room => room.state == RoomGrid.State.available).ToList();
-        Debug.Log(availableRooms.Count);
-        foreach (RoomGrid room in availableRooms)
-        {
-
-            Debug.Log("" + room.state + " | " + room.position);
-        }
+        var output = GridPoints(new Vector2Int(0, 0), new Vector2Int(1, 1));
+        Debug.Log(output);
     }
 
 }
