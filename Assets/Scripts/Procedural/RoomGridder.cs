@@ -164,9 +164,9 @@ public class RoomGridder : MonoBehaviour
     {
         //Simple for debugging
         float random = Random.value;
-        if (random <= 0.5)
+        if (random <= 0.75)
             return Set_1x1(position);
-        else if (random <= 0.75)
+        else if (random <= 0.875)
             return SetRectangular(position, new Vector2Int(2, 2), RoomGrid.Shape._2x2);
         else
             return SetRectangular(position, new Vector2Int(1, 2), RoomGrid.Shape._1x2);
@@ -187,14 +187,13 @@ public class RoomGridder : MonoBehaviour
 
                 return SelectRoom(roomToUpdate);
             }
-            else if (randomRoom.state == RoomGrid.State.unlikely && Random.value <= 1f)
+            else if (randomRoom.state == RoomGrid.State.unlikely && Random.value <= 0.1f)
             {
-                Debug.Log("Unlikely Room hit");
+                Debug.Log("Unlikely Room hit at: "+randomRoom.position);
                 return SelectRoom(roomToUpdate);
             }
             else
             {
-                Debug.Log("Unlikely Room missed");
                 return 0;
             }
         }
@@ -208,7 +207,6 @@ public class RoomGridder : MonoBehaviour
 
     private int Set_1x1(RoomGrid room)
     {
-        Debug.Log("Tried 1x1");
         room.state = RoomGrid.State.occupied;
 
         room.shape = RoomGrid.Shape._1x1;
@@ -220,7 +218,6 @@ public class RoomGridder : MonoBehaviour
 
     private int SetRectangular(RoomGrid checkRoom,Vector2Int dimentions,RoomGrid.Shape shape)
     {
-        Debug.Log("Tried "+dimentions);
         Vector2Int additiveDimention = dimentions - new Vector2Int(1, 1);
 
         //Quadrants like in math, Z up X right
@@ -236,7 +233,7 @@ public class RoomGridder : MonoBehaviour
 
         if (trueIndecies.Count == 0)
         {
-
+            Debug.Log("" + dimentions + " couldn't place at" + checkRoom.position);
             return 0;
         }
         int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];

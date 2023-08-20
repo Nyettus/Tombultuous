@@ -26,24 +26,12 @@ public class RoomManager : Singleton<RoomManager>
     {
         EmergencyStop = RoomCount * 2;
         RG.InitialiseGrid();
-        //RG.debugger();
         Generation();
     }
 
 
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
 
-
-        //if (Input.GetKeyDown("p"))
-        //{
-        //    Instantiate(PrefabToSpawn, new Vector3(50, 0, 0), Quaternion.identity);
-        //    //SceneManager.LoadScene(2, LoadSceneMode.Additive);
-
-        //}
-    }
 
     private void Generation()
     {
@@ -56,9 +44,18 @@ public class RoomManager : Singleton<RoomManager>
         if (EmergencyStop == 0)
         {
             Debug.Log("Emergency stop hit");
+            ReloadScene();
+
         }
         SpawnTestRooms();
 
+
+    }
+
+    private void ReloadScene()
+    {
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
 
     }
 
