@@ -14,7 +14,7 @@ public class RoomGrid
     public int cartesianPlane = 0;
 
     public enum State { available, forbidden, occupied, unlikely, empty };
-    public enum Shape { _1x1, _2x2, _L, _3x3 };
+    public enum Shape { _1x1, _2x2,_1x2,_3x3 , _L};
 
     public RoomGrid(Vector2Int gridPosition, State state)
     {
@@ -164,10 +164,12 @@ public class RoomGridder : MonoBehaviour
     {
         //Simple for debugging
         float random = Random.value;
-        if (random >= 0.9)
+        if (random <= 0.5)
             return Set_1x1(position);
+        else if (random <= 0.75)
+            return SetRectangular(position, new Vector2Int(2, 2), RoomGrid.Shape._2x2);
         else
-            return SetRectangular(position,new Vector2Int(1,2) , RoomGrid.Shape._2x2);
+            return SetRectangular(position, new Vector2Int(1, 2), RoomGrid.Shape._1x2);
     }
 
 

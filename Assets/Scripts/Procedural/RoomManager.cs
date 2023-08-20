@@ -72,6 +72,8 @@ public class RoomManager : Singleton<RoomManager>
                     SpawnAndRotate(PrefabToSpawn[0], room);
                 else if (room.shape == RoomGrid.Shape._2x2)
                     SpawnAndRotate(PrefabToSpawn[1], room);
+                else if (room.shape == RoomGrid.Shape._1x2)
+                    SpawnAndRotate(PrefabToSpawn[2], room);
             }
         }
     }
