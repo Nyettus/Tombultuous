@@ -12,7 +12,7 @@ public class RoomManager : Singleton<RoomManager>
     [SerializeField]
     private int RoomCount = 10;
     private int EmergencyStop = 100;
-
+    private bool once = false;
 
 
     // Start is called before the first frame update
@@ -24,7 +24,7 @@ public class RoomManager : Singleton<RoomManager>
 
     private void Start()
     {
-        EmergencyStop = RoomCount * 2;
+        //EmergencyStop = RoomCount * 2;
         RG.InitialiseGrid();
         Generation();
     }
@@ -32,8 +32,28 @@ public class RoomManager : Singleton<RoomManager>
 
     public GameObject PrefabToSpawn;
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (RoomCount > 0 && EmergencyStop > 0)
+        {
+            RoomCount += RG.SetNextRoom();
+            EmergencyStop -= 1;
+        }
+        else if (EmergencyStop == 0 || RoomCount ==0)
+        {
+            once = true;
+            EmergencyStop = -1;
+            RoomCount = -1;
+        }
+
+        if (once)
+        {
+
+            RG.SpawnTestRooms();
+            once = false;
+        }
+   
+
         if (Input.GetKeyDown("p"))
         {
             Instantiate(PrefabToSpawn, new Vector3(50,0,0), Quaternion.identity);
@@ -44,12 +64,7 @@ public class RoomManager : Singleton<RoomManager>
 
     private void Generation()
     {
-        while(RoomCount > 0 && EmergencyStop > 0)
-        {
-            RoomCount += RG.SetNextRoom();
-            EmergencyStop -= 1;
-        }
-        RG.SpawnTestRooms();
+
     }
 
     public void SpawnTestRooms(RoomGrid position)
