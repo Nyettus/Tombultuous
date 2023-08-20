@@ -12,9 +12,10 @@ public class RoomGrid
     public State state;
     public Shape shape;
     public int cartesianPlane = 0;
+    public bool deadEnd = false;
 
     public enum State { available, forbidden, occupied, unlikely, empty };
-    public enum Shape { _1x1, _2x2,_1x2,_3x3 , _L};
+    public enum Shape { _1x1, _2x2, _1x2, _3x3, _L };
 
     public RoomGrid(Vector2Int gridPosition, State state)
     {
@@ -54,7 +55,7 @@ public class RoomGridder : MonoBehaviour
     }
 
 
-    public void CreateAdjacent(Vector2Int start)
+    private void CreateAdjacent(Vector2Int start)
     {
 
         foreach (Vector2Int direction in cartesian)
@@ -94,7 +95,7 @@ public class RoomGridder : MonoBehaviour
     #endregion
 
     #region Multi Grid Room Logic
-    private Vector2Int[] CartesianBounds(Vector2Int position,Vector2Int size)
+    private Vector2Int[] CartesianBounds(Vector2Int position, Vector2Int size)
     {
         Vector2Int[] furthestPoints =
         {
@@ -156,10 +157,8 @@ public class RoomGridder : MonoBehaviour
 
     #endregion
 
-    
-
     #region Room Shape Checks and sets
-    
+
     private int SelectRoom(RoomGrid position)
     {
         //Simple for debugging
@@ -189,7 +188,7 @@ public class RoomGridder : MonoBehaviour
             }
             else if (randomRoom.state == RoomGrid.State.unlikely && Random.value <= 0.1f)
             {
-                Debug.Log("Unlikely Room hit at: "+randomRoom.position);
+                Debug.Log("Unlikely Room hit at: " + randomRoom.position);
                 return SelectRoom(roomToUpdate);
             }
             else
@@ -216,7 +215,7 @@ public class RoomGridder : MonoBehaviour
         return -1;
     }
 
-    private int SetRectangular(RoomGrid checkRoom,Vector2Int dimentions,RoomGrid.Shape shape)
+    private int SetRectangular(RoomGrid checkRoom, Vector2Int dimentions, RoomGrid.Shape shape)
     {
         Vector2Int additiveDimention = dimentions - new Vector2Int(1, 1);
 
@@ -244,6 +243,44 @@ public class RoomGridder : MonoBehaviour
 
 
 
+
+    }
+
+    #endregion
+
+
+    #region Post Creation Logic
+    public List<RoomGrid> DetectEndRooms()
+    {
+        List<RoomGrid> returnList = new List<RoomGrid>();
+        List<RoomGrid> existantRooms = activeGrid.Where(room => room.state == RoomGrid.State.occupied || room.state == RoomGrid.State.forbidden).ToList();
+        foreach (RoomGrid position in existantRooms)
+        {
+            bool elligible = true;
+            RoomGrid existingRoom = null;
+            int neighbours = 0;
+            foreach (Vector2Int direction in cartesian)
+            {
+                existingRoom = activeGrid.Find(room => room.position == position.position + direction);
+                if (existingRoom.state == RoomGrid.State.occupied || existingRoom.state == RoomGrid.State.forbidden)
+                {
+                    neighbours++;
+                    if(neighbours > 1)
+                    {
+                        elligible = false;
+                        break;
+                    }
+
+                }
+
+
+            }
+            if (elligible && existingRoom != null)
+            {
+                returnList.Add(existingRoom);
+            }
+        }
+        return returnList;
 
     }
 

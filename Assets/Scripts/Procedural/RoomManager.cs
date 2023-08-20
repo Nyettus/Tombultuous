@@ -47,6 +47,7 @@ public class RoomManager : Singleton<RoomManager>
             ReloadScene();
 
         }
+        RG.DetectEndRooms();
         SpawnTestRooms();
 
 
