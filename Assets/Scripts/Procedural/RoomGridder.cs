@@ -98,9 +98,9 @@ public class RoomGridder : MonoBehaviour
     {
         Vector2Int[] furthestPoints =
         {
-            position+cartesian[0]*size.x+cartesian[2]*size.y,
+            position+cartesian[0]*size.y+cartesian[2]*size.x,
             position+cartesian[0]*size.x+cartesian[3]*size.y,
-            position+cartesian[1]*size.x+cartesian[3]*size.y,
+            position+cartesian[1]*size.y+cartesian[3]*size.x,
             position+cartesian[1]*size.x+cartesian[2]*size.y
         };
         return furthestPoints;
@@ -167,7 +167,7 @@ public class RoomGridder : MonoBehaviour
         if (random >= 0.9)
             return Set_1x1(position);
         else
-            return Set_2x2(position);
+            return SetRectangular(position,new Vector2Int(1,2) , RoomGrid.Shape._2x2);
     }
 
 
@@ -216,14 +216,14 @@ public class RoomGridder : MonoBehaviour
         return -1;
     }
 
-    private int Set_2x2(RoomGrid checkRoom)
+    private int SetRectangular(RoomGrid checkRoom,Vector2Int dimentions,RoomGrid.Shape shape)
     {
-        Debug.Log("Tried 2x2");
-
+        Debug.Log("Tried "+dimentions);
+        Vector2Int additiveDimention = dimentions - new Vector2Int(1, 1);
 
         //Quadrants like in math, Z up X right
         bool[] quadrants = { true, true, true, true };
-        var furthestPoints = CartesianBounds(checkRoom.position,new Vector2Int(1,1));
+        var furthestPoints = CartesianBounds(checkRoom.position, additiveDimention);
 
         List<int> trueIndecies = new List<int>();
         for (int i = 0; i < quadrants.Length; i++)
@@ -239,7 +239,7 @@ public class RoomGridder : MonoBehaviour
         }
         int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];
         checkRoom.cartesianPlane = randomIndex;
-        ReservePoints(checkRoom.position, furthestPoints[randomIndex], RoomGrid.Shape._2x2);
+        ReservePoints(checkRoom.position, furthestPoints[randomIndex], shape);
         return -1;
 
 
