@@ -27,9 +27,8 @@ public class RoomGrid
 }
 public class RoomGridder : MonoBehaviour
 {
-    [SerializeField]
-    public List<RoomGrid> activeGrid = new List<RoomGrid>();
 
+    public List<RoomGrid> activeGrid = new List<RoomGrid>();
     private Vector2Int[] cartesian = new Vector2Int[]
     {
             new Vector2Int(0,1),    //North
@@ -238,6 +237,8 @@ public class RoomGridder : MonoBehaviour
         int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];
         checkRoom.cartesianPlane = randomIndex;
         ReservePoints(checkRoom.position, furthestPoints[randomIndex], shape);
+
+ 
         return -1;
 
 
@@ -281,8 +282,9 @@ public class RoomGridder : MonoBehaviour
             }
         }
         return returnList;
-
     }
+
+    
 
     #endregion
 

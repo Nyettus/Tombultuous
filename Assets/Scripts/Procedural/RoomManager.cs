@@ -13,7 +13,7 @@ public class RoomManager : Singleton<RoomManager>
     private int RoomCount = 10;
     private int EmergencyStop = 20;
     public GameObject[] PrefabToSpawn;
-
+    private List<GameObject> allRooms = new List<GameObject>();
 
     // Start is called before the first frame update
     void Awake()
@@ -49,7 +49,7 @@ public class RoomManager : Singleton<RoomManager>
         }
         RG.DetectEndRooms();
         SpawnTestRooms();
-
+        Invoke("OpenDoors", 0.1f);
 
     }
 
@@ -75,11 +75,21 @@ public class RoomManager : Singleton<RoomManager>
             }
         }
     }
-
+    private void OpenDoors()
+    {
+        foreach (GameObject room in allRooms)
+        {
+            if (room.TryGetComponent<SetDoors>(out SetDoors script))
+            {
+                script.OpenDoors();
+            }
+        }
+    }
     public void SpawnAndRotate(GameObject room, RoomGrid position)
     {
         GameObject ParentRoom = Instantiate(room, position.worldPos, Quaternion.identity);
         ParentRoom.transform.Rotate(Vector3.up, position.cartesianPlane * -90f);
+        allRooms.Add(ParentRoom);
     }
 
 }
