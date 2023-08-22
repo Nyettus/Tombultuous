@@ -13,7 +13,9 @@ public class RoomManager : Singleton<RoomManager>
     private int RoomCount = 10;
     private int EmergencyStop = 20;
     public GameObject[] PrefabToSpawn;
+    public GameObject aestheticDoor;
     private List<GameObject> allRooms = new List<GameObject>();
+
 
     // Start is called before the first frame update
     void Awake()
@@ -77,6 +79,7 @@ public class RoomManager : Singleton<RoomManager>
     }
     private void OpenDoors()
     {
+
         foreach (GameObject room in allRooms)
         {
             if (room.TryGetComponent<SetDoors>(out SetDoors script))
@@ -84,6 +87,16 @@ public class RoomManager : Singleton<RoomManager>
                 script.OpenDoors();
             }
         }
+        List<RoomGrid[]> doorLocal = RG.AestheticDoorsLocation();
+        foreach(RoomGrid[] location in doorLocal)
+        {
+            Vector3 midpoint = (location[0].worldPos + location[1].worldPos) / 2;
+            Vector3 direction = (location[1].worldPos - location[0].worldPos).normalized;
+            GameObject holding = Instantiate(aestheticDoor, midpoint, Quaternion.identity);
+            holding.transform.rotation = Quaternion.LookRotation(direction);
+        }
+
+
     }
     public void SpawnAndRotate(GameObject room, RoomGrid position)
     {

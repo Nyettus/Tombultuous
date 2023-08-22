@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 
+[System.Serializable]
 public class RoomGrid
 {
     public float roomSize;
@@ -12,9 +13,10 @@ public class RoomGrid
     public State state;
     public Shape shape;
     public int cartesianPlane = 0;
+    public int roomID = -1;
     public bool deadEnd = false;
 
-    public enum State { available, forbidden, occupied, unlikely, empty };
+    public enum State { available, forbidden, occupied, unlikely, empty, multiGrid };
     public enum Shape { _1x1, _2x2, _1x2, _3x3, _L };
 
     public RoomGrid(Vector2Int gridPosition, State state)
@@ -27,7 +29,7 @@ public class RoomGrid
 }
 public class RoomGridder : MonoBehaviour
 {
-
+    private int multiGridID = 0;
     public List<RoomGrid> activeGrid = new List<RoomGrid>();
     private Vector2Int[] cartesian = new Vector2Int[]
     {
@@ -47,8 +49,9 @@ public class RoomGridder : MonoBehaviour
     public void InitialiseGrid()
     {
         Vector2Int start = new Vector2Int(0, 0);
+        RoomGrid spawnRoom = new RoomGrid(start, RoomGrid.State.multiGrid);
+        activeGrid.Add(spawnRoom);
 
-        activeGrid.Add(new RoomGrid(start, RoomGrid.State.forbidden));
         CreateAdjacent(start);
         //SpawnTestRooms();
     }
@@ -146,7 +149,8 @@ public class RoomGridder : MonoBehaviour
         {
             changedOne = activeGrid.Find(room => room.position == point);
             CreateAdjacent(changedOne.position);
-            changedOne.state = RoomGrid.State.forbidden;
+            changedOne.state = RoomGrid.State.multiGrid;
+            changedOne.roomID = multiGridID;
 
         }
         changedOne = activeGrid.Find(room => room.position == start);
@@ -236,14 +240,10 @@ public class RoomGridder : MonoBehaviour
         }
         int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];
         checkRoom.cartesianPlane = randomIndex;
+        checkRoom.roomID = multiGridID;
         ReservePoints(checkRoom.position, furthestPoints[randomIndex], shape);
-
- 
+        multiGridID++;
         return -1;
-
-
-
-
 
     }
 
@@ -253,17 +253,18 @@ public class RoomGridder : MonoBehaviour
     #region Post Creation Logic
     public List<RoomGrid> DetectEndRooms()
     {
+        RoomGrid existingRoom = null;
         List<RoomGrid> returnList = new List<RoomGrid>();
-        List<RoomGrid> existantRooms = activeGrid.Where(room => room.state == RoomGrid.State.occupied || room.state == RoomGrid.State.forbidden).ToList();
+        List<RoomGrid> existantRooms = activeGrid.Where(room => room.state == RoomGrid.State.occupied || room.state == RoomGrid.State.multiGrid).ToList();
         foreach (RoomGrid position in existantRooms)
         {
             bool elligible = true;
-            RoomGrid existingRoom = null;
+
             int neighbours = 0;
             foreach (Vector2Int direction in cartesian)
             {
                 existingRoom = activeGrid.Find(room => room.position == position.position + direction);
-                if (existingRoom.state == RoomGrid.State.occupied || existingRoom.state == RoomGrid.State.forbidden)
+                if (existingRoom.state == RoomGrid.State.occupied || existingRoom.state == RoomGrid.State.multiGrid)
                 {
                     neighbours++;
                     if(neighbours > 1)
@@ -278,9 +279,48 @@ public class RoomGridder : MonoBehaviour
             }
             if (elligible && existingRoom != null)
             {
+                existingRoom.deadEnd = true;
                 returnList.Add(existingRoom);
             }
         }
+        return returnList;
+    }
+
+    public List<RoomGrid[]> AestheticDoorsLocation()
+    {
+
+        List<RoomGrid[]> returnList = new List<RoomGrid[]>();
+        List<RoomGrid> onlyRoomedGrids = activeGrid.Where(room => room.state == RoomGrid.State.occupied || room.state == RoomGrid.State.multiGrid).ToList();
+        foreach(RoomGrid knownRoom in onlyRoomedGrids)
+        {
+
+
+            foreach(Vector2Int direction in cartesian)
+            {
+                bool requireDoor = false;
+                RoomGrid roomToCheck = activeGrid.Find(room => room.position == knownRoom.position + direction);
+                Debug.Log(roomToCheck==null);
+                if(roomToCheck != null && (roomToCheck.state == RoomGrid.State.occupied || roomToCheck.state == RoomGrid.State.multiGrid))
+                {
+                    if(knownRoom.roomID >=0 && roomToCheck.roomID != knownRoom.roomID)
+                    {
+                        Debug.Log("MultiGrid Door");
+                        requireDoor = true;
+                    }
+                    else if(knownRoom.roomID < 0) 
+                    {
+                        Debug.Log("Single door");
+                        requireDoor = true;
+                    }
+                }
+                if (requireDoor)
+                {
+                    returnList.Add(new RoomGrid[2] { knownRoom, roomToCheck });
+                }
+
+            }
+        }
+
         return returnList;
     }
 
