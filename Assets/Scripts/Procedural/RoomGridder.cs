@@ -299,17 +299,14 @@ public class RoomGridder : MonoBehaviour
             {
                 bool requireDoor = false;
                 RoomGrid roomToCheck = activeGrid.Find(room => room.position == knownRoom.position + direction);
-                Debug.Log(roomToCheck==null);
                 if(roomToCheck != null && (roomToCheck.state == RoomGrid.State.occupied || roomToCheck.state == RoomGrid.State.multiGrid))
                 {
                     if(knownRoom.roomID >=0 && roomToCheck.roomID != knownRoom.roomID)
                     {
-                        Debug.Log("MultiGrid Door");
                         requireDoor = true;
                     }
                     else if(knownRoom.roomID < 0) 
                     {
-                        Debug.Log("Single door");
                         requireDoor = true;
                     }
                 }

@@ -88,12 +88,20 @@ public class RoomManager : Singleton<RoomManager>
             }
         }
         List<RoomGrid[]> doorLocal = RG.AestheticDoorsLocation();
-        foreach(RoomGrid[] location in doorLocal)
+        List<Vector3> alreadyPositioned = new List<Vector3>();
+        foreach (RoomGrid[] location in doorLocal)
         {
             Vector3 midpoint = (location[0].worldPos + location[1].worldPos) / 2;
-            Vector3 direction = (location[1].worldPos - location[0].worldPos).normalized;
-            GameObject holding = Instantiate(aestheticDoor, midpoint, Quaternion.identity);
-            holding.transform.rotation = Quaternion.LookRotation(direction);
+            if (alreadyPositioned.Find(v3 => v3 == midpoint) == Vector3.zero)
+            {
+                alreadyPositioned.Add(midpoint);
+                Vector3 direction = (location[1].worldPos - location[0].worldPos).normalized;
+                GameObject holding = Instantiate(aestheticDoor, midpoint, Quaternion.identity);
+                holding.transform.rotation = Quaternion.LookRotation(direction);
+            }
+            else
+                Debug.Log("successful Skip");
+
         }
 
 
