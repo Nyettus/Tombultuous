@@ -13,6 +13,7 @@ public class RoomManager : Singleton<RoomManager>
     private int RoomCount = 10;
     private int EmergencyStop = 20;
     public GameObject[] PrefabToSpawn;
+    public TileSet TileSets;
     public GameObject aestheticDoor;
     private List<GameObject> allRooms = new List<GameObject>();
 
@@ -50,7 +51,8 @@ public class RoomManager : Singleton<RoomManager>
 
         }
         RG.DetectEndRooms();
-        SpawnTestRooms();
+        //SpawnTestRooms();
+        SpawnRooms();
         Invoke("OpenDoors", 0.1f);
 
     }
@@ -74,6 +76,39 @@ public class RoomManager : Singleton<RoomManager>
                     SpawnAndRotate(PrefabToSpawn[1], room);
                 else if (room.shape == RoomGrid.Shape._1x2)
                     SpawnAndRotate(PrefabToSpawn[2], room);
+            }
+        }
+    }
+
+    public void SpawnRooms()
+    {
+        GameObject roomToSpawn = null;
+        int roomIndex;
+        foreach (RoomGrid room in RG.activeGrid)
+        {
+            if (room.state == RoomGrid.State.occupied)
+            {
+                if (room.shape == RoomGrid.Shape._1x1)
+                {
+                    roomIndex = Random.Range(0, TileSets._1x1.Length);
+                    roomToSpawn = TileSets._1x1[roomIndex];
+                    SpawnAndRotate(roomToSpawn, room);
+                }
+
+                else if (room.shape == RoomGrid.Shape._2x2)
+                {
+                    roomIndex = Random.Range(0, TileSets._2x2.Length);
+                    roomToSpawn = TileSets._2x2[roomIndex];
+                    SpawnAndRotate(roomToSpawn, room);
+                }
+
+                else if (room.shape == RoomGrid.Shape._1x2)
+                {
+                    roomIndex = Random.Range(0, TileSets._1x2.Length);
+                    roomToSpawn = TileSets._1x2[roomIndex];
+                    SpawnAndRotate(roomToSpawn, room);
+                }
+
             }
         }
     }
