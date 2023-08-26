@@ -50,7 +50,8 @@ public class RoomManager : Singleton<RoomManager>
             ReloadScene();
 
         }
-        RG.DetectEndRooms();
+        RG.SetTreasureRooms();
+        RG.CreateBossRoom(TileSets);
         //SpawnTestRooms();
         SpawnRooms();
         Invoke("OpenDoors", 0.1f);
@@ -68,7 +69,7 @@ public class RoomManager : Singleton<RoomManager>
     {
         foreach (RoomGrid room in RG.activeGrid)
         {
-            if (room.state == RoomGrid.State.occupied)
+            if (room.state == RoomGrid.State.occupied && room.type == RoomGrid.Type.Standard)
             {
                 if (room.shape == RoomGrid.Shape._1x1)
                     SpawnAndRotate(PrefabToSpawn[0], room);
@@ -86,7 +87,7 @@ public class RoomManager : Singleton<RoomManager>
         int roomIndex;
         foreach (RoomGrid room in RG.activeGrid)
         {
-            if (room.state == RoomGrid.State.occupied)
+            if (room.state == RoomGrid.State.occupied && room.type == RoomGrid.Type.Standard)
             {
                 if (room.shape == RoomGrid.Shape._1x1)
                 {
@@ -110,8 +111,24 @@ public class RoomManager : Singleton<RoomManager>
                 }
 
             }
+            else if(room.type == RoomGrid.Type.Treasure && room.shape == RoomGrid.Shape._1x1)
+            {
+                roomIndex = Random.Range(0, TileSets._TreasureRooms.Length);
+                roomToSpawn = TileSets._TreasureRooms[roomIndex];
+                SpawnAndRotate(roomToSpawn, room);
+            }
+            else if(room.type == RoomGrid.Type.Boss)
+            {
+                roomIndex = Random.Range(0, TileSets._BossRooms.Length);
+                roomToSpawn = TileSets._BossRooms[roomIndex];
+                SpawnAndRotate(roomToSpawn, room);
+            }
         }
     }
+
+
+
+    
     private void OpenDoors()
     {
 
@@ -134,8 +151,6 @@ public class RoomManager : Singleton<RoomManager>
                 GameObject holding = Instantiate(aestheticDoor, midpoint, Quaternion.identity);
                 holding.transform.rotation = Quaternion.LookRotation(direction);
             }
-            else
-                Debug.Log("successful Skip");
 
         }
 
