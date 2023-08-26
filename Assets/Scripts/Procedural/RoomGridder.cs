@@ -59,7 +59,17 @@ public class RoomGridder : MonoBehaviour
         CreateAdjacent(start);
         //SpawnTestRooms();
     }
+    private int wrapIndex(int input, int maximum)
+    {
 
+        int wrappedIndex = (input % maximum + maximum) % maximum;
+        return wrappedIndex;
+
+
+
+
+
+    }
 
     private void CreateAdjacent(Vector2Int start)
     {
@@ -223,7 +233,7 @@ public class RoomGridder : MonoBehaviour
         return -1;
     }
 
-    private int SetRectangular(RoomGrid checkRoom, Vector2Int dimentions, RoomGrid.Shape shape, RoomGrid.State multiGridState,RoomGrid.State startState = RoomGrid.State.occupied,RoomGrid.Type type = RoomGrid.Type.Standard)
+    private int SetRectangular(RoomGrid checkRoom, Vector2Int dimentions, RoomGrid.Shape shape, RoomGrid.State multiGridState, RoomGrid.State startState = RoomGrid.State.occupied, RoomGrid.Type type = RoomGrid.Type.Standard)
     {
         Vector2Int additiveDimention = dimentions - new Vector2Int(1, 1);
 
@@ -246,7 +256,7 @@ public class RoomGridder : MonoBehaviour
         int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];
         checkRoom.cartesianPlane = randomIndex;
         checkRoom.roomID = multiGridID;
-        ReservePoints(checkRoom.position, furthestPoints[randomIndex], shape, multiGridState,startState);
+        ReservePoints(checkRoom.position, furthestPoints[randomIndex], shape, multiGridState, startState);
         RoomGrid finalLocation = activeGrid.Find(location => location.position == checkRoom.position);
         finalLocation.state = startState;
         finalLocation.type = type;
@@ -258,8 +268,8 @@ public class RoomGridder : MonoBehaviour
 
     private int SetCenteredSquare(RoomGrid checkRoom, int side, RoomGrid.Shape shape, RoomGrid.State multiGridState, RoomGrid.State startState = RoomGrid.State.occupied, RoomGrid.Type type = RoomGrid.Type.Standard)
     {
-        
-        if(side % 2==0)
+
+        if (side % 2 == 0)
         {
             Debug.LogError("Centered square cannot have even sides");
             return 0;
@@ -267,32 +277,14 @@ public class RoomGridder : MonoBehaviour
         //Not quadrants but cartesian directions
         bool[] facings = { false, false, false, false }; // Order of v2i cartesian 
         List<int> trueIndecies = new List<int>();
-
-        //Do it manually
-        //North
-        if (CheckGrid(checkRoom.position + cartesian[0], checkRoom.position + cartesian[2] + cartesian[3] * (side - 1)))
+        for (int i = 0; i < cartesian.Length; i++)
         {
-            facings[3] = true;
-            if (facings[3]) trueIndecies.Add(3);
-
-        }
-        //East
-        if (CheckGrid(checkRoom.position + cartesian[3], checkRoom.position + cartesian[1] + cartesian[2] * (side - 1)))
-        {
-            facings[2] = true;
-            if (facings[2]) trueIndecies.Add(2);
-        }
-        //South
-        if (CheckGrid(checkRoom.position + cartesian[2], checkRoom.position + cartesian[0] + cartesian[1] * (side - 1)))
-        {
-            facings[1] = true;
-            if (facings[1]) trueIndecies.Add(1);
-        }
-        //West
-        if (CheckGrid(checkRoom.position + cartesian[1], checkRoom.position + cartesian[3] + cartesian[0] * (side - 1)))
-        {
-            facings[0] = true;
-            if (facings[0]) trueIndecies.Add(0);
+            Debug.Log("" + i + " " + wrapIndex(i + 1, cartesian.Length) + " " + wrapIndex(i - 1, cartesian.Length));
+            if (CheckGrid(checkRoom.position + cartesian[wrapIndex(i + 1, cartesian.Length)], checkRoom.position + cartesian[wrapIndex(i - 1, cartesian.Length)] + cartesian[i] * (side - 1)))
+            {
+                facings[i] = true;
+                if (facings[i]) trueIndecies.Add(i);
+            }
         }
 
         if (trueIndecies.Count == 0)
@@ -301,14 +293,11 @@ public class RoomGridder : MonoBehaviour
             return 0;
         }
         int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];
-        RoomGrid newCenter = activeGrid.Find(newRoom => newRoom.position == checkRoom.position + cartesian[randomIndex] * ((side - 1)/2));;
+        RoomGrid newCenter = activeGrid.Find(newRoom => newRoom.position == checkRoom.position + cartesian[randomIndex] * ((side - 1) / 2)); ;
         newCenter.shape = shape;
         newCenter.state = startState;
         newCenter.type = type;
         return -1;
-
-
-
 
     }
 
@@ -379,9 +368,9 @@ public class RoomGridder : MonoBehaviour
         List<RoomGrid> endRooms = DetectEndRooms();
         //remove furthest
         endRooms.Remove(FurthestRoom(endRooms));
-        foreach(RoomGrid room in endRooms)
+        foreach (RoomGrid room in endRooms)
         {
-            if(amount>0 && room.shape == RoomGrid.Shape._1x1)
+            if (amount > 0 && room.shape == RoomGrid.Shape._1x1)
             {
                 RoomGrid roomToChange = activeGrid.Find(check => check == room);
                 roomToChange.type = RoomGrid.Type.Treasure;
@@ -403,7 +392,7 @@ public class RoomGridder : MonoBehaviour
         CreateAdjacent(furthest.position);
         RoomGrid furthestAdjacents = null;
         float distance = 0;
-        foreach(Vector2Int direction in cartesian)
+        foreach (Vector2Int direction in cartesian)
         {
             RoomGrid existingRoom = CreateAtPosition(furthest.position + direction, RoomGrid.State.empty);
             float current = Vector3.Distance(new Vector3(0, 0, 0), existingRoom.worldPos);
@@ -413,7 +402,7 @@ public class RoomGridder : MonoBehaviour
                 distance = current;
             }
         }
-        SetCenteredSquare(furthestAdjacents, 3, RoomGrid.Shape._3x3, RoomGrid.State.forbidden,RoomGrid.State.forbidden,RoomGrid.Type.Boss);
+        SetCenteredSquare(furthestAdjacents, 3, RoomGrid.Shape._3x3, RoomGrid.State.forbidden, RoomGrid.State.forbidden, RoomGrid.Type.Boss);
         furthestAdjacents.state = RoomGrid.State.multiGrid;
         Debug.Log("Boss room created at " + furthestAdjacents.position);
     }
