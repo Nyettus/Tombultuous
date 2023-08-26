@@ -33,12 +33,14 @@ public class RoomGridder : MonoBehaviour
 {
     private int multiGridID = 0;
     public List<RoomGrid> activeGrid = new List<RoomGrid>();
+    private Vector2Int bossSpawnPosition;
     private Vector2Int[] cartesian = new Vector2Int[]
     {
-            new Vector2Int(0,1),    //North
+            new Vector2Int(-1,0),   //West
             new Vector2Int(0,-1),    //South
             new Vector2Int(1,0),    //East
-            new Vector2Int(-1,0)     //West
+            new Vector2Int(0,1),    //North
+
     };
 
     private void Start()
@@ -103,9 +105,9 @@ public class RoomGridder : MonoBehaviour
     {
         Vector2Int[] furthestPoints =
         {
-            position+cartesian[0]*size.y+cartesian[2]*size.x,
-            position+cartesian[0]*size.x+cartesian[3]*size.y,
-            position+cartesian[1]*size.y+cartesian[3]*size.x,
+            position+cartesian[3]*size.y+cartesian[2]*size.x,
+            position+cartesian[3]*size.x+cartesian[0]*size.y,
+            position+cartesian[1]*size.y+cartesian[0]*size.x,
             position+cartesian[1]*size.x+cartesian[2]*size.y
         };
         return furthestPoints;
@@ -143,7 +145,7 @@ public class RoomGridder : MonoBehaviour
         return true;
     }
 
-    private void ReservePoints(Vector2Int start, Vector2Int furthest, RoomGrid.Shape shape, RoomGrid.State multiState)
+    private void ReservePoints(Vector2Int start, Vector2Int furthest, RoomGrid.Shape shape, RoomGrid.State multiState, RoomGrid.State startState = RoomGrid.State.occupied)
     {
         RoomGrid changedOne;
         List<Vector2Int> AllPoints = GridPoints(start, furthest);
@@ -157,7 +159,7 @@ public class RoomGridder : MonoBehaviour
 
         }
         changedOne = activeGrid.Find(room => room.position == start);
-        changedOne.state = RoomGrid.State.occupied;
+        changedOne.state = startState;
         changedOne.shape = shape;
     }
 
@@ -221,31 +223,40 @@ public class RoomGridder : MonoBehaviour
         return -1;
     }
 
-    private int SetRectangular(RoomGrid checkRoom, Vector2Int dimentions, RoomGrid.Shape shape, RoomGrid.State multiGridState)
+    private int SetRectangular(RoomGrid checkRoom, Vector2Int dimentions, RoomGrid.Shape shape, RoomGrid.State multiGridState,RoomGrid.State startState = RoomGrid.State.occupied,RoomGrid.Type type = RoomGrid.Type.Standard , int offset = 0)
     {
         Vector2Int additiveDimention = dimentions - new Vector2Int(1, 1);
 
         //Quadrants like in math, Z up X right
         bool[] quadrants = { true, true, true, true };
         var furthestPoints = CartesianBounds(checkRoom.position, additiveDimention);
-
+        Vector2Int[] newStart = new Vector2Int[4];
         List<int> trueIndecies = new List<int>();
         for (int i = 0; i < quadrants.Length; i++)
         {
-            quadrants[i] = CheckGrid(checkRoom.position, furthestPoints[i]);
+            //Create offset variant
+            newStart[i] = checkRoom.position + (new Vector2Int(cartesian[i].y, cartesian[i].x)*-offset);
+            quadrants[i] = CheckGrid(newStart[i], furthestPoints[i]);
             if (quadrants[i]) trueIndecies.Add(i);
         }
 
         if (trueIndecies.Count == 0)
         {
-            Debug.Log("" + dimentions + " couldn't place at" + checkRoom.position);
+            Debug.Log("" + dimentions + " couldn't place at" + newStart[0]);
             return 0;
         }
         int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];
         checkRoom.cartesianPlane = randomIndex;
         checkRoom.roomID = multiGridID;
-        ReservePoints(checkRoom.position, furthestPoints[randomIndex], shape, multiGridState);
+        ReservePoints(newStart[randomIndex], furthestPoints[randomIndex], shape, multiGridState,startState);
+        RoomGrid finalLocation = activeGrid.Find(location => location.position == newStart[randomIndex]);
+        finalLocation.state = startState;
+        finalLocation.type = type;
         multiGridID++;
+        if(offset != 0)
+        {
+            Debug.Log("Boss room with offset spawned at: " + newStart[randomIndex]);
+        }
         return -1;
 
     }
@@ -351,8 +362,8 @@ public class RoomGridder : MonoBehaviour
                 distance = current;
             }
         }
-        SetRectangular(furthestAdjacents, new Vector2Int(3, 3), RoomGrid.Shape._3x3, RoomGrid.State.forbidden);
-        furthestAdjacents.type = RoomGrid.Type.Boss;
+        SetRectangular(furthestAdjacents, new Vector2Int(3, 3), RoomGrid.Shape._3x3, RoomGrid.State.forbidden,RoomGrid.State.forbidden,RoomGrid.Type.Boss,1);
+        furthestAdjacents.state = RoomGrid.State.multiGrid;
         Debug.Log("Boss room created at " + furthestAdjacents.position);
     }
 
