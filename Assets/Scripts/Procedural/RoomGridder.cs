@@ -279,7 +279,7 @@ public class RoomGridder : MonoBehaviour
         List<int> trueIndecies = new List<int>();
         for (int i = 0; i < cartesian.Length; i++)
         {
-            Debug.Log("" + i + " " + wrapIndex(i + 1, cartesian.Length) + " " + wrapIndex(i - 1, cartesian.Length));
+            
             if (CheckGrid(checkRoom.position + cartesian[wrapIndex(i + 1, cartesian.Length)], checkRoom.position + cartesian[wrapIndex(i - 1, cartesian.Length)] + cartesian[i] * (side - 1)))
             {
                 facings[i] = true;
@@ -293,7 +293,8 @@ public class RoomGridder : MonoBehaviour
             return 0;
         }
         int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];
-        RoomGrid newCenter = activeGrid.Find(newRoom => newRoom.position == checkRoom.position + cartesian[randomIndex] * ((side - 1) / 2)); ;
+        RoomGrid newCenter = activeGrid.Find(newRoom => newRoom.position == checkRoom.position + cartesian[randomIndex] * ((side - 1) / 2));
+        ReservePoints(newCenter.position, checkRoom.position + cartesian[wrapIndex(randomIndex - 1, cartesian.Length)] + cartesian[randomIndex] * (side - 1), shape, multiGridState, startState);
         newCenter.shape = shape;
         newCenter.state = startState;
         newCenter.type = type;
