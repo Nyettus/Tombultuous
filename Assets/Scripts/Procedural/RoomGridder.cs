@@ -256,6 +256,62 @@ public class RoomGridder : MonoBehaviour
 
     }
 
+    private int SetCenteredSquare(RoomGrid checkRoom, int side, RoomGrid.Shape shape, RoomGrid.State multiGridState, RoomGrid.State startState = RoomGrid.State.occupied, RoomGrid.Type type = RoomGrid.Type.Standard)
+    {
+        
+        if(side % 2==0)
+        {
+            Debug.LogError("Centered square cannot have even sides");
+            return 0;
+        }
+        //Not quadrants but cartesian directions
+        bool[] facings = { false, false, false, false }; // Order of v2i cartesian 
+        List<int> trueIndecies = new List<int>();
+
+        //Do it manually
+        //North
+        if (CheckGrid(checkRoom.position + cartesian[0], checkRoom.position + cartesian[2] + cartesian[3] * (side - 1)))
+        {
+            facings[3] = true;
+            if (facings[3]) trueIndecies.Add(3);
+
+        }
+        //East
+        if (CheckGrid(checkRoom.position + cartesian[3], checkRoom.position + cartesian[1] + cartesian[2] * (side - 1)))
+        {
+            facings[2] = true;
+            if (facings[2]) trueIndecies.Add(2);
+        }
+        //South
+        if (CheckGrid(checkRoom.position + cartesian[2], checkRoom.position + cartesian[0] + cartesian[1] * (side - 1)))
+        {
+            facings[1] = true;
+            if (facings[1]) trueIndecies.Add(1);
+        }
+        //West
+        if (CheckGrid(checkRoom.position + cartesian[1], checkRoom.position + cartesian[3] + cartesian[0] * (side - 1)))
+        {
+            facings[0] = true;
+            if (facings[0]) trueIndecies.Add(0);
+        }
+
+        if (trueIndecies.Count == 0)
+        {
+            Debug.Log("Square of side " + side + " couldn't place at" + checkRoom.position);
+            return 0;
+        }
+        int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];
+        RoomGrid newCenter = activeGrid.Find(newRoom => newRoom.position == checkRoom.position + cartesian[randomIndex] * ((side - 1)/2));;
+        newCenter.shape = shape;
+        newCenter.state = startState;
+        newCenter.type = type;
+        return -1;
+
+
+
+
+    }
+
     #endregion
 
 
@@ -357,7 +413,7 @@ public class RoomGridder : MonoBehaviour
                 distance = current;
             }
         }
-        SetRectangular(furthestAdjacents, new Vector2Int(3, 3), RoomGrid.Shape._3x3, RoomGrid.State.forbidden,RoomGrid.State.forbidden,RoomGrid.Type.Boss);
+        SetCenteredSquare(furthestAdjacents, 3, RoomGrid.Shape._3x3, RoomGrid.State.forbidden,RoomGrid.State.forbidden,RoomGrid.Type.Boss);
         furthestAdjacents.state = RoomGrid.State.multiGrid;
         Debug.Log("Boss room created at " + furthestAdjacents.position);
     }
