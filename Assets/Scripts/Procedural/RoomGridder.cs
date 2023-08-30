@@ -298,6 +298,7 @@ public class RoomGridder : MonoBehaviour
         newCenter.shape = shape;
         newCenter.state = startState;
         newCenter.type = type;
+        multiGridID++;
         return -1;
 
     }
