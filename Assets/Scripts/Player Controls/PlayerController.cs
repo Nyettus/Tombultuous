@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump")]
     public int jumpCount;
-    public int b_jumpCount => Mathf.Clamp(Master.jumpCount + Master.itemMaster.M_JumpCount, Master.itemMaster.MIN_JumpCount, 1000000);
+    public int b_jumpCount => Mathf.Clamp(Master.jumpCount + Master.itemMaster.M_JumpCount, Master.itemMaster.MIN_JumpCount, int.MaxValue);
 
 
 
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
 
-
+        
         if (jumpCount > 0 && context.ReadValue<float>() > 0.5f && jumpTick && dashTick)
         {
             if (jumpCount == b_jumpCount)
