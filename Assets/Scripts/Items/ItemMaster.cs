@@ -6,8 +6,8 @@ using System.Linq;
 public class ItemMaster : MonoBehaviour
 {
     public PlayerMaster Master;
-    
-    public Dictionary<ItemBase, ItemStack> itemList = new Dictionary<ItemBase, ItemStack>();
+
+    public Dictionary<ItemBase, ItemStack> itemList => GameManager._.itemList;
 
     public OnKillItemHandler onKillItemHandler;
     public OnPermanantBuffHandler onPBuffHandler;

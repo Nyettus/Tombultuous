@@ -7,6 +7,10 @@ using UnityEngine.InputSystem;
 public class GameManager : SingletonPersist<GameManager>
 {
     public PlayerMaster Master;
+    #region persistable items
+    public Dictionary<ItemBase, ItemStack> itemList = new Dictionary<ItemBase, ItemStack>();
+
+    #endregion
     //Basic menu
     public bool paused = false;
     private void Awake()
