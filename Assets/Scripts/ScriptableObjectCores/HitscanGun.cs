@@ -3,15 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "new Hitscan",menuName = "Weapons/Ranged/Hitscan")]
-public class HitscanGun : ScriptableObject
+public class HitscanGun : WeaponBase
 {
-    [Header("Descriptions")]
-    public string weaponName;
-    public string normalDescription;
-    public string specialDescription;
-    public string lore;
-
-
     [Header("Basic Weapon Traits")]
     public float maxDamage;
     public float minDamage;

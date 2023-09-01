@@ -10,6 +10,12 @@ public class PlayableCharacter : ScriptableObject
     public string characterName;
     public string description;
 
+    //Starting equipment
+    [Header("Starting Gear")]
+    public ItemBase[] startingItems;
+    public WeaponBase[] startingWeapons;
+
+
     //Combat Variables
     [Header("Combat")]
     public int health;

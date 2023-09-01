@@ -36,7 +36,7 @@ public class WallHitEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(spawnTime+ps[0].time > spawnTime + 1)
+        if(spawnTime+ps[0].time >= spawnTime + 1f)
         {
             gameObject.SetActive(false);
         }

@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public void takeDamage(float damage)
     {
         health -= damage;
+        Debug.Log(string.Format("Took {0} damage ", damage));
         if (health <= 0)
         {
             Debug.Log("im dead");
