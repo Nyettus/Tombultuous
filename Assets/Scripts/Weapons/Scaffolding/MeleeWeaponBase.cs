@@ -65,7 +65,8 @@ public class MeleeWeaponBase : WeaponCore
 
     public override void OnMeleeHit(EnemyHealth HealthScript)
     {
-        Debug.Log("enemy hit");
+        float damage = this.damage * GameManager._.Master.weaponMaster.damageMult;
+        HealthScript.takeDamage(damage);
     }
 
     public override void Special()
