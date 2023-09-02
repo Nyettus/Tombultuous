@@ -33,6 +33,15 @@ public class WeaponCore : MonoBehaviour
     {
 
     }
+
+    public virtual void OnSwitch()
+    {
+
+    }
+    public virtual void OnMeleeHit(EnemyHealth HealthScript)
+    {
+
+    }
     public virtual void Special()
     {
         if (GameManager._.paused) return;

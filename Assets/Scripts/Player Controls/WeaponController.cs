@@ -47,7 +47,6 @@ public class WeaponController : MonoBehaviour
             if (equippedGuns.Length>val&&equippedGuns[val] != null&&val!=selectedWeapon)
             {
                 previousWeapon = selectedWeapon;
-                Debug.Log(previousWeapon);
                 selectedWeapon = val;
                 SelectWeapon();
             }
@@ -62,7 +61,6 @@ public class WeaponController : MonoBehaviour
             {
                 int temp = selectedWeapon;
                 selectedWeapon = previousWeapon;
-                Debug.Log(selectedWeapon);
                 SelectWeapon();
                 previousWeapon = temp;
             }
@@ -99,7 +97,11 @@ public class WeaponController : MonoBehaviour
         foreach (Transform weapon in transform)
         {
             if (i == selectedWeapon)
+            {
                 weapon.gameObject.SetActive(true);
+                equippedGuns[i].OnSwitch();
+            }
+
             else
                 weapon.gameObject.SetActive(false);
 

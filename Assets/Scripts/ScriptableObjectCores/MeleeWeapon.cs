@@ -7,5 +7,7 @@ public class MeleeWeapon : WeaponBase
 {
     public float damage;
     public float swingSpeed;
-    
+
+    public float hitBoxLength;
+    public float hitboxWidth;
 }

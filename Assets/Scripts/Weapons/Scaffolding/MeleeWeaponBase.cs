@@ -11,8 +11,15 @@ public class MeleeWeaponBase : WeaponCore
     protected float damage;
     protected float swingSpeed;
 
+    [Header("Hitbox Traits")]
+    protected float hitboxLength;
+    protected float hitboxWidth;
+
     [Header("Out of Card logic")]
     protected float swingTime;
+    protected BoxCollider quickRef => GameManager._.Master.meleeHitbox;
+    protected float hitboxTime;
+    protected float hitboxDuration = 0.05f;
 
 
     protected override void Start()
@@ -25,6 +32,7 @@ public class MeleeWeaponBase : WeaponCore
     {
         base.Update();
         if (shooting) Swing();
+        if (hitboxTime < Time.time) quickRef.enabled = false;
     }
 
     protected virtual void Establish()
@@ -37,16 +45,27 @@ public class MeleeWeaponBase : WeaponCore
         specialCooldown = card.cooldown;
         damage = card.damage;
         swingSpeed = card.swingSpeed;
+
+        hitboxWidth = card.hitboxWidth;
+        hitboxLength = card.hitBoxLength;
+
     }
 
     protected void Swing()
     {
+
         if (GameManager._.paused) return;
         if (shooting && swingTime < Time.time)
         {
+
             Shoot();
             swingTime = Time.time + swingSpeed * GameManager._.Master.weaponMaster.hasteMult;
         }
+    }
+
+    public override void OnMeleeHit(EnemyHealth HealthScript)
+    {
+        Debug.Log("enemy hit");
     }
 
     public override void Special()
@@ -62,7 +81,22 @@ public class MeleeWeaponBase : WeaponCore
 
     public override void Shoot()
     {
+        quickRef.enabled = false;
+        quickRef.enabled = true;
+        hitboxTime = Time.time + hitboxDuration;
         Debug.Log("Swing");
+    }
+
+    public override void OnSwitch()
+    {
+        base.OnSwitch();
+        quickRef.center = new Vector3(0, 0, hitboxLength / 2f);
+        quickRef.size = new Vector3(hitboxWidth, hitboxWidth, hitboxLength);
+
+    }
+    private void OnDisable()
+    {
+        GameManager._.Master.meleeHitbox.enabled = false;
     }
 
 
