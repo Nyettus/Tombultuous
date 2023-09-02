@@ -71,6 +71,7 @@ public class WeaponCore : MonoBehaviour
                 modelHolder.localRotation = Quaternion.identity;
                 GetComponent<Collider>().enabled = false;
                 master.UpdateEquipped();
+                master.selectedWeapon = i;
                 master.SelectWeapon();
                 ticked = true;
                 Debug.Log("Normal Pickup");
