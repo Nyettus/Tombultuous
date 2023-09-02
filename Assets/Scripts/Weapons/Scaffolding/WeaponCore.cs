@@ -28,6 +28,7 @@ public class WeaponCore : MonoBehaviour
         modelHolder = transform.GetChild(1);
     }
 
+
     public virtual void Shoot()
     {
 
