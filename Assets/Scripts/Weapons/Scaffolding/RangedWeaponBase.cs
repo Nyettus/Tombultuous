@@ -94,7 +94,7 @@ public class RangedWeaponBase : WeaponCore
                 Shoot();
                 shooting = false;
             }
-            shootSetTime = Time.time + (GameManager._.Master.weaponMaster.hasteMult);
+            shootSetTime = Time.time + fireRate * (GameManager._.Master.weaponMaster.hasteMult);
         }
 
     }

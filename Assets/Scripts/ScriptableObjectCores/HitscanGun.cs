@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new Hitscan",menuName = "Weapons/Ranged/Hitscan")]
+[CreateAssetMenu(fileName = "new Hitscan", menuName = "Weapons/Ranged/Hitscan")]
 public class HitscanGun : WeaponBase
 {
     [Header("Basic Weapon Traits")]
@@ -22,8 +22,7 @@ public class HitscanGun : WeaponBase
     public int magSize;
     public float reloadTime;
 
-    [Header("Special Move")]
-    public float cooldown;
+
 
 
 }

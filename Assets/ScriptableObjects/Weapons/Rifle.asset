@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab25f0557ba7204192c695227b0e6ac, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
   weaponName: Rifle Moment
   normalDescription: It shoot good and accurate
   specialDescription: Teleport to the bullet, do the damage
   lore: This one is less funny because i ran out of ideas with the pistol
+  cooldown: 10
   maxDamage: 50
   minDamage: 50
   bullets: 1
-  fireRate: 0.3
+  fireRate: 1
   spread: 0
   fullAuto: 0
   minRange: 0
@@ -27,4 +29,3 @@ MonoBehaviour:
   requireReload: 0
   magSize: 0
   reloadTime: 0
-  cooldown: 10
