@@ -17,7 +17,7 @@ public class MeleeWeaponBase : WeaponCore
 
     [Header("Out of Card logic")]
     protected float swingTime;
-    protected BoxCollider quickRef => GameManager._.Master.meleeHitbox;
+    protected BoxCollider quickRef => GameManager._.Master.weaponMaster.meleeHitbox;
     protected float hitboxTime;
     protected float hitboxDuration = 0.05f;
 
@@ -97,7 +97,7 @@ public class MeleeWeaponBase : WeaponCore
     }
     private void OnDisable()
     {
-        GameManager._.Master.meleeHitbox.enabled = false;
+        GameManager._.Master.weaponMaster.meleeHitbox.enabled = false;
     }
 
 

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class WeaponController : MonoBehaviour
 {
     public PlayerMaster master;
-
+    public BoxCollider meleeHitbox;
     public float damageMult => master.damage + master.itemMaster.M_DamageMult;
     public float hasteMult => master.itemMaster.M_Haste;
     public int pockets;
