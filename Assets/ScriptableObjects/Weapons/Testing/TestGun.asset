@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab25f0557ba7204192c695227b0e6ac, type: 3}
   m_Name: TestGun
   m_EditorClassIdentifier: 
+  prefab: {fileID: 199715311746550362, guid: 507914df4b0361442bc59e6bf57626a7, type: 3}
   weaponName: It do be the test weapon
   normalDescription: Automatico
   specialDescription: There aint one right now
   lore: This mythical weapon was created to make sure the game wouldnt break
+  cooldown: 10
   maxDamage: 40
   minDamage: 20
   bullets: 5
@@ -27,4 +29,3 @@ MonoBehaviour:
   requireReload: 0
   magSize: 10
   reloadTime: 3
-  cooldown: 10
