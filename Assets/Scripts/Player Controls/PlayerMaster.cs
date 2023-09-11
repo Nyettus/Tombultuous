@@ -45,7 +45,7 @@ public class PlayerMaster : MonoBehaviour
     void Awake()
     {
         Establish();
-        ReturnPlayer();
+        //ReturnPlayer();
     }
 
     // Update is called once per frame
