@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : SingletonPersist<GameManager>
 {
     public PlayerMaster Master;
+
+    public GameObject playerPrefab;
     #region persistable items
     public Dictionary<ItemBase, ItemStack> itemList = new Dictionary<ItemBase, ItemStack>();
-
     #endregion
     //Basic menu
     public bool paused = false;
@@ -17,9 +19,16 @@ public class GameManager : SingletonPersist<GameManager>
     {
 
         Startup(this);
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
-    
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnSceneLoaded: " + scene.name);
+        Debug.Log(mode);
+    }
+
 
     protected override void RunOnce()
     {
@@ -42,12 +51,6 @@ public class GameManager : SingletonPersist<GameManager>
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void Pause(InputAction.CallbackContext context)
