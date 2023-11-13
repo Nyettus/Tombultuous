@@ -16,6 +16,17 @@ public class SensSlider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //SetSensitity();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void SetSensitity()
+    {
         cameraControl = GameManager._.Master.GetComponentInChildren<CameraControls>();
         sensSlider.onValueChanged.AddListener((v) =>
         {
@@ -24,9 +35,4 @@ public class SensSlider : MonoBehaviour
         });
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

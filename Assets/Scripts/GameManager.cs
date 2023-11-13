@@ -81,18 +81,26 @@ public class GameManager : SingletonPersist<GameManager>
         weaponStorage.Clear();
 
 
-        for(int i = 0; i<currentWeapons.Length; i++)
+        for (int i = 0; i < currentWeapons.Length; i++)
         {
             if (currentWeapons[i] == null) continue;
             var temp = currentWeapons[i];
-            var tempWeaponStore = new WeaponStorage(temp.gameObject,temp.specialTime - Time.time, 0);
+            var tempWeaponStore = new WeaponStorage(temp.gameObject, temp.specialTime - Time.time, 0);
             weaponStorage.Add(tempWeaponStore);
             Debug.Log("Looped");
         }
         SceneManager.LoadScene(id);
     }
 
-
+    public bool CheckMasterError()
+    {
+        if (Master == null)
+        {
+            Debug.LogError("Master Absent");
+            return true;
+        }
+        else return false;
+    }
 
 
 }
