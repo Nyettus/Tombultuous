@@ -37,6 +37,7 @@ public class MeleeWeaponBase : WeaponCore
 
     protected virtual void Establish()
     {
+        prefab = card.prefab;
         weaponName = card.weaponName;
         atkDesc = card.normalDescription;
         spkDesc = card.specialDescription;

@@ -31,8 +31,13 @@ public class SummonPlayer : MonoBehaviour
             Debug.Log("Attempted to set master again");
             GameManager._.Master = holding;
         }
-        else
-            Destroy(this);
+        else if(!once)
+        {
+            //GiveWeapons();
+            StartCoroutine("GiveWeapon");
+            //Destroy(this);
+        }
+
         Debug.Log("Im alive");
     }
 
@@ -43,4 +48,34 @@ public class SummonPlayer : MonoBehaviour
         holding = temp.transform.GetChild(0).GetComponent<PlayerMaster>();
         holding.movementMaster.rb.Move(spawnPosition.position, Quaternion.identity);
     }
+
+
+    private bool once = false;
+    private void GiveWeapons()
+    {
+        if (once) return;
+        once = true;
+        foreach(WeaponStorage weapon in GameManager._.weaponStorage)
+        {
+            var currentWep = Instantiate(weapon.weaponPrefab);
+            var currentCore = currentWep.GetComponent<WeaponCore>();
+            currentCore.pickUpWeapon();
+        }
+
+    }
+
+    private IEnumerator GiveWeapon()
+    {
+        if (once) yield break;
+        once = true;
+        foreach (WeaponStorage weapon in GameManager._.weaponStorage)
+        {
+            var currentWep = Instantiate(weapon.weaponPrefab);
+            var currentCore = currentWep.GetComponent<WeaponCore>();
+            yield return new WaitForSeconds(0.1f);
+            currentCore.pickUpWeapon();
+        }
+        
+    }
+
 }

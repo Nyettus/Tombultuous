@@ -21,6 +21,7 @@ public class WeaponCore : MonoBehaviour
 
     [Header("Inventory Traits")]
     public bool equipped = false;
+    public GameObject prefab;
 
     protected virtual void Start()
     {

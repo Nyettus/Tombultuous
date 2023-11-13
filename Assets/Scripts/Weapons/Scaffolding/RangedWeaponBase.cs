@@ -42,6 +42,7 @@ public class RangedWeaponBase : WeaponCore
 
     protected virtual void Establish()
     {
+        prefab = card.prefab;
         weaponName = card.weaponName;
         atkDesc = card.normalDescription;
         spkDesc = card.specialDescription;

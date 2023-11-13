@@ -28,6 +28,7 @@ public class GameManager : SingletonPersist<GameManager>
     {
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
+        Debug.Log("The state of the OnSceneLoaded: " + CheckMasterError());
     }
 
 
@@ -85,7 +86,7 @@ public class GameManager : SingletonPersist<GameManager>
         {
             if (currentWeapons[i] == null) continue;
             var temp = currentWeapons[i];
-            var tempWeaponStore = new WeaponStorage(temp.gameObject, temp.specialTime - Time.time, 0);
+            var tempWeaponStore = new WeaponStorage(temp.prefab, temp.specialTime - Time.time, 0);
             weaponStorage.Add(tempWeaponStore);
             Debug.Log("Looped");
         }
