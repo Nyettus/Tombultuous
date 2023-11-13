@@ -49,6 +49,7 @@ public class OnPermanantBuffHandler : MonoBehaviour
 
                 case StatType.Pockets:
                     itemMaster.M_Pockets += (int)stat.change * stacks;
+                    GameManager._.Master.weaponMaster.RefreshPockets();
                     break;
 
                 case StatType.MovementSpeed:

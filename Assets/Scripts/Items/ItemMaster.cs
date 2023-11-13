@@ -23,6 +23,7 @@ public class ItemMaster : MonoBehaviour
     public float M_Haste => hasteEquation(Perm_Haste);
     public int M_Pockets;
     public int MIN_Pockets = 1;
+    public int MAX_Pockets = 10;
     public float Perm_MoveSpeed;
     public float M_MoveSpeed => Perm_MoveSpeed + onKillItemHandler.BigBootsAdd();
     public float MIN_MoveSpeed = 0.1f;
@@ -104,6 +105,7 @@ public class ItemMaster : MonoBehaviour
 
     public void RefreshEffects()
     {
+        Debug.Log("Effects refreshed");
         ResetStats();
         var allBuffItems = itemList.Where(il => il.Key is PermanentBuffItem);
         foreach (var i in allBuffItems)

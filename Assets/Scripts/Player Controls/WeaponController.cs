@@ -9,7 +9,7 @@ public class WeaponController : MonoBehaviour
     public BoxCollider meleeHitbox;
     public float damageMult => master.damage + master.itemMaster.M_DamageMult;
     public float hasteMult => master.itemMaster.M_Haste;
-    public int pockets;
+    public int pockets => Mathf.Clamp(master.pockets + master.itemMaster.M_Pockets,master.itemMaster.MIN_Pockets,master.itemMaster.MAX_Pockets);
 
     public int selectedWeapon = 0;
     private int previousWeapon = -1;
@@ -86,7 +86,6 @@ public class WeaponController : MonoBehaviour
     private void Establish()
     {
         master = GetComponentInParent<PlayerMaster>();
-        pockets = master.pockets;
         equippedGuns = new WeaponCore[pockets];
 
     }
@@ -126,6 +125,7 @@ public class WeaponController : MonoBehaviour
     {
         if (pockets != equippedGuns.Length)
         {
+            Debug.Log("Attempted to refresh pockets");
             WeaponCore[] newArray = new WeaponCore[pockets];
             equippedGuns.CopyTo(newArray, 0);
             equippedGuns = newArray;

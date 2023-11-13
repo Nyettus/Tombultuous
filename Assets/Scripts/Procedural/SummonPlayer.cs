@@ -51,30 +51,22 @@ public class SummonPlayer : MonoBehaviour
 
 
     private bool once = false;
-    private void GiveWeapons()
-    {
-        if (once) return;
-        once = true;
-        foreach(WeaponStorage weapon in GameManager._.weaponStorage)
-        {
-            var currentWep = Instantiate(weapon.weaponPrefab);
-            var currentCore = currentWep.GetComponent<WeaponCore>();
-            currentCore.pickUpWeapon();
-        }
-
-    }
-
     private IEnumerator GiveWeapon()
     {
         if (once) yield break;
         once = true;
+        GameManager._.Master.itemMaster.RefreshEffects();
         foreach (WeaponStorage weapon in GameManager._.weaponStorage)
         {
+
             var currentWep = Instantiate(weapon.weaponPrefab);
+            Debug.Log("I spawned 1 weapon");
             var currentCore = currentWep.GetComponent<WeaponCore>();
             yield return new WaitForSeconds(0.1f);
             currentCore.pickUpWeapon();
+            currentCore.specialTime = weapon.specialRemaining + Time.time;
         }
+
         
     }
 
