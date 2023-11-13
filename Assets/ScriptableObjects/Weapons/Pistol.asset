@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab25f0557ba7204192c695227b0e6ac, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
   weaponName: Shardenfreude
   normalDescription: Single shot pistol
   specialDescription: Release the rest of the bullets in a burst<br>Knockback and
     cooldown based on shots released
   lore: sksks its kinda funny if you think about it
+  cooldown: 10
   maxDamage: 20
   minDamage: 5
   bullets: 1
@@ -28,4 +30,3 @@ MonoBehaviour:
   requireReload: 1
   magSize: 7
   reloadTime: 1
-  cooldown: 10

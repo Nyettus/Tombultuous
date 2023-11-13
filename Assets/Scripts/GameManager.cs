@@ -12,6 +12,7 @@ public class GameManager : SingletonPersist<GameManager>
     public GameObject playerPrefab;
     #region persistable items
     public Dictionary<ItemBase, ItemStack> itemList = new Dictionary<ItemBase, ItemStack>();
+    public List<WeaponStorage> weaponStorage = new List<WeaponStorage>();
     #endregion
     //Basic menu
     public bool paused = false;
@@ -55,7 +56,8 @@ public class GameManager : SingletonPersist<GameManager>
 
     public void Pause(InputAction.CallbackContext context)
     {
-        if (context.performed){
+        if (context.performed)
+        {
             paused = !paused;
             if (paused)
             {
@@ -71,5 +73,26 @@ public class GameManager : SingletonPersist<GameManager>
             }
         }
     }
+
+
+    public void TransitionScene(int id)
+    {
+        var currentWeapons = Master.weaponMaster.equippedGuns;
+        weaponStorage.Clear();
+
+
+        for(int i = 0; i<currentWeapons.Length; i++)
+        {
+            if (currentWeapons[i] == null) continue;
+            var temp = currentWeapons[i];
+            var tempWeaponStore = new WeaponStorage(temp.gameObject,temp.specialTime - Time.time, 0);
+            weaponStorage.Add(tempWeaponStore);
+            Debug.Log("Looped");
+        }
+        SceneManager.LoadScene(id);
+    }
+
+
+
 
 }
