@@ -24,6 +24,7 @@ public class Interactable : MonoBehaviour
                     foreach (var baseItem in itemCore.baseItems)
                     {
                         GameManager._.Master.itemMaster.GetItem(baseItem);
+                        itemCore.onPickup();
                     }
 
                 }

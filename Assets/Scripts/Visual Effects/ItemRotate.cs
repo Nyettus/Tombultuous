@@ -8,13 +8,17 @@ public class ItemRotate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        master = GetComponentInParent<WeaponCore>();
+        if(transform.parent.TryGetComponent<WeaponCore>(out WeaponCore temp))
+        {
+            master = temp;
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!master.equipped)
+        if (master == null || !master.equipped)
             transform.Rotate(new Vector3(0, 1, 0));
     }
 }
