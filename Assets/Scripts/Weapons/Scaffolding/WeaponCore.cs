@@ -71,6 +71,7 @@ public class WeaponCore : MonoBehaviour
                 transform.localRotation = Quaternion.identity;
                 modelHolder.localRotation = Quaternion.identity;
                 GetComponent<Collider>().enabled = false;
+                LayerChange(gameObject, "Viewmodel");
                 master.UpdateEquipped();
                 master.selectedWeapon = i;
                 master.SelectWeapon();
@@ -91,6 +92,7 @@ public class WeaponCore : MonoBehaviour
             modelHolder.localRotation = Quaternion.identity;
             replaced.GetComponent<Collider>().enabled = true;
             replaced.GetComponent<WeaponCore>().equipped = false;
+            LayerChange(replaced.gameObject, "Player");
 
 
             equipped = true;
@@ -99,6 +101,7 @@ public class WeaponCore : MonoBehaviour
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
             GetComponent<Collider>().enabled = false;
+            LayerChange(gameObject, "Viewmodel");
 
             master.UpdateEquipped();
             master.SelectWeapon();
@@ -110,6 +113,17 @@ public class WeaponCore : MonoBehaviour
     private void OnDisable()
     {
         shooting = false;
+    }
+    private void LayerChange(GameObject go, string layerName)
+    {
+        go.layer = LayerMask.NameToLayer(layerName);
+        foreach (Transform child in go.transform)
+        {
+            child.gameObject.layer = LayerMask.NameToLayer(layerName);
+            Transform hasChildren = child.GetComponentInChildren<Transform>();
+            if (hasChildren != null)
+                LayerChange(child.gameObject, layerName);
+        }
     }
 
 }
