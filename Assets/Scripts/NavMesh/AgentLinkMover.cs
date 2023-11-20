@@ -70,7 +70,7 @@ public class AgentLinkMover : MonoBehaviour
         float normalizedTime = 0.0f;
         while (normalizedTime < 1.0f)
         {
-            float yOffset = mCurve.Evaluate(normalizedTime);
+            float yOffset = mCurve.Evaluate(normalizedTime)*2.0f;
             agent.transform.position = Vector3.Lerp(startPos, endPos, normalizedTime) + yOffset * Vector3.up;
             normalizedTime += Time.deltaTime / duration;
             yield return null;
