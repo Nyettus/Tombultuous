@@ -14,7 +14,7 @@ public enum OffMeshLinkMoveMethod
 public class AgentLinkMover : MonoBehaviour
 {
     public OffMeshLinkMoveMethod m_Method = OffMeshLinkMoveMethod.Parabola;
-    public AnimationCurve m_Curve = new AnimationCurve();
+    public AnimationCurve mCurve = new AnimationCurve();
 
     IEnumerator Start()
     {
@@ -29,7 +29,7 @@ public class AgentLinkMover : MonoBehaviour
                 else if (m_Method == OffMeshLinkMoveMethod.Parabola)
                     yield return StartCoroutine(Parabola(agent, 2.0f, 0.5f));
                 else if (m_Method == OffMeshLinkMoveMethod.Curve)
-                    yield return StartCoroutine(Curve(agent, 0.5f));
+                    yield return StartCoroutine(Curve(agent, 0.75f));
                 agent.CompleteOffMeshLink();
             }
             yield return null;
@@ -70,7 +70,7 @@ public class AgentLinkMover : MonoBehaviour
         float normalizedTime = 0.0f;
         while (normalizedTime < 1.0f)
         {
-            float yOffset = m_Curve.Evaluate(normalizedTime);
+            float yOffset = mCurve.Evaluate(normalizedTime);
             agent.transform.position = Vector3.Lerp(startPos, endPos, normalizedTime) + yOffset * Vector3.up;
             normalizedTime += Time.deltaTime / duration;
             yield return null;

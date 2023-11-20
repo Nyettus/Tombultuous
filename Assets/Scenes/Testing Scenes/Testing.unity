@@ -1342,9 +1342,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Method: 3
-  m_Curve:
+  mCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.0047169924
+      inSlope: 5.650551
+      outSlope: 5.650551
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.0576
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: -0.0047169924
+      inSlope: -5.8143325
+      outSlope: -5.8143325
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05760002
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -2665,6 +2692,10 @@ PrefabInstance:
     - target: {fileID: 5572372639430295061, guid: 2e83a78aa0fe1b64f92aee3ad1ff743e, type: 3}
       propertyPath: m_Name
       value: LongTestMelee
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572372639430295061, guid: 2e83a78aa0fe1b64f92aee3ad1ff743e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -39227,6 +39258,10 @@ PrefabInstance:
     - target: {fileID: 1977269585916964876, guid: 7ccd04895e0353744b820576a4a50fc3, type: 3}
       propertyPath: m_Name
       value: ShortTestMeleee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977269585916964876, guid: 7ccd04895e0353744b820576a4a50fc3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5794040186092651693, guid: 7ccd04895e0353744b820576a4a50fc3, type: 3}
       propertyPath: m_RootOrder
