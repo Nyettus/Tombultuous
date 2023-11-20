@@ -7,7 +7,6 @@ public class AIBasicChase : MonoBehaviour
 {
 
     private NavMeshAgent agent;
-    public AnimationCurve m_Curve;
     // Start is called before the first frame update
     void Start()
     {
