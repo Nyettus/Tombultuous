@@ -26,9 +26,9 @@ public class GameManager : SingletonPersist<GameManager>
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
-        Debug.Log("The state of the OnSceneLoaded: " + CheckMasterError());
+        //Debug.Log("OnSceneLoaded: " + scene.name);
+        //Debug.Log(mode);
+        //Debug.Log("The state of the OnSceneLoaded: " + CheckMasterError());
     }
 
 
