@@ -6,6 +6,12 @@ public class EnemyHealth : MonoBehaviour
 {
     public float health = 100f;
 
+    public EnemyCountHandler countHandler;
+
+    private void Start()
+    {
+        countHandler = GetComponent<EnemyCountHandler>();
+    }
     public void takeDamage(float damage)
     {
         health -= damage;
@@ -13,6 +19,7 @@ public class EnemyHealth : MonoBehaviour
         if (health <= 0)
         {
             Debug.Log("im dead");
+            countHandler.RemoveFromMaster();
         }
         else
         {

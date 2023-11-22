@@ -10,7 +10,8 @@ public class HitscanWeaponBase : RangedWeaponBase
         {
             RaycastHit hit;
             Vector3 shootDir = bulletSpread(spread);
-            if(Physics.Raycast(Camera.main.transform.position,shootDir,out hit,100f,~(1<<6)))
+            LayerMask mask = ~(1 << 6 | 1 << 2);
+            if (Physics.Raycast(Camera.main.transform.position,shootDir,out hit,100f,mask))
             {
                 if(hit.transform.tag == "Enemy")
                 {
