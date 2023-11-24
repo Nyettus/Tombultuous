@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SummonPlayer : MonoBehaviour
 {
     public Transform spawnPosition;
+    public SetDoors spawnRoomDoors;
 
     public PlayerMaster holding;
     // Start is called before the first frame update
@@ -33,9 +34,8 @@ public class SummonPlayer : MonoBehaviour
         }
         else if(!once)
         {
-            //GiveWeapons();
+            spawnRoomDoors.OpenDoors();
             StartCoroutine("GiveWeapon");
-            //Destroy(this);
         }
 
         Debug.Log("Im alive");
@@ -66,7 +66,7 @@ public class SummonPlayer : MonoBehaviour
             currentCore.pickUpWeapon();
             currentCore.specialTime = weapon.specialRemaining + Time.time;
         }
-
+        Destroy(this);
         
     }
 
