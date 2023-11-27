@@ -9,6 +9,7 @@ public class GameManager : SingletonPersist<GameManager>
 {
     public PlayerMaster Master;
 
+    public PlayableCharacter playerCard;
     public GameObject playerPrefab;
     #region persistable items
     public Dictionary<ItemBase, ItemStack> itemList = new Dictionary<ItemBase, ItemStack>();

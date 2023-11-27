@@ -8,7 +8,7 @@ public class SummonPlayer : MonoBehaviour
     public Transform spawnPosition;
     public SetDoors spawnRoomDoors;
 
-    public PlayerMaster holding;
+    private PlayerMaster holding;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +32,9 @@ public class SummonPlayer : MonoBehaviour
             Debug.Log("Attempted to set master again");
             GameManager._.Master = holding;
         }
-        else if(!once)
+        else if (!once)
         {
-            spawnRoomDoors.OpenDoors();
+            if (spawnRoomDoors != null) spawnRoomDoors.OpenDoors();
             StartCoroutine("GiveWeapon");
         }
 
@@ -46,7 +46,10 @@ public class SummonPlayer : MonoBehaviour
     {
         var temp = Instantiate(GameManager._.playerPrefab);
         holding = temp.transform.GetChild(0).GetComponent<PlayerMaster>();
+        
+
         holding.movementMaster.rb.Move(spawnPosition.position, Quaternion.identity);
+
     }
 
 
@@ -67,7 +70,7 @@ public class SummonPlayer : MonoBehaviour
             currentCore.specialTime = weapon.specialRemaining + Time.time;
         }
         Destroy(this);
-        
+
     }
 
 }

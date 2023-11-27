@@ -5,23 +5,30 @@ using UnityEngine;
 public class ChangePlayer : MonoBehaviour
 {
     public PlayableCharacter character;
+    private PlayerMaster holder => GameManager._.Master;
 
     public void EquipNewCharacter()
     {
-        PlayerMaster holder = GameManager._.Master;
-        holder.card = character;
+        
+        if (character == holder.card) return;
+        GameManager._.playerCard= character;
         holder.EstablishCard();
+        GiveItems();
+        StartCoroutine("GiveWeapon");
+    }
+
+    private void GiveItems()
+    {
         holder.itemMaster.CleanseItems();
-        foreach(ItemBase item in character.startingItems)
+        foreach (ItemBase item in character.startingItems)
         {
             holder.itemMaster.GetItem(item);
         }
-        holder.weaponMaster.CleanseWeapons();
-        StartCoroutine("GiveWeapon");
     }
 
     private IEnumerator GiveWeapon()
     {
+        holder.weaponMaster.CleanseWeapons();
         foreach (WeaponBase weapon in character.startingWeapons)
         {
             var currentWep = Instantiate(weapon.prefab);

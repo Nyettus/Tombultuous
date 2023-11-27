@@ -5,9 +5,8 @@ using UnityEngine;
 public class PlayerMaster : MonoBehaviour
 {
 
-
-    [Header("Scriptable Object")]
-    public PlayableCharacter card;
+    public PlayableCharacter card => GameManager._.playerCard;
+    [Header("Lore")]
     public string characterName;
     public string description;
 
@@ -51,7 +50,7 @@ public class PlayerMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     //Get the variables out of the scriptable objects
@@ -66,6 +65,7 @@ public class PlayerMaster : MonoBehaviour
 
     public void EstablishCard()
     {
+
         //Name text
         characterName = card.characterName;
         description = card.description;
@@ -84,17 +84,7 @@ public class PlayerMaster : MonoBehaviour
         dashCooldown = card.dashCooldown;
         dashSpeed = card.dashSpeed;
     }
-    private void ReturnPlayer()
-    {
-        GameObject[] playerTagged = GameObject.FindGameObjectsWithTag("Player");
-        if (playerTagged.Length == 1)
-        {
-            GameManager._.Master = playerTagged[0].GetComponent<PlayerMaster>();
-        }
-        else
-        {
-            Debug.LogError("There is more than 1 player");
-        }
 
-    }
+
+
 }
