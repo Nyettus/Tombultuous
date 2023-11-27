@@ -11,12 +11,13 @@ public class GoldManager : MonoBehaviour
 
     public void GetGold(int amount)
     {
-        gold += (int)(amount * goldMultiplier);
+        Debug.Log(string.Format("{0} gold gained with {1} multipler", (int)(amount * goldMultiplier),goldMultiplier));
+        gold += Mathf.RoundToInt(amount * goldMultiplier);
     }
 
     public int FinalGold()
     {
-        int final = (int)(gold * goldRetention);
+        int final = Mathf.RoundToInt(gold * goldRetention);
         gold = 0;
         return final;
     }
