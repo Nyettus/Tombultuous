@@ -14,6 +14,7 @@ public class GameManager : SingletonPersist<GameManager>
     #region persistable items
     public Dictionary<ItemBase, ItemStack> itemList = new Dictionary<ItemBase, ItemStack>();
     public List<WeaponStorage> weaponStorage = new List<WeaponStorage>();
+    public GoldManager goldManager;
     #endregion
     //Basic menu
     public bool paused = false;
