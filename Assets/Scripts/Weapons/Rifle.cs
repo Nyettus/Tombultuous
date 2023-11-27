@@ -11,7 +11,7 @@ public class Rifle : HitscanWeaponBase
         {
             RaycastHit hit;
             Vector3 shootDir = bulletSpread(spread);
-            if (Physics.Raycast(Camera.main.transform.position, shootDir, out hit, 100f, ~(1 << 6)))
+            if (Physics.Raycast(Camera.main.transform.position, shootDir, out hit, 100f, layerMask))
             {
                 Vector3 pos = Vector3.Lerp(GameManager._.Master.transform.position, hit.point, 0.9f);
                 GameManager._.Master.movementMaster.rb.MovePosition(pos);

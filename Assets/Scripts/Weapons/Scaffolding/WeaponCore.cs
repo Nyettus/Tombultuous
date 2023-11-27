@@ -7,6 +7,7 @@ public class WeaponCore : MonoBehaviour
     public bool shooting;
     protected ObjectPooler ObjectPool;
     private Transform modelHolder;
+    protected LayerMask layerMask = ~(1 << 6 | 1 << 2);
 
     [Header("Lore Traits")]
     public string weaponName;

@@ -16,8 +16,7 @@ public class Shardenfreude : HitscanWeaponBase
             {
                 RaycastHit hit;
                 Vector3 shootDir = bulletSpread(0.3f);
-                LayerMask mask = ~(1 << 6 | 1 << 2);
-                if (Physics.Raycast(Camera.main.transform.position, shootDir, out hit, 100f, mask))
+                if (Physics.Raycast(Camera.main.transform.position, shootDir, out hit, 100f, layerMask))
                 {
                     if (hit.transform.tag == "Enemy")
                     {
