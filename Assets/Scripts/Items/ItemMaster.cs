@@ -103,6 +103,11 @@ public class ItemMaster : MonoBehaviour
         M_GoldMultiplier = 0;   //12
     }
 
+    public void CleanseItems()
+    {
+        GameManager._.itemList.Clear();
+    }
+
     public void RefreshEffects()
     {
         Debug.Log("Effects refreshed");

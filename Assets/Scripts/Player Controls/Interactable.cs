@@ -32,6 +32,10 @@ public class Interactable : MonoBehaviour
                 {
                     weaponCore.pickUpWeapon();
                 }
+                else if(collider.TryGetComponent(out ChangePlayer playerChange))
+                {
+                    playerChange.EquipNewCharacter();
+                }
             }
         }
     }

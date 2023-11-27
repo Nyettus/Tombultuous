@@ -9,7 +9,7 @@ public class WeaponController : MonoBehaviour
     public BoxCollider meleeHitbox;
     public float damageMult => master.damage + master.itemMaster.M_DamageMult;
     public float hasteMult => master.itemMaster.M_Haste;
-    public int pockets => Mathf.Clamp(master.pockets + master.itemMaster.M_Pockets,master.itemMaster.MIN_Pockets,master.itemMaster.MAX_Pockets);
+    public int pockets => Mathf.Clamp(master.pockets + master.itemMaster.M_Pockets, master.itemMaster.MIN_Pockets, master.itemMaster.MAX_Pockets);
 
     public int selectedWeapon = 0;
     private int previousWeapon = -1;
@@ -26,13 +26,13 @@ public class WeaponController : MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if(equippedGuns[selectedWeapon]!=null)
+        if (equippedGuns[selectedWeapon] != null)
             equippedGuns[selectedWeapon].shooting = context.performed;
     }
 
     public void OnSpecial(InputAction.CallbackContext context)
     {
-        if (context.performed&&equippedGuns[selectedWeapon]!=null)
+        if (context.performed && equippedGuns[selectedWeapon] != null)
         {
             equippedGuns[selectedWeapon].Special();
         }
@@ -43,8 +43,8 @@ public class WeaponController : MonoBehaviour
     {
         if (context.performed)
         {
-            int val = (int)context.ReadValue<float>()-1;
-            if (equippedGuns.Length>val&&equippedGuns[val] != null&&val!=selectedWeapon)
+            int val = (int)context.ReadValue<float>() - 1;
+            if (equippedGuns.Length > val && equippedGuns[val] != null && val != selectedWeapon)
             {
                 previousWeapon = selectedWeapon;
                 selectedWeapon = val;
@@ -57,7 +57,7 @@ public class WeaponController : MonoBehaviour
     {
         if (context.performed)
         {
-            if(previousWeapon != -1)
+            if (previousWeapon != -1)
             {
                 int temp = selectedWeapon;
                 selectedWeapon = previousWeapon;
@@ -71,9 +71,9 @@ public class WeaponController : MonoBehaviour
 
     public void OnReload(InputAction.CallbackContext context)
     {
-        if(context.performed&&equippedGuns[selectedWeapon].TryGetComponent(out RangedWeaponBase yep))
+        if (context.performed && equippedGuns[selectedWeapon].TryGetComponent(out RangedWeaponBase yep))
         {
-            if (yep.requireReload&&(yep.curMag != yep.magSize))
+            if (yep.requireReload && (yep.curMag != yep.magSize))
             {
                 yep.reloading = true;
                 yep.Invoke("Reload", yep.reloadTime);
@@ -82,6 +82,18 @@ public class WeaponController : MonoBehaviour
         }
     }
 
+    public void CleanseWeapons()
+    {
+        selectedWeapon = 0;
+        foreach (WeaponCore weapon in equippedGuns)
+        {
+            if (weapon != null) Destroy(weapon.gameObject);
+        }
+        for (int i = 0; i < equippedGuns.Length; i++)
+        {
+            equippedGuns[i] = null;
+        }
+    }
 
     private void Establish()
     {
@@ -113,12 +125,12 @@ public class WeaponController : MonoBehaviour
     public void UpdateEquipped()
     {
         int i = 0;
-        foreach(Transform weapon in transform)
+        foreach (Transform weapon in transform)
         {
             equippedGuns[i] = weapon.GetComponent<WeaponCore>();
             i++;
         }
-        
+
     }
 
     public void RefreshPockets()
@@ -133,6 +145,6 @@ public class WeaponController : MonoBehaviour
     }
 
 
-    
+
 
 }

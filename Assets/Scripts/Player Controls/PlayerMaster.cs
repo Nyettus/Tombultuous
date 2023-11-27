@@ -60,6 +60,12 @@ public class PlayerMaster : MonoBehaviour
         movementMaster = GetComponent<PlayerController>();
         weaponMaster = GetComponentInChildren<WeaponController>();
         itemMaster = GetComponent<ItemMaster>();
+        EstablishCard();
+
+    }
+
+    public void EstablishCard()
+    {
         //Name text
         characterName = card.characterName;
         description = card.description;
@@ -77,7 +83,6 @@ public class PlayerMaster : MonoBehaviour
         jumpCount = card.jumpCount;
         dashCooldown = card.dashCooldown;
         dashSpeed = card.dashSpeed;
-
     }
     private void ReturnPlayer()
     {
