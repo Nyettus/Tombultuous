@@ -6,6 +6,7 @@ public abstract class EnemyStateBase : StateMachineBehaviour
 {
     protected EnemyComponentMaster CM;
     protected float defaultWalkSpeed = -1;
+    protected Transform thisTransform;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -13,6 +14,7 @@ public abstract class EnemyStateBase : StateMachineBehaviour
         CM = animator.GetComponent<EnemyComponentMaster>();
         if(defaultWalkSpeed == -1) defaultWalkSpeed = CM.enemyNavMesh.speed;
         if (CM.enemyNavMesh.speed != defaultWalkSpeed) CM.enemyNavMesh.speed = defaultWalkSpeed;
+        thisTransform = animator.gameObject.transform;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,16 +30,19 @@ public abstract class EnemyStateBase : StateMachineBehaviour
     }
 
 
-    protected void MoveToPosition(Vector3 position, float speed)
+    protected void MoveToPosition(Vector3 position, float speed = float.MaxValue)
     {
+        if (speed == float.MaxValue) speed = defaultWalkSpeed;
+
         var holding = CM.enemyNavMesh;
         holding.speed = speed;
         holding.destination = position;
     }
 
-    protected void FaceTarget(Vector3 position)
+    protected void FaceTarget(Vector3 position, float rate)
     {
-        CM.gameObject.transform.LookAt(position);
+        var targetRot = Quaternion.LookRotation(position - thisTransform.position);
+        thisTransform.rotation = Quaternion.Slerp(thisTransform.rotation, targetRot, rate * Time.deltaTime);
     }
 
 }

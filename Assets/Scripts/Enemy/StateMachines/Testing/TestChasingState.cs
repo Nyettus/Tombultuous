@@ -15,7 +15,7 @@ public class TestChasingState : EnemyStateBase
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
         Debug.Log(defaultWalkSpeed);
-        MoveToPosition(GameManager._.Master.gameObject.transform.position, defaultWalkSpeed);
+        MoveToPosition(GameManager._.Master.gameObject.transform.position);
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

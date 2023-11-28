@@ -15,9 +15,8 @@ public class TestAttackState : EnemyStateBase
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
-        var tinyLerp = Vector3.Lerp(GameManager._.Master.gameObject.transform.position, animator.gameObject.transform.position, 0.95f);
-        MoveToPosition(tinyLerp, defaultWalkSpeed);
-        FaceTarget(tinyLerp);
+        MoveToPosition(GameManager._.Master.gameObject.transform.position, 0);
+        FaceTarget(GameManager._.Master.gameObject.transform.position, 7.5f);
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
