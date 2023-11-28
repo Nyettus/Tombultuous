@@ -9,9 +9,11 @@ public class EnemyHealth : MonoBehaviour
 
     public EnemyCountHandler countHandler;
     private bool once = true;
+    private EnemyComponentMaster CM;
     private void Start()
     {
         countHandler = GetComponent<EnemyCountHandler>();
+        if (TryGetComponent<EnemyComponentMaster>(out EnemyComponentMaster C)) CM = C;
     }
     public void takeDamage(float damage)
     {
@@ -20,8 +22,9 @@ public class EnemyHealth : MonoBehaviour
         if (health <= 0 && once)
         {
             Debug.Log("im dead");
-            GameManager._.goldManager.GetGold(goldAmount);
+            if (GameManager._.goldManager != null) GameManager._.goldManager.GetGold(goldAmount);
             countHandler.RemoveFromMaster();
+            if (CM != null) CM.enemyAnimator.SetTrigger("IsDead");
             once = false;
         }
         else
