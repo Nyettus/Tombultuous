@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class EnemyStateBase : StateMachineBehaviour
 {
     protected EnemyComponentMaster CM;
     protected float defaultWalkSpeed = -1;
     protected Transform thisTransform;
+
+    protected float incrementTimer = 0;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -44,5 +47,39 @@ public abstract class EnemyStateBase : StateMachineBehaviour
         var targetRot = Quaternion.LookRotation(position - thisTransform.position);
         thisTransform.rotation = Quaternion.Slerp(thisTransform.rotation, targetRot, rate * Time.deltaTime);
     }
+
+    protected Vector3 PositionInTauros(Vector3 startLocation, float lowerBound, float upperBound)
+    {
+
+
+        var flatStart = new Vector2(startLocation.x, startLocation.z);
+        var randomDir = (Random.insideUnitCircle * flatStart).normalized;
+        var randomDist = Random.Range(lowerBound, upperBound);
+        var v2position = flatStart + randomDir * randomDist;
+        var worldspacev3 = new Vector3(v2position.x, startLocation.y, v2position.y);
+        NavMeshHit navHit;
+        if (NavMesh.SamplePosition(worldspacev3, out navHit, 10, -1))
+        {
+            return navHit.position;
+        }
+        else
+            return startLocation;
+    }
+
+    protected bool Timer(float timeLimit)
+    {
+        if(incrementTimer < timeLimit)
+        {
+            incrementTimer += Time.deltaTime;
+            return false;
+        }
+        else
+        {
+            incrementTimer = 0;
+            return true;
+        }
+
+    }
+
 
 }
