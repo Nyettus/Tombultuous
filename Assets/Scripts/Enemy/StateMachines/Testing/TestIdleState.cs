@@ -9,7 +9,7 @@ public class TestIdleState : EnemyStateBase
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         CM.enemyNavMesh.isStopped = false;
-        WanderPosition = PositionInTauros(animator.gameObject.transform.position, 10, 20);
+        WanderPosition = PositionInTorus(thisTransform.position, RandomTorusCoords(10, 20));
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -18,7 +18,7 @@ public class TestIdleState : EnemyStateBase
 
         if (Timer(2))
         {
-            WanderPosition = PositionInTauros(animator.gameObject.transform.position, 4, 10);
+            WanderPosition = PositionInTorus(thisTransform.position, RandomTorusCoords(4, 10));
         }
         MoveToPosition(WanderPosition,CM.defaultWalkSpeed*0.5f);
     }
