@@ -21,6 +21,7 @@ public class TestIdleState : EnemyStateBase
             WanderPosition = PositionInTorus(thisTransform.position, RandomTorusCoords(4, 10));
         }
         MoveToPosition(WanderPosition,CM.defaultWalkSpeed*0.5f);
+        
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

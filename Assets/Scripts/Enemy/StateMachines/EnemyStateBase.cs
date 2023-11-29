@@ -31,7 +31,11 @@ public abstract class EnemyStateBase : StateMachineBehaviour
 
     }
 
-
+    /// <summary>
+    /// Move navmesh agent towards position at speed (default speed becomes default navmesh speed)
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="speed"></param>
     protected void MoveToPosition(Vector3 position, float speed = float.MaxValue)
     {
         if (speed == float.MaxValue) speed = CM.defaultWalkSpeed;
@@ -41,6 +45,11 @@ public abstract class EnemyStateBase : StateMachineBehaviour
         holding.destination = position;
     }
 
+    /// <summary>
+    /// Smoothly face target position at speed rate
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="rate"></param>
     protected void FaceTarget(Vector3 position, float rate)
     {
         var targetRot = Quaternion.LookRotation(position - thisTransform.position);
