@@ -9,6 +9,8 @@ public class EnemyComponentMaster : MonoBehaviour
     public NavMeshAgent enemyNavMesh;
     public Animator enemyAnimator;
 
+    public float defaultWalkSpeed = -1;
+
 
     // Start is called before the first frame update
     void Awake()
