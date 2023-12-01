@@ -26,5 +26,17 @@ public class EnemyComponentMaster : MonoBehaviour
         enemyAnimator.SetBool(name, set);
     }
 
+    public void SetAnimFloat(string name, float value = -1)
+    {
+        if(value == -1)
+        {
+            enemyAnimator.SetFloat(name, Random.Range(0f, 1f));
+        }
+        else
+        {
+            enemyAnimator.SetFloat(name, value);
+        }
+    }
+
 
 }

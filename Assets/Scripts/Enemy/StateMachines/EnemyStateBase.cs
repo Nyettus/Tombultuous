@@ -17,6 +17,7 @@ public abstract class EnemyStateBase : StateMachineBehaviour
         if(CM.defaultWalkSpeed == -1) CM.defaultWalkSpeed = CM.enemyNavMesh.speed;
         if (CM.enemyNavMesh.speed != CM.defaultWalkSpeed) CM.enemyNavMesh.speed = CM.defaultWalkSpeed;
         thisTransform = animator.gameObject.transform;
+        CM.enemyNavMesh.isStopped = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
