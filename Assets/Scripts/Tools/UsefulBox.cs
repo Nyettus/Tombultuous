@@ -1,0 +1,89 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+namespace UsefulBox
+{
+    public static class MurderBag
+    {
+        /// <summary>
+        /// Calculate a random point in a torus in normalised cartesian with magnitude (formatted x,y,magnitude)
+        /// </summary>
+        /// <param name="lowerBound">The first integer.</param>
+        /// <param name="upperBound">The second integer.</param>
+        /// <returns>The Vector3 formatted (direction x, direction z, magnitude.</returns>
+        public static Vector3 RandomTorusCoords(float lowerBound, float upperBound)
+        {
+            var randomDir = Random.insideUnitCircle.normalized;
+            var randomDist = Random.Range(lowerBound, upperBound);
+            return new Vector3(randomDir.x, randomDir.y, randomDist);
+        }
+
+        /// <summary>
+        /// Calculate the navmesh position of point in a torus around the starting position
+        /// </summary>
+        /// <param name="startLocation"></param>
+        /// <param name="torusCoords"></param>
+        /// <returns>The navmesh point or the starting location if no navmesh point is found </returns>
+        public static Vector3 PositionInTorus(Vector3 startLocation, Vector3 torusCoords)
+        {
+            var flatStart = new Vector2(startLocation.x, startLocation.z);
+            var randomDir = new Vector2(torusCoords.x, torusCoords.y);
+            var randomDist = torusCoords.z;
+            var v2position = flatStart + randomDir * randomDist;
+            var worldspacev3 = new Vector3(v2position.x, startLocation.y, v2position.y);
+            return worldspacev3;
+        }
+
+        /// <summary>
+        /// Predict the location of a target perfectly not performant maybe crashes?
+        /// </summary>
+        /// <param name="targetPos"></param>
+        /// <param name="targetVel"></param>
+        /// <param name="hostPos"></param>
+        /// <param name="hostVel"></param>
+        /// <returns>Vector 3 Predicted position of the target</returns>
+        public static Vector3 PerfectPredictLocation(Vector3 targetPos, Vector3 targetVel, Vector3 hostPos, float hostVel)
+        {
+            Vector3 displacement = targetPos - hostPos;
+            float targetMoveAngle = Vector3.Angle(-displacement, targetVel) * Mathf.Deg2Rad;
+            //if the target is stopping or if it is impossible for the projectile to catch up with the target (Sine Formula)
+            if (targetVel.magnitude == 0 || targetVel.magnitude > hostVel && Mathf.Sin(targetMoveAngle) / hostVel > Mathf.Cos(targetMoveAngle) / targetVel.magnitude)
+            {
+                Debug.Log("Position prediction is not feasible.");
+                return targetPos;
+            }
+            //also Sine Formula
+            float shootAngle = Mathf.Asin(Mathf.Sin(targetMoveAngle) * targetVel.magnitude / hostVel);
+            var returnValue = targetPos + targetVel * displacement.magnitude / Mathf.Sin(Mathf.PI - targetMoveAngle - shootAngle) * Mathf.Sin(shootAngle) / targetVel.magnitude;
+            return returnValue;
+        }
+
+
+        /// <summary>
+        /// Quick and dirty position prediction
+        /// </summary>
+        /// <param name="targetPos"></param>
+        /// <param name="targetVel"></param>
+        /// <param name="hostPos"></param>
+        /// <param name="hostVel"></param>
+        /// <returns></returns>
+        public static Vector3 RoughPredictLocation(Vector3 targetPos, Vector3 targetVel, Vector3 hostPos, float hostVel, float lerpPercent = 1)
+        {
+            float distance = Vector3.Distance(targetPos, hostPos);
+            float targetSpeed = targetVel.magnitude;
+            Vector3 moveDir = targetVel.normalized;
+
+            float directionMultiplier = (targetSpeed / hostVel)*distance*lerpPercent;
+
+
+            Vector3 predPos = targetPos + (moveDir * directionMultiplier);
+            return predPos;
+
+        }
+
+
+    }
+}
+

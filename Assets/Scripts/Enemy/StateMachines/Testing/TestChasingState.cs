@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UsefulBox;
 
 public class TestChasingState : EnemyStateBase
 {
@@ -14,7 +15,8 @@ public class TestChasingState : EnemyStateBase
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
-        MoveToPosition(GameManager._.Master.gameObject.transform.position);
+        var predictivePos = MurderBag.RoughPredictLocation(GameManager._.Master.gameObject.transform.position, GameManager._.Master.movementMaster.rb.velocity, thisTransform.position, CM.defaultWalkSpeed,0.3f);
+        MoveToPosition(predictivePos);
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UsefulBox;
 
 public abstract class EnemyStateBase : StateMachineBehaviour
 {
@@ -57,32 +58,12 @@ public abstract class EnemyStateBase : StateMachineBehaviour
         thisTransform.rotation = Quaternion.Slerp(thisTransform.rotation, targetRot, rate * Time.deltaTime);
     }
 
-    /// <summary>
-    /// Calculate a random point in a torus in normalised cartesian with magnitude
-    /// </summary>
-    /// <param name="lowerBound">The first integer.</param>
-    /// <param name="upperBound">The second integer.</param>
-    /// <returns>The Vector3 formatted (direction x, direction z, magnitude.</returns>
-    protected Vector3 RandomTorusCoords(float lowerBound, float upperBound)
-    {
-        var randomDir = Random.insideUnitCircle.normalized;
-        var randomDist = Random.Range(lowerBound, upperBound);
-        return new Vector3(randomDir.x,randomDir.y, randomDist);
-    }
 
-    /// <summary>
-    /// Calculate the navmesh position of point in a torus around the starting position
-    /// </summary>
-    /// <param name="startLocation"></param>
-    /// <param name="torusCoords"></param>
-    /// <returns>The navmesh point or the starting location if no navmesh point is found </returns>
-    protected Vector3 PositionInTorus(Vector3 startLocation, Vector3 torusCoords)
+
+
+    protected Vector3 NavmeshTorus(Vector3 startLocation, Vector3 torusCoords)
     {
-        var flatStart = new Vector2(startLocation.x, startLocation.z);
-        var randomDir = new Vector2(torusCoords.x,torusCoords.y);
-        var randomDist = torusCoords.z;
-        var v2position = flatStart + randomDir * randomDist;
-        var worldspacev3 = new Vector3(v2position.x, startLocation.y, v2position.y);
+        var worldspacev3 = MurderBag.PositionInTorus(startLocation, torusCoords);
         NavMeshHit navHit;
         if (NavMesh.SamplePosition(worldspacev3, out navHit, 10, -1))
         {

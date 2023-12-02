@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UsefulBox;
 
 public class TestRoughChaseState : EnemyStateBase
 {
@@ -10,7 +11,7 @@ public class TestRoughChaseState : EnemyStateBase
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        lockedTorusCoords = RandomTorusCoords(4, 10);
+        lockedTorusCoords = MurderBag.RandomTorusCoords(4, 10);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -21,9 +22,9 @@ public class TestRoughChaseState : EnemyStateBase
         {
             randomTime = Random.Range(0, 5);
             var distance = Vector3.Distance(thisTransform.position, GameManager._.Master.gameObject.transform.position)/2;
-            lockedTorusCoords = RandomTorusCoords(Mathf.Clamp(distance-1,0,100), distance);
+            lockedTorusCoords = MurderBag.RandomTorusCoords(Mathf.Clamp(distance-1,0,100), distance);
         }
-        WanderPosition = PositionInTorus(GameManager._.Master.gameObject.transform.position, lockedTorusCoords);
+        WanderPosition = NavmeshTorus(GameManager._.Master.gameObject.transform.position, lockedTorusCoords);
         MoveToPosition(WanderPosition);
     }
 
