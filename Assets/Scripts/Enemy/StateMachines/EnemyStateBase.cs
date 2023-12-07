@@ -38,14 +38,18 @@ public abstract class EnemyStateBase : StateMachineBehaviour
     /// </summary>
     /// <param name="position"></param>
     /// <param name="speed"></param>
-    protected void MoveToPosition(Vector3 position, float speed = float.MaxValue)
+    protected void MoveToPosition(Vector3 position, float speed)
     {
-        if (speed == float.MaxValue) speed = CM.defaultWalkSpeed;
-
         var holding = CM.enemyNavMesh;
         holding.speed = speed;
         holding.destination = position;
     }
+    protected void MoveToPosition(Vector3 position)
+    {
+        var speed = CM.defaultWalkSpeed;
+        MoveToPosition(position, speed);
+    }
+
 
     /// <summary>
     /// Smoothly face target position at speed rate

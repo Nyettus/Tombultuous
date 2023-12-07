@@ -8,6 +8,8 @@ public class EnemyComponentMaster : MonoBehaviour
     public EnemyHealth enemyHealth;
     public NavMeshAgent enemyNavMesh;
     public Animator enemyAnimator;
+    public BaseEnemyAttacks enemyAttacks;
+    
 
     public float defaultWalkSpeed = -1;
 
@@ -18,6 +20,7 @@ public class EnemyComponentMaster : MonoBehaviour
         if (TryGetComponent<EnemyHealth>(out EnemyHealth healthCompono)) enemyHealth = healthCompono;
         if (TryGetComponent<NavMeshAgent>(out NavMeshAgent navCompono)) enemyNavMesh = navCompono;
         if (TryGetComponent<Animator>(out Animator animCompono)) enemyAnimator = animCompono;
+        if (TryGetComponent<BaseEnemyAttacks>(out BaseEnemyAttacks damCompono)) enemyAttacks = damCompono;
     }
 
 

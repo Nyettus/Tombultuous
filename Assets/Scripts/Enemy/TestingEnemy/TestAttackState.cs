@@ -9,6 +9,7 @@ public class TestAttackState : EnemyStateBase
         base.OnStateEnter(animator, stateInfo, layerIndex);
         CM.SetAnimFloat("AttackChance");
         Debug.Log("Im going to shank you bruv");
+        CM.enemyNavMesh.isStopped = true;
 
     }
 
@@ -23,5 +24,6 @@ public class TestAttackState : EnemyStateBase
     {
         base.OnStateExit(animator, stateInfo, layerIndex);
         Debug.Log("You get away this time but next time ill get yu bruv");
+        CM.enemyNavMesh.isStopped = false;
     }
 }
