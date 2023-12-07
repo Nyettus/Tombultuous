@@ -71,7 +71,7 @@ public abstract class EnemyStateBase : StateMachineBehaviour
     {
         var worldspacev3 = MurderBag.PositionInTorus(startLocation, torusCoords);
         NavMeshHit navHit;
-        if (NavMesh.SamplePosition(worldspacev3, out navHit, 10, -1))
+        if (NavMesh.SamplePosition(worldspacev3, out navHit, 2, -1))
         {
             return navHit.position;
         }
