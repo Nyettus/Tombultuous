@@ -42,7 +42,17 @@ public abstract class EnemyStateBase : StateMachineBehaviour
     {
         var holding = CM.enemyNavMesh;
         holding.speed = speed;
-        holding.destination = position;
+        NavMeshHit navHit;
+        if(NavMesh.SamplePosition(position,out navHit, 2, -1))
+        {
+            holding.destination = navHit.position;
+        }
+        else
+        {
+            holding.destination = position;
+        }
+
+
     }
     protected void MoveToPosition(Vector3 position)
     {
