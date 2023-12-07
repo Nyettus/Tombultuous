@@ -346,6 +346,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 4
     m_ConditionEvent: AttackChance
     m_EventTreshold: 0.25
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsAttacking
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2729904921471596589}
   m_Solo: 0
@@ -610,6 +613,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 3
     m_ConditionEvent: AttackChance
     m_EventTreshold: 0.25
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsChasing
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2210534431613253623}
   m_Solo: 0

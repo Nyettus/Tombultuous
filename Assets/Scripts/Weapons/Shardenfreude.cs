@@ -32,8 +32,7 @@ public class Shardenfreude : HitscanWeaponBase
                 }
             }
             PlayerController movement = GameManager._.Master.movementMaster;
-            movement.rb.velocity = Vector3.zero;
-            movement.rb.AddForce(Camera.main.transform.forward * (curMag*-5),ForceMode.Impulse);
+            movement.KnockBack(Camera.main.transform.forward, (curMag * -5));
             curMag = 0;
             base.Special();
 

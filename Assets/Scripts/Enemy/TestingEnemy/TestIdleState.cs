@@ -21,15 +21,17 @@ public class TestIdleState : EnemyStateBase
         if (Timer(randomTime))
         {
             randomTime = Random.Range(0, 5);
-            WanderPosition = MurderBag.PositionInTorus(thisTransform.position, MurderBag.RandomTorusCoords(4, 10));
+            WanderPosition = NavmeshTorus(thisTransform.position, MurderBag.RandomTorusCoords(4, 10));
         }
         MoveToPosition(WanderPosition,CM.defaultWalkSpeed*0.5f);
+
         
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateExit(animator, stateInfo, layerIndex);
+
 
     }
 

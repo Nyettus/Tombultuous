@@ -274,7 +274,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void KnockBack(Vector3 direction, float amount)
+    {
+        rb.velocity = Vector3.zero;
+        Vector3 forceDir = direction * amount;
+        rb.AddForce(forceDir, ForceMode.Impulse);
 
+    }
 
 
 }

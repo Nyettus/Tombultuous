@@ -58,7 +58,9 @@ public abstract class EnemyStateBase : StateMachineBehaviour
     /// <param name="rate"></param>
     protected void FaceTarget(Vector3 position, float rate)
     {
-        var targetRot = Quaternion.LookRotation(position - thisTransform.position);
+        Vector3 adjustPos = position - thisTransform.position;
+        adjustPos = new Vector3(adjustPos.x, 0, adjustPos.z);
+        Quaternion targetRot = Quaternion.LookRotation(adjustPos);
         thisTransform.rotation = Quaternion.Slerp(thisTransform.rotation, targetRot, rate * Time.deltaTime);
     }
 
