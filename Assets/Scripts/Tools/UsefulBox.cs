@@ -94,7 +94,6 @@ namespace UsefulBox
             float R = TorusCoords.z;
             float theta = Mathf.Atan2(TorusCoords.y, TorusCoords.x);
             theta += (angle * Mathf.Deg2Rad * Time.deltaTime);
-            Debug.Log(theta * Mathf.Rad2Deg);
             Vector3 returnVec = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), R);
 
             return returnVec;
