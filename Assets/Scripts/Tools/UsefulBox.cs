@@ -100,7 +100,13 @@ namespace UsefulBox
 
         }
 
-        public static float OrbitDegMin(float radius, float speed)
+        /// <summary>
+        /// The optimal degrees per second orbit for an object
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+        public static float OrbitOptimalDeg(float radius, float speed)
         {
             float circ = radius * 2 * Mathf.PI;
             float degPerSec = 360 / (circ / speed);
