@@ -24,7 +24,12 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log("im dead");
             if (GameManager._.goldManager != null) GameManager._.goldManager.GetGold(goldAmount);
             countHandler.RemoveFromMaster();
-            if (CM != null) CM.enemyAnimator.SetTrigger("IsDead");
+            if (CM != null)
+            {
+                CM.enemyAnimator.SetTrigger("IsDead");
+
+            }
+
             once = false;
         }
         else

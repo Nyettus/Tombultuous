@@ -5413,6 +5413,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1813792963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 506143079273202194, guid: a70741fda0ffcbb40a5e8759e0b54ffa, type: 3}
+  m_PrefabInstance: {fileID: 6414997551945452584}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1813792975
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813792963}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1879087430
 GameObject:
   m_ObjectHideFlags: 0
@@ -40935,14 +40967,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicChase
       objectReference: {fileID: 0}
-    - target: {fileID: 7565728615546249207, guid: a70741fda0ffcbb40a5e8759e0b54ffa, type: 3}
-      propertyPath: m_Acceleration
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 506143079273202194, guid: a70741fda0ffcbb40a5e8759e0b54ffa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1813792975}
   m_SourcePrefab: {fileID: 100100000, guid: a70741fda0ffcbb40a5e8759e0b54ffa, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

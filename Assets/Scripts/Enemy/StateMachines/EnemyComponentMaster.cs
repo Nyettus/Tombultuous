@@ -9,6 +9,7 @@ public class EnemyComponentMaster : MonoBehaviour
     public NavMeshAgent enemyNavMesh;
     public Animator enemyAnimator;
     public BaseEnemyAttacks enemyAttacks;
+    public Rigidbody enemyRB;
     
 
     public float defaultWalkSpeed = -1;
@@ -21,6 +22,7 @@ public class EnemyComponentMaster : MonoBehaviour
         if (TryGetComponent<NavMeshAgent>(out NavMeshAgent navCompono)) enemyNavMesh = navCompono;
         if (TryGetComponent<Animator>(out Animator animCompono)) enemyAnimator = animCompono;
         if (TryGetComponent<BaseEnemyAttacks>(out BaseEnemyAttacks damCompono)) enemyAttacks = damCompono;
+        if (TryGetComponent<Rigidbody>(out Rigidbody RBCompono)) enemyRB = RBCompono;
     }
 
 
@@ -39,6 +41,14 @@ public class EnemyComponentMaster : MonoBehaviour
         {
             enemyAnimator.SetFloat(name, value);
         }
+    }
+
+    public void FallOver(Vector3 direction)
+    {
+        enemyRB.isKinematic = false;
+        enemyNavMesh.enabled = false;
+        enemyRB.AddForce(direction, ForceMode.Impulse);
+
     }
 
 

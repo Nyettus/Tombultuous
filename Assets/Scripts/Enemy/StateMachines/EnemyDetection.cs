@@ -9,11 +9,13 @@ public class EnemyDetection : MonoBehaviour
     [SerializeField] private EnemyComponentMaster CM;
     private void OnTriggerEnter(Collider other)
     {
-        CM.SetAnimBool(parameterName, true);
+        if (other.tag == "Player")
+            CM.SetAnimBool(parameterName, true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        CM.SetAnimBool(parameterName, false);
+        if (other.tag == "Player")
+            CM.SetAnimBool(parameterName, false);
     }
 }
