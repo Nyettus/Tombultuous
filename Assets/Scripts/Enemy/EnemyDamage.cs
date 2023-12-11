@@ -11,7 +11,7 @@ public class EnemyDamage : MonoBehaviour
     private EnemyComponentMaster CM;
     private void Start()
     {
-        CM = transform.root.GetComponent<EnemyComponentMaster>();
+
     }
 
     private void OnTriggerEnter(Collider other)
