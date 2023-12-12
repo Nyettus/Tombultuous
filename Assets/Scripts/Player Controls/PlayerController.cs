@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [Header("Grounded")]
     public LayerMask whatIsGround;
     public bool grounded;
+    private Vector3 groundNormal;
     private bool tflop;
 
     public float groundDrag = 2;
@@ -161,8 +162,10 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        Vector3 movementFor = transform.forward * vertMove.y * moveSpeed * accel;
-        Vector3 movementRig = transform.right * vertMove.x * moveSpeed * accel;
+        Vector3 movementFor = Vector3.ProjectOnPlane(transform.forward * vertMove.y * moveSpeed * accel, groundNormal);
+        Vector3 movementRig = Vector3.ProjectOnPlane(transform.right * vertMove.x * moveSpeed * accel, groundNormal);
+        Debug.Log(rb.velocity.magnitude);
+
         float forwardVel = Vector3.Dot(rb.velocity, transform.forward);
         float rightVel = Vector3.Dot(rb.velocity, transform.right);
 
@@ -208,8 +211,10 @@ public class PlayerController : MonoBehaviour
     {
 
         Ray cast = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(cast, height * 0.5f + 0.4f, whatIsGround) && jumpTick)
+        RaycastHit hit;
+        if (Physics.Raycast(cast,out hit, height * 0.5f + 0.4f, whatIsGround) && jumpTick)
         {
+            groundNormal = hit.normal;
             Master.grounded = true;
             coyoteTime = Time.time + 0.16f;
         }
