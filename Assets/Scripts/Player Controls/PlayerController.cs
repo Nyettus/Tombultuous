@@ -29,8 +29,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Grounded")]
     public LayerMask whatIsGround;
-    public bool grounded;
-    private Vector3 groundNormal;
+    private Vector3 groundNormal = Vector2.up;
     private bool tflop;
 
     public float groundDrag = 2;
@@ -71,7 +70,7 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
 
-        
+
         if (jumpCount > 0 && context.ReadValue<float>() > 0.5f && jumpTick && dashTick)
         {
             if (jumpCount == b_jumpCount)
@@ -164,8 +163,8 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movementFor = Vector3.ProjectOnPlane(transform.forward * vertMove.y * moveSpeed * accel, groundNormal);
         Vector3 movementRig = Vector3.ProjectOnPlane(transform.right * vertMove.x * moveSpeed * accel, groundNormal);
-        Debug.Log(rb.velocity.magnitude);
 
+        Debug.Log(movementFor.magnitude);
         float forwardVel = Vector3.Dot(rb.velocity, transform.forward);
         float rightVel = Vector3.Dot(rb.velocity, transform.right);
 
@@ -183,8 +182,8 @@ public class PlayerController : MonoBehaviour
     public Transform WeaponHolder;
     private void MatchRotation()
     {
-        WeaponHolder.transform.localRotation = Quaternion.Euler(new Vector3(Camera.main.transform.eulerAngles.x,0,0));
-        rb.rotation = Quaternion.Euler(new Vector3(0,Camera.main.transform.eulerAngles.y,0));
+        WeaponHolder.transform.localRotation = Quaternion.Euler(new Vector3(Camera.main.transform.eulerAngles.x, 0, 0));
+        rb.rotation = Quaternion.Euler(new Vector3(0, Camera.main.transform.eulerAngles.y, 0));
     }
 
     public void DashDisable()
@@ -212,7 +211,7 @@ public class PlayerController : MonoBehaviour
 
         Ray cast = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
-        if (Physics.Raycast(cast,out hit, height * 0.5f + 0.4f, whatIsGround) && jumpTick)
+        if (Physics.Raycast(cast, out hit, height * 0.5f + 0.4f, whatIsGround) && jumpTick)
         {
             groundNormal = hit.normal;
             Master.grounded = true;
@@ -240,14 +239,14 @@ public class PlayerController : MonoBehaviour
                 tflop = false;
             }
 
-
             rb.drag = groundDrag;
             accel = moveSpeed * gaccel;
 
-            if (vertMove == Vector2.zero)
-                rb.useGravity = false;
-            else
-                rb.useGravity = true;
+            rb.useGravity = false;
+            //if (vertMove == Vector2.zero)
+            //    rb.useGravity = false;
+            //else
+            //    rb.useGravity = true;
         }
         else
         {
