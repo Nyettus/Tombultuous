@@ -166,10 +166,10 @@ public class PlayerController : MonoBehaviour
         Vector3 projectedRig = Vector3.ProjectOnPlane(transform.right, groundNormal).normalized;
         Vector3 movementRig = projectedRig * vertMove.x * moveSpeed * accel;
 
-        Debug.Log(projectedFor.magnitude);
         float forwardVel = Vector3.Dot(rb.velocity, transform.forward);
         float rightVel = Vector3.Dot(rb.velocity, transform.right);
 
+        Debug.Log(movementFor.magnitude);
         if (vertMove.y > 0 && forwardVel < moveSpeed * Mathf.Abs(vertMove.y) || vertMove.y < 0 && forwardVel > -moveSpeed * Mathf.Abs(vertMove.y))
         {
             rb.AddForce(movementFor, ForceMode.Force);
