@@ -160,11 +160,13 @@ public class PlayerController : MonoBehaviour
     public void BasicWalk()
     {
 
+        Vector3 projectedFor = Vector3.ProjectOnPlane(transform.forward, groundNormal).normalized;
+        Vector3 movementFor = projectedFor * vertMove.y * moveSpeed * accel;
 
-        Vector3 movementFor = Vector3.ProjectOnPlane(transform.forward * vertMove.y * moveSpeed * accel, groundNormal);
-        Vector3 movementRig = Vector3.ProjectOnPlane(transform.right * vertMove.x * moveSpeed * accel, groundNormal);
+        Vector3 projectedRig = Vector3.ProjectOnPlane(transform.right, groundNormal).normalized;
+        Vector3 movementRig = projectedRig * vertMove.x * moveSpeed * accel;
 
-        Debug.Log(movementFor.magnitude);
+        Debug.Log(projectedFor.magnitude);
         float forwardVel = Vector3.Dot(rb.velocity, transform.forward);
         float rightVel = Vector3.Dot(rb.velocity, transform.right);
 
