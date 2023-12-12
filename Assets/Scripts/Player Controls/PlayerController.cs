@@ -232,19 +232,6 @@ public class PlayerController : MonoBehaviour
 
     public void PhysicsMod()
     {
-        Ray cast = new Ray(transform.position, Vector3.down);
-        RaycastHit hit;
-        if (Physics.Raycast(cast, out hit, height * 0.5f + 0.2f, whatIsGround))
-        {
-            if (hit.normal != Vector3.up && !Physics.Raycast(cast, out hit, height * 0.5f + 0.1f, whatIsGround) && jumpTick)
-            {
-                transform.position -= new Vector3(0, 0.05f, 0);
-
-            }
-
-        }
-
-
         if (Master.grounded)
         {
             if (tflop)
