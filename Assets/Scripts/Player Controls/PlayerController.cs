@@ -169,7 +169,6 @@ public class PlayerController : MonoBehaviour
         float forwardVel = Vector3.Dot(rb.velocity, transform.forward);
         float rightVel = Vector3.Dot(rb.velocity, transform.right);
 
-        Debug.Log(movementFor.magnitude);
         if (vertMove.y > 0 && forwardVel < moveSpeed * Mathf.Abs(vertMove.y) || vertMove.y < 0 && forwardVel > -moveSpeed * Mathf.Abs(vertMove.y))
         {
             rb.AddForce(movementFor, ForceMode.Force);
