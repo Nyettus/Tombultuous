@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CombatZone : MonoBehaviour
 {
+    public GameObject sealedHost;
     public List<BoxCollider> sealedDoors = new List<BoxCollider>();
     public List<GameObject> enemies = new List<GameObject>();
     private bool activated = false;
@@ -57,5 +58,15 @@ public class CombatZone : MonoBehaviour
         Debug.Log("Combat Zone Disabled");
     }
 
+    private List<BoxCollider> GetChildren()
+    {
+        var holding = new List<BoxCollider>();
+        foreach (Transform child in transform)
+        {
+            holding.Add(child.gameObject.GetComponent<BoxCollider>());
+        }
+        return holding;
+
+    }
 
 }
