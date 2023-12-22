@@ -10,7 +10,14 @@ public class EnemyComponentMaster : MonoBehaviour
     public Animator enemyAnimator;
     public BaseEnemyAttacks enemyAttacks;
     public Rigidbody enemyRB;
+    public Collider enemyCollider;
 
+    [SerializeField]
+    private GameObject model;
+    [SerializeField]
+    private Collider[] ragdollCollider;
+    [SerializeField]
+    private Rigidbody[] ragdollRB;
 
     public float defaultWalkSpeed = -1;
     private Vector3 navmeshVelocity = Vector3.zero;
@@ -23,6 +30,10 @@ public class EnemyComponentMaster : MonoBehaviour
         if (TryGetComponent<Animator>(out Animator animCompono)) enemyAnimator = animCompono;
         if (TryGetComponent<BaseEnemyAttacks>(out BaseEnemyAttacks damCompono)) enemyAttacks = damCompono;
         if (TryGetComponent<Rigidbody>(out Rigidbody RBCompono)) enemyRB = RBCompono;
+        if (TryGetComponent<Collider>(out Collider ColCompono)) enemyCollider = ColCompono;
+        ragdollRB = model.GetComponentsInChildren<Rigidbody>();
+        ragdollCollider = model.GetComponentsInChildren<Collider>();
+        ActivateRagdoll(false);
     }
 
 
@@ -69,6 +80,27 @@ public class EnemyComponentMaster : MonoBehaviour
 
         enemyAnimator.SetFloat("VelocityX", navmeshVelocity.x);
         enemyAnimator.SetFloat("VelocityZ", navmeshVelocity.z);
+    }
+
+    public void ActivateRagdoll(bool state)
+    {
+        foreach(var collider in ragdollCollider)
+        {
+            collider.enabled = state;
+            collider.excludeLayers = 1 << 6;
+        }
+        foreach(var rb in ragdollRB)
+        {
+            rb.detectCollisions = state;
+            rb.isKinematic = !state;
+        }
+
+
+        enemyAnimator.enabled = !state;
+        enemyRB.detectCollisions = !state;
+        enemyRB.isKinematic = state;
+        enemyCollider.enabled = !state;
+
     }
 
 
