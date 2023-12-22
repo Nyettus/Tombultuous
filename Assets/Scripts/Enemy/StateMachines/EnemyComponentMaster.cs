@@ -10,10 +10,10 @@ public class EnemyComponentMaster : MonoBehaviour
     public Animator enemyAnimator;
     public BaseEnemyAttacks enemyAttacks;
     public Rigidbody enemyRB;
-    
+
 
     public float defaultWalkSpeed = -1;
-
+    private Vector3 navmeshVelocity = Vector3.zero;
 
     // Start is called before the first frame update
     void Awake()
@@ -33,7 +33,7 @@ public class EnemyComponentMaster : MonoBehaviour
 
     public void SetAnimFloat(string name, float value = -1)
     {
-        if(value == -1)
+        if (value == -1)
         {
             enemyAnimator.SetFloat(name, Random.Range(0f, 1f));
         }
@@ -43,12 +43,32 @@ public class EnemyComponentMaster : MonoBehaviour
         }
     }
 
+
+
+
     public void FallOver(Vector3 direction)
     {
         enemyRB.isKinematic = false;
         enemyNavMesh.enabled = false;
         enemyRB.AddForce(direction, ForceMode.Impulse);
 
+    }
+
+    public void FixedUpdate()
+    {
+        LerpingBlendTree(10f);
+    }
+
+
+    private void LerpingBlendTree(float rate)
+    {
+        var holding = enemyNavMesh.speed;
+        if (holding == 0) holding = 1;
+        var adjustedVel = transform.InverseTransformDirection( enemyNavMesh.desiredVelocity) / holding;
+        navmeshVelocity = Vector3.Lerp(navmeshVelocity, adjustedVel, rate*Time.deltaTime);
+
+        enemyAnimator.SetFloat("VelocityX", navmeshVelocity.x);
+        enemyAnimator.SetFloat("VelocityZ", navmeshVelocity.z);
     }
 
 
