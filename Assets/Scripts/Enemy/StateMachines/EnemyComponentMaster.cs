@@ -86,6 +86,7 @@ public class EnemyComponentMaster : MonoBehaviour
     {
         foreach(var collider in ragdollCollider)
         {
+            if (collider.tag == "WeaponHitbox") continue;
             collider.enabled = state;
             collider.excludeLayers = 1 << 6;
         }
