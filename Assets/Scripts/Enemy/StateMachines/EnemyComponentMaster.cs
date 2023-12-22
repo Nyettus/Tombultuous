@@ -99,7 +99,6 @@ public class EnemyComponentMaster : MonoBehaviour
 
         enemyAnimator.enabled = !state;
         enemyRB.detectCollisions = !state;
-        enemyRB.isKinematic = state;
         enemyCollider.enabled = !state;
 
     }
