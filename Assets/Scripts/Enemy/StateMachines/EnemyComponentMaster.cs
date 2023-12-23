@@ -31,9 +31,14 @@ public class EnemyComponentMaster : MonoBehaviour
         if (TryGetComponent<BaseEnemyAttacks>(out BaseEnemyAttacks damCompono)) enemyAttacks = damCompono;
         if (TryGetComponent<Rigidbody>(out Rigidbody RBCompono)) enemyRB = RBCompono;
         if (TryGetComponent<Collider>(out Collider ColCompono)) enemyCollider = ColCompono;
-        ragdollRB = model.GetComponentsInChildren<Rigidbody>();
-        ragdollCollider = model.GetComponentsInChildren<Collider>();
-        ActivateRagdoll(false);
+        if (model != null)
+        {
+            ragdollRB = model.GetComponentsInChildren<Rigidbody>();
+            ragdollCollider = model.GetComponentsInChildren<Collider>();
+            ActivateRagdoll(false);
+        }
+
+
     }
 
 
@@ -75,8 +80,8 @@ public class EnemyComponentMaster : MonoBehaviour
     {
         var holding = enemyNavMesh.speed;
         if (holding == 0) holding = 1;
-        var adjustedVel = transform.InverseTransformDirection( enemyNavMesh.desiredVelocity) / holding;
-        navmeshVelocity = Vector3.Lerp(navmeshVelocity, adjustedVel, rate*Time.deltaTime);
+        var adjustedVel = transform.InverseTransformDirection(enemyNavMesh.desiredVelocity) / holding;
+        navmeshVelocity = Vector3.Lerp(navmeshVelocity, adjustedVel, rate * Time.deltaTime);
 
         enemyAnimator.SetFloat("VelocityX", navmeshVelocity.x);
         enemyAnimator.SetFloat("VelocityZ", navmeshVelocity.z);
@@ -84,13 +89,14 @@ public class EnemyComponentMaster : MonoBehaviour
 
     public void ActivateRagdoll(bool state)
     {
-        foreach(var collider in ragdollCollider)
+        if (model == null) return;
+        foreach (var collider in ragdollCollider)
         {
             if (collider.tag == "WeaponHitbox") continue;
             collider.enabled = state;
             collider.excludeLayers = 1 << 6;
         }
-        foreach(var rb in ragdollRB)
+        foreach (var rb in ragdollRB)
         {
             rb.detectCollisions = state;
             rb.isKinematic = !state;
