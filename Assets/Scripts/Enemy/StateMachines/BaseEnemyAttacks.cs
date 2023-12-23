@@ -26,6 +26,7 @@ public class BaseEnemyAttacks : MonoBehaviour
         if (!canHit) return;
         GameManager._.Master.healthMaster.takeDamage(damage);
         canHit = false;
+        Debug.Log("Dealt: " + damage + " to the player");
     }
 
 

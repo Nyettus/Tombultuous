@@ -17,7 +17,9 @@ public class EnemyDamage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
+        Debug.Log("tried to attack");
         CM.enemyAttacks.DamagePlayer(damage);
+
 
     }
 }
