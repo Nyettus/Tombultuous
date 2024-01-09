@@ -12,7 +12,6 @@ public class TestAttackState : EnemyStateBase
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         CM.SetAnimFloat("AttackChance");
-        Debug.Log("Im going to shank you bruv");
         var holding = (thisTransform.position - GameManager._.Master.gameObject.transform.position);
         torusCoords = new Vector3(holding.x, holding.z, distance);
         randomSign = Mathf.Sign(Random.Range(-1, 1));

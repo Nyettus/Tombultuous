@@ -258,7 +258,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator jumpTimer()
+    private IEnumerator jumpTimer()
     {
         jumpTick = false;
         yield return new WaitForSeconds(0.1f);
@@ -266,13 +266,23 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void KnockBack(Vector3 direction, float amount)
+    public void KnockBack(Vector3 direction, float amount, bool reset = false)
     {
-        rb.velocity = Vector3.zero;
+        if (Master.grounded)
+        {
+            Master.grounded = false;
+            StartCoroutine(jumpTimer());
+        }
+        if (reset)
+        {
+            Debug.Log("velocity Reset");
+            rb.velocity = Vector3.zero;
+        }
         Vector3 forceDir = direction * amount;
         rb.AddForce(forceDir, ForceMode.Impulse);
 
     }
+
 
 
 }

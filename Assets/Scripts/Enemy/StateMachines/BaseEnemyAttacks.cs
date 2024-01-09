@@ -12,19 +12,23 @@ public class BaseEnemyAttacks : MonoBehaviour
     {
         bool theBool = eventer.intParameter != 0;
         int index = (int)eventer.floatParameter;
-
-
-        if (Hitboxes[index] == null) return;
+        if (Hitboxes[index] == null)
+        {
+            Debug.LogError("HitboxIndex null");
+            return;
+        }
         Hitboxes[index].enabled = theBool;
+        Debug.Log(Hitboxes[index].enabled);
         canHit = theBool;
 
 
     }
 
-    public void DamagePlayer(int damage)
+    public void DamagePlayer(int damage,Vector3 direction,float magnitude)
     {
         if (!canHit) return;
         GameManager._.Master.healthMaster.takeDamage(damage);
+        GameManager._.Master.movementMaster.KnockBack(direction, magnitude);
         canHit = false;
         Debug.Log("Dealt: " + damage + " to the player");
     }
