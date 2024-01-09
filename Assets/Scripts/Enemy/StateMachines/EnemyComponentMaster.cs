@@ -78,8 +78,9 @@ public class EnemyComponentMaster : MonoBehaviour
 
     private void LerpingBlendTree(float rate)
     {
-        var holding = enemyNavMesh.speed;
+        var holding = defaultWalkSpeed;
         if (holding == 0) holding = 1;
+        
         var adjustedVel = transform.InverseTransformDirection(enemyNavMesh.desiredVelocity) / holding;
         navmeshVelocity = Vector3.Lerp(navmeshVelocity, adjustedVel, rate * Time.deltaTime);
 

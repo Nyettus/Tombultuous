@@ -25,7 +25,7 @@ public class TestAttackState : EnemyStateBase
         torusCoords = MurderBag.OrbitCoords(torusCoords, MurderBag.OrbitOptimalDeg(distance,CM.defaultWalkSpeed) * randomSign);
 
         MoveToPosition(NavmeshTorus(GameManager._.Master.gameObject.transform.position, torusCoords));
-        FaceTarget(GameManager._.Master.gameObject.transform.position, 100f);
+        FaceTarget(GameManager._.Master.gameObject.transform.position, 10f);
 
     }
 
@@ -34,7 +34,7 @@ public class TestAttackState : EnemyStateBase
 
         base.OnStateExit(animator, stateInfo, layerIndex);
         MoveToPosition(GameManager._.Master.gameObject.transform.position, 0f);
-        FaceTarget(GameManager._.Master.gameObject.transform.position, 100f);
+        FaceTarget(GameManager._.Master.gameObject.transform.position, 10f);
 
     }
 
