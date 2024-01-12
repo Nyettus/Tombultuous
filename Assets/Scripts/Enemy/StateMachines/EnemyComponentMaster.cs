@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyComponentMaster : MonoBehaviour
 {
+
+
     public EnemyHealth enemyHealth;
     public NavMeshAgent enemyNavMesh;
     public Animator enemyAnimator;
@@ -21,6 +23,10 @@ public class EnemyComponentMaster : MonoBehaviour
 
     public float defaultWalkSpeed = -1;
     private Vector3 navmeshVelocity = Vector3.zero;
+
+    [Header("Airborne")]
+    public bool canBeAirborne = false;
+    private float airborneLerp = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -73,6 +79,7 @@ public class EnemyComponentMaster : MonoBehaviour
     public void FixedUpdate()
     {
         LerpingBlendTree(10f);
+        if (canBeAirborne) MakeAirborne(10f);
     }
 
 
@@ -80,12 +87,19 @@ public class EnemyComponentMaster : MonoBehaviour
     {
         var holding = defaultWalkSpeed;
         if (holding == 0) holding = 1;
-        
+
         var adjustedVel = transform.InverseTransformDirection(enemyNavMesh.desiredVelocity) / holding;
         navmeshVelocity = Vector3.Lerp(navmeshVelocity, adjustedVel, rate * Time.deltaTime);
 
         enemyAnimator.SetFloat("VelocityX", navmeshVelocity.x);
         enemyAnimator.SetFloat("VelocityZ", navmeshVelocity.z);
+    }
+
+    private void MakeAirborne(float rate)
+    {
+        int state = enemyNavMesh.isOnOffMeshLink ? 1 : 0;
+        airborneLerp = Mathf.Lerp(airborneLerp, state, rate * Time.deltaTime);
+        enemyAnimator.SetLayerWeight(1, airborneLerp);
     }
 
     public void ActivateRagdoll(bool state)

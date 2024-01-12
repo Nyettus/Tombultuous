@@ -18,9 +18,7 @@ public class EnemyDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Something entered trigger");
         if (other.tag != "Player") return;
-        Debug.Log("Player entered trigger");
         CM.enemyAttacks.DamagePlayer(damage,(GameManager._.Master.transform.position-transform.position+Vector3.up).normalized,magnitude);
 
 

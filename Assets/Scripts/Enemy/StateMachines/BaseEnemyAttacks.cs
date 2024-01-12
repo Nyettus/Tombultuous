@@ -18,7 +18,6 @@ public class BaseEnemyAttacks : MonoBehaviour
             return;
         }
         Hitboxes[index].enabled = theBool;
-        Debug.Log(Hitboxes[index].enabled);
         canHit = theBool;
 
 
