@@ -16,15 +16,19 @@ public class GameManager : SingletonPersist<GameManager>
     public List<WeaponStorage> weaponStorage = new List<WeaponStorage>();
     public GoldManager goldManager;
     #endregion
+    [SerializeField]
+    public InputActionAsset InputMap;
+    private InputActionMap UIMap;
+    
     //Basic menu
     public bool paused = false;
     private void Awake()
     {
-
         Startup(this);
         SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
+
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -43,6 +47,9 @@ public class GameManager : SingletonPersist<GameManager>
     // Start is called before the first frame update
     void Start()
     {
+        UIMap = InputMap.FindActionMap("UIMap");
+        UIMap.Enable();
+        UIMap.FindAction("Pause").performed += Pause;
         if (paused)
         {
             Cursor.visible = true;
@@ -59,6 +66,7 @@ public class GameManager : SingletonPersist<GameManager>
 
     public void Pause(InputAction.CallbackContext context)
     {
+        Debug.Log("Pause");
         if (context.performed)
         {
             paused = !paused;

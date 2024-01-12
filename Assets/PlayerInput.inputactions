@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "6ebd4906-fcb2-4110-9c7f-19378449ffa5",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "d37bec06-ccf4-4dce-b04f-ffe28dbeaffc",
@@ -202,17 +193,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3541e322-6820-43bf-816b-98c39351c937",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -378,6 +358,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "QuickSwitch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UIMap",
+            "id": "29f0e081-c7df-43ed-b416-98ed60c95177",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "7d024c36-ce2a-4aa2-81d9-a765af521fec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "693ecca6-f279-436d-a801-10ab05770360",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -64,15 +64,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""6ebd4906-fcb2-4110-9c7f-19378449ffa5"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""d37bec06-ccf4-4dce-b04f-ffe28dbeaffc"",
@@ -224,17 +215,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3541e322-6820-43bf-816b-98c39351c937"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -404,6 +384,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UIMap"",
+            ""id"": ""29f0e081-c7df-43ed-b416-98ed60c95177"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d024c36-ce2a-4aa2-81d9-a765af521fec"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""693ecca6-f279-436d-a801-10ab05770360"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -414,13 +422,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_KeyboardMap_Jump = m_KeyboardMap.FindAction("Jump", throwIfNotFound: true);
         m_KeyboardMap_Look = m_KeyboardMap.FindAction("Look", throwIfNotFound: true);
         m_KeyboardMap_Dash = m_KeyboardMap.FindAction("Dash", throwIfNotFound: true);
-        m_KeyboardMap_Pause = m_KeyboardMap.FindAction("Pause", throwIfNotFound: true);
         m_KeyboardMap_Interact = m_KeyboardMap.FindAction("Interact", throwIfNotFound: true);
         m_KeyboardMap_Attack = m_KeyboardMap.FindAction("Attack", throwIfNotFound: true);
         m_KeyboardMap_Special = m_KeyboardMap.FindAction("Special", throwIfNotFound: true);
         m_KeyboardMap_Reload = m_KeyboardMap.FindAction("Reload", throwIfNotFound: true);
         m_KeyboardMap_WeaponSwitch = m_KeyboardMap.FindAction("Weapon Switch", throwIfNotFound: true);
         m_KeyboardMap_QuickSwitch = m_KeyboardMap.FindAction("QuickSwitch", throwIfNotFound: true);
+        // UIMap
+        m_UIMap = asset.FindActionMap("UIMap", throwIfNotFound: true);
+        m_UIMap_Pause = m_UIMap.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -486,7 +496,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMap_Jump;
     private readonly InputAction m_KeyboardMap_Look;
     private readonly InputAction m_KeyboardMap_Dash;
-    private readonly InputAction m_KeyboardMap_Pause;
     private readonly InputAction m_KeyboardMap_Interact;
     private readonly InputAction m_KeyboardMap_Attack;
     private readonly InputAction m_KeyboardMap_Special;
@@ -501,7 +510,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_KeyboardMap_Jump;
         public InputAction @Look => m_Wrapper.m_KeyboardMap_Look;
         public InputAction @Dash => m_Wrapper.m_KeyboardMap_Dash;
-        public InputAction @Pause => m_Wrapper.m_KeyboardMap_Pause;
         public InputAction @Interact => m_Wrapper.m_KeyboardMap_Interact;
         public InputAction @Attack => m_Wrapper.m_KeyboardMap_Attack;
         public InputAction @Special => m_Wrapper.m_KeyboardMap_Special;
@@ -529,9 +537,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
@@ -566,9 +571,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
@@ -604,18 +606,67 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public KeyboardMapActions @KeyboardMap => new KeyboardMapActions(this);
+
+    // UIMap
+    private readonly InputActionMap m_UIMap;
+    private List<IUIMapActions> m_UIMapActionsCallbackInterfaces = new List<IUIMapActions>();
+    private readonly InputAction m_UIMap_Pause;
+    public struct UIMapActions
+    {
+        private @PlayerInput m_Wrapper;
+        public UIMapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_UIMap_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_UIMap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIMapActions set) { return set.Get(); }
+        public void AddCallbacks(IUIMapActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIMapActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIMapActionsCallbackInterfaces.Add(instance);
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+        }
+
+        private void UnregisterCallbacks(IUIMapActions instance)
+        {
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+        }
+
+        public void RemoveCallbacks(IUIMapActions instance)
+        {
+            if (m_Wrapper.m_UIMapActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIMapActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIMapActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIMapActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIMapActions @UIMap => new UIMapActions(this);
     public interface IKeyboardMapActions
     {
         void OnWalk(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnWeaponSwitch(InputAction.CallbackContext context);
         void OnQuickSwitch(InputAction.CallbackContext context);
+    }
+    public interface IUIMapActions
+    {
+        void OnPause(InputAction.CallbackContext context);
     }
 }
