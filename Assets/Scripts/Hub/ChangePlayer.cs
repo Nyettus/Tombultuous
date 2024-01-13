@@ -7,10 +7,10 @@ public class ChangePlayer : MonoBehaviour
     public PlayableCharacter character;
     private PlayerMaster holder => GameManager._.Master;
 
-    public void EquipNewCharacter()
+    public void EquipNewCharacter(bool skipCheck = false)
     {
         
-        if (character == holder.card) return;
+        if (character == holder.card && !skipCheck) return;
         GameManager._.playerCard= character;
         holder.EstablishCard();
         GiveItems();
@@ -28,6 +28,7 @@ public class ChangePlayer : MonoBehaviour
 
     private IEnumerator GiveWeapon()
     {
+        
         holder.weaponMaster.CleanseWeapons();
         foreach (WeaponBase weapon in character.startingWeapons)
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class InitialEquip : MonoBehaviour
 {
     public ChangePlayer vessel;
+    private bool once = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +16,13 @@ public class InitialEquip : MonoBehaviour
     void Update()
     {
         if (GameManager._.CheckMasterError()) return;
-        vessel.EquipNewCharacter();
-        Destroy(this);
+        else if (once)
+        {
+            vessel.EquipNewCharacter(true);
+            once = false;
+            Destroy(this,10);
+        }
+
         
     }
 }
