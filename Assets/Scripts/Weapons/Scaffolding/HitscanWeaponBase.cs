@@ -6,6 +6,7 @@ public class HitscanWeaponBase : RangedWeaponBase
 {
     public override void Shoot()
     {
+        base.Shoot();
         for(int i = 0; i < bullets; i++)
         {
             RaycastHit hit;

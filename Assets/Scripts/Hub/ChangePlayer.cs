@@ -15,6 +15,8 @@ public class ChangePlayer : MonoBehaviour
         holder.EstablishCard();
         GiveItems();
         StartCoroutine("GiveWeapon");
+        holder.healthMaster.ResetFlesh();
+        GameManager._.Master.healthMaster.OnHealthChangeEvent();
     }
 
     private void GiveItems()

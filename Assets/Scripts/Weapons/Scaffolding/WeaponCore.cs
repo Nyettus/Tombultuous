@@ -26,19 +26,19 @@ public class WeaponCore : MonoBehaviour
 
     protected virtual void Start()
     {
-        ObjectPool = ObjectPooler.Instance;
+        ObjectPool = ObjectPooler._;
         modelHolder = transform.GetChild(1);
     }
 
 
     public virtual void Shoot()
     {
-
+        GameManager._.Master.weaponMaster.OnAmmoChangeEvent();
     }
 
     public virtual void OnSwitch()
     {
-
+        GameManager._.Master.weaponMaster.OnAmmoChangeEvent();
     }
     public virtual void OnMeleeHit(EnemyHealth HealthScript)
     {
@@ -49,6 +49,7 @@ public class WeaponCore : MonoBehaviour
         if (GameManager._.paused) return;
         specialUsed = true;
         specialTime = Time.time + specialCooldown;
+        GameManager._.Master.weaponMaster.OnAmmoChangeEvent();
     }
 
     public virtual void Update()
@@ -108,6 +109,7 @@ public class WeaponCore : MonoBehaviour
             master.SelectWeapon();
 
         }
+        GameManager._.Master.weaponMaster.OnAmmoChangeEvent();
 
     }
 

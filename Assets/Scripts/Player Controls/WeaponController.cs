@@ -15,6 +15,15 @@ public class WeaponController : MonoBehaviour
     private int previousWeapon = -1;
     [SerializeField]
     public WeaponCore[] equippedGuns;
+
+    public delegate void UpdateAmmo();
+    public static event UpdateAmmo OnUpdateAmmo;
+    public void OnAmmoChangeEvent()
+    {
+
+        if (OnUpdateAmmo != null)
+            OnUpdateAmmo();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +36,11 @@ public class WeaponController : MonoBehaviour
     public void OnShoot(InputAction.CallbackContext context)
     {
         if (equippedGuns[selectedWeapon] != null)
+        {
             equippedGuns[selectedWeapon].shooting = context.performed;
+
+        }
+
     }
 
     public void OnSpecial(InputAction.CallbackContext context)
@@ -35,6 +48,7 @@ public class WeaponController : MonoBehaviour
         if (context.performed && equippedGuns[selectedWeapon] != null)
         {
             equippedGuns[selectedWeapon].Special();
+
         }
 
     }
@@ -49,6 +63,7 @@ public class WeaponController : MonoBehaviour
                 previousWeapon = selectedWeapon;
                 selectedWeapon = val;
                 SelectWeapon();
+
             }
         }
     }
@@ -111,6 +126,7 @@ public class WeaponController : MonoBehaviour
             {
                 weapon.gameObject.SetActive(true);
                 equippedGuns[i].OnSwitch();
+
             }
 
             else

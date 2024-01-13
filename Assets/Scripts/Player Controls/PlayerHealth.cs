@@ -7,13 +7,14 @@ public class PlayerHealth : MonoBehaviour
     public ItemMaster itemMaster;
 
     public int flesh;
-    private int fleshHealthMax => itemMaster.Master.health + itemMaster.M_Health;
+    public int fleshHealthMax => itemMaster.Master.health + itemMaster.M_Health;
     public int totalHealth => flesh + itemMaster.M_OverHealth + itemMaster.M_DecayHealth;
 
     // Start is called before the first frame update
     void Start()
     {
-        HealFlesh(100000);
+        ResetFlesh();
+        OnHealthChangeEvent();
     }
 
     // Update is called once per frame
@@ -22,14 +23,26 @@ public class PlayerHealth : MonoBehaviour
         HealthDecay();
     }
 
+    public delegate void UpdateHealth();
+    public static event UpdateHealth OnUpdateHealth;
+    public void OnHealthChangeEvent()
+    {
+
+        if (OnUpdateHealth != null)
+            OnUpdateHealth();
+    }
+
+
+
     #region Damage
+
     public void takeDamage(int amount)
     {
         if (itemMaster.M_OverHealth + itemMaster.M_DecayHealth > 0)
         {
 
             //Damage decay health
-            int overflow = DamageStep(amount,ref itemMaster.M_DecayHealth);
+            int overflow = DamageStep(amount, ref itemMaster.M_DecayHealth);
             //leftovers damage overhealth
             overflow = DamageStep(overflow, ref itemMaster.M_OverHealth);
             //remaining goes into flesh health
@@ -38,11 +51,14 @@ public class PlayerHealth : MonoBehaviour
         else
             flesh -= amount;
 
+
         if (flesh <= 0)
         {
             flesh = 0;
             death();
         }
+        OnHealthChangeEvent();
+
     }
 
     public int DamageStep(int amount, ref int healthpool)
@@ -63,15 +79,19 @@ public class PlayerHealth : MonoBehaviour
     }
     #endregion
 
-    #region FleshHealth
+    #region Heal Health
     public void HealFlesh(int amount)
     {
         if (fleshHealthMax - flesh < amount)
             flesh = fleshHealthMax;
         else
             flesh += amount;
+        OnHealthChangeEvent();
     }
-
+    public void ResetFlesh()
+    {
+        flesh = fleshHealthMax;
+    }
 
     #endregion
 
@@ -85,6 +105,7 @@ public class PlayerHealth : MonoBehaviour
         {
             decayTime = Time.time + decayDelay;
             itemMaster.M_DecayHealth -= 1;
+            OnHealthChangeEvent();
         }
 
     }

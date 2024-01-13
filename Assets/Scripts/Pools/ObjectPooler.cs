@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UsefulBox;
 
-public class ObjectPooler : MonoBehaviour
+public class ObjectPooler : SingletonPersist<ObjectPooler>
 {
 
 
@@ -12,10 +12,7 @@ public class ObjectPooler : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else if (Instance != this)
-            Destroy(gameObject);
+        Startup(this);
     }
 
     public List<Pool> pools;

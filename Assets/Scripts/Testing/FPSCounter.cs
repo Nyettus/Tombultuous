@@ -7,6 +7,7 @@ using TMPro;
 public class FPSCounter : MonoBehaviour
 {
     public TextMeshProUGUI fpsCounter;
+
     // Start is called before the first frame update
     void Start()
     {

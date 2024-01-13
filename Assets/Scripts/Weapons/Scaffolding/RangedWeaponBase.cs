@@ -80,6 +80,7 @@ public class RangedWeaponBase : WeaponCore
     {
         curMag = magSize;
         reloading = false;
+        GameManager._.Master.weaponMaster.OnAmmoChangeEvent();
 
     }
 
@@ -106,14 +107,14 @@ public class RangedWeaponBase : WeaponCore
         {
             if (fullAuto)
             {
-                Shoot();
                 curMag -= 1;
+                Shoot();
             }
             else
             {
+                curMag -= 1;
                 Shoot();
                 shooting = false;
-                curMag -= 1;
             }
             shootSetTime = Time.time + fireRate* (GameManager._.Master.weaponMaster.hasteMult);
         }
