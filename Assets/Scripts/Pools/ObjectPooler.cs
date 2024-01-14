@@ -2,25 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UsefulBox;
+using UnityEngine.SceneManagement;
 
 public class ObjectPooler : SingletonPersist<ObjectPooler>
 {
 
 
     public ObjectPoolerPool totalPoolableObjects;
-    public static ObjectPooler Instance;
 
     private void Awake()
     {
         Startup(this);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
     // Start is called before the first frame update
-    void Start()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("scene laoded");
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         foreach (Pool pool in pools)
@@ -40,7 +42,7 @@ public class ObjectPooler : SingletonPersist<ObjectPooler>
 
     public GameObject SpawnFromPool(string tag, Vector3 pos, Quaternion rot)
     {
-
+        Debug.Log(string.Format("Spawned {0} from pool",tag));
         AddToPool(totalPoolableObjects.findPooledItem(tag));
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
@@ -59,7 +61,7 @@ public class ObjectPooler : SingletonPersist<ObjectPooler>
     {
         if (poolDictionary.ContainsKey(pooledItem.tag)) return;
         Queue<GameObject> objectPool = new Queue<GameObject>();
-
+        pools.Add(pooledItem);
         for (int i = 0; i < pooledItem.size; i++)
         {
             GameObject obj = Instantiate(pooledItem.prefab);

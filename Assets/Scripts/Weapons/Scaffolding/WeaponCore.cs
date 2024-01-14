@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponCore : MonoBehaviour
 {
     public bool shooting;
-    protected ObjectPooler ObjectPool;
+    protected ObjectPooler ObjectPool => ObjectPooler._;
     private Transform modelHolder;
     protected LayerMask layerMask = ~(1 << 6 | 1 << 2);
 
@@ -26,7 +26,6 @@ public class WeaponCore : MonoBehaviour
 
     protected virtual void Start()
     {
-        ObjectPool = ObjectPooler._;
         modelHolder = transform.GetChild(1);
     }
 
