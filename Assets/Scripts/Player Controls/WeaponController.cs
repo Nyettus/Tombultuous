@@ -24,6 +24,16 @@ public class WeaponController : MonoBehaviour
         if (OnUpdateAmmo != null)
             OnUpdateAmmo();
     }
+
+    public delegate void UpdateSpecial();
+    public static event UpdateSpecial OnUpdateSpecial;
+    public void OnSpecialChangeEvent()
+    {
+
+        if (OnUpdateSpecial != null)
+            OnUpdateSpecial();
+    }
+
     // Start is called before the first frame update
     void Start()
     {

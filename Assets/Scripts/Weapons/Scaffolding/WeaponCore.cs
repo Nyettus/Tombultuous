@@ -19,10 +19,14 @@ public class WeaponCore : MonoBehaviour
     protected float specialCooldown;
     public float specialTime;
     protected bool specialUsed=false;
+    private float specialStartTime;
+    [HideInInspector]
+    public float specialPercentage;
 
     [Header("Inventory Traits")]
     public bool equipped = false;
     public GameObject prefab;
+    
 
     protected virtual void Start()
     {
@@ -37,7 +41,9 @@ public class WeaponCore : MonoBehaviour
 
     public virtual void OnSwitch()
     {
+        SpecialPercentage();
         GameManager._.Master.weaponMaster.OnAmmoChangeEvent();
+        GameManager._.Master.weaponMaster.OnSpecialChangeEvent();
     }
     public virtual void OnMeleeHit(EnemyHealth HealthScript)
     {
@@ -48,13 +54,22 @@ public class WeaponCore : MonoBehaviour
         if (GameManager._.paused) return;
         specialUsed = true;
         specialTime = Time.time + specialCooldown;
+        specialStartTime = Time.time;
         GameManager._.Master.weaponMaster.OnAmmoChangeEvent();
     }
 
     public virtual void Update()
     {
+
+        if (specialUsed)
+        {
+            SpecialPercentage();
+            GameManager._.Master.weaponMaster.OnSpecialChangeEvent();
+        }
+
         if (specialTime < Time.time)
             specialUsed = false;
+
     }
 
 
@@ -126,6 +141,13 @@ public class WeaponCore : MonoBehaviour
             if (hasChildren != null)
                 LayerChange(child.gameObject, layerName);
         }
+    }
+
+    private void SpecialPercentage()
+    {
+        var startTime = (specialTime - specialStartTime);
+        var otherTime = (Time.time - specialStartTime);
+        specialPercentage = Mathf.Clamp(otherTime / startTime, 0, 1);
     }
 
 }

@@ -42,7 +42,6 @@ public class ObjectPooler : SingletonPersist<ObjectPooler>
 
     public GameObject SpawnFromPool(string tag, Vector3 pos, Quaternion rot)
     {
-        Debug.Log(string.Format("Spawned {0} from pool",tag));
         AddToPool(totalPoolableObjects.findPooledItem(tag));
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 

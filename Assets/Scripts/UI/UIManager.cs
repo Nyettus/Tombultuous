@@ -13,6 +13,7 @@ public class UIManager : SingletonPersist<UIManager>
 
     public int[] healthBreakdown = new int[] { 1, 1, 1, 1 };
     public int[] AmmoBreakdown = new int[] { -1, -1 };
+    public float specialBreakdown = 1;
 
 
 
@@ -27,6 +28,7 @@ public class UIManager : SingletonPersist<UIManager>
         UIMap.FindAction("Pause").performed += gm.Pause;
         PlayerHealth.OnUpdateHealth += ChangeHealthValue;
         WeaponController.OnUpdateAmmo += ChangeAmmoValues;
+        WeaponController.OnUpdateSpecial += ChangeSpecialValue;
     }
 
 
@@ -62,6 +64,16 @@ public class UIManager : SingletonPersist<UIManager>
     }
     #endregion
 
+    #region
+    public void ChangeSpecialValue()
+    {
+        var currentGun = gm.Master.weaponMaster.equippedGuns[gm.Master.weaponMaster.selectedWeapon];
+        specialBreakdown = currentGun.specialPercentage;
+    }
+
+
+    #endregion
+
 
 
     void OnDisable()
@@ -70,6 +82,7 @@ public class UIManager : SingletonPersist<UIManager>
         UIMap.FindAction("Pause").performed -= gm.Pause;
         PlayerHealth.OnUpdateHealth -= ChangeHealthValue;
         WeaponController.OnUpdateAmmo -= ChangeAmmoValues;
+        WeaponController.OnUpdateSpecial -= ChangeSpecialValue;
     }
 
 
