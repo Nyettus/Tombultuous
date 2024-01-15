@@ -15,6 +15,7 @@ public class UIManager : SingletonPersist<UIManager>
     public int[] AmmoBreakdown = new int[] { -1, -1 };
     public float specialBreakdown = 1;
     public float dashBreakdown = 1;
+    public float reloadBreakdown = 1;
 
 
 
@@ -31,6 +32,7 @@ public class UIManager : SingletonPersist<UIManager>
         WeaponController.OnUpdateAmmo += ChangeAmmoValues;
         WeaponController.OnUpdateSpecial += ChangeSpecialValue;
         PlayerController.OnUpdateDash += ChangeDashValue;
+        WeaponController.OnUpdateReload += ChangeReloadValue;
     }
 
 
@@ -84,6 +86,21 @@ public class UIManager : SingletonPersist<UIManager>
 
     #endregion
 
+    #region Reload update
+    private void ChangeReloadValue()
+    {
+        var currentGun = gm.Master.weaponMaster.equippedGuns[gm.Master.weaponMaster.selectedWeapon];
+        if (currentGun.TryGetComponent<RangedWeaponBase>(out RangedWeaponBase compono) && compono.requireReload)
+        {
+            reloadBreakdown = compono.reloadPercentage;
+        }
+    }
+
+
+    #endregion
+
+
+
 
 
     void OnDisable()
@@ -94,6 +111,7 @@ public class UIManager : SingletonPersist<UIManager>
         WeaponController.OnUpdateAmmo -= ChangeAmmoValues;
         WeaponController.OnUpdateSpecial -= ChangeSpecialValue;
         PlayerController.OnUpdateDash -= ChangeDashValue;
+        WeaponController.OnUpdateReload -= ChangeReloadValue;
     }
 
 

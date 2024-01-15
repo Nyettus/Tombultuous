@@ -23,6 +23,8 @@ public class RangedWeaponBase : WeaponCore
     public bool requireReload;
     public int magSize;
     public float reloadTime;
+    public float reloadPercentage;
+    private float reloadTicker;
 
 
     [Header("Out of card logic times")]
@@ -71,7 +73,16 @@ public class RangedWeaponBase : WeaponCore
     {
         base.Update();
         if (requireReload)
+        {
             ReloadFire();
+            if (reloading)
+            {
+                reloadPercentage = Mathf.Clamp((reloadTicker += (Time.deltaTime * Time.timeScale)) / reloadTime,0,1);
+                GameManager._.Master.weaponMaster.OnReloadChangeEvent();
+            }
+            else if (reloadTicker != 0) reloadTicker = 0;
+        }
+
         else
             FreeFire();
     }
@@ -103,7 +114,7 @@ public class RangedWeaponBase : WeaponCore
     protected void ReloadFire()
     {
         if (GameManager._.paused) return;
-        if (shooting && shootSetTime < Time.time&&curMag>0 && !reloading)
+        if (shooting && shootSetTime < Time.time && curMag > 0 && !reloading)
         {
             if (fullAuto)
             {
@@ -116,11 +127,11 @@ public class RangedWeaponBase : WeaponCore
                 Shoot();
                 shooting = false;
             }
-            shootSetTime = Time.time + fireRate* (GameManager._.Master.weaponMaster.hasteMult);
+            shootSetTime = Time.time + fireRate * (GameManager._.Master.weaponMaster.hasteMult);
         }
-        if (curMag <= 0&&!reloading)
+        if (curMag <= 0 && !reloading)
         {
-            Invoke("Reload", reloadTime* (GameManager._.Master.weaponMaster.hasteMult));
+            Invoke("Reload", reloadTime * (GameManager._.Master.weaponMaster.hasteMult));
             reloading = true;
         }
     }
@@ -140,7 +151,7 @@ public class RangedWeaponBase : WeaponCore
     protected float damageFalloff(float distance)
     {
         float normalised;
-        normalised = Mathf.Clamp((distance - minRange) / (maxRange - minRange),0f,1f);
+        normalised = Mathf.Clamp((distance - minRange) / (maxRange - minRange), 0f, 1f);
         return normalised * minDamage + (1 - normalised) * maxDamage;
     }
 

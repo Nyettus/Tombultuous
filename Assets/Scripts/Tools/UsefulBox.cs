@@ -123,6 +123,15 @@ namespace UsefulBox
 
     }
 
+    public static class PsychoticBox
+    {
+        public static string ConvertToPercent(float input, string format = "00.00")
+        {
+            string asPercent = (input * 100).ToString(format) + "%";
+            return asPercent;
+        }
+    }
+
 
 }
 

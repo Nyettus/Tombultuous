@@ -34,6 +34,14 @@ public class WeaponController : MonoBehaviour
             OnUpdateSpecial();
     }
 
+    public delegate void UpdateReload();
+    public static event UpdateReload OnUpdateReload;
+    public void OnReloadChangeEvent()
+    {
+        if (OnUpdateReload != null)
+            OnUpdateReload();
+    }
+
     // Start is called before the first frame update
     void Start()
     {

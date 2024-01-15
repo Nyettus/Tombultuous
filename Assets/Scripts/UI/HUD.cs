@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UsefulBox;
 
 public class HUD : MonoBehaviour
 {
-    public TextMeshProUGUI health,ammo,special,dash;
+    public TextMeshProUGUI health,ammo,special,dash,reload;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +14,8 @@ public class HUD : MonoBehaviour
         WeaponController.OnUpdateAmmo += UpdateAmmo;
         WeaponController.OnUpdateSpecial += UpdateSpecial;
         PlayerController.OnUpdateDash += UpdateDash;
-        
+        WeaponController.OnUpdateReload += UpdateReload;
+
     }
 
 
@@ -24,6 +26,7 @@ public class HUD : MonoBehaviour
         WeaponController.OnUpdateAmmo -= UpdateAmmo;
         WeaponController.OnUpdateSpecial -= UpdateSpecial;
         PlayerController.OnUpdateDash -= UpdateDash;
+        WeaponController.OnUpdateReload -= UpdateReload;
     }
 
 
@@ -43,15 +46,29 @@ public class HUD : MonoBehaviour
 
     private void UpdateSpecial()
     {
-        var specialBreakdown = UIManager._.specialBreakdown;
-        string asPercent = (specialBreakdown * 100).ToString("00.00") + "%";
-        special.text = asPercent;
+        StandardPercentage(UIManager._.specialBreakdown, special);
     }
 
     private void UpdateDash()
     {
-        var dashBreakdown = UIManager._.dashBreakdown;
-        string asPercent = (dashBreakdown * 100).ToString("00.00") + "%";
-        dash.text = asPercent;
+        StandardPercentage(UIManager._.dashBreakdown, dash);
+    }
+
+    private void UpdateReload()
+    {
+        StandardPercentage(UIManager._.reloadBreakdown, reload);
+    }
+
+
+    private void StandardPercentage(float input, TextMeshProUGUI label)
+    {
+        var breakdown = input;
+        if (breakdown == 1)
+        {
+            label.text = "";
+            return;
+        }
+        string asPercent = PsychoticBox.ConvertToPercent(input);
+        label.text = asPercent;
     }
 }
