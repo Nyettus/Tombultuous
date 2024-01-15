@@ -48,10 +48,21 @@ public class PlayerController : MonoBehaviour
     private bool dashTick = true;
     private float dashEndTime;
     private float dashFreezeTime;
+    private float dashStartTime;
+    //[HideInInspector]
+    public float dashPercentage;
     public float dashCooldown => Mathf.Clamp(Master.dashCooldown + Master.itemMaster.M_DashCooldown, Master.itemMaster.MIN_DashCooldown, Mathf.Infinity);
 
     public float dashDuration = 0.1f;
 
+    public delegate void UpdateDash();
+    public static event UpdateDash OnUpdateDash;
+    public void OnDashChangeEvent()
+    {
+
+        if (OnUpdateDash != null)
+            OnUpdateDash();
+    }
 
 
 
@@ -124,6 +135,8 @@ public class PlayerController : MonoBehaviour
             dashEndTime = Time.time + dashCooldown;
             dashFreezeTime = Time.time + dashDuration;
             GameManager._.Master.cameraEffects.DashShake(2f, dashDuration);
+            dashStartTime = Time.time;
+
             dashTick = false;
 
         }
@@ -137,6 +150,7 @@ public class PlayerController : MonoBehaviour
     {
         DashDisable();
         Detections();
+        DashPercentage();
         if (dashTick)
         {
             PhysicsMod();
@@ -189,6 +203,7 @@ public class PlayerController : MonoBehaviour
 
     public void DashDisable()
     {
+
         if (Time.time > dashFreezeTime)
         {
             if (dashTick == false)
@@ -203,6 +218,7 @@ public class PlayerController : MonoBehaviour
             dashTick = true;
 
         }
+
     }
 
 
@@ -244,10 +260,6 @@ public class PlayerController : MonoBehaviour
             accel = moveSpeed * gaccel;
 
             rb.useGravity = false;
-            //if (vertMove == Vector2.zero)
-            //    rb.useGravity = false;
-            //else
-            //    rb.useGravity = true;
         }
         else
         {
@@ -283,6 +295,23 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void DashPercentage()
+    {
+        if (dashEndTime > Time.time)
+        {
+            var denominator = (dashEndTime - dashStartTime);
+            var neumerator = (Time.time - dashStartTime);
+            dashPercentage = Mathf.Clamp(neumerator / denominator, 0, 1);
+            OnDashChangeEvent();
+        }
+        else if(dashPercentage !=1)
+        {
+            dashPercentage = 1;
+            OnDashChangeEvent();
+        }
+
+
+    }
 
 
 }

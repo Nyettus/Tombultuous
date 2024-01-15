@@ -145,9 +145,9 @@ public class WeaponCore : MonoBehaviour
 
     private void SpecialPercentage()
     {
-        var startTime = (specialTime - specialStartTime);
-        var otherTime = (Time.time - specialStartTime);
-        specialPercentage = Mathf.Clamp(otherTime / startTime, 0, 1);
+        var denominator = (specialTime - specialStartTime);
+        var neumerator = (Time.time - specialStartTime);
+        specialPercentage = Mathf.Clamp(neumerator / denominator, 0, 1);
     }
 
 }

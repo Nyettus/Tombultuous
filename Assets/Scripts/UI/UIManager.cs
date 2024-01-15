@@ -14,6 +14,7 @@ public class UIManager : SingletonPersist<UIManager>
     public int[] healthBreakdown = new int[] { 1, 1, 1, 1 };
     public int[] AmmoBreakdown = new int[] { -1, -1 };
     public float specialBreakdown = 1;
+    public float dashBreakdown = 1;
 
 
 
@@ -29,6 +30,7 @@ public class UIManager : SingletonPersist<UIManager>
         PlayerHealth.OnUpdateHealth += ChangeHealthValue;
         WeaponController.OnUpdateAmmo += ChangeAmmoValues;
         WeaponController.OnUpdateSpecial += ChangeSpecialValue;
+        PlayerController.OnUpdateDash += ChangeDashValue;
     }
 
 
@@ -38,7 +40,7 @@ public class UIManager : SingletonPersist<UIManager>
 
 
 
-    public void ChangeHealthValue()
+    private  void ChangeHealthValue()
     {
         healthBreakdown = new int[]{gm.Master.healthMaster.flesh,
         gm.Master.healthMaster.fleshHealthMax,
@@ -49,7 +51,7 @@ public class UIManager : SingletonPersist<UIManager>
     #endregion
 
     #region AmmoUpdate
-    public void ChangeAmmoValues()
+    private void ChangeAmmoValues()
     {
         var currentGun = gm.Master.weaponMaster.equippedGuns[gm.Master.weaponMaster.selectedWeapon];
         if(currentGun.TryGetComponent<RangedWeaponBase>(out RangedWeaponBase compono)&& compono.requireReload)
@@ -64,13 +66,21 @@ public class UIManager : SingletonPersist<UIManager>
     }
     #endregion
 
-    #region
-    public void ChangeSpecialValue()
+    #region Special Update
+    private void ChangeSpecialValue()
     {
         var currentGun = gm.Master.weaponMaster.equippedGuns[gm.Master.weaponMaster.selectedWeapon];
         specialBreakdown = currentGun.specialPercentage;
     }
 
+
+    #endregion
+
+    #region Dash update
+    private void ChangeDashValue()
+    {
+        dashBreakdown = gm.Master.movementMaster.dashPercentage;
+    }
 
     #endregion
 
@@ -83,6 +93,7 @@ public class UIManager : SingletonPersist<UIManager>
         PlayerHealth.OnUpdateHealth -= ChangeHealthValue;
         WeaponController.OnUpdateAmmo -= ChangeAmmoValues;
         WeaponController.OnUpdateSpecial -= ChangeSpecialValue;
+        PlayerController.OnUpdateDash -= ChangeDashValue;
     }
 
 

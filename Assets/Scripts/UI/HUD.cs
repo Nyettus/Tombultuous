@@ -5,20 +5,25 @@ using TMPro;
 
 public class HUD : MonoBehaviour
 {
-    public TextMeshProUGUI health,ammo,special;
+    public TextMeshProUGUI health,ammo,special,dash;
     // Start is called before the first frame update
     void Start()
     {
         PlayerHealth.OnUpdateHealth += UpdateHealth;
         WeaponController.OnUpdateAmmo += UpdateAmmo;
         WeaponController.OnUpdateSpecial += UpdateSpecial;
+        PlayerController.OnUpdateDash += UpdateDash;
+        
     }
+
+
 
     private void OnDestroy()
     {
         PlayerHealth.OnUpdateHealth -= UpdateHealth;
         WeaponController.OnUpdateAmmo -= UpdateAmmo;
         WeaponController.OnUpdateSpecial -= UpdateSpecial;
+        PlayerController.OnUpdateDash -= UpdateDash;
     }
 
 
@@ -41,5 +46,12 @@ public class HUD : MonoBehaviour
         var specialBreakdown = UIManager._.specialBreakdown;
         string asPercent = (specialBreakdown * 100).ToString("00.00") + "%";
         special.text = asPercent;
+    }
+
+    private void UpdateDash()
+    {
+        var dashBreakdown = UIManager._.dashBreakdown;
+        string asPercent = (dashBreakdown * 100).ToString("00.00") + "%";
+        dash.text = asPercent;
     }
 }
