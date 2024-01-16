@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UsefulBox;
 
 public class HUD : MonoBehaviour
 {
+    
     public TextMeshProUGUI health,ammo,special,dash,reload;
+
+    public Image reloadBar, specialBar, dashBar;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +19,9 @@ public class HUD : MonoBehaviour
         WeaponController.OnUpdateSpecial += UpdateSpecial;
         PlayerController.OnUpdateDash += UpdateDash;
         WeaponController.OnUpdateReload += UpdateReload;
-
+        dashBar.enabled = false;
+        reloadBar.enabled = false;
+        specialBar.enabled = false;
     }
 
 
@@ -47,16 +53,19 @@ public class HUD : MonoBehaviour
     private void UpdateSpecial()
     {
         StandardPercentage(UIManager._.specialBreakdown, special);
+        ConvertToBar(UIManager._.specialBreakdown, specialBar);
     }
 
     private void UpdateDash()
     {
         StandardPercentage(UIManager._.dashBreakdown, dash);
+        ConvertToBar(UIManager._.dashBreakdown, dashBar);
     }
 
     private void UpdateReload()
     {
         StandardPercentage(UIManager._.reloadBreakdown, reload);
+        ConvertToBar(UIManager._.reloadBreakdown, reloadBar);
     }
 
 
@@ -70,5 +79,20 @@ public class HUD : MonoBehaviour
         }
         string asPercent = PsychoticBox.ConvertToPercent(input);
         label.text = asPercent;
+    }
+
+
+    private void ConvertToBar(float input, Image bar)
+    {
+        if(input == 1)
+        {
+            bar.enabled = false;
+            return;
+        }
+        else
+        {
+            bar.enabled = true;
+            bar.fillAmount = input;
+        }
     }
 }
