@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class UIManager : SingletonPersist<UIManager>
 {
@@ -22,9 +23,10 @@ public class UIManager : SingletonPersist<UIManager>
     private void Awake()
     {
         Startup(this);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void Start()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         UIMap.Enable();
         UIMap.FindAction("Pause").performed += gm.Pause;
@@ -33,14 +35,8 @@ public class UIManager : SingletonPersist<UIManager>
         WeaponController.OnUpdateSpecial += ChangeSpecialValue;
         PlayerController.OnUpdateDash += ChangeDashValue;
         WeaponController.OnUpdateReload += ChangeReloadValue;
-    }
-
-    public void FixedUpdate()
-    {
 
     }
-
-
 
     #region HealthUpdate
 
