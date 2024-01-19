@@ -46,6 +46,10 @@ public class PlayerMaster : MonoBehaviour
         Establish();
         //ReturnPlayer();
     }
+    private void Start()
+    {
+        GameManager._.lockMouse();
+    }
 
     // Update is called once per frame
     void Update()

@@ -35,15 +35,18 @@ public class UIManager : SingletonPersist<UIManager>
         WeaponController.OnUpdateReload += ChangeReloadValue;
     }
 
+    public void FixedUpdate()
+    {
+
+    }
+
 
 
     #region HealthUpdate
 
-
-
-
     private  void ChangeHealthValue()
     {
+        if (gm.CheckMasterError()) return;
         healthBreakdown = new int[]{gm.Master.healthMaster.flesh,
         gm.Master.healthMaster.fleshHealthMax,
         gm.Master.itemMaster.M_OverHealth,
@@ -55,6 +58,7 @@ public class UIManager : SingletonPersist<UIManager>
     #region AmmoUpdate
     private void ChangeAmmoValues()
     {
+        if (gm.CheckMasterError()) return;
         var currentGun = gm.Master.weaponMaster.equippedGuns[gm.Master.weaponMaster.selectedWeapon];
         if(currentGun.TryGetComponent<RangedWeaponBase>(out RangedWeaponBase compono)&& compono.requireReload)
         {
@@ -71,6 +75,7 @@ public class UIManager : SingletonPersist<UIManager>
     #region Special Update
     private void ChangeSpecialValue()
     {
+        if (gm.CheckMasterError()) return;
         var currentGun = gm.Master.weaponMaster.equippedGuns[gm.Master.weaponMaster.selectedWeapon];
         specialBreakdown = currentGun.specialPercentage;
     }
@@ -81,6 +86,7 @@ public class UIManager : SingletonPersist<UIManager>
     #region Dash update
     private void ChangeDashValue()
     {
+        if (gm.CheckMasterError()) return;
         dashBreakdown = gm.Master.movementMaster.dashPercentage;
     }
 
@@ -89,6 +95,7 @@ public class UIManager : SingletonPersist<UIManager>
     #region Reload update
     private void ChangeReloadValue()
     {
+        if (gm.CheckMasterError()) return;
         var currentGun = gm.Master.weaponMaster.equippedGuns[gm.Master.weaponMaster.selectedWeapon];
         if (currentGun.TryGetComponent<RangedWeaponBase>(out RangedWeaponBase compono) && compono.requireReload)
         {

@@ -33,6 +33,7 @@ public class GameManager : SingletonPersist<GameManager>
         //Debug.Log("OnSceneLoaded: " + scene.name);
         //Debug.Log(mode);
         //Debug.Log("The state of the OnSceneLoaded: " + CheckMasterError());
+
     }
 
 
@@ -45,23 +46,25 @@ public class GameManager : SingletonPersist<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-
         if (paused)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
         }
-        else
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 1;
-        }
+
+    }
+
+    public void lockMouse()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
     }
 
     public void Pause(InputAction.CallbackContext context)
     {
+        if (Master == null) return;
         Debug.Log("Pause");
         if (context.performed)
         {
@@ -84,18 +87,22 @@ public class GameManager : SingletonPersist<GameManager>
 
     public void TransitionScene(int id)
     {
-        var currentWeapons = Master.weaponMaster.equippedGuns;
-        weaponStorage.Clear();
-
-
-        for (int i = 0; i < currentWeapons.Length; i++)
+        if (Master != null)
         {
-            if (currentWeapons[i] == null) continue;
-            var temp = currentWeapons[i];
-            var tempWeaponStore = new WeaponStorage(temp.prefab, temp.specialTime - Time.time, 0);
-            weaponStorage.Add(tempWeaponStore);
-            Debug.Log("Looped");
+            var currentWeapons = Master.weaponMaster.equippedGuns;
+            weaponStorage.Clear();
+
+
+            for (int i = 0; i < currentWeapons.Length; i++)
+            {
+                if (currentWeapons[i] == null) continue;
+                var temp = currentWeapons[i];
+                var tempWeaponStore = new WeaponStorage(temp.prefab, temp.specialTime - Time.time, 0);
+                weaponStorage.Add(tempWeaponStore);
+                Debug.Log("Looped");
+            }
         }
+
         SceneManager.LoadScene(id);
     }
 
@@ -103,7 +110,7 @@ public class GameManager : SingletonPersist<GameManager>
     {
         if (Master == null)
         {
-            Debug.LogError("Master Absent");
+            //Debug.LogError("Master Absent");
             return true;
         }
         else return false;

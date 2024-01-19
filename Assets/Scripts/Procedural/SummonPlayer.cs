@@ -8,6 +8,7 @@ public class SummonPlayer : MonoBehaviour
     public Transform spawnPosition;
     public SetDoors spawnRoomDoors;
 
+    [SerializeField]
     private PlayerMaster holding;
     // Start is called before the first frame update
     void Start()
@@ -25,8 +26,9 @@ public class SummonPlayer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        Debug.Log("Im alive");
         if (GameManager._.CheckMasterError())
         {
             Debug.Log("Attempted to set master again");
@@ -38,12 +40,13 @@ public class SummonPlayer : MonoBehaviour
             StartCoroutine("GiveWeapon");
         }
 
-        Debug.Log("Im alive");
+
     }
 
 
     public void Summon()
     {
+        Debug.LogWarning("PlayerSummoned");
         var temp = Instantiate(GameManager._.playerPrefab);
         holding = temp.transform.GetChild(0).GetComponent<PlayerMaster>();
         
