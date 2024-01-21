@@ -9,6 +9,8 @@ public class UIManager : SingletonPersist<UIManager>
 {
     [SerializeField]
     public InputActionAsset InputMap;
+
+    public UIpopUp popUp;
     private InputActionMap UIMap => InputMap.FindActionMap("UIMap");
     private GameManager gm => GameManager._;
 
@@ -102,7 +104,14 @@ public class UIManager : SingletonPersist<UIManager>
 
     #endregion
 
+    #region Notification
+    public void WriteToNotification(string input)
+    {
+        popUp.AddNotification(input);
+    }
 
+
+    #endregion
 
 
 

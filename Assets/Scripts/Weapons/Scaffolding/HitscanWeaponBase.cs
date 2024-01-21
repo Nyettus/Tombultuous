@@ -31,9 +31,7 @@ public class HitscanWeaponBase : RangedWeaponBase
                     SummonWallHit(hit);
                 }
                 summonTracer(hit);
-
-                
-
+             
             }
 
         }

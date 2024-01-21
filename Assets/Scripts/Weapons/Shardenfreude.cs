@@ -11,7 +11,6 @@ public class Shardenfreude : HitscanWeaponBase
         if (!specialUsed&&curMag!=0)
         {
             specialCooldown = curMag*0.5f;
-
             for (int i = 0; i < curMag; i++)
             {
                 RaycastHit hit;
