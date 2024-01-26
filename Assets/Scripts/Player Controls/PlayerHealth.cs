@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public ItemMaster itemMaster;
-
+    public int lastDamageInstance;
     public int flesh;
     public int fleshHealthMax => itemMaster.Master.health + itemMaster.M_Health;
     public int totalHealth => flesh + itemMaster.M_OverHealth + itemMaster.M_DecayHealth;
@@ -36,8 +36,15 @@ public class PlayerHealth : MonoBehaviour
 
     #region Damage
 
-    public void takeDamage(int amount)
+    public void takeDamage(int amount, Vector3 direction, float magnitude)
     {
+        if (GameManager._.Master.invuln)
+        {
+            Debug.LogWarning(amount);
+            lastDamageInstance = amount;
+            return;
+        }
+
         if (itemMaster.M_OverHealth + itemMaster.M_DecayHealth > 0)
         {
 
@@ -57,6 +64,7 @@ public class PlayerHealth : MonoBehaviour
             flesh = 0;
             death();
         }
+        GameManager._.Master.movementMaster.KnockBack(direction, magnitude);
         OnHealthChangeEvent();
 
     }

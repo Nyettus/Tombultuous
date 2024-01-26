@@ -21,6 +21,9 @@ public class PlayerMaster : MonoBehaviour
     public float haste;
     public int pockets;
 
+    public InvulnManager invulnManager;
+    public bool invuln => invulnManager.isInvuln();
+
     [Header("Movement Variables (Base)")]
     public PlayerController movementMaster;
     public float moveSpeed;

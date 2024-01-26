@@ -17,7 +17,7 @@ public class EditorCustomCommands : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            GameManager._.Master.healthMaster.takeDamage(10);
+            GameManager._.Master.healthMaster.takeDamage(10,Vector3.zero,0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {

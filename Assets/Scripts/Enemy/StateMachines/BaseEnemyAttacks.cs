@@ -26,8 +26,7 @@ public class BaseEnemyAttacks : MonoBehaviour
     public void DamagePlayer(int damage,Vector3 direction,float magnitude)
     {
         if (!canHit) return;
-        GameManager._.Master.healthMaster.takeDamage(damage);
-        GameManager._.Master.movementMaster.KnockBack(direction, magnitude);
+        GameManager._.Master.healthMaster.takeDamage(damage, direction, magnitude);
         canHit = false;
         Debug.Log("Dealt: " + damage + " to the player");
     }

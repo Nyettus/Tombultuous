@@ -52,7 +52,7 @@ public class MeleeWeaponBase : WeaponCore
 
     }
 
-    protected void Swing()
+    protected virtual void Swing()
     {
 
         if (GameManager._.paused) return;
@@ -64,9 +64,9 @@ public class MeleeWeaponBase : WeaponCore
         }
     }
 
-    public override void OnMeleeHit(EnemyHealth HealthScript)
+    public override void OnMeleeHit(EnemyHealth HealthScript, float additive = 0)
     {
-        float damage = this.damage * GameManager._.Master.weaponMaster.damageMult;
+        float damage = (this.damage+additive) * GameManager._.Master.weaponMaster.damageMult;
         HealthScript.takeDamage(damage);
     }
 
