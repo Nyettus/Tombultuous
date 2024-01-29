@@ -11,13 +11,15 @@ public class ItemMaster : MonoBehaviour
 
     public OnKillItemHandler onKillItemHandler;
     public OnPermanantBuffHandler onPBuffHandler;
+    public OnRoomClearHandler onRoomClearHandler;
 
 
     public int M_Health;
     public int MIN_Health = 1;
     public int M_OverHealth;
     public int M_DecayHealth;
-    public float M_DamageMult;
+    public float Perm_DamageMult;
+    public float M_DamageMult => Perm_DamageMult + onRoomClearHandler.madnessModifier;
     public float MIN_DamageMult = 0.1f;
     public float Perm_Haste;
     public float M_Haste => hasteEquation(Perm_Haste);
@@ -90,7 +92,7 @@ public class ItemMaster : MonoBehaviour
     public void ResetStats()
     {
         M_Health = 0;           //1
-        M_DamageMult = 0;       //2
+        Perm_DamageMult = 0;       //2
         Perm_Haste = 0;            //3
         M_Pockets = 0;          //4
         Perm_MoveSpeed = 0;        //5
@@ -117,6 +119,7 @@ public class ItemMaster : MonoBehaviour
         {
             onPBuffHandler.PermanentBuff(i.Value.stacks, i.Key as PermanentBuffItem);
         }
+        GameManager._.Master.healthMaster.OnHealthChangeEvent();
     }
 
 }

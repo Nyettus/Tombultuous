@@ -40,7 +40,7 @@ public class OnPermanantBuffHandler : MonoBehaviour
                     break;
                 
                 case StatType.DamageMult:
-                    itemMaster.M_DamageMult += (origin.damage * stat.change) * stacks;
+                    itemMaster.Perm_DamageMult += (origin.damage * stat.change) * stacks;
                     break;
 
                 case StatType.Haste:

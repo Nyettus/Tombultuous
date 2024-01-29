@@ -56,6 +56,7 @@ public class CombatZone : MonoBehaviour
         //Code to activate room clear
         SetDoors(false);
         Debug.Log("Combat Zone Disabled");
+        GameManager._.Master.itemMaster.onRoomClearHandler.OnRoomClear();
     }
 
     private List<BoxCollider> GetChildren()

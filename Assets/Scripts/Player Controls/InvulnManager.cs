@@ -44,7 +44,7 @@ public class InvulnManager : MonoBehaviour
         if (Time.time > shovelEndTime && shovelInvuln)
         {
             shovelInvuln = false;
-            UIManager._.WriteToNotification("Shovel Accumulated " + shovelAcculm + " damage");
+            UIManager._.WriteToNotification("Shovel Accumulated <b>" + shovelAcculm + "</b> damage");
         }
 
         if (shovelInvuln)

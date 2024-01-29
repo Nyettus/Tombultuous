@@ -23,6 +23,7 @@ public class EnemyHealth : MonoBehaviour
         {
             Debug.Log("im dead");
             if (GameManager._.goldManager != null) GameManager._.goldManager.GetGold(goldAmount);
+            GameManager._.Master.itemMaster.onKillItemHandler.OnKill();
             countHandler.RemoveFromMaster();
             if (CM != null)
             {

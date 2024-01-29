@@ -43,13 +43,27 @@ public class ItemCore : MonoBehaviour
 
     private void Establish()
     {
-        UIName.text = baseItems[0].itemName;
-        UIDesc.text = baseItems[0].itemDesc;
+        UIName.text = itemName;
+        UIDesc.text = itemDesc;
     }
 
     public void onPickup()
     {
         Debug.Log("Item picked up");
+        foreach(ItemBase item in baseItems)
+        {
+            if(item is PermanentBuffItem)
+            {
+                var holding = item as PermanentBuffItem;
+                foreach(StatBuff buff in holding.buffs)
+                {
+                    if(buff.type == StatType.Health)
+                    {
+                        GameManager._.Master.healthMaster.HealFlesh((int)buff.change);
+                    }
+                }
+            }
+        }
         Destroy(this.gameObject);
     }
 
