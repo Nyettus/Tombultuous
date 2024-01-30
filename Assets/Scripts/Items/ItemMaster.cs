@@ -31,7 +31,8 @@ public class ItemMaster : MonoBehaviour
     public float MIN_MoveSpeed = 0.1f;
     public float M_AirAcceleration;
     public float MIN_AirAcceleration = 0.1f;
-    public float M_JumpPower;
+    public float Perm_JumpPower;
+    public float M_JumpPower => Perm_JumpPower;
     public float MIN_JumpPower = 0.1f;
     public int M_JumpCount;
     public int MIN_JumpCount = 1;
@@ -97,7 +98,7 @@ public class ItemMaster : MonoBehaviour
         M_Pockets = 0;          //4
         Perm_MoveSpeed = 0;        //5
         M_AirAcceleration = 0;  //6
-        M_JumpPower = 0;        //7
+        Perm_JumpPower = 0;        //7
         M_JumpCount = 0;        //8
         M_DashCooldown = 0;     //9
         M_DashSpeed = 0;        //10

@@ -77,10 +77,18 @@ public class RangedWeaponBase : WeaponCore
             ReloadFire();
             if (reloading)
             {
-                reloadPercentage = Mathf.Clamp((reloadTicker += (Time.deltaTime * Time.timeScale)) / reloadTime,0,1);
+
+                reloadPercentage = Mathf.Clamp((reloadTicker += (Time.deltaTime * Time.timeScale)) / (reloadTime * (GameManager._.Master.weaponMaster.hasteMult)), 0, 1);
+
                 GameManager._.Master.weaponMaster.OnReloadChangeEvent();
             }
-            else if (reloadTicker != 0) reloadTicker = 0;
+            else if (reloadTicker != 0)
+            {
+                reloadPercentage = 1;
+                GameManager._.Master.weaponMaster.OnReloadChangeEvent();
+                reloadTicker = 0;
+
+            }
         }
 
         else

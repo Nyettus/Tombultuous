@@ -60,11 +60,11 @@ public class OnPermanantBuffHandler : MonoBehaviour
                     itemMaster.M_AirAcceleration += (origin.airAccel * stat.change) * stacks;
                     break;
 
-                case StatType.JumpCount:
-                    itemMaster.M_JumpPower += (origin.jumpPower * stat.change) * stacks;
+                case StatType.JumpPower:
+                    itemMaster.Perm_JumpPower += (origin.jumpPower * stat.change) * stacks;
                     break;
 
-                case StatType.JumpPower:
+                case StatType.JumpCount:
                     itemMaster.M_JumpCount += (int)stat.change * stacks;
                     break;
 

@@ -47,7 +47,7 @@ public class ItemCore : MonoBehaviour
         UIDesc.text = itemDesc;
     }
 
-    public void onPickup()
+    public void OnPickup()
     {
         Debug.Log("Item picked up");
         foreach(ItemBase item in baseItems)
@@ -60,6 +60,10 @@ public class ItemCore : MonoBehaviour
                     if(buff.type == StatType.Health)
                     {
                         GameManager._.Master.healthMaster.HealFlesh((int)buff.change);
+                    }
+                    if(buff.type == StatType.JumpCount)
+                    {
+                        GameManager._.Master.movementMaster.jumpCount = GameManager._.Master.movementMaster.b_jumpCount;
                     }
                 }
             }
