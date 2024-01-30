@@ -12,6 +12,8 @@ public class ItemMaster : MonoBehaviour
     public OnKillItemHandler onKillItemHandler;
     public OnPermanantBuffHandler onPBuffHandler;
     public OnRoomClearHandler onRoomClearHandler;
+    public OnHitEffectHandler onHitEffectHandler;
+    public OnMissEffectHandler onMissEffectHandler;
 
 
     public int M_Health;
@@ -19,7 +21,7 @@ public class ItemMaster : MonoBehaviour
     public int M_OverHealth;
     public int M_DecayHealth;
     public float Perm_DamageMult;
-    public float M_DamageMult => Perm_DamageMult + onRoomClearHandler.madnessModifier;
+    public float M_DamageMult => Perm_DamageMult + onRoomClearHandler.madnessModifier + onHitEffectHandler.MCoinDamage + onMissEffectHandler.MLamentDamage;
     public float MIN_DamageMult = 0.1f;
     public float Perm_Haste;
     public float M_Haste => hasteEquation(Perm_Haste);

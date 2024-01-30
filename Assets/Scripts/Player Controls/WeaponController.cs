@@ -104,7 +104,7 @@ public class WeaponController : MonoBehaviour
 
     public void OnReload(InputAction.CallbackContext context)
     {
-        if (context.performed && equippedGuns[selectedWeapon].TryGetComponent(out RangedWeaponBase yep))
+        if (context.performed && equippedGuns[selectedWeapon] != null && equippedGuns[selectedWeapon].TryGetComponent(out RangedWeaponBase yep))
         {
             if (yep.requireReload && (yep.curMag != yep.magSize))
             {
