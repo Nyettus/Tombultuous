@@ -22,10 +22,12 @@ public class Shardenfreude : HitscanWeaponBase
                         float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult;
                         rayLine(hit.point);
                         hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
+                        GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect();
                     }
                     else
                     {
                         SummonWallHit(hit);
+                        GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect();
                     }
                     summonTracer(hit);
                 }

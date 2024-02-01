@@ -14,6 +14,7 @@ public class ItemMaster : MonoBehaviour
     public OnRoomClearHandler onRoomClearHandler;
     public OnHitEffectHandler onHitEffectHandler;
     public OnMissEffectHandler onMissEffectHandler;
+    public OnPassiveEffectHandler onPassiveEffectHandler;
 
 
     public int M_Health;

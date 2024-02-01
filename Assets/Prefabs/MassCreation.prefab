@@ -3656,6 +3656,10 @@ PrefabInstance:
       propertyPath: onMissEffectHandler
       value: 
       objectReference: {fileID: 1751605531366019544}
+    - target: {fileID: 975944647800130588, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: onPassiveEffectHandler
+      value: 
+      objectReference: {fileID: 2888547017173950674}
     - target: {fileID: 2109654757964489350, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: cameraEffects
       value: 
@@ -3832,6 +3836,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7890854250324370136, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1751605531366019544}
+    - targetCorrespondingSourceObject: {fileID: 7890854250324370136, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2888547017173950674}
   m_SourcePrefab: {fileID: 100100000, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
 --- !u!4 &1228237159052028709 stripped
 Transform:
@@ -3926,6 +3933,19 @@ MonoBehaviour:
   MCoinCard: {fileID: 11400000, guid: 4c049b0c60dc8e0479c96e95a1ba4e06, type: 2}
   MLamentCard: {fileID: 11400000, guid: 34eb17eeaf023ed4d8f05459a545eab0, type: 2}
   MLamentDamage: 0
+--- !u!114 &2888547017173950674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5108875354906852209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a7ee7c2d7f1514791bf587fd3b5092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  master: {fileID: 2804877594365613493}
 --- !u!114 &6473614798001036193 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8264469731342221832, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
