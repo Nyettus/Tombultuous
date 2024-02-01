@@ -8,6 +8,7 @@ public class UIpopUp : MonoBehaviour
     public TextMeshProUGUI notifText;
     public Animator anim;
     private Queue<string> notifString = new Queue<string>();
+    private Queue<float> notifSpeed = new Queue<float>();
     private Coroutine checks;
     // Start is called before the first frame update
     void Start()
@@ -19,18 +20,20 @@ public class UIpopUp : MonoBehaviour
 
     }
 
-    public void AddNotification(string input)
+    public void AddNotification(string input,float speed)
     {
         notifString.Enqueue(input);
+        notifSpeed.Enqueue(speed);
         if(checks == null)
         {
             checks = StartCoroutine(RunQueue());
         }
     }
 
-    private void ShowNotif(string input)
+    private void ShowNotif(string input,float speed)
     {
         notifText.text = input;
+        anim.speed = speed;
         anim.Play("Notification");
     }
 
@@ -38,7 +41,7 @@ public class UIpopUp : MonoBehaviour
     {
         do
         {
-            ShowNotif(notifString.Dequeue());
+            ShowNotif(notifString.Dequeue(),notifSpeed.Dequeue());
             do
             {
                 yield return null;

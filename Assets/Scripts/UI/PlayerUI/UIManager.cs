@@ -105,9 +105,9 @@ public class UIManager : SingletonPersist<UIManager>
     #endregion
 
     #region Notification
-    public void WriteToNotification(string input)
+    public void WriteToNotification(string input,float speed = 1)
     {
-        popUp.AddNotification(input);
+        popUp.AddNotification(input, speed);
     }
 
 

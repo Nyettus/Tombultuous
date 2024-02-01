@@ -21,13 +21,13 @@ public class OnMissEffectHandler : MonoBehaviour
 
     #region Marksman's Lament
     public MarksmansLament MLamentCard;
-    public float MLamentDamage =0f;
+    public float MLamentDamage = 0f;
     private void MLamentIncrement()
     {
         int MLamentCount = itemMaster.GetItemCount(MLamentCard);
-        if (MLamentCount == 0 || MLamentDamage == MLamentCard.MaxiumumDamage) return;
+        if (MLamentCount == 0 || MLamentDamage >= MLamentCard.MaxiumumDamage) return;
         MLamentDamage += MLamentCard.IncrementalDamage * MLamentCount;
-        UIManager._.WriteToNotification("Marksman's Lament Grows, +"+ MLamentCard.IncrementalDamage * MLamentCount*100 + "% damage");
+        if (MLamentDamage <= MLamentCard.MaxiumumDamage) UIManager._.WriteToNotification("Marksman's Lament Grows, +" + MLamentCard.IncrementalDamage * MLamentCount * 100 + "% damage", 5f);
 
     }
 

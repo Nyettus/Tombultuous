@@ -12,9 +12,9 @@ public class OnHitEffectHandler : MonoBehaviour
     public void MCoinIncrement()
     {
         int MCoinCount = itemMaster.GetItemCount(MCoinCard);
-        if (MCoinCount == 0 || MCoinDamage == MCoinCard.MaxiumumDamage) return;
+        if (MCoinCount == 0 || MCoinDamage >= MCoinCard.MaxiumumDamage) return;
         MCoinDamage += MCoinCard.IncrementalDamage * MCoinCount;
-        if (MCoinDamage != MCoinCard.MaxiumumDamage) UIManager._.WriteToNotification("Marksman's Coin increased damage by " + MCoinCard.IncrementalDamage * MCoinCount * 100 + "%");
+        if (MCoinDamage <= MCoinCard.MaxiumumDamage) UIManager._.WriteToNotification("Marksman's Coin increased damage by " + MCoinCard.IncrementalDamage * MCoinCount * 100 + "%",5f);
     }
     #endregion
 
