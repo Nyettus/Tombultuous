@@ -31,8 +31,9 @@ public class OnHitEffectHandler : MonoBehaviour
 
     #endregion
 
-    public void OnHitEffect()
+    public void OnHitEffect(Vector3 position)
     {
+        itemMaster.onPassiveEffectHandler.LRodHit(position);
         MCoinIncrement();
         MLamentReset();
     }

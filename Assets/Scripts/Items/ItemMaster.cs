@@ -22,7 +22,7 @@ public class ItemMaster : MonoBehaviour
     public int M_OverHealth;
     public int M_DecayHealth;
     public float Perm_DamageMult;
-    public float M_DamageMult => Perm_DamageMult + onRoomClearHandler.madnessModifier + onHitEffectHandler.MCoinDamage + onMissEffectHandler.MLamentDamage;
+    public float M_DamageMult => Perm_DamageMult + onRoomClearHandler.madnessModifier + onHitEffectHandler.MCoinDamage + onMissEffectHandler.MLamentDamage + onPassiveEffectHandler.LRodDamage;
     public float MIN_DamageMult = 0.1f;
     public float Perm_Haste;
     public float M_Haste => hasteEquation(Perm_Haste);

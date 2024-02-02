@@ -17,7 +17,7 @@ public class HitscanWeaponBase : RangedWeaponBase
                 {
                     float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult;
                     hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
-                    GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect();
+                    GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(hit.point);
                 }
                 else if(hit.transform.tag == "ItemChest")
                 {
@@ -30,7 +30,7 @@ public class HitscanWeaponBase : RangedWeaponBase
                 else
                 {
                     SummonWallHit(hit);
-                    GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect();
+                    GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(hit.point);
                 }
                 summonTracer(hit);
              

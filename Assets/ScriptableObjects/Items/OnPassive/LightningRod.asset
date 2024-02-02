@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb00ecefa4df7542832a4de2862a915, type: 3}
+  m_Name: LightningRod
+  m_EditorClassIdentifier: 
+  itemName: Lightning Rod
+  itemDesc: Charge in the air, shoot or land to release
+  prefab: {fileID: 453090945282201501, guid: 5c6534ed72185f141b1bd24a0ce5a59c, type: 3}
+  rate: 1.5
+  explosionDamage: 50
+  threshold: 100
+  radius: 5

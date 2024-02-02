@@ -34,8 +34,9 @@ public class OnMissEffectHandler : MonoBehaviour
 
     #endregion
 
-    public void OnMissEffect()
+    public void OnMissEffect(Vector3 position)
     {
+        itemMaster.onPassiveEffectHandler.LRodHit(position);
         MCoinReset();
         MLamentIncrement();
     }
