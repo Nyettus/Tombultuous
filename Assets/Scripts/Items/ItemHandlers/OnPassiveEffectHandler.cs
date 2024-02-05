@@ -18,22 +18,19 @@ public class OnPassiveEffectHandler : MonoBehaviour
     private void LRodExplosion(Vector3 location)
     {
         if (LRodDamage == 0) return;
-        float explosion = LRodDamage * LRodCard.explosionDamage;
-        if (explosion > LRodCard.threshold)
+        Debug.LogWarning("Explostion went off");
+        Collider[] colliderArray = Physics.OverlapSphere(location, LRodCard.radius * LRodDamage);
+        LRDebug(location);
+        
+        foreach (Collider collider in colliderArray)
         {
-            Debug.LogWarning("Explostion went off");
-            Collider[] colliderArray = Physics.OverlapSphere(location, LRodCard.radius);
-            foreach (Collider collider in colliderArray)
+            if (collider.TryGetComponent(out EnemyHealth health))
             {
-                if (collider.TryGetComponent(out EnemyHealth health))
-                {
-                    health.takeDamage(LRodCard.explosionDamage*master.M_DamageMult);
-                }
+                UIManager._.WriteToNotification("Explosion hit", 5);
+                health.takeDamage(LRodCard.explosionDamage * master.M_DamageMult);
             }
-
-
-
         }
+
         Debug.Log("LRod Damage reset at: " + LRodDamage);
         LRodDamage = 0;
     }
@@ -49,9 +46,20 @@ public class OnPassiveEffectHandler : MonoBehaviour
         else
         {
             LRodExplosion(transform.position);
+            
         }
 
 
+
+    }
+
+    [SerializeField]
+    private GameObject LRDebugShape;
+    private void LRDebug(Vector3 location)
+    {
+        var item = Instantiate(LRDebugShape, location,Quaternion.identity);
+        var size = LRodDamage * LRodCard.radius*2;
+        item.transform.localScale = new Vector3(size, size, size);
     }
 
     #endregion
