@@ -61,14 +61,26 @@ public class ObjectPooler : SingletonPersist<ObjectPooler>
         if (poolDictionary.ContainsKey(pooledItem.tag)) return;
         Queue<GameObject> objectPool = new Queue<GameObject>();
         pools.Add(pooledItem);
-        for (int i = 0; i < pooledItem.size; i++)
+        //for (int i = 0; i < pooledItem.size; i++)
+        //{
+        //    GameObject obj = Instantiate(pooledItem.prefab);
+        //    obj.SetActive(false);
+        //    objectPool.Enqueue(obj);
+        //}
+        StartCoroutine( slowSpawn(objectPool, pooledItem));
+
+        poolDictionary.Add(pooledItem.tag, objectPool);
+    }
+
+    private IEnumerator slowSpawn(Queue<GameObject> objectpool,Pool pooledItem)
+    {
+        do
         {
             GameObject obj = Instantiate(pooledItem.prefab);
             obj.SetActive(false);
-            objectPool.Enqueue(obj);
-        }
-
-        poolDictionary.Add(pooledItem.tag, objectPool);
+            objectpool.Enqueue(obj);
+            yield return new WaitForSeconds(0.25f);
+        } while (objectpool.Count < pooledItem.size);
     }
 
 
