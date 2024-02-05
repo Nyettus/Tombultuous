@@ -11,10 +11,18 @@ public class FillEnemyInspector : Editor
     {
         base.OnInspectorGUI();
         CombatZone zone = (CombatZone)target;
+        PrefabStage prefabScene = PrefabStageUtility.GetCurrentPrefabStage();
         if (GUILayout.Button("Assign Enemies"))
         {
             zone.AssignEnemies();
-            //PrefabStageUtility.GetCurrentPrefabStage();
+            if (prefabScene != null)
+            {
+                EditorSceneManager.MarkSceneDirty(prefabScene.scene);
+            }
+            else
+            {
+                PrefabUtility.ApplyPrefabInstance(zone.gameObject, InteractionMode.UserAction);
+            }
         }
 
 
