@@ -18,7 +18,6 @@ public class OnPassiveEffectHandler : MonoBehaviour
     private void LRodExplosion(Vector3 location)
     {
         if (LRodDamage == 0) return;
-        Debug.LogWarning("Explostion went off");
         Collider[] colliderArray = Physics.OverlapSphere(location, LRodCard.radius * LRodDamage);
         LRDebug(location);
         
@@ -26,12 +25,9 @@ public class OnPassiveEffectHandler : MonoBehaviour
         {
             if (collider.TryGetComponent(out EnemyHealth health))
             {
-                UIManager._.WriteToNotification("Explosion hit", 5);
                 health.takeDamage(LRodCard.explosionDamage * master.M_DamageMult);
             }
         }
-
-        Debug.Log("LRod Damage reset at: " + LRodDamage);
         LRodDamage = 0;
     }
 
@@ -45,7 +41,7 @@ public class OnPassiveEffectHandler : MonoBehaviour
         }
         else
         {
-            LRodExplosion(transform.position);
+            LRodExplosion(transform.position-((GameManager._.Master.movementMaster.height/2)*Vector3.up));
             
         }
 
