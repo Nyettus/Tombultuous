@@ -140,7 +140,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3183158001709148139}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Speed: 1.75
   m_Acceleration: 8
   avoidancePriority: 50
@@ -244,7 +244,7 @@ MonoBehaviour:
   ragdollCollider: []
   ragdollRB: []
   defaultWalkSpeed: -1
-  canBeAirborne: 0
+  canBeAirborne: 1
 --- !u!114 &9084846199262636216
 MonoBehaviour:
   m_ObjectHideFlags: 0

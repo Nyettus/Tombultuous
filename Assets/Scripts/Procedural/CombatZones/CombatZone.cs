@@ -2,27 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class CombatZone : MonoBehaviour
 {
     public GameObject sealedHost;
     public List<BoxCollider> sealedDoors = new List<BoxCollider>();
+    public GameObject enemy;
     public List<GameObject> enemies = new List<GameObject>();
+    public GameObject navmeshLinkHost;
     private bool activated = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (navmeshLinkHost != null) navmeshLinkHost.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             ActivateCombatZone();
         }
@@ -32,20 +36,20 @@ public class CombatZone : MonoBehaviour
     {
         if (activated) return;
         Debug.Log("Room activated");
-        foreach(GameObject enemy in enemies)
+        foreach (GameObject enemy in enemies)
         {
             enemy.GetComponent<EnemyCountHandler>().master = this;
             enemy.SetActive(true);
         }
         SetDoors(true);
-
+        if (navmeshLinkHost != null) navmeshLinkHost.SetActive(true);
 
         activated = true;
     }
 
     private void SetDoors(bool state)
     {
-        foreach(BoxCollider doors in sealedDoors)
+        foreach (BoxCollider doors in sealedDoors)
         {
             doors.enabled = state;
         }
@@ -55,19 +59,23 @@ public class CombatZone : MonoBehaviour
     {
         //Code to activate room clear
         SetDoors(false);
+        if (navmeshLinkHost != null) navmeshLinkHost.SetActive(false);
         Debug.Log("Combat Zone Disabled");
         GameManager._.Master.itemMaster.onRoomClearHandler.OnRoomClear();
     }
 
-    private List<BoxCollider> GetChildren()
-    {
-        var holding = new List<BoxCollider>();
-        foreach (Transform child in transform)
-        {
-            holding.Add(child.gameObject.GetComponent<BoxCollider>());
-        }
-        return holding;
 
+
+    public void AssignEnemies()
+    {
+        if (enemies.Count == enemy.transform.childCount) return;
+        enemies.Clear();
+        foreach (Transform transform in enemy.transform)
+        {
+            enemies.Add(transform.gameObject);
+            transform.gameObject.SetActive(false);
+        }
+        
     }
 
 }
