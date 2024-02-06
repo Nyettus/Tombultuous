@@ -53,9 +53,22 @@ public class OnKillItemHandler : MonoBehaviour
 
     #endregion
 
+    #region Second Wings
+    public SecondWings secondWingsCard;
+    private void SecondWingsActivate()
+    {
+        int wingsCount = itemMaster.GetItemCount(secondWingsCard);
+        if (wingsCount == 0 || GameManager._.Master.grounded) return;
+        var movementMaster = GameManager._.Master.movementMaster;
+        movementMaster.jumpCount = movementMaster.b_jumpCount;
+    }
+
+    #endregion
+
     public void OnKill()
     {
         EnableBoots();
+        SecondWingsActivate();
     }
 
 }

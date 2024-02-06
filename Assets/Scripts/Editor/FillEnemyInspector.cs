@@ -17,6 +17,7 @@ public class FillEnemyInspector : Editor
             zone.AssignEnemies();
             if (prefabScene != null)
             {
+                
                 EditorSceneManager.MarkSceneDirty(prefabScene.scene);
             }
             else

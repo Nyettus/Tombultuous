@@ -35,9 +35,10 @@ public class OnPassiveEffectHandler : MonoBehaviour
     {
         int LRodCount = master.GetItemCount(LRodCard);
         if (LRodCount == 0) return;
+        float stackedRate = LRodCard.rate + (LRodCount - 1) * 0.5f;
         if (!GameManager._.Master.grounded)
         {
-            LRodDamage += Time.fixedDeltaTime * LRodCard.rate * LRodCount;
+            LRodDamage += Time.fixedDeltaTime * stackedRate;
         }
         else
         {
