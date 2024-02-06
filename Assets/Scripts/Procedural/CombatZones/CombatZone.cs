@@ -68,7 +68,9 @@ public class CombatZone : MonoBehaviour
 
     public void AssignEnemies()
     {
+        if (enemy == null) enemy = transform.parent.Find("--- Enemies ---").gameObject;
         if (enemies.Count == enemy.transform.childCount) return;
+
         enemies.Clear();
         foreach (Transform transform in enemy.transform)
         {
