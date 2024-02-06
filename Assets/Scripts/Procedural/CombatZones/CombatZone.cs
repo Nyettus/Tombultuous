@@ -69,6 +69,12 @@ public class CombatZone : MonoBehaviour
     public void AssignEnemies()
     {
         if (enemy == null) enemy = transform.parent.Find("--- Enemies ---").gameObject;
+        if (enemy == null)
+        {
+
+            Debug.LogError("Couldn't find enemy folder");
+            return;
+        }
         if (enemies.Count == enemy.transform.childCount) return;
 
         enemies.Clear();
@@ -77,7 +83,7 @@ public class CombatZone : MonoBehaviour
             enemies.Add(transform.gameObject);
             transform.gameObject.SetActive(false);
         }
-        
+
     }
 
 }
