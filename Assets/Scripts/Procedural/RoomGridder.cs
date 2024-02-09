@@ -13,6 +13,7 @@ public class RoomGrid
     public State state;
     public Type type;
     public Shape shape;
+    //This refers to index of V2I[] cartesian
     public int cartesianPlane = 0;
     public int roomID = -1;
     public bool deadEnd = false;
@@ -375,6 +376,18 @@ public class RoomGridder : MonoBehaviour
             {
                 RoomGrid roomToChange = activeGrid.Find(check => check == room);
                 roomToChange.type = RoomGrid.Type.Treasure;
+                foreach(Vector2Int direction in cartesian)
+                {
+                    var neighbour = activeGrid.Find(room => room.position == roomToChange.position + direction);
+                    if (neighbour.state == RoomGrid.State.occupied || neighbour.state == RoomGrid.State.multiGrid)
+                    {
+                        var newDir = System.Array.IndexOf(cartesian,direction*-1);
+                        roomToChange.cartesianPlane = newDir;
+                        break;
+
+                    }
+                }
+                
                 amount--;
             }
             else if (amount > 0)
