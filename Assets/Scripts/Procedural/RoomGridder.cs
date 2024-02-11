@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UsefulBox;
 
 
 [System.Serializable]
@@ -60,17 +61,7 @@ public class RoomGridder : MonoBehaviour
         CreateAdjacent(start);
         //SpawnTestRooms();
     }
-    private int wrapIndex(int input, int maximum)
-    {
 
-        int wrappedIndex = (input % maximum + maximum) % maximum;
-        return wrappedIndex;
-
-
-
-
-
-    }
 
     private void CreateAdjacent(Vector2Int start)
     {
@@ -207,7 +198,6 @@ public class RoomGridder : MonoBehaviour
             }
             else if (randomRoom.state == RoomGrid.State.unlikely && Random.value <= 0.1f)
             {
-                Debug.Log("Unlikely Room hit at: " + randomRoom.position);
                 return SelectRoom(roomToUpdate);
             }
             else
@@ -267,7 +257,7 @@ public class RoomGridder : MonoBehaviour
 
     }
 
-    private int SetCenteredSquare(RoomGrid checkRoom, int side, RoomGrid.Shape shape, RoomGrid.State multiGridState, RoomGrid.State startState = RoomGrid.State.occupied, RoomGrid.Type type = RoomGrid.Type.Standard)
+    private int SetCenteredSquare(RoomGrid checkRoom, int side, bool randomDir, RoomGrid.Shape shape, RoomGrid.State multiGridState, RoomGrid.State startState = RoomGrid.State.occupied, RoomGrid.Type type = RoomGrid.Type.Standard)
     {
 
         if (side % 2 == 0)
@@ -280,8 +270,8 @@ public class RoomGridder : MonoBehaviour
         List<int> trueIndecies = new List<int>();
         for (int i = 0; i < cartesian.Length; i++)
         {
-            
-            if (CheckGrid(checkRoom.position + cartesian[wrapIndex(i + 1, cartesian.Length)], checkRoom.position + cartesian[wrapIndex(i - 1, cartesian.Length)] + cartesian[i] * (side - 1)))
+
+            if (CheckGrid(checkRoom.position + cartesian[PsychoticBox.WrapIndex(i + 1, cartesian.Length)], checkRoom.position + cartesian[PsychoticBox.WrapIndex(i - 1, cartesian.Length)] + cartesian[i] * (side - 1)))
             {
                 facings[i] = true;
                 if (facings[i]) trueIndecies.Add(i);
@@ -295,10 +285,19 @@ public class RoomGridder : MonoBehaviour
         }
         int randomIndex = trueIndecies[Random.Range(0, trueIndecies.Count)];
         RoomGrid newCenter = activeGrid.Find(newRoom => newRoom.position == checkRoom.position + cartesian[randomIndex] * ((side - 1) / 2));
-        ReservePoints(newCenter.position, checkRoom.position + cartesian[wrapIndex(randomIndex - 1, cartesian.Length)] + cartesian[randomIndex] * (side - 1), shape, multiGridState, startState);
+        ReservePoints(newCenter.position, checkRoom.position + cartesian[PsychoticBox.WrapIndex(randomIndex - 1, cartesian.Length)] + cartesian[randomIndex] * (side - 1), shape, multiGridState, startState);
         newCenter.shape = shape;
         newCenter.state = startState;
         newCenter.type = type;
+        if (randomDir)
+        {
+            newCenter.cartesianPlane = Random.Range(0, 3);
+        }
+        else
+        {
+            var direction = System.Array.IndexOf(cartesian, (newCenter.position - checkRoom.position));
+            newCenter.cartesianPlane = direction;
+        }
         multiGridID++;
         return -1;
 
@@ -376,18 +375,18 @@ public class RoomGridder : MonoBehaviour
             {
                 RoomGrid roomToChange = activeGrid.Find(check => check == room);
                 roomToChange.type = RoomGrid.Type.Treasure;
-                foreach(Vector2Int direction in cartesian)
+                foreach (Vector2Int direction in cartesian)
                 {
                     var neighbour = activeGrid.Find(room => room.position == roomToChange.position + direction);
                     if (neighbour.state == RoomGrid.State.occupied || neighbour.state == RoomGrid.State.multiGrid)
                     {
-                        var newDir = System.Array.IndexOf(cartesian,direction*-1);
+                        var newDir = System.Array.IndexOf(cartesian, direction * -1);
                         roomToChange.cartesianPlane = newDir;
                         break;
 
                     }
                 }
-                
+
                 amount--;
             }
             else if (amount > 0)
@@ -416,7 +415,7 @@ public class RoomGridder : MonoBehaviour
                 distance = current;
             }
         }
-        SetCenteredSquare(furthestAdjacents, 3, RoomGrid.Shape._3x3, RoomGrid.State.forbidden, RoomGrid.State.forbidden, RoomGrid.Type.Boss);
+        SetCenteredSquare(furthestAdjacents, 3, false, RoomGrid.Shape._3x3, RoomGrid.State.forbidden, RoomGrid.State.forbidden, RoomGrid.Type.Boss);
         furthestAdjacents.state = RoomGrid.State.multiGrid;
         Debug.Log("Boss room created at " + furthestAdjacents.position);
     }
@@ -467,5 +466,5 @@ public class RoomGridder : MonoBehaviour
     }
 
 
-    
+
 }

@@ -130,6 +130,14 @@ namespace UsefulBox
             string asPercent = (input * 100).ToString(format) + "%";
             return asPercent;
         }
+
+        public static int WrapIndex(int input, int maximum)
+        {
+
+            int wrappedIndex = (input % maximum + maximum) % maximum;
+            return wrappedIndex;
+
+        }
     }
 
 

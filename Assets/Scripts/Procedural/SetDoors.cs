@@ -23,9 +23,10 @@ public class SetDoors : MonoBehaviour
     public void OpenDoors()
     {
         RaycastHit hit;
+        LayerMask layerMask = ~(1 << 10 | 1 << 2);
         foreach(DoorPairings door in doors)
         {
-            if(Physics.Raycast(door.detector.position,door.detector.forward,out hit, 1f))
+            if(Physics.Raycast(door.detector.position,door.detector.forward,out hit, 1f, layerMask))
             {
                 door.sealedWall.SetActive(false);
                 door.doorWall.SetActive(true);

@@ -19,8 +19,6 @@ public class SummonPlayer : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
         GameManager._.Master = holding;
 
     }
@@ -28,10 +26,8 @@ public class SummonPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Im alive");
         if (GameManager._.CheckMasterError())
         {
-            Debug.Log("Attempted to set master again");
             GameManager._.Master = holding;
         }
         else if (!once)
@@ -46,10 +42,9 @@ public class SummonPlayer : MonoBehaviour
 
     public void Summon()
     {
-        Debug.LogWarning("PlayerSummoned");
         var temp = Instantiate(GameManager._.playerPrefab);
         holding = temp.transform.GetChild(0).GetComponent<PlayerMaster>();
-        
+
 
         holding.movementMaster.rb.Move(spawnPosition.position, Quaternion.identity);
 
