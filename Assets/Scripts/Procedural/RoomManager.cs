@@ -11,7 +11,7 @@ public class RoomManager : Singleton<RoomManager>
     private RoomGridder RG;
     [SerializeField]
     private int RoomCount = 10;
-    private int EmergencyStop = 20;
+    private int EmergencyStop;
     public GameObject[] PrefabToSpawn;
     public TileSet TileSets;
     public GameObject aestheticDoor;
@@ -58,7 +58,7 @@ public class RoomManager : Singleton<RoomManager>
 
     }
 
-    private void ReloadScene()
+    public void ReloadScene()
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentScene);
@@ -69,7 +69,7 @@ public class RoomManager : Singleton<RoomManager>
     {
         foreach (RoomGrid room in RG.activeGrid)
         {
-            if (room.state == RoomGrid.State.occupied && room.type == RoomGrid.Type.Standard)
+            if (room.state == RoomGrid.State.Occupied && room.type == RoomGrid.Type.Standard)
             {
                 if (room.shape == RoomGrid.Shape._1x1)
                     SpawnAndRotate(PrefabToSpawn[0], room);
@@ -87,7 +87,7 @@ public class RoomManager : Singleton<RoomManager>
         int roomIndex;
         foreach (RoomGrid room in RG.activeGrid)
         {
-            if (room.state == RoomGrid.State.occupied && room.type == RoomGrid.Type.Standard)
+            if (room.state == RoomGrid.State.Occupied && room.type == RoomGrid.Type.Standard)
             {
                 if (room.shape == RoomGrid.Shape._1x1)
                 {

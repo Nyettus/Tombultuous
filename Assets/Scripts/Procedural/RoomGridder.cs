@@ -20,7 +20,7 @@ public class RoomGrid
     public bool deadEnd = false;
 
     public enum Type { Standard, Boss, Treasure };
-    public enum State { available, forbidden, occupied, unlikely, empty, multiGrid };
+    public enum State { Available, Forbidden, Occupied, Unlikely, Empty, MultiGrid };
     public enum Shape { _1x1, _2x2, _1x2, _3x3 };
 
     public RoomGrid(Vector2Int gridPosition, State state)
@@ -34,6 +34,7 @@ public class RoomGrid
 public class RoomGridder : MonoBehaviour
 {
     private int multiGridID = 0;
+    [HideInInspector]
     public List<RoomGrid> activeGrid = new List<RoomGrid>();
     private Vector2Int bossSpawnPosition;
     private Vector2Int[] cartesian = new Vector2Int[]
@@ -55,7 +56,7 @@ public class RoomGridder : MonoBehaviour
     public void InitialiseGrid()
     {
         Vector2Int start = new Vector2Int(0, 0);
-        RoomGrid spawnRoom = new RoomGrid(start, RoomGrid.State.multiGrid);
+        RoomGrid spawnRoom = new RoomGrid(start, RoomGrid.State.MultiGrid);
         activeGrid.Add(spawnRoom);
 
         CreateAdjacent(start);
@@ -73,11 +74,11 @@ public class RoomGridder : MonoBehaviour
 
             if (existingRoom == null)
             {
-                activeGrid.Add(new RoomGrid(spawnPosition, RoomGrid.State.available));
+                activeGrid.Add(new RoomGrid(spawnPosition, RoomGrid.State.Available));
             }
-            else if (existingRoom.state == RoomGrid.State.available)
+            else if (existingRoom.state == RoomGrid.State.Available)
             {
-                existingRoom.state = RoomGrid.State.unlikely;
+                existingRoom.state = RoomGrid.State.Unlikely;
             }
 
 
@@ -137,8 +138,8 @@ public class RoomGridder : MonoBehaviour
         RoomGrid tested;
         foreach (Vector2Int point in AllPoints)
         {
-            tested = CreateAtPosition(point, RoomGrid.State.empty);
-            if (!(tested.state == RoomGrid.State.available || tested.state == RoomGrid.State.unlikely || tested.state == RoomGrid.State.empty))
+            tested = CreateAtPosition(point, RoomGrid.State.Empty);
+            if (!(tested.state == RoomGrid.State.Available || tested.state == RoomGrid.State.Unlikely || tested.state == RoomGrid.State.Empty))
             {
                 return false;
             }
@@ -147,7 +148,7 @@ public class RoomGridder : MonoBehaviour
         return true;
     }
 
-    private void ReservePoints(Vector2Int start, Vector2Int furthest, RoomGrid.Shape shape, RoomGrid.State multiState, RoomGrid.State startState = RoomGrid.State.occupied)
+    private void ReservePoints(Vector2Int start, Vector2Int furthest, RoomGrid.Shape shape, RoomGrid.State multiState, RoomGrid.State startState = RoomGrid.State.Occupied)
     {
         RoomGrid changedOne;
         List<Vector2Int> AllPoints = GridPoints(start, furthest);
@@ -176,29 +177,31 @@ public class RoomGridder : MonoBehaviour
         if (random <= 0.75)
             return Set_1x1(position);
         else if (random <= 0.875)
-            return SetRectangular(position, new Vector2Int(2, 2), RoomGrid.Shape._2x2, RoomGrid.State.multiGrid);
+            return SetRectangular(position, new Vector2Int(2, 2), RoomGrid.Shape._2x2, RoomGrid.State.MultiGrid);
         else
-            return SetRectangular(position, new Vector2Int(1, 2), RoomGrid.Shape._1x2, RoomGrid.State.multiGrid);
+            return SetRectangular(position, new Vector2Int(1, 2), RoomGrid.Shape._1x2, RoomGrid.State.MultiGrid);
     }
 
 
     public int SetNextRoom()
     {
-        List<RoomGrid> availableRooms = activeGrid.Where(room => room.state == RoomGrid.State.available || room.state == RoomGrid.State.unlikely).ToList();
+        List<RoomGrid> availableRooms = activeGrid.Where(room => room.state == RoomGrid.State.Available || room.state == RoomGrid.State.Unlikely).ToList();
 
         int RandomPos = Random.Range(0, availableRooms.Count - 1);
         RoomGrid randomRoom = availableRooms[RandomPos];
         RoomGrid roomToUpdate = activeGrid.Find(room => room.position == randomRoom.position);
         if (roomToUpdate != null)
         {
-            if (randomRoom.state == RoomGrid.State.available)
+            if (randomRoom.state == RoomGrid.State.Available)
             {
 
                 return SelectRoom(roomToUpdate);
             }
-            else if (randomRoom.state == RoomGrid.State.unlikely && Random.value <= 0.1f)
+            else if (randomRoom.state == RoomGrid.State.Unlikely && Random.value <= 0.1f)
             {
+                Debug.Log("Unlikely Room hit at: " + randomRoom.position);
                 return SelectRoom(roomToUpdate);
+
             }
             else
             {
@@ -215,7 +218,7 @@ public class RoomGridder : MonoBehaviour
 
     private int Set_1x1(RoomGrid room)
     {
-        room.state = RoomGrid.State.occupied;
+        room.state = RoomGrid.State.Occupied;
 
         room.shape = RoomGrid.Shape._1x1;
         //Room rotation (on a cartesian)
@@ -224,7 +227,7 @@ public class RoomGridder : MonoBehaviour
         return -1;
     }
 
-    private int SetRectangular(RoomGrid checkRoom, Vector2Int dimentions, RoomGrid.Shape shape, RoomGrid.State multiGridState, RoomGrid.State startState = RoomGrid.State.occupied, RoomGrid.Type type = RoomGrid.Type.Standard)
+    private int SetRectangular(RoomGrid checkRoom, Vector2Int dimentions, RoomGrid.Shape shape, RoomGrid.State multiGridState, RoomGrid.State startState = RoomGrid.State.Occupied, RoomGrid.Type type = RoomGrid.Type.Standard)
     {
         Vector2Int additiveDimention = dimentions - new Vector2Int(1, 1);
 
@@ -257,9 +260,8 @@ public class RoomGridder : MonoBehaviour
 
     }
 
-    private int SetCenteredSquare(RoomGrid checkRoom, int side, bool randomDir, RoomGrid.Shape shape, RoomGrid.State multiGridState, RoomGrid.State startState = RoomGrid.State.occupied, RoomGrid.Type type = RoomGrid.Type.Standard)
+    private int SetCenteredSquare(RoomGrid checkRoom, int side, bool randomDir, RoomGrid.Shape shape, RoomGrid.State multiGridState, RoomGrid.State startState = RoomGrid.State.Occupied, RoomGrid.Type type = RoomGrid.Type.Standard)
     {
-
         if (side % 2 == 0)
         {
             Debug.LogError("Centered square cannot have even sides");
@@ -310,7 +312,7 @@ public class RoomGridder : MonoBehaviour
     {
         RoomGrid existingRoom = null;
         List<RoomGrid> returnList = new List<RoomGrid>();
-        List<RoomGrid> existantRooms = activeGrid.Where(room => (room.state == RoomGrid.State.occupied || room.state == RoomGrid.State.multiGrid)).ToList();
+        List<RoomGrid> existantRooms = activeGrid.Where(room => (room.state == RoomGrid.State.Occupied || room.state == RoomGrid.State.MultiGrid)).ToList();
         foreach (RoomGrid position in existantRooms)
         {
             bool elligible = true;
@@ -320,16 +322,33 @@ public class RoomGridder : MonoBehaviour
             {
                 existingRoom = activeGrid.Find(room => room.position == position.position + direction);
                 //TODO distinction between 1x1 and multigrid
-                if (existingRoom.state == RoomGrid.State.occupied || (position.roomID!=existingRoom.roomID))
+                if (position.shape == RoomGrid.Shape._1x1)
                 {
-                    neighbours++;
-                    if (neighbours > 1)
+                    if (existingRoom.state == RoomGrid.State.Occupied || existingRoom.state == RoomGrid.State.MultiGrid)
                     {
-                        elligible = false;
-                        break;
+                        neighbours++;
+                        if (neighbours > 1)
+                        {
+                            elligible = false;
+                            break;
+                        }
                     }
-
                 }
+                else
+                {
+                    if ((position.roomID != existingRoom.roomID) && (existingRoom.state == RoomGrid.State.Occupied || existingRoom.state == RoomGrid.State.MultiGrid))
+                    {
+                        neighbours++;
+                        if (neighbours > 1)
+                        {
+                            elligible = false;
+                            break;
+                        }
+                    }
+                }
+
+
+
 
             }
             if (elligible && existingRoom != null)
@@ -370,16 +389,19 @@ public class RoomGridder : MonoBehaviour
         List<RoomGrid> endRooms = DetectEndRooms();
         //remove furthest
         endRooms.Remove(FurthestRoom(endRooms));
-        foreach (RoomGrid room in endRooms)
+        endRooms.RemoveAll(room => room.shape != RoomGrid.Shape._1x1);
+        List<RoomGrid> shuffledEndRooms = endRooms.OrderBy(x => Random.value).ToList();
+        
+        foreach (RoomGrid room in shuffledEndRooms)
         {
-            if (amount > 0 && room.shape == RoomGrid.Shape._1x1)
+            if (amount > 0)
             {
                 RoomGrid roomToChange = activeGrid.Find(check => check == room);
                 roomToChange.type = RoomGrid.Type.Treasure;
                 foreach (Vector2Int direction in cartesian)
                 {
                     var neighbour = activeGrid.Find(room => room.position == roomToChange.position + direction);
-                    if (neighbour.state == RoomGrid.State.occupied || neighbour.state == RoomGrid.State.multiGrid)
+                    if (neighbour.state == RoomGrid.State.Occupied || neighbour.state == RoomGrid.State.MultiGrid)
                     {
                         var newDir = System.Array.IndexOf(cartesian, direction * -1);
                         roomToChange.cartesianPlane = newDir;
@@ -387,17 +409,13 @@ public class RoomGridder : MonoBehaviour
 
                     }
                 }
-
                 amount--;
-            }
-            else
-            {
-                Debug.LogWarning("Not Applicible End Room");
             }
         }
         if (amount > 0)
         {
             Debug.LogError("Couldnt create all treasure rooms");
+            RoomManager._.ReloadScene();
         }
 
     }
@@ -412,7 +430,7 @@ public class RoomGridder : MonoBehaviour
         float distance = 0;
         foreach (Vector2Int direction in cartesian)
         {
-            RoomGrid existingRoom = CreateAtPosition(furthest.position + direction, RoomGrid.State.empty);
+            RoomGrid existingRoom = CreateAtPosition(furthest.position + direction, RoomGrid.State.Empty);
             float current = Vector3.Distance(new Vector3(0, 0, 0), existingRoom.worldPos);
             if (current > distance)
             {
@@ -420,15 +438,20 @@ public class RoomGridder : MonoBehaviour
                 distance = current;
             }
         }
-        SetCenteredSquare(furthestAdjacents, 3, false, RoomGrid.Shape._3x3, RoomGrid.State.forbidden, RoomGrid.State.forbidden, RoomGrid.Type.Boss);
-        furthestAdjacents.state = RoomGrid.State.multiGrid;
+        int test = SetCenteredSquare(furthestAdjacents, 3, false, RoomGrid.Shape._3x3, RoomGrid.State.Forbidden, RoomGrid.State.Forbidden, RoomGrid.Type.Boss);
+        furthestAdjacents.state = RoomGrid.State.MultiGrid;
+        if(test == 0)
+        {
+            Debug.LogError("Boss Room Didn't spawn");
+            RoomManager._.ReloadScene();
+        }
     }
 
     public List<RoomGrid[]> AestheticDoorsLocation()
     {
 
         List<RoomGrid[]> returnList = new List<RoomGrid[]>();
-        List<RoomGrid> onlyRoomedGrids = activeGrid.Where(room => room.state == RoomGrid.State.occupied || room.state == RoomGrid.State.multiGrid).ToList();
+        List<RoomGrid> onlyRoomedGrids = activeGrid.Where(room => room.state == RoomGrid.State.Occupied || room.state == RoomGrid.State.MultiGrid).ToList();
         foreach (RoomGrid knownRoom in onlyRoomedGrids)
         {
 
@@ -437,7 +460,7 @@ public class RoomGridder : MonoBehaviour
             {
                 bool requireDoor = false;
                 RoomGrid roomToCheck = activeGrid.Find(room => room.position == knownRoom.position + direction);
-                if (roomToCheck != null && (roomToCheck.state == RoomGrid.State.occupied || roomToCheck.state == RoomGrid.State.multiGrid))
+                if (roomToCheck != null && (roomToCheck.state == RoomGrid.State.Occupied || roomToCheck.state == RoomGrid.State.MultiGrid))
                 {
                     if (knownRoom.roomID >= 0 && roomToCheck.roomID != knownRoom.roomID)
                     {

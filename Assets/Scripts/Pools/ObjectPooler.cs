@@ -22,7 +22,6 @@ public class ObjectPooler : SingletonPersist<ObjectPooler>
     // Start is called before the first frame update
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("scene laoded");
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         foreach (Pool pool in pools)
