@@ -391,7 +391,9 @@ public class RoomGridder : MonoBehaviour
         endRooms.Remove(FurthestRoom(endRooms));
         endRooms.RemoveAll(room => room.shape != RoomGrid.Shape._1x1);
         List<RoomGrid> shuffledEndRooms = endRooms.OrderBy(x => Random.value).ToList();
-        
+        //List<RoomGrid> shuffledEndRooms = endRooms.OrderBy(x => x.worldPos.magnitude).ToList();
+        //shuffledEndRooms.Reverse();
+
         foreach (RoomGrid room in shuffledEndRooms)
         {
             if (amount > 0)
@@ -412,6 +414,34 @@ public class RoomGridder : MonoBehaviour
                 amount--;
             }
         }
+
+        //if (shuffledEndRooms.Count < amount)
+        //{
+        //    Debug.LogError("Not enough slots for treasure rooms");
+        //    RoomManager._.ReloadScene();
+        //}
+        //for(int i = amount; i>0; i--)
+        //{
+        //    float multiplier = (float)i / (float)amount;
+        //    int index = (int)Mathf.Clamp((multiplier * shuffledEndRooms.Count),0,amount-1);
+        //    Debug.Log("" + shuffledEndRooms.Count + " : " + index + " : " + multiplier);
+        //    RoomGrid roomToChange = activeGrid.Find(check => check == shuffledEndRooms[index]);
+        //    roomToChange.type = RoomGrid.Type.Treasure;
+        //    foreach (Vector2Int direction in cartesian)
+        //    {
+        //        var neighbour = activeGrid.Find(room => room.position == roomToChange.position + direction);
+        //        if (neighbour.state == RoomGrid.State.Occupied || neighbour.state == RoomGrid.State.MultiGrid)
+        //        {
+        //            var newDir = System.Array.IndexOf(cartesian, direction * -1);
+        //            roomToChange.cartesianPlane = newDir;
+        //            break;
+
+        //        }
+        //    }
+        //}
+
+
+
         if (amount > 0)
         {
             Debug.LogError("Couldnt create all treasure rooms");
