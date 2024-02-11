@@ -310,7 +310,7 @@ public class RoomGridder : MonoBehaviour
     {
         RoomGrid existingRoom = null;
         List<RoomGrid> returnList = new List<RoomGrid>();
-        List<RoomGrid> existantRooms = activeGrid.Where(room => room.state == RoomGrid.State.occupied || room.state == RoomGrid.State.multiGrid).ToList();
+        List<RoomGrid> existantRooms = activeGrid.Where(room => (room.state == RoomGrid.State.occupied || room.state == RoomGrid.State.multiGrid)).ToList();
         foreach (RoomGrid position in existantRooms)
         {
             bool elligible = true;
@@ -319,7 +319,8 @@ public class RoomGridder : MonoBehaviour
             foreach (Vector2Int direction in cartesian)
             {
                 existingRoom = activeGrid.Find(room => room.position == position.position + direction);
-                if (existingRoom.state == RoomGrid.State.occupied || existingRoom.state == RoomGrid.State.multiGrid)
+                //TODO distinction between 1x1 and multigrid
+                if (existingRoom.state == RoomGrid.State.occupied || (position.roomID!=existingRoom.roomID))
                 {
                     neighbours++;
                     if (neighbours > 1)
@@ -389,11 +390,16 @@ public class RoomGridder : MonoBehaviour
 
                 amount--;
             }
-            else if (amount > 0)
+            else
             {
-                Debug.LogError("No applicible End Rooms");
+                Debug.LogWarning("Not Applicible End Room");
             }
         }
+        if (amount > 0)
+        {
+            Debug.LogError("Couldnt create all treasure rooms");
+        }
+
     }
 
     public void CreateBossRoom(TileSet tileset)
@@ -401,7 +407,6 @@ public class RoomGridder : MonoBehaviour
         int index = Random.Range(0, tileset._BossRooms.Length);
 
         RoomGrid furthest = FurthestRoom(DetectEndRooms());
-        Debug.Log("Furthest room at " + furthest.position + "  " + furthest.state);
         CreateAdjacent(furthest.position);
         RoomGrid furthestAdjacents = null;
         float distance = 0;
@@ -417,7 +422,6 @@ public class RoomGridder : MonoBehaviour
         }
         SetCenteredSquare(furthestAdjacents, 3, false, RoomGrid.Shape._3x3, RoomGrid.State.forbidden, RoomGrid.State.forbidden, RoomGrid.Type.Boss);
         furthestAdjacents.state = RoomGrid.State.multiGrid;
-        Debug.Log("Boss room created at " + furthestAdjacents.position);
     }
 
     public List<RoomGrid[]> AestheticDoorsLocation()
