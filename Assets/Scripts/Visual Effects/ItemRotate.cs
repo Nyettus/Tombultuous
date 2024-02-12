@@ -19,6 +19,6 @@ public class ItemRotate : MonoBehaviour
     void Update()
     {
         if (master == null || !master.equipped)
-            transform.Rotate(new Vector3(0, 1, 0));
+            transform.Rotate(new Vector3(0, 100*Time.deltaTime, 0));
     }
 }

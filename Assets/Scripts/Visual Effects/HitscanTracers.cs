@@ -32,9 +32,9 @@ public class HitscanTracers : MonoBehaviour
 
     public void ChaseTowards()
     {
-        startPos = Vector3.MoveTowards(startPos, endPos, 1f);
-        Vector3 tempEnd = Vector3.MoveTowards(startPos, endPos, 25f);
-        lr.SetPosition(1, Vector3.Lerp(startPos, tempEnd, 0.5f));
+        startPos = Vector3.MoveTowards(startPos, endPos, 100f*Time.deltaTime);
+        Vector3 tempEnd = Vector3.MoveTowards(startPos, endPos, 2500f * Time.deltaTime);
+        lr.SetPosition(1, Vector3.Lerp(startPos, tempEnd, 50f * Time.deltaTime));
         lr.SetPosition(0, startPos);
         lr.SetPosition(2, tempEnd);
         if ((startPos - endPos).magnitude<1)
