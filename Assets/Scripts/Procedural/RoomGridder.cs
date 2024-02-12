@@ -34,7 +34,6 @@ public class RoomGrid
 public class RoomGridder : MonoBehaviour
 {
     private int multiGridID = 0;
-    [HideInInspector]
     public List<RoomGrid> activeGrid = new List<RoomGrid>();
     private Vector2Int bossSpawnPosition;
     private Vector2Int[] cartesian = new Vector2Int[]
@@ -324,6 +323,11 @@ public class RoomGridder : MonoBehaviour
                 //TODO distinction between 1x1 and multigrid
                 if (position.shape == RoomGrid.Shape._1x1)
                 {
+                    if(position.state != RoomGrid.State.Occupied)
+                    {
+                        elligible = false;
+                        break;
+                    }
                     if (existingRoom.state == RoomGrid.State.Occupied || existingRoom.state == RoomGrid.State.MultiGrid)
                     {
                         neighbours++;
