@@ -390,62 +390,29 @@ public class RoomGridder : MonoBehaviour
         //remove furthest
         endRooms.Remove(FurthestRoom(endRooms));
         endRooms.RemoveAll(room => room.shape != RoomGrid.Shape._1x1);
-        List<RoomGrid> shuffledEndRooms = endRooms.OrderBy(x => Random.value).ToList();
-        //List<RoomGrid> shuffledEndRooms = endRooms.OrderBy(x => x.worldPos.magnitude).ToList();
-        //shuffledEndRooms.Reverse();
+        List<RoomGrid> shuffledEndRooms = endRooms.OrderBy(x => x.worldPos.magnitude).ToList();
 
-        foreach (RoomGrid room in shuffledEndRooms)
+        if (shuffledEndRooms.Count < amount)
         {
-            if (amount > 0)
-            {
-                RoomGrid roomToChange = activeGrid.Find(check => check == room);
-                roomToChange.type = RoomGrid.Type.Treasure;
-                foreach (Vector2Int direction in cartesian)
-                {
-                    var neighbour = activeGrid.Find(room => room.position == roomToChange.position + direction);
-                    if (neighbour.state == RoomGrid.State.Occupied || neighbour.state == RoomGrid.State.MultiGrid)
-                    {
-                        var newDir = System.Array.IndexOf(cartesian, direction * -1);
-                        roomToChange.cartesianPlane = newDir;
-                        break;
-
-                    }
-                }
-                amount--;
-            }
-        }
-
-        //if (shuffledEndRooms.Count < amount)
-        //{
-        //    Debug.LogError("Not enough slots for treasure rooms");
-        //    RoomManager._.ReloadScene();
-        //}
-        //for(int i = amount; i>0; i--)
-        //{
-        //    float multiplier = (float)i / (float)amount;
-        //    int index = (int)Mathf.Clamp((multiplier * shuffledEndRooms.Count),0,amount-1);
-        //    Debug.Log("" + shuffledEndRooms.Count + " : " + index + " : " + multiplier);
-        //    RoomGrid roomToChange = activeGrid.Find(check => check == shuffledEndRooms[index]);
-        //    roomToChange.type = RoomGrid.Type.Treasure;
-        //    foreach (Vector2Int direction in cartesian)
-        //    {
-        //        var neighbour = activeGrid.Find(room => room.position == roomToChange.position + direction);
-        //        if (neighbour.state == RoomGrid.State.Occupied || neighbour.state == RoomGrid.State.MultiGrid)
-        //        {
-        //            var newDir = System.Array.IndexOf(cartesian, direction * -1);
-        //            roomToChange.cartesianPlane = newDir;
-        //            break;
-
-        //        }
-        //    }
-        //}
-
-
-
-        if (amount > 0)
-        {
-            Debug.LogError("Couldnt create all treasure rooms");
+            Debug.LogError("Not enough slots for treasure rooms");
             RoomManager._.ReloadScene();
+        }
+        for (int i = 0; i < amount; i++)
+        {
+            int index = Mathf.RoundToInt((float)i / (amount - 1) * (endRooms.Count - 1));
+            RoomGrid roomToChange = activeGrid.Find(check => check == shuffledEndRooms[index]);
+            roomToChange.type = RoomGrid.Type.Treasure;
+            foreach (Vector2Int direction in cartesian)
+            {
+                var neighbour = activeGrid.Find(room => room.position == roomToChange.position + direction);
+                if (neighbour.state == RoomGrid.State.Occupied || neighbour.state == RoomGrid.State.MultiGrid)
+                {
+                    var newDir = System.Array.IndexOf(cartesian, direction * -1);
+                    roomToChange.cartesianPlane = newDir;
+                    break;
+
+                }
+            }
         }
 
     }
@@ -470,7 +437,7 @@ public class RoomGridder : MonoBehaviour
         }
         int test = SetCenteredSquare(furthestAdjacents, 3, false, RoomGrid.Shape._3x3, RoomGrid.State.Forbidden, RoomGrid.State.Forbidden, RoomGrid.Type.Boss);
         furthestAdjacents.state = RoomGrid.State.MultiGrid;
-        if(test == 0)
+        if (test == 0)
         {
             Debug.LogError("Boss Room Didn't spawn");
             RoomManager._.ReloadScene();
