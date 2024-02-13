@@ -12,6 +12,9 @@ public class CombatZone : MonoBehaviour
     public List<GameObject> enemies = new List<GameObject>();
     public GameObject navmeshLinkHost;
     private bool activated = false;
+
+    [SerializeField]
+    private GameObject UICanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,12 +32,13 @@ public class CombatZone : MonoBehaviour
         if (other.tag == "Player")
         {
             ActivateCombatZone();
+            RevealMap();
         }
     }
 
     private void ActivateCombatZone()
     {
-        if (activated) return;
+        if (activated || enemies.Count == 0) return;
         Debug.Log("Room activated");
         foreach (GameObject enemy in enemies)
         {
@@ -64,14 +68,25 @@ public class CombatZone : MonoBehaviour
         GameManager._.Master.itemMaster.onRoomClearHandler.OnRoomClear();
     }
 
-
+    private void RevealMap()
+    {
+        if (UICanvas == null) return;
+        UICanvas.SetActive(true);
+    }
 
     public void AssignEnemies()
+    {
+        EnemyExclusive();
+        UIExclusive();
+
+    }
+
+    private void EnemyExclusive()
     {
         if (enemy == null) enemy = transform.parent.Find("--- Enemies ---").gameObject;
         if (enemy == null)
         {
-
+            
             Debug.LogError("Couldn't find enemy folder");
             return;
         }
@@ -84,6 +99,21 @@ public class CombatZone : MonoBehaviour
             transform.gameObject.SetActive(false);
         }
 
+
+
     }
+    private void UIExclusive()
+    {
+        UICanvas = transform.parent.parent.Find("---UI---").gameObject;
+        if (UICanvas == null)
+        {
+            Debug.LogError("No UI canvas found");
+            return;
+
+        }
+        UICanvas.SetActive(false);
+    }
+
+
 
 }
