@@ -12,20 +12,31 @@ public class CombatZone : MonoBehaviour
     public List<GameObject> enemies = new List<GameObject>();
     public GameObject navmeshLinkHost;
     private bool activated = false;
+    public RoomGrid thisRoom;
 
     [SerializeField]
     private GameObject UICanvas;
+    [SerializeField]
+    private List<GameObject> adjDoors;
+
     // Start is called before the first frame update
     void Start()
     {
         if (navmeshLinkHost != null) navmeshLinkHost.SetActive(false);
+        if (transform.position.x == 0 && transform.position.z == 0)
+        {
+            thisRoom = RoomManager._.RG.activeGrid[0];
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public delegate void RoomEntered(RoomGrid thisGrid);
+    public static event RoomEntered OnRoomEnter;
+    public void OnRoomEnterEvent()
     {
-
+        if (OnRoomEnter != null)
+            OnRoomEnter(thisRoom);
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -33,11 +44,15 @@ public class CombatZone : MonoBehaviour
         {
             ActivateCombatZone();
             RevealMap();
+            OnRoomEnterEvent();
         }
+
     }
 
     private void ActivateCombatZone()
     {
+
+
         if (activated || enemies.Count == 0) return;
         Debug.Log("Room activated");
         foreach (GameObject enemy in enemies)
@@ -72,6 +87,11 @@ public class CombatZone : MonoBehaviour
     {
         if (UICanvas == null) return;
         UICanvas.SetActive(true);
+        if (adjDoors.Count == 0) return;
+        foreach (GameObject door in adjDoors)
+        {
+            door.SetActive(true);
+        }
     }
 
     public void AssignEnemies()
@@ -86,7 +106,7 @@ public class CombatZone : MonoBehaviour
         if (enemy == null) enemy = transform.parent.Find("--- Enemies ---").gameObject;
         if (enemy == null)
         {
-            
+
             Debug.LogError("Couldn't find enemy folder");
             return;
         }

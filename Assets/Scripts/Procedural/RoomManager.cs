@@ -8,7 +8,7 @@ public class RoomManager : Singleton<RoomManager>
 {
     public float roomSize = 50;
     [SerializeField]
-    private RoomGridder RG;
+    public RoomGridder RG;
     [SerializeField]
     private int RoomCount = 10;
     private int EmergencyStop;
@@ -160,6 +160,8 @@ public class RoomManager : Singleton<RoomManager>
     {
         GameObject ParentRoom = Instantiate(room, position.worldPos, Quaternion.identity);
         ParentRoom.transform.Rotate(Vector3.up, position.cartesianPlane * -90f);
+        var holding = ParentRoom.transform.GetChild(0).Find("CombatZone").GetComponent<CombatZone>();
+        holding.thisRoom = position;
         allRooms.Add(ParentRoom);
     }
 

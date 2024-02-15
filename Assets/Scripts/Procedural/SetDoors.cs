@@ -19,7 +19,6 @@ public struct DoorPairings
 public class SetDoors : MonoBehaviour
 {
     public List<DoorPairings> doors = new List<DoorPairings>();
-
     public void OpenDoors()
     {
         RaycastHit hit;

@@ -125,12 +125,24 @@ namespace UsefulBox
 
     public static class PsychoticBox
     {
+        /// <summary>
+        /// Convert a number to a string as a percentage
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
         public static string ConvertToPercent(float input, string format = "00.00")
         {
             string asPercent = (input * 100).ToString(format) + "%";
             return asPercent;
         }
 
+        /// <summary>
+        /// If an index is out of bounds loop back to the start
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="maximum"></param>
+        /// <returns></returns>
         public static int WrapIndex(int input, int maximum)
         {
 
@@ -138,6 +150,24 @@ namespace UsefulBox
             return wrappedIndex;
 
         }
+
+        public static Vector2Int ConvertWorldPosToGrid(Vector3 worldPos, float gridSize = 50)
+        {
+            var roundedX = Mathf.RoundToInt(worldPos.x / gridSize);
+            var roundedY = Mathf.RoundToInt(worldPos.z / gridSize);
+
+            var returnVec = new Vector2Int(roundedX, roundedY);
+            return returnVec;
+        }
+
+        public static Vector3 ConvertGridToWorldPos(Vector2Int gridPos, float gridSize = 50, float yOffset = 0)
+        {
+            var roundedX = Mathf.Round(gridPos.x * gridSize);
+            var roundedZ = Mathf.Round(gridPos.y * gridSize);
+            var returnVec = new Vector3(roundedX, yOffset, roundedZ);
+            return returnVec;
+        }
+
     }
 
 
