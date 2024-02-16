@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyComponentMaster : MonoBehaviour
 {
-
+    public EnemyBaseStats card;
 
     public EnemyHealth enemyHealth;
     public NavMeshAgent enemyNavMesh;
@@ -31,8 +31,16 @@ public class EnemyComponentMaster : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (TryGetComponent<EnemyHealth>(out EnemyHealth healthCompono)) enemyHealth = healthCompono;
-        if (TryGetComponent<NavMeshAgent>(out NavMeshAgent navCompono)) enemyNavMesh = navCompono;
+        if (TryGetComponent<EnemyHealth>(out EnemyHealth healthCompono))
+        {
+            enemyHealth = healthCompono;
+            enemyHealth.health = card.health;
+        }
+        if (TryGetComponent<NavMeshAgent>(out NavMeshAgent navCompono))
+        {
+            enemyNavMesh = navCompono;
+            enemyNavMesh.speed = card.moveSpeed;
+        }
         if (TryGetComponent<Animator>(out Animator animCompono)) enemyAnimator = animCompono;
         if (TryGetComponent<BaseEnemyAttacks>(out BaseEnemyAttacks damCompono)) enemyAttacks = damCompono;
         if (TryGetComponent<Rigidbody>(out Rigidbody RBCompono)) enemyRB = RBCompono;
