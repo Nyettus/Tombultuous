@@ -8,9 +8,10 @@ using UsefulBox;
 public class HUD : MonoBehaviour
 {
     
-    public TextMeshProUGUI health,ammo,special,dash,reload;
+    public TextMeshProUGUI health,ammo,special,dash,reload, bossHealthName;
+    public GameObject bossHealthHolder;
 
-    public Image reloadBar, specialBar, dashBar;
+    public Image reloadBar, specialBar, dashBar, bossHealthBar;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,9 +20,11 @@ public class HUD : MonoBehaviour
         WeaponController.OnUpdateSpecial += UpdateSpecial;
         PlayerController.OnUpdateDash += UpdateDash;
         WeaponController.OnUpdateReload += UpdateReload;
+        BossHandler.OnUpdateBossHealth += UpdateBossHealth;
         dashBar.enabled = false;
         reloadBar.enabled = false;
         specialBar.enabled = false;
+        bossHealthHolder.SetActive(false);
     }
 
 
@@ -33,6 +36,7 @@ public class HUD : MonoBehaviour
         WeaponController.OnUpdateSpecial -= UpdateSpecial;
         PlayerController.OnUpdateDash -= UpdateDash;
         WeaponController.OnUpdateReload -= UpdateReload;
+        BossHandler.OnUpdateBossHealth -= UpdateBossHealth;
     }
 
 
@@ -68,6 +72,20 @@ public class HUD : MonoBehaviour
         ConvertToBar(UIManager._.reloadBreakdown, reloadBar);
     }
 
+    private void UpdateBossHealth(float[] healthAmount, string name)
+    {
+        if (!bossHealthHolder.activeInHierarchy)
+        {
+            bossHealthHolder.SetActive(true);
+        }
+        var healthBreakdown = healthAmount[0] / healthAmount[1];
+        ConvertToBar(healthBreakdown, bossHealthBar,false);
+        bossHealthName.text = name;
+        if (healthBreakdown <= 0) bossHealthHolder.SetActive(false);
+
+
+    }
+
 
     private void StandardPercentage(float input, TextMeshProUGUI label)
     {
@@ -82,9 +100,9 @@ public class HUD : MonoBehaviour
     }
 
 
-    private void ConvertToBar(float input, Image bar)
+    private void ConvertToBar(float input, Image bar, bool hideWhenMax = true)
     {
-        if(input == 1)
+        if(input == 1 && hideWhenMax)
         {
             bar.enabled = false;
             return;

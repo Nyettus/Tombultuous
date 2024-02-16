@@ -23,10 +23,6 @@ public class CombatZone : MonoBehaviour
     void Start()
     {
         if (navmeshLinkHost != null) navmeshLinkHost.SetActive(false);
-        if (transform.position.x == 0 && transform.position.z == 0)
-        {
-            thisRoom = RoomManager._.RG.activeGrid[0];
-        }
     }
 
     public delegate void RoomEntered(RoomGrid thisGrid);

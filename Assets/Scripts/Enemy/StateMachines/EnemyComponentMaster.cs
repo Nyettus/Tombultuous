@@ -13,6 +13,7 @@ public class EnemyComponentMaster : MonoBehaviour
     public BaseEnemyAttacks enemyAttacks;
     public Rigidbody enemyRB;
     public Collider enemyCollider;
+    public BossHandler enemyBoss;
 
     [SerializeField]
     private GameObject model;
@@ -45,6 +46,11 @@ public class EnemyComponentMaster : MonoBehaviour
         if (TryGetComponent<BaseEnemyAttacks>(out BaseEnemyAttacks damCompono)) enemyAttacks = damCompono;
         if (TryGetComponent<Rigidbody>(out Rigidbody RBCompono)) enemyRB = RBCompono;
         if (TryGetComponent<Collider>(out Collider ColCompono)) enemyCollider = ColCompono;
+        if (TryGetComponent<BossHandler>(out BossHandler BossCompono))
+        {
+            BossCompono.master = this;
+            enemyBoss = BossCompono;
+        }
         if (model != null)
         {
             ragdollRB = model.GetComponentsInChildren<Rigidbody>();

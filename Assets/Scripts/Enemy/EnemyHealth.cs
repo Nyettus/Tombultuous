@@ -18,6 +18,7 @@ public class EnemyHealth : MonoBehaviour
     public void takeDamage(float damage)
     {
         health -= damage;
+        if (CM.enemyBoss != null) CM.enemyBoss.OnBossHealthChangeEvent();
         Debug.Log(string.Format("Enemy Took {0} damage ", damage));
         if (health <= 0 && once)
         {
