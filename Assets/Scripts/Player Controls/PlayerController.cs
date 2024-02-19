@@ -149,6 +149,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        MatchRotation();
         DashDisable();
         Detections();
         DashPercentage();
@@ -164,7 +165,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MatchRotation();
+
         if (dashTick)
         {
             BasicWalk();
@@ -198,8 +199,15 @@ public class PlayerController : MonoBehaviour
     public Transform WeaponHolder;
     private void MatchRotation()
     {
-        WeaponHolder.transform.localRotation = Quaternion.Euler(new Vector3(Camera.main.transform.eulerAngles.x, 0, 0));
-        rb.rotation = Quaternion.Euler(new Vector3(0, Camera.main.transform.eulerAngles.y, 0));
+
+        float rate = 30;
+        var weaponRot = Quaternion.Euler(new Vector3(Camera.main.transform.eulerAngles.x, 0, 0));
+        WeaponHolder.transform.localRotation = Quaternion.Slerp(WeaponHolder.transform.localRotation, weaponRot, rate * Time.deltaTime);
+
+
+        var rbRot = Quaternion.Euler(new Vector3(0, Camera.main.transform.eulerAngles.y, 0));
+        rb.rotation = Quaternion.Slerp(rb.rotation, rbRot, rate * Time.deltaTime);
+
     }
 
     public void DashDisable()
@@ -305,7 +313,7 @@ public class PlayerController : MonoBehaviour
             dashPercentage = Mathf.Clamp(neumerator / denominator, 0, 1);
             OnDashChangeEvent();
         }
-        else if(dashPercentage !=1)
+        else if (dashPercentage != 1)
         {
             dashPercentage = 1;
             OnDashChangeEvent();
