@@ -13,31 +13,36 @@ public class HitscanWeaponBase : RangedWeaponBase
             Vector3 shootDir = bulletSpread(spread);
             if (Physics.Raycast(Camera.main.transform.position,shootDir,out hit,100f,layerMask))
             {
-                if(hit.transform.tag == "Enemy")
-                {
-                    float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult;
-                    hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
-                    GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(hit.point);
-                }
-                else if(hit.transform.tag == "ItemChest")
-                {
-                    hit.transform.GetComponent<ChestCore>().SpawnItem();
-                }
-                else if(hit.transform.tag == "MasterTomb")
-                {
-                    hit.transform.GetComponentInParent<MasterTomb>().DestroySelf();
-                }
-                else
-                {
-                    SummonWallHit(hit);
-                    GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(hit.point);
-                }
-                summonTracer(hit);
+                HitscanHit(hit);
              
             }
 
         }
 
+    }
+
+    protected void HitscanHit(RaycastHit hit)
+    {
+        if (hit.transform.tag == "Enemy")
+        {
+            float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult;
+            hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
+            GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(hit.point);
+        }
+        else if (hit.transform.tag == "ItemChest")
+        {
+            hit.transform.GetComponent<ChestCore>().SpawnItem();
+        }
+        else if (hit.transform.tag == "MasterTomb")
+        {
+            hit.transform.GetComponentInParent<MasterTomb>().DestroySelf();
+        }
+        else
+        {
+            SummonWallHit(hit);
+            GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(hit.point);
+        }
+        summonTracer(hit);
     }
 
     protected void summonTracer(RaycastHit hit)

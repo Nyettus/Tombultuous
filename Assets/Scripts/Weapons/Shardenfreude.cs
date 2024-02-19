@@ -8,33 +8,21 @@ public class Shardenfreude : HitscanWeaponBase
     //A shotgun of remaining shots
     public override void Special()
     {
-        if (!specialUsed&&curMag!=0)
+        if (!specialUsed && curMag != 0)
         {
-            specialCooldown = curMag*0.5f;
+            specialCooldown = curMag * 0.5f;
             for (int i = 0; i < curMag; i++)
             {
                 RaycastHit hit;
                 Vector3 shootDir = bulletSpread(0.3f);
                 if (Physics.Raycast(Camera.main.transform.position, shootDir, out hit, 100f, layerMask))
                 {
-                    if (hit.transform.tag == "Enemy")
-                    {
-                        float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult;
-                        rayLine(hit.point);
-                        hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
-                        GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(hit.point);
-                    }
-                    else
-                    {
-                        SummonWallHit(hit);
-                        GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(hit.point);
-                    }
-                    summonTracer(hit);
+                    HitscanHit(hit);
                 }
             }
             PlayerController movement = GameManager._.Master.movementMaster;
             bool knockbackState = movement.rb.velocity.y < 0;
-            movement.KnockBack(Camera.main.transform.forward, (curMag * -3),knockbackState);
+            movement.KnockBack(Camera.main.transform.forward, (curMag * -3), knockbackState);
             curMag = 0;
             base.Special();
 
