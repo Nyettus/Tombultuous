@@ -432,6 +432,7 @@ public class RoomGridder : MonoBehaviour
         foreach (Vector2Int direction in cartesian)
         {
             RoomGrid existingRoom = CreateAtPosition(furthest.position + direction, RoomGrid.State.Empty);
+            existingRoom.roomID = multiGridID;
             float current = Vector3.Distance(new Vector3(0, 0, 0), existingRoom.worldPos);
             if (current > distance)
             {
@@ -452,7 +453,7 @@ public class RoomGridder : MonoBehaviour
     {
 
         List<RoomGrid[]> returnList = new List<RoomGrid[]>();
-        List<RoomGrid> onlyRoomedGrids = activeGrid.Where(room => room.state == RoomGrid.State.Occupied || room.state == RoomGrid.State.MultiGrid).ToList();
+        List<RoomGrid> onlyRoomedGrids = activeGrid.Where(room => room.state == RoomGrid.State.Occupied || room.state == RoomGrid.State.MultiGrid || room.state == RoomGrid.State.Forbidden).ToList();
         foreach (RoomGrid knownRoom in onlyRoomedGrids)
         {
 

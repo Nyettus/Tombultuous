@@ -32,7 +32,7 @@ public class DoorwayTrigger : MonoBehaviour
     {
         Vector2Int gridpos = PsychoticBox.ConvertWorldPosToGrid(worldPos);
         var initial = RoomManager._.RG.activeGrid.Find(room => room.position == gridpos);
-        if (initial.state == RoomGrid.State.Occupied)
+        if (initial.state == RoomGrid.State.Occupied || (initial.state == RoomGrid.State.MultiGrid && initial.shape == RoomGrid.Shape._1x1))
         {
             //Debug.Log("Returned occupied: " + initial.position);
             return initial;
