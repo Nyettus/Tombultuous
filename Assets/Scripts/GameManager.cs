@@ -66,7 +66,9 @@ public class GameManager : SingletonPersist<GameManager>
     public void PauseCommand(InputAction.CallbackContext context)
     {
         Debug.Log("Pause Pressed");
-        if (Master == null || ConversationManager.Instance.IsConversationActive) return;
+        bool convoBool = false;
+        if (ConversationManager.Instance != null) convoBool = ConversationManager.Instance.IsConversationActive;
+        if (Master == null || convoBool) return;
 
         if (context.performed)
         {

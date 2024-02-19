@@ -649,7 +649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8427419576532271484
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6830,7 +6830,18 @@ MonoBehaviour:
   enemies:
   - {fileID: 446059251794846305}
   navmeshLinkHost: {fileID: 0}
+  thisRoom:
+    roomSize: 0
+    position: {x: 0, y: 0}
+    worldPos: {x: 0, y: 0, z: 0}
+    state: 0
+    type: 0
+    shape: 0
+    cartesianPlane: 0
+    roomID: 0
+    deadEnd: 0
   UICanvas: {fileID: 972536567206664922}
+  adjDoors: []
 --- !u!1 &6622364197315296515
 GameObject:
   m_ObjectHideFlags: 0
@@ -6989,17 +7000,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8829768377473970318}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8427419576532271484}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5253997288452812641
 CanvasRenderer:
