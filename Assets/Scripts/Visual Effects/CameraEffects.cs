@@ -38,7 +38,7 @@ public class CameraEffects : MonoBehaviour
 
     private void WhenPaused()
     {
-        if (GameManager._.paused)
+        if (GameManager._.ToggleInputs())
         {
             freelook.m_VerticalAxis.m_MaxSpeed = 0;
             freelook.m_HorizontalAxis.m_MaxSpeed = 0;

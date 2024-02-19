@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviour
 
     public void BasicWalk()
     {
-
+        if (GameManager._.ToggleInputs()) return;
         Vector3 projectedFor = Vector3.ProjectOnPlane(transform.forward, groundNormal).normalized;
         Vector3 movementFor = projectedFor * vertMove.y * moveSpeed * accel;
 

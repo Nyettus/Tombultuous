@@ -32,7 +32,7 @@ public class UIManager : SingletonPersist<UIManager>
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         UIMap.Enable();
-        UIMap.FindAction("Pause").performed += gm.Pause;
+        UIMap.FindAction("Pause").performed += gm.PauseCommand;
         PlayerHealth.OnUpdateHealth += ChangeHealthValue;
         WeaponController.OnUpdateAmmo += ChangeAmmoValues;
         WeaponController.OnUpdateSpecial += ChangeSpecialValue;
@@ -122,7 +122,7 @@ public class UIManager : SingletonPersist<UIManager>
     void OnDisable()
     {
         UIMap.Disable();
-        UIMap.FindAction("Pause").performed -= gm.Pause;
+        UIMap.FindAction("Pause").performed -= gm.PauseCommand;
         PlayerHealth.OnUpdateHealth -= ChangeHealthValue;
         WeaponController.OnUpdateAmmo -= ChangeAmmoValues;
         WeaponController.OnUpdateSpecial -= ChangeSpecialValue;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using DialogueEditor;
 
 
 public class GameManager : SingletonPersist<GameManager>
@@ -62,28 +63,38 @@ public class GameManager : SingletonPersist<GameManager>
         Time.timeScale = 1;
     }
 
-    public void Pause(InputAction.CallbackContext context)
+    public void PauseCommand(InputAction.CallbackContext context)
     {
         Debug.Log("Pause Pressed");
-        if (Master == null) return;
+        if (Master == null || ConversationManager.Instance.IsConversationActive) return;
 
         if (context.performed)
         {
             paused = !paused;
+            ShowMouse(paused);
             if (paused)
             {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0;
             }
             else
             {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;
             }
         }
     }
+    public void ShowMouse(bool state)
+    {
+        Cursor.visible = state;
+        if (state)
+            Cursor.lockState = CursorLockMode.None;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
+    }
+    public bool ToggleInputs()
+    {
+        return (paused || ConversationManager.Instance.IsConversationActive);
+    }
+
 
 
     public void TransitionScene(int id)
