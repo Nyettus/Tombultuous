@@ -92,7 +92,15 @@ public class GameManager : SingletonPersist<GameManager>
     }
     public bool ToggleInputs()
     {
-        return (paused || ConversationManager.Instance.IsConversationActive);
+        if (ConversationManager.Instance == null)
+        {
+            return paused;
+        }
+        else
+        {
+            return (paused || ConversationManager.Instance.IsConversationActive);
+        }
+
     }
 
 
