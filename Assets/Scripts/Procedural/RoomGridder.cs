@@ -432,7 +432,6 @@ public class RoomGridder : MonoBehaviour
         foreach (Vector2Int direction in cartesian)
         {
             RoomGrid existingRoom = CreateAtPosition(furthest.position + direction, RoomGrid.State.Empty);
-            existingRoom.roomID = multiGridID;
             float current = Vector3.Distance(new Vector3(0, 0, 0), existingRoom.worldPos);
             if (current > distance)
             {
@@ -488,10 +487,13 @@ public class RoomGridder : MonoBehaviour
 
     #endregion
 
-    public void debugger()
+
+    public RoomGrid foundRoom;
+    public Vector2Int foundLocation;
+    public void DebugFindRoom()
     {
-        var output = GridPoints(new Vector2Int(0, 0), new Vector2Int(1, 1));
-        Debug.Log(output);
+        foundRoom = activeGrid.Find(room => room.position == foundLocation);
+
     }
 
 

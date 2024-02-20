@@ -17,6 +17,10 @@ public class DoorwayTrigger : MonoBehaviour
         
 
     }
+    private void OnDestroy()
+    {
+        CombatZone.OnRoomEnter -= EnableMiniMap;
+    }
 
     private void FindNeighbours()
     {
@@ -32,7 +36,7 @@ public class DoorwayTrigger : MonoBehaviour
     {
         Vector2Int gridpos = PsychoticBox.ConvertWorldPosToGrid(worldPos);
         var initial = RoomManager._.RG.activeGrid.Find(room => room.position == gridpos);
-        if (initial.state == RoomGrid.State.Occupied || (initial.state == RoomGrid.State.MultiGrid && initial.shape == RoomGrid.Shape._1x1))
+        if (initial.state == RoomGrid.State.Occupied || (initial.state == RoomGrid.State.MultiGrid && initial.shape == RoomGrid.Shape._1x1 && initial.position != new Vector2Int(0,0)))
         {
             //Debug.Log("Returned occupied: " + initial.position);
             return initial;
