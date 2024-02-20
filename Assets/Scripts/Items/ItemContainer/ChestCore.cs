@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class ChestCore : MonoBehaviour
 {
-    public ItemPools card;
+    public ItemPools itemCard;
+    public WeaponPool weaponCard;
     public Transform location;
 
     public PoolTiers whichTier;
     private ItemBase itemToSpawn;
 
+    public WeaponBase weaponToSpawn;
+
+    private float weaponPercent = 0.50f;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+
         FindItem();
+        FindWeapon();
 
     }
 
@@ -27,7 +35,7 @@ public class ChestCore : MonoBehaviour
     private void FindItem()
     {
         whichTier = ReturnTier();
-        
+
         int poolLength;
         int whichItem;
         ItemBase[] tierPool = null;
@@ -35,11 +43,11 @@ public class ChestCore : MonoBehaviour
         switch (whichTier)
         {
             case PoolTiers.Tier1:
-                tierPool = card.tier1;
+                tierPool = itemCard.tier1;
 
                 break;
             case PoolTiers.Tier2:
-                tierPool = card.tier2;
+                tierPool = itemCard.tier2;
                 break;
             default:
                 Debug.LogError("Invalid Tier");
@@ -54,9 +62,6 @@ public class ChestCore : MonoBehaviour
         }
         else Debug.LogError("Could not find item to spawn");
 
-
-
-
     }
 
     private PoolTiers ReturnTier()
@@ -66,12 +71,29 @@ public class ChestCore : MonoBehaviour
         else return PoolTiers.Tier2;
     }
 
+    private void FindWeapon()
+    {
+        int value = Random.Range(0, weaponCard.tier1.Length);
+        weaponToSpawn = weaponCard.tier1[value];
+
+    }
+
+
+
+
+
     private bool once = true;
     public void SpawnItem()
     {
+        GameObject itemToInstant = null;
         if (once)
         {
-            Instantiate(itemToSpawn.prefab, location.position, location.rotation);
+            float chance = Random.value;
+            if (chance <= weaponPercent)
+                itemToInstant = weaponToSpawn.prefab;
+            else
+                itemToInstant = itemToSpawn.prefab;
+            Instantiate(itemToInstant, location.position, location.rotation);
             once = false;
         }
 

@@ -290,6 +290,7 @@ public class RoomGridder : MonoBehaviour
         newCenter.shape = shape;
         newCenter.state = startState;
         newCenter.type = type;
+        checkRoom.roomID = multiGridID;
         if (randomDir)
         {
             newCenter.cartesianPlane = Random.Range(0, 3);
@@ -461,7 +462,7 @@ public class RoomGridder : MonoBehaviour
             {
                 bool requireDoor = false;
                 RoomGrid roomToCheck = activeGrid.Find(room => room.position == knownRoom.position + direction);
-                if (roomToCheck != null && (roomToCheck.state == RoomGrid.State.Occupied || roomToCheck.state == RoomGrid.State.MultiGrid))
+                if (roomToCheck != null && (roomToCheck.state == RoomGrid.State.Occupied || roomToCheck.state == RoomGrid.State.MultiGrid || roomToCheck.state == RoomGrid.State.Forbidden))
                 {
                     if (knownRoom.roomID >= 0 && roomToCheck.roomID != knownRoom.roomID)
                     {
