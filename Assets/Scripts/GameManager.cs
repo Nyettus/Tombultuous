@@ -27,6 +27,10 @@ public class GameManager : SingletonPersist<GameManager>
         SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
+    private void Update()
+    {
+        Debug.Log(itemList.Count);
+    }
 
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -54,13 +58,6 @@ public class GameManager : SingletonPersist<GameManager>
             Time.timeScale = 0;
         }
 
-    }
-
-    public void lockMouse()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1;
     }
 
     public void PauseCommand(InputAction.CallbackContext context)
@@ -105,9 +102,14 @@ public class GameManager : SingletonPersist<GameManager>
 
     }
 
+    public void EndGame(bool win)
+    {
+        var transitionGold = goldManager.FinalGold(win);
+        Debug.Log(transitionGold);
+        TransitionScene(0,false);
+    }
 
-
-    public void TransitionScene(int id)
+    public void TransitionScene(int id, bool saveWeapons = true)
     {
         if (Master != null)
         {
@@ -118,6 +120,7 @@ public class GameManager : SingletonPersist<GameManager>
             for (int i = 0; i < currentWeapons.Length; i++)
             {
                 if (currentWeapons[i] == null) continue;
+                if (!saveWeapons) continue;
                 var temp = currentWeapons[i];
                 var tempWeaponStore = new WeaponStorage(temp.prefab, temp.specialTime - Time.time, 0);
                 weaponStorage.Add(tempWeaponStore);

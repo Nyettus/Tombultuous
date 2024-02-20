@@ -51,7 +51,7 @@ public class PlayerMaster : MonoBehaviour
     }
     private void Start()
     {
-        GameManager._.lockMouse();
+        GameManager._.ShowMouse(false);
     }
 
     // Update is called once per frame

@@ -62,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
         if (flesh <= 0)
         {
             flesh = 0;
-            death();
+            Death();
         }
         GameManager._.Master.movementMaster.KnockBack(direction, magnitude);
         OnHealthChangeEvent();
@@ -81,9 +81,9 @@ public class PlayerHealth : MonoBehaviour
         else
             return 0;
     }
-    public void death()
+    public void Death()
     {
-        Debug.Log("Imagine if i implemented an function here");
+        GameManager._.EndGame(false);
     }
     #endregion
 
