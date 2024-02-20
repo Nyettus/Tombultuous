@@ -13,6 +13,7 @@ public class TestDeathState : EnemyStateBase
         Destroy(animator.gameObject, 100);
         CM.enemyRB.excludeLayers = 1<<6;
         CM.ActivateRagdoll(true);
+        Destroy(CM.gameObject, 15f);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
