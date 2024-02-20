@@ -44,6 +44,7 @@ public class WeaponCore : MonoBehaviour
         SpecialPercentage();
         GameManager._.Master.weaponMaster.OnAmmoChangeEvent();
         GameManager._.Master.weaponMaster.OnSpecialChangeEvent();
+        GameManager._.Master.weaponMaster.OnReloadChangeEvent();
     }
     public virtual void OnMeleeHit(EnemyHealth HealthScript,float additive = 0)
     {

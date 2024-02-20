@@ -123,7 +123,7 @@ public class EnemyComponentMaster : MonoBehaviour
         {
             if (collider.tag == "WeaponHitbox") continue;
             collider.enabled = state;
-            collider.excludeLayers = 1 << 6;
+            collider.excludeLayers = 1 << 6 | 1<<12;
         }
         foreach (var rb in ragdollRB)
         {

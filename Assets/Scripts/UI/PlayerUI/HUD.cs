@@ -90,7 +90,7 @@ public class HUD : MonoBehaviour
     private void StandardPercentage(float input, TextMeshProUGUI label)
     {
         var breakdown = input;
-        if (breakdown == 1)
+        if (breakdown == 1 || breakdown == 0)
         {
             label.text = "";
             return;
@@ -102,7 +102,7 @@ public class HUD : MonoBehaviour
 
     private void ConvertToBar(float input, Image bar, bool hideWhenMax = true)
     {
-        if(input == 1 && hideWhenMax)
+        if((input == 1 && hideWhenMax)|| (input == 0 && hideWhenMax))
         {
             bar.enabled = false;
             return;
