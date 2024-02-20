@@ -23,8 +23,8 @@ public class ChestCore : MonoBehaviour
     void Start()
     {
 
-        itemToSpawn = MoneySack.FindItem(itemCard);
-        weaponToSpawn = MoneySack.FindWeapon(weaponCard);
+        itemToSpawn = GunBox.FindItem(itemCard);
+        weaponToSpawn = GunBox.FindWeapon(weaponCard);
 
     }
 

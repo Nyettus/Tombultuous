@@ -8,7 +8,7 @@ using UsefulBox;
 public class HUD : MonoBehaviour
 {
     
-    public TextMeshProUGUI health,ammo,special,dash,reload, bossHealthName;
+    public TextMeshProUGUI health,ammo,special,dash,reload, bossHealthName, goldCounter;
     public GameObject bossHealthHolder;
 
     public Image reloadBar, specialBar, dashBar, bossHealthBar;
@@ -21,6 +21,7 @@ public class HUD : MonoBehaviour
         PlayerController.OnUpdateDash += UpdateDash;
         WeaponController.OnUpdateReload += UpdateReload;
         BossHandler.OnUpdateBossHealth += UpdateBossHealth;
+        GoldManager.OnUpdateGold += UpdateGoldCounter;
         dashBar.enabled = false;
         reloadBar.enabled = false;
         specialBar.enabled = false;
@@ -37,6 +38,7 @@ public class HUD : MonoBehaviour
         PlayerController.OnUpdateDash -= UpdateDash;
         WeaponController.OnUpdateReload -= UpdateReload;
         BossHandler.OnUpdateBossHealth -= UpdateBossHealth;
+        GoldManager.OnUpdateGold -= UpdateGoldCounter;
     }
 
 
@@ -84,6 +86,12 @@ public class HUD : MonoBehaviour
         if (healthBreakdown <= 0) bossHealthHolder.SetActive(false);
 
 
+    }
+
+    private void UpdateGoldCounter()
+    {
+        if (GameManager._.goldManager != null)
+            goldCounter.text = ""+GameManager._.goldManager.gold+"g";
     }
 
 

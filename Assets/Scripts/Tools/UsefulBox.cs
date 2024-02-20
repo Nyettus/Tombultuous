@@ -175,7 +175,7 @@ namespace UsefulBox
     }
 
 
-    public static class MoneySack
+    public static class GunBox
     {
         public enum PoolTiers
         {
