@@ -6,13 +6,15 @@ public class Shovel : MeleeWeaponBase
 {
     private InvulnManager IM => GameManager._.Master.invulnManager;
     private float blockDuration = 1f;
+    [SerializeField] private Animator anim;
     private int damageAculm { get => IM.shovelAcculm; set => IM.shovelAcculm = value; }
 
     public override void OnMeleeHit(EnemyHealth HealthScript, float additive)
     {
 
-        base.OnMeleeHit(HealthScript,damageAculm);
+        base.OnMeleeHit(HealthScript, damageAculm);
         damageAculm = 0;
+
     }
     public override void Special()
     {
@@ -20,7 +22,7 @@ public class Shovel : MeleeWeaponBase
         {
             damageAculm = 0;
             IM.SetShovel(true, blockDuration);
-
+            anim.SetTrigger("Special");
 
             base.Special();
         }
@@ -31,6 +33,12 @@ public class Shovel : MeleeWeaponBase
     {
         if (IM.shovelInvuln) return;
         base.Swing();
+    }
+
+    public override void Shoot()
+    {
+        base.Shoot();
+        anim.SetTrigger("Swing");
     }
 
     public void OnDisable()
