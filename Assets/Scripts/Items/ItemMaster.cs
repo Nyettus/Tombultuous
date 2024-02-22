@@ -116,7 +116,6 @@ public class ItemMaster : MonoBehaviour
 
     public void RefreshEffects()
     {
-        Debug.Log("Effects refreshed");
         ResetStats();
         var allBuffItems = itemList.Where(il => il.Key is PermanentBuffItem);
         foreach (var i in allBuffItems)

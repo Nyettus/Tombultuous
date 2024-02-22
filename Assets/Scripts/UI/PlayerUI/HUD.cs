@@ -4,16 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UsefulBox;
+using UnityEngine.SceneManagement;
 
 public class HUD : MonoBehaviour
 {
-    
-    public TextMeshProUGUI health,ammo,special,dash,reload, bossHealthName, goldCounter;
+
+    public TextMeshProUGUI health, ammo, special, dash, reload, bossHealthName, goldCounter;
     public GameObject bossHealthHolder;
 
     public Image reloadBar, specialBar, dashBar, bossHealthBar;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         PlayerHealth.OnUpdateHealth += UpdateHealth;
         WeaponController.OnUpdateAmmo += UpdateAmmo;
@@ -46,7 +47,7 @@ public class HUD : MonoBehaviour
     private void UpdateHealth()
     {
         var healthBreakdown = UIManager._.healthBreakdown;
-        health.text = ""+healthBreakdown[0]+" / "+healthBreakdown[1]+" | "+healthBreakdown[2]+" "+healthBreakdown[3];
+        health.text = "" + healthBreakdown[0] + " / " + healthBreakdown[1] + " | " + healthBreakdown[2] + " " + healthBreakdown[3];
     }
     private void UpdateAmmo()
     {
@@ -81,7 +82,7 @@ public class HUD : MonoBehaviour
             bossHealthHolder.SetActive(true);
         }
         var healthBreakdown = healthAmount[0] / healthAmount[1];
-        ConvertToBar(healthBreakdown, bossHealthBar,false);
+        ConvertToBar(healthBreakdown, bossHealthBar, false);
         bossHealthName.text = name;
         if (healthBreakdown <= 0) bossHealthHolder.SetActive(false);
 
@@ -90,8 +91,11 @@ public class HUD : MonoBehaviour
 
     private void UpdateGoldCounter()
     {
-        if (GameManager._.goldManager != null)
-            goldCounter.text = ""+GameManager._.goldManager.gold+"g";
+        if (GameManager._.goldManager == null) return;
+        if (SceneManager.GetActiveScene().name == "Hub")
+            goldCounter.text = "" + PlayerPrefs.GetInt("PermGold", 0)+"g";
+        else
+            goldCounter.text = "" + GameManager._.goldManager.gold + "g";
     }
 
 
@@ -110,7 +114,7 @@ public class HUD : MonoBehaviour
 
     private void ConvertToBar(float input, Image bar, bool hideWhenMax = true)
     {
-        if((input == 1 && hideWhenMax)|| (input == 0 && hideWhenMax))
+        if ((input == 1 && hideWhenMax) || (input == 0 && hideWhenMax))
         {
             bar.enabled = false;
             return;

@@ -20,10 +20,12 @@ public class GoldManager : MonoBehaviour
             OnUpdateGold();
     }
 
+    
     public void Start()
     {
         GameManager._.goldManager = this;
         OnGoldChangeEvent();
+        Debug.Log("Player pref gold: " + PlayerPrefs.GetInt("PermGold"));
     }
 
     public void GetGold(int amount)

@@ -27,11 +27,6 @@ public class GameManager : SingletonPersist<GameManager>
         SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
-    private void Update()
-    {
-        Debug.Log(itemList.Count);
-    }
-
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -106,6 +101,18 @@ public class GameManager : SingletonPersist<GameManager>
     {
         var transitionGold = goldManager.FinalGold(win);
         Debug.Log(transitionGold);
+        var newTotal = PlayerPrefs.GetInt("PermGold",0)+transitionGold;
+        PlayerPrefs.SetInt("PermGold",newTotal);
+        if (win)
+        {
+            int victoryCount = PlayerPrefs.GetInt("WinCount", 0) + 1;
+            PlayerPrefs.SetInt("WinCount", victoryCount);
+        }
+        else
+        {
+            int LossCount = PlayerPrefs.GetInt("LossCount", 0) + 1;
+            PlayerPrefs.SetInt("LossCount", LossCount);
+        }
         TransitionScene(0,false);
     }
 
