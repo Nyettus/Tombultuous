@@ -37,6 +37,10 @@ public class HitscanWeaponBase : RangedWeaponBase
         {
             hit.transform.GetComponentInParent<MasterTomb>().DestroySelf();
         }
+        else if(hit.transform.TryGetComponent(out NextLevel level))
+        {
+            level.GotoNextLevel();
+        }
         else
         {
             SummonWallHit(hit);

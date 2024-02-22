@@ -10,6 +10,8 @@ public class EnemyHealth : MonoBehaviour
     public EnemyCountHandler countHandler;
     private bool once = true;
     private EnemyComponentMaster CM;
+
+
     private void Start()
     {
         countHandler = GetComponent<EnemyCountHandler>();
@@ -19,7 +21,6 @@ public class EnemyHealth : MonoBehaviour
     {
         health -= damage;
         if (CM.enemyBoss != null) CM.enemyBoss.OnBossHealthChangeEvent();
-        Debug.Log(string.Format("Enemy Took {0} damage ", damage));
         if (health <= 0 && once)
         {
             Debug.Log("im dead");
@@ -31,13 +32,9 @@ public class EnemyHealth : MonoBehaviour
                 CM.enemyAnimator.SetTrigger("IsDead");
 
             }
-
             once = false;
         }
-        else
-        {
-            Debug.Log("YOUCH");
-        }
+
     }
 
 }

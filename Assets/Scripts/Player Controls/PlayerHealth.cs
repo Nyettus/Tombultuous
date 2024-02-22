@@ -40,7 +40,6 @@ public class PlayerHealth : MonoBehaviour
     {
         if (GameManager._.Master.invuln)
         {
-            Debug.LogWarning(amount);
             lastDamageInstance = amount;
             return;
         }

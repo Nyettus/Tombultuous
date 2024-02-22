@@ -9,48 +9,54 @@ public class ChestCore : MonoBehaviour
     public WeaponPool weaponCard;
     public Transform location;
 
-    public PoolTiers whichTier;
-    [SerializeField]
     private ItemBase itemToSpawn;
-    [SerializeField]
     private WeaponBase weaponToSpawn;
+    private GameObject itemToInstant = null;
 
     private float weaponPercent = 0.50f;
+
+    [SerializeField] private GameObject CustomSpawn;
+    public bool CustomItem = false;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-
-        itemToSpawn = GunBox.FindItem(itemCard);
-        weaponToSpawn = GunBox.FindWeapon(weaponCard);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        if(itemCard!=null) itemToSpawn = GunBox.FindItem(itemCard);
+        if(weaponCard!=null)weaponToSpawn = GunBox.FindWeapon(weaponCard);
 
     }
-
-    
-
 
     private bool once = true;
-    public void SpawnItem()
+    private GameObject SelectItem()
     {
-        GameObject itemToInstant = null;
-        if (once)
+        if (CustomItem)
+        {
+            return CustomSpawn;
+        }
+        else if (once)
         {
             float chance = Random.value;
             if (chance <= weaponPercent)
                 itemToInstant = weaponToSpawn.prefab;
             else
                 itemToInstant = itemToSpawn.prefab;
-            Instantiate(itemToInstant, location.position, location.rotation);
+
             once = false;
         }
+        return itemToInstant;
+
+    }
+
+
+
+
+
+    public void SpawnItem()
+    {
+
+        Instantiate(SelectItem(), location.position, location.rotation);
 
     }
 }

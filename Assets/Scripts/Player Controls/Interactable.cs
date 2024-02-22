@@ -36,10 +36,15 @@ public class Interactable : MonoBehaviour
                 {
                     diagtrigger.StartConvo();
                 }
+                else if (collider.TryGetComponent(out NextLevel nextLevel))
+                {
+                    nextLevel.GotoNextLevel();
+                }
                 else if(collider.TryGetComponent(out ChangePlayer playerChange))
                 {
                     playerChange.EquipNewCharacter();
                 }
+                
             }
         }
     }

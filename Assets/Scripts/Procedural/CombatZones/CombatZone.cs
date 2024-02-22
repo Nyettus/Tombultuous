@@ -14,6 +14,8 @@ public class CombatZone : MonoBehaviour
     private bool activated = false;
     public RoomGrid thisRoom;
 
+    private BossRoom bossRoom;
+
     [SerializeField]
     private GameObject UICanvas;
     [SerializeField]
@@ -23,6 +25,10 @@ public class CombatZone : MonoBehaviour
     void Start()
     {
         if (navmeshLinkHost != null) navmeshLinkHost.SetActive(false);
+        if (TryGetComponent<BossRoom>(out BossRoom BR))
+        {
+            bossRoom = BR;
+        }
     }
 
     public delegate void RoomEntered(RoomGrid thisGrid);
@@ -77,6 +83,7 @@ public class CombatZone : MonoBehaviour
         if (navmeshLinkHost != null) navmeshLinkHost.SetActive(false);
         Debug.Log("Combat Zone Disabled");
         GameManager._.Master.itemMaster.onRoomClearHandler.OnRoomClear();
+        if (bossRoom != null) bossRoom.OnBossKill();
     }
 
     private void RevealMap()

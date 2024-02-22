@@ -8,11 +8,27 @@ public class MeleeHitboxHandling : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         WeaponController quickRef = GameManager._.Master.weaponMaster;
-        Debug.Log("Something entered melee hitbox");
-        if (other.TryGetComponent(out EnemyHealth script)&& quickRef.equippedGuns[quickRef.selectedWeapon]!=null)
+        if (quickRef.equippedGuns[quickRef.selectedWeapon] == null) return;
+        if (other.TryGetComponent(out EnemyHealth script))
         {
-
             quickRef.equippedGuns[quickRef.selectedWeapon].OnMeleeHit(script);
         }
+        else if(other.TryGetComponent(out ChestCore chest))
+        {
+            chest.SpawnItem();
+        }
+        else if(other.tag == "MasterTomb")
+        {
+            other.transform.parent.GetComponent<MasterTomb>().DestroySelf();
+        }
+        else if (other.TryGetComponent(out NextLevel level))
+        {
+            level.GotoNextLevel();
+        }
+        else
+        {
+            Debug.Log("Nothing hit");
+        }
+
     }
 }
