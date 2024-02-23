@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using UsefulBox;
 
 
 public class RoomManager : Singleton<RoomManager>
@@ -16,6 +18,8 @@ public class RoomManager : Singleton<RoomManager>
     public TileSet TileSets;
     public GameObject aestheticDoor;
     private List<GameObject> allRooms = new List<GameObject>();
+
+    public Vector3 worldMidpoint;
 
 
     // Start is called before the first frame update
@@ -55,6 +59,7 @@ public class RoomManager : Singleton<RoomManager>
         //SpawnTestRooms();
         SpawnRooms();
         Invoke("OpenDoors", 0.1f);
+        worldMidpoint = BigMapMidPoint();
 
     }
 
@@ -111,13 +116,13 @@ public class RoomManager : Singleton<RoomManager>
                 }
 
             }
-            else if(room.type == RoomGrid.Type.Treasure && room.shape == RoomGrid.Shape._1x1)
+            else if (room.type == RoomGrid.Type.Treasure && room.shape == RoomGrid.Shape._1x1)
             {
                 roomIndex = Random.Range(0, TileSets._TreasureRooms.Length);
                 roomToSpawn = TileSets._TreasureRooms[roomIndex];
                 SpawnAndRotate(roomToSpawn, room);
             }
-            else if(room.type == RoomGrid.Type.Boss)
+            else if (room.type == RoomGrid.Type.Boss)
             {
                 roomIndex = Random.Range(0, TileSets._BossRooms.Length);
                 roomToSpawn = TileSets._BossRooms[roomIndex];
@@ -128,7 +133,7 @@ public class RoomManager : Singleton<RoomManager>
 
 
 
-    
+
     private void OpenDoors()
     {
 
@@ -164,5 +169,24 @@ public class RoomManager : Singleton<RoomManager>
         holding.thisRoom = position;
         allRooms.Add(ParentRoom);
     }
+
+    public Vector3 BigMapMidPoint()
+    {
+        var FilteredGrid = RG.activeGrid.Where(room => room.state == RoomGrid.State.Occupied || room.state == RoomGrid.State.MultiGrid || room.state == RoomGrid.State.Forbidden);
+
+        int maxX = FilteredGrid.Max(v => v.position.x);
+        int minX = FilteredGrid.Min(v => v.position.x);
+
+        int maxY = FilteredGrid.Max(v => v.position.y);
+        int minY = FilteredGrid.Min(v => v.position.y);
+
+
+        Vector2Int midPoint = new Vector2Int((maxX + minX) / 2, (maxY + minY) / 2);
+        Vector3 convertToWorld = PsychoticBox.ConvertGridToWorldPos(midPoint, yOffset: 150);
+
+        return convertToWorld;
+
+    }
+
 
 }

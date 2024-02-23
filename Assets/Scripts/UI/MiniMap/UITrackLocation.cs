@@ -11,8 +11,16 @@ public class UITrackLocation : MonoBehaviour
 
     public bool matchRotation;
 
+    public bool pauseTrack = false;
+
     // Update is called once per frame
     void LateUpdate()
+    {
+        if (pauseTrack) return;
+        MatchLocation();
+    }
+
+    public void MatchLocation()
     {
         Vector3 pos = target.position;
         pos.y = targetY;

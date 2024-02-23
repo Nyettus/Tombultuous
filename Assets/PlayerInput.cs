@@ -397,6 +397,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BigMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""995ddbc3-7b15-42cd-8b9e-03ff19c0fb3c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -408,6 +417,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dcb891bc-11a5-4674-b1c6-35634d362de8"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BigMap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -431,6 +451,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // UIMap
         m_UIMap = asset.FindActionMap("UIMap", throwIfNotFound: true);
         m_UIMap_Pause = m_UIMap.FindAction("Pause", throwIfNotFound: true);
+        m_UIMap_BigMap = m_UIMap.FindAction("BigMap", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -611,11 +632,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UIMap;
     private List<IUIMapActions> m_UIMapActionsCallbackInterfaces = new List<IUIMapActions>();
     private readonly InputAction m_UIMap_Pause;
+    private readonly InputAction m_UIMap_BigMap;
     public struct UIMapActions
     {
         private @PlayerInput m_Wrapper;
         public UIMapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pause => m_Wrapper.m_UIMap_Pause;
+        public InputAction @BigMap => m_Wrapper.m_UIMap_BigMap;
         public InputActionMap Get() { return m_Wrapper.m_UIMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -628,6 +651,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @BigMap.started += instance.OnBigMap;
+            @BigMap.performed += instance.OnBigMap;
+            @BigMap.canceled += instance.OnBigMap;
         }
 
         private void UnregisterCallbacks(IUIMapActions instance)
@@ -635,6 +661,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @BigMap.started -= instance.OnBigMap;
+            @BigMap.performed -= instance.OnBigMap;
+            @BigMap.canceled -= instance.OnBigMap;
         }
 
         public void RemoveCallbacks(IUIMapActions instance)
@@ -668,5 +697,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IUIMapActions
     {
         void OnPause(InputAction.CallbackContext context);
+        void OnBigMap(InputAction.CallbackContext context);
     }
 }
