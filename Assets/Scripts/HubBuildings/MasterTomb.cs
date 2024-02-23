@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class MasterTomb : MonoBehaviour
 {
-    public DialogueTrigger VaultkeeperDialogue;
+    public VaultKeeperTrigger VaultkeeperDialogue;
     public void DestroySelf()
     {
-        VaultkeeperDialogue.convoInit = 2;
+        VaultkeeperDialogue.convoInit = VaultkeeperDialogue.ReturnConvoInt(2);
         Destroy(gameObject);
     }
 }

@@ -31,11 +31,13 @@ public class ChestCore : MonoBehaviour
     private bool once = true;
     private GameObject SelectItem()
     {
-        if (CustomItem)
+        if (!once) return null;
+        if (CustomItem && once)
         {
+            once = false;
             return CustomSpawn;
         }
-        else if (once)
+        else
         {
             float chance = Random.value;
             if (chance <= weaponPercent)
@@ -55,8 +57,9 @@ public class ChestCore : MonoBehaviour
 
     public void SpawnItem()
     {
-
-        Instantiate(SelectItem(), location.position, location.rotation);
+        var objectToSpawn = SelectItem();
+        if (objectToSpawn == null) return;
+        Instantiate(objectToSpawn, location.position, location.rotation);
 
     }
 }

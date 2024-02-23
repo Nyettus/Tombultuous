@@ -1456,7 +1456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8685075948829099240}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SpawnLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2636,7 +2636,7 @@ MonoBehaviour:
   itemCard: {fileID: 0}
   weaponCard: {fileID: 0}
   location: {fileID: 8685075948829099240}
-  CustomSpawn: {fileID: 1311258744320503572, guid: d0c5b77d6cbf00c4e9d21d5111792a02, type: 3}
+  CustomSpawn: {fileID: 4493385592957252005, guid: b5ae637b5ba8f984ebb123996db2235a, type: 3}
   CustomItem: 1
 --- !u!1 &6804399756543085179
 GameObject:
@@ -6397,6 +6397,7 @@ MonoBehaviour:
   nextLevel: {fileID: 8489844334672668379}
   special: 1
   specialSpawn: {fileID: 6726209373646683395}
+  prefName: NPC_Hat
 --- !u!4 &1700456598527542236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1571113229793703409, guid: 1be66718736081e45b2bdd456bc3b463, type: 3}

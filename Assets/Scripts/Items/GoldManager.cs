@@ -25,7 +25,6 @@ public class GoldManager : MonoBehaviour
     {
         GameManager._.goldManager = this;
         OnGoldChangeEvent();
-        Debug.Log("Player pref gold: " + PlayerPrefs.GetInt("PermGold"));
     }
 
     public void GetGold(int amount)
