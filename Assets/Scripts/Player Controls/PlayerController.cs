@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
 
-
+        if (GameManager._.ToggleInputs()) return;
         if (jumpCount > 0 && context.ReadValue<float>() > 0.5f && jumpTick && dashTick)
         {
             if (jumpCount == b_jumpCount)
@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnDash(InputAction.CallbackContext context)
     {
+        if (GameManager._.ToggleInputs()) return;
         float localDashSpeed;
         if (dashSpeed > moveSpeed * 4)
             localDashSpeed = dashSpeed;
