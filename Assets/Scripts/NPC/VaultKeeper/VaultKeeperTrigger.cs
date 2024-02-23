@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class VaultKeeperTrigger : DialogueTrigger
 {
+    private void Start()
+    {
+        if (PlayerPrefs.GetInt("NPC_Hat", 0) == 1)
+        {
+            timesSpoken = 1;
+        }
+    }
+
     public override void StartConvo()
     {
         base.StartConvo();
