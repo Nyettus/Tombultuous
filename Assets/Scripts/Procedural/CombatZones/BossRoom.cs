@@ -11,6 +11,7 @@ public class BossRoom : MonoBehaviour
 
     public virtual void OnBossKill()
     {
+        special = !ReturnSpecial(prefName);
         if (special)
         {
             specialSpawn.SetActive(true);
@@ -21,7 +22,7 @@ public class BossRoom : MonoBehaviour
         }
     }
 
-    public bool returnSpecial(string prefName)
+    public bool ReturnSpecial(string prefName)
     {
         return PlayerPrefs.GetInt(prefName, 0) == 1;
 
