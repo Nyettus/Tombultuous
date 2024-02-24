@@ -12,7 +12,7 @@ public class MeleeHitboxHandling : MonoBehaviour
         if (other.TryGetComponent(out EnemyHealth script))
         {
             quickRef.equippedGuns[quickRef.selectedWeapon].OnMeleeHit(script);
-            GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(script.transform.position);
+
         }
         else if(other.TryGetComponent(out ChestCore chest))
         {
