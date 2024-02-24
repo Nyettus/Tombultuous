@@ -40,7 +40,7 @@ public class Shovel : MeleeWeaponBase
     public override void Shoot()
     {
         base.Shoot();
-        anim.speed = GameManager._.Master.weaponMaster.hasteMult;
+        anim.speed = 1/GameManager._.Master.weaponMaster.hasteMult;
         anim.SetTrigger("Swing");
     }
 
