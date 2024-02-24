@@ -19,7 +19,9 @@ public class MeleeWeaponBase : WeaponCore
     protected float swingTime;
     protected BoxCollider quickRef => GameManager._.Master.weaponMaster.meleeHitbox;
     protected float hitboxTime;
-    protected float hitboxDuration = 0.05f;
+    protected float hitboxDuration = 0.3f;
+
+    private bool swingHit = false;
 
 
     protected override void Start()
@@ -32,7 +34,11 @@ public class MeleeWeaponBase : WeaponCore
     {
         base.Update();
         if (shooting) Swing();
-        if (hitboxTime < Time.time) quickRef.enabled = false;
+        if (hitboxTime < Time.time && quickRef.enabled)
+        {
+            quickRef.enabled = false;
+            if (!swingHit) GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(transform.position+transform.forward*hitboxLength);
+        }
     }
 
     protected virtual void Establish()
@@ -66,8 +72,10 @@ public class MeleeWeaponBase : WeaponCore
 
     public override void OnMeleeHit(EnemyHealth HealthScript, float additive = 0)
     {
-        float damage = (this.damage+additive) * GameManager._.Master.weaponMaster.damageMult;
+        float damage = (this.damage + additive) * GameManager._.Master.weaponMaster.damageMult;
         HealthScript.takeDamage(damage);
+        GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(HealthScript.transform.position);
+        swingHit = true;
     }
 
     public override void Special()
