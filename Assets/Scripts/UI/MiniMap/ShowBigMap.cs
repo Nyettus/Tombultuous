@@ -9,6 +9,7 @@ public class ShowBigMap : MonoBehaviour
 
     [SerializeField] private UITrackLocation UITracker;
 
+    [SerializeField] private Image mapBackground;
     [SerializeField] private RawImage bigRenderTexture;
     [SerializeField] private RawImage smallRenderTexture;
     [SerializeField] private RenderTexture[] mapTextures = new RenderTexture[2];
@@ -44,6 +45,7 @@ public class ShowBigMap : MonoBehaviour
             }
             else mapCamera.orthographicSize = 100;
             bigRenderTexture.enabled = toggleMap;
+            mapBackground.enabled = toggleMap;
             Debug.Log(mapCamera.targetTexture.name);
         }
     }
