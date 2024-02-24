@@ -464,7 +464,18 @@ MonoBehaviour:
   enemies:
   - {fileID: 442503672275220909}
   navmeshLinkHost: {fileID: 0}
+  thisRoom:
+    roomSize: 0
+    position: {x: 0, y: 0}
+    worldPos: {x: 0, y: 0, z: 0}
+    state: 0
+    type: 0
+    shape: 0
+    cartesianPlane: 0
+    roomID: 0
+    deadEnd: 0
   UICanvas: {fileID: 2735754262172114629}
+  adjDoors: []
 --- !u!1 &1259329268194422152
 GameObject:
   m_ObjectHideFlags: 0
@@ -5768,7 +5779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7238ba7303301a3488686d69dcf6ab18, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8995454ba9c23bb4fb375635bd4b6d25, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -22,7 +22,9 @@ public class Shovel : MeleeWeaponBase
         {
             damageAculm = 0;
             IM.SetShovel(true, blockDuration);
+            anim.speed = 1;
             anim.SetTrigger("Special");
+
 
             base.Special();
         }
@@ -38,6 +40,7 @@ public class Shovel : MeleeWeaponBase
     public override void Shoot()
     {
         base.Shoot();
+        anim.speed = GameManager._.Master.weaponMaster.hasteMult;
         anim.SetTrigger("Swing");
     }
 
