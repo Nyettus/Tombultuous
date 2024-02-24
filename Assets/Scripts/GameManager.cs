@@ -113,7 +113,7 @@ public class GameManager : SingletonPersist<GameManager>
             int LossCount = PlayerPrefs.GetInt("LossCount", 0) + 1;
             PlayerPrefs.SetInt("LossCount", LossCount);
         }
-        TransitionScene(0,false);
+        TransitionScene((int)Scenes.Hub,false);
     }
 
     public void TransitionScene(int id, bool saveWeapons = true)

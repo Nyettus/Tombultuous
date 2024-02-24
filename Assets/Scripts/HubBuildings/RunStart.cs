@@ -6,6 +6,6 @@ public class RunStart : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GameManager._.TransitionScene(1);
+        GameManager._.TransitionScene((int)Scenes.TS1Spawn);
     }
 }

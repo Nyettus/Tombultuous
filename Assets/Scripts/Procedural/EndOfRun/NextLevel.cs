@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NextLevel : MonoBehaviour
 {
-    [SerializeField] private int nextIDs = 0;
+    [SerializeField] private int nextIDs = (int)Scenes.Hub;
     public void GotoNextLevel()
     {
         if(nextIDs == 0)
