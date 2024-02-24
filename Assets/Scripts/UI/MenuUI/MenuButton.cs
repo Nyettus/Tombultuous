@@ -11,7 +11,7 @@ public class MenuButton : MonoBehaviour
 
     public void GoToHub()
     {
-        GameManager._.TransitionScene(0);
+        GameManager._.TransitionScene((int)Scenes.Hub);
     }
 
 }

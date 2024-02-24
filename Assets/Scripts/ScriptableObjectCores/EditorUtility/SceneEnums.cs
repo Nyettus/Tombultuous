@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public enum Scenes
 {
+        MainMenu,
         Hub,
         TS1Spawn
 }
