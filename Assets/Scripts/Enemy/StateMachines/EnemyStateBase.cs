@@ -89,7 +89,14 @@ public abstract class EnemyStateBase : StateMachineBehaviour
             return startLocation;
     }
 
-
+    protected void FireProjectile(string tag, Vector3 target, Vector3 source)
+    {
+        Vector3 dir = target-source;
+        Quaternion aimDirection = Quaternion.LookRotation(dir, Vector3.up);
+        
+        GameObject spawnedProjectile = ObjectPooler._.SpawnFromPool(tag, source, aimDirection);
+        spawnedProjectile.GetComponent<ProjectileManager>().Initialise(source, aimDirection);
+    }
 
 
     protected bool Timer(float timeLimit)

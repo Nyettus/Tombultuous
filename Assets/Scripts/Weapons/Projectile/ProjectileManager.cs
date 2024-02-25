@@ -20,6 +20,7 @@ public class ProjectileManager : MonoBehaviour
 
     public void Initialise(Vector3 position, Quaternion rotation)
     {
+        RB.velocity = Vector3.zero;
         pierceCount = card.pierceCount;
         bounceCount = card.bounceCount;
         RB.position = position;
@@ -30,6 +31,11 @@ public class ProjectileManager : MonoBehaviour
 
     }
     private void Update()
+    {
+        RotateToVelocity();
+    }
+
+    private void RotateToVelocity()
     {
         if (RB.velocity != Vector3.zero)
         {
@@ -53,7 +59,7 @@ public class ProjectileManager : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        bounceCollider.enabled = false;
+        if (bounceCollider != null) bounceCollider.enabled = false;
     }
 
     private void OnGroundHit(Collider other)
@@ -70,7 +76,12 @@ public class ProjectileManager : MonoBehaviour
         }
         if (!(other.TryGetComponent(out EnemyHealth enemyScript) || other.TryGetComponent(out PlayerHealth playerScript)))
         {
-            if (other.gameObject.layer == 3) bounceCount--;
+            if (other.gameObject.layer == 3)
+            {
+
+                bounceCount--;
+
+            }
             if (bounceCount <= 0)
             {
                 Debug.Log("Bounce disable");
@@ -78,7 +89,7 @@ public class ProjectileManager : MonoBehaviour
             }
             else
             {
-                bounceCollider.enabled = true;
+                if (bounceCollider != null) bounceCollider.enabled = true;
             }
         }
 
@@ -87,24 +98,29 @@ public class ProjectileManager : MonoBehaviour
     private void OnTargetHit(Collider other)
     {
         bool hasHit = false;
-        if (other.TryGetComponent(out EnemyHealth enemyScript))
+        if (other.TryGetComponent(out EnemyHealth enemyScript) && card.ally)
         {
             card.ProjDamage(enemyScript);
 
             GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(transform.position);
             hasHit = true;
         }
-        if (other.TryGetComponent(out PlayerHealth playerScript))
+        if (other.TryGetComponent(out PlayerHealth playerScript) && !card.ally)
         {
             card.ProjDamage(this.transform, playerScript);
             hasHit = true;
         }
-        if (hasHit) pierceCount--;
-        if (pierceCount <= 0)
+        if (hasHit)
         {
-            Debug.Log("Pierce disable");
-            DisableEffect();
+            if (pierceCount <= 0)
+            {
+                Debug.Log("Pierce disable");
+                DisableEffect();
+            }
+            pierceCount--;
+
         }
+
     }
 
 
