@@ -7,12 +7,14 @@ public class ProjectileWeaponBase : RangedWeaponBase
     public override void Shoot()
     {
         base.Shoot();
-
+        LaunchProjectile();
     }
 
     protected void LaunchProjectile()
     {
-        GameObject projectile = ObjectPool.SpawnFromPool("TestProj",Camera.main.transform.position, transform.rotation);
+        Vector3 position = Camera.main.transform.position + transform.forward * 2;
+        GameObject projectile = ObjectPool.SpawnFromPool("TestProj",position, transform.rotation);
+        projectile.GetComponent<ProjectileManager>().Initialise(position, transform.rotation);
     }
 
 }

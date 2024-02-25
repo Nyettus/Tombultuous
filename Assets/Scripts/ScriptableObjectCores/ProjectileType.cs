@@ -7,7 +7,8 @@ public class ProjectileType : ScriptableObject
 {
     public bool ally;
     public bool useGravity;
-    public bool piercing;
+    public int pierceCount;
+    public int bounceCount;
 
     public float speed;
 
