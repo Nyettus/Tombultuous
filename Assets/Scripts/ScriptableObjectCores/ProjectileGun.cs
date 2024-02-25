@@ -2,20 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new Hitscan", menuName = "Weapons/Ranged/ProjectileGun")]
-public class ProjectileGun : WeaponBase
+[CreateAssetMenu(fileName = "new ProjectileGun", menuName = "Weapons/Ranged/ProjectileGun")]
+public class ProjectileGun : RangedGunBase
 {
-    [Header("Basic Weapon Traits")]
-    public int bullets;
-    public float fireRate;
-    public float spread;
-    public bool fullAuto;
-
-
-    [Header("Reloadable Traits")]
-    public bool requireReload;
-    public int magSize;
-    public float reloadTime;
+    [Header("Projectile")]
+    public ProjectileType projectile;
 
 
 }

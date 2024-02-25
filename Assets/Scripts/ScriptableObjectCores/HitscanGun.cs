@@ -3,26 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "new Hitscan", menuName = "Weapons/Ranged/HitscanGun")]
-public class HitscanGun : WeaponBase
+public class HitscanGun : RangedGunBase
 {
-    [Header("Basic Weapon Traits")]
+    [Header("Fall Off")]
     public float maxDamage;
     public float minDamage;
-    public int bullets;
-    public float fireRate;
-    public float spread;
-    public bool fullAuto;
-
-    [Header("Fall Off")]
     public float minRange;
     public float maxRange;
-
-    [Header("Reloadable Traits")]
-    public bool requireReload;
-    public int magSize;
-    public float reloadTime;
-
-
-
-
 }

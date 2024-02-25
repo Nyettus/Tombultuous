@@ -5,19 +5,16 @@ using UnityEngine;
 public class RangedWeaponBase : WeaponCore
 {
     [Header("Card")]
-    public HitscanGun card;
+    public RangedGunBase card;
 
     [Header("Basic Weapon Traits")]
-    protected float maxDamage;
-    protected float minDamage;
+
     protected int bullets;
     protected bool fullAuto;
     protected float fireRate;
     protected float spread;
 
-    [Header("Weapon Falloff")]
-    protected float minRange;
-    protected float maxRange;
+
 
     [Header("Reloadable Traits")]
     public bool requireReload;
@@ -52,10 +49,6 @@ public class RangedWeaponBase : WeaponCore
 
 
         specialCooldown = card.cooldown;
-        maxDamage = card.maxDamage;
-        minDamage = card.minDamage;
-        minRange = card.minRange;
-        maxRange = card.maxRange;
         bullets = card.bullets;
         fireRate = card.fireRate;
         spread = card.spread;
@@ -156,11 +149,6 @@ public class RangedWeaponBase : WeaponCore
         return direction.normalized;
     }
 
-    protected float damageFalloff(float distance)
-    {
-        float normalised;
-        normalised = Mathf.Clamp((distance - minRange) / (maxRange - minRange), 0f, 1f);
-        return normalised * minDamage + (1 - normalised) * maxDamage;
-    }
+
 
 }

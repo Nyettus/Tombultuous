@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class HitscanWeaponBase : RangedWeaponBase
 {
+    [Header("Hitscan Traits")]
+    protected float maxDamage;
+    protected float minDamage;
+    protected float minRange;
+    protected float maxRange;
+
+    protected override void Establish()
+    {
+        base.Establish();
+        HitscanGun hitscan = (HitscanGun)card;
+        maxDamage = hitscan.maxDamage;
+        minDamage = hitscan.minDamage;
+        minRange = hitscan.minRange;
+        maxRange = hitscan.maxRange;
+    }
+
+
     public override void Shoot()
     {
         base.Shoot();
@@ -71,5 +88,13 @@ public class HitscanWeaponBase : RangedWeaponBase
     public void rayLine(Vector3 endPos)
     {
         Debug.DrawLine(Camera.main.transform.position, endPos,Color.red,2.5f);
+    }
+
+
+    protected float damageFalloff(float distance)
+    {
+        float normalised;
+        normalised = Mathf.Clamp((distance - minRange) / (maxRange - minRange), 0f, 1f);
+        return normalised * minDamage + (1 - normalised) * maxDamage;
     }
 }

@@ -21,6 +21,7 @@ public class Rifle : HitscanWeaponBase
                     hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
 
                 }
+
                 GameManager._.Master.cameraEffects.DashShake(10f);
                 base.Special();
             }
