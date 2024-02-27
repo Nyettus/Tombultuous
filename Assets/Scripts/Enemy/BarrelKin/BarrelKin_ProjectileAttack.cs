@@ -8,17 +8,9 @@ public class BarrelKin_ProjectileAttack : EnemyStateBase
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        var quickref = GameManager._.Master;
-        float randomLerp = Random.value;
-        var targetLocation = MurderBag.RoughPredictLocation(
-            quickref.transform.position+Vector3.up*(quickref.movementMaster.height/4),
-            quickref.movementMaster.rb.velocity,
-            animator.transform.position,
-            10,
-            randomLerp);
-        
-        var spawnLocation = animator.transform.position + Vector3.up * 3;
-        FireProjectile("BK_Proj", targetLocation, spawnLocation);
+        CM.enemyNavMesh.velocity = Vector3.zero;
+        CM.enemyNavMesh.isStopped = true;
+        FaceTarget(GameManager._.Master.gameObject.transform.position, 10000000f);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -28,6 +20,9 @@ public class BarrelKin_ProjectileAttack : EnemyStateBase
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        base.OnStateExit(animator, stateInfo, layerIndex);
+        CM.enemyNavMesh.isStopped = false;
+        CM.enemyNavMesh.velocity = Vector3.zero;
         base.OnStateExit(animator, stateInfo, layerIndex);
     }
 }
