@@ -12,6 +12,7 @@ public class CampfireFlicker : MonoBehaviour
     private float ranRange = 1f;
     [SerializeField]
     private float flickerTime = 1;
+    [SerializeField]
     private float moveSpeed = 10;
     private Vector3 movement = new Vector3(0,0,0);
     [SerializeField]
