@@ -2321,6 +2321,37 @@ Transform:
   - {fileID: 626511422657089878}
   m_Father: {fileID: 1815342030659024796}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5123624966685491226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9119373579837738196}
+  m_Layer: 0
+  m_Name: ---RTLight---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9119373579837738196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5123624966685491226}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8908526702583225166}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5856976787056850420
 GameObject:
   m_ObjectHideFlags: 0
@@ -3985,6 +4016,8 @@ MonoBehaviour:
     cartesianPlane: 0
     roomID: 0
     deadEnd: 0
+  lightHost: {fileID: 0}
+  RTLights: []
   UICanvas: {fileID: 7460129627198549329}
   adjDoors: []
 --- !u!1 &7460129627198549329
@@ -4476,6 +4509,7 @@ Transform:
   - {fileID: 6430917455716218609}
   - {fileID: 8284913225684938896}
   - {fileID: 744591549490590194}
+  - {fileID: 9119373579837738196}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6491569652921498511

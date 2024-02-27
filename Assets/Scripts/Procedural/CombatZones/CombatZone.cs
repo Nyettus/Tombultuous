@@ -14,6 +14,9 @@ public class CombatZone : MonoBehaviour
     private bool activated = false;
     public RoomGrid thisRoom;
 
+    public GameObject lightHost;
+    [SerializeField] private Light[] RTLights;
+
     private BossRoom bossRoom;
 
     [SerializeField]
@@ -50,22 +53,39 @@ public class CombatZone : MonoBehaviour
         }
 
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            SetLights(false);
+        }
+    }
 
     private void ActivateCombatZone()
     {
-
+        SetLights(true);
 
         if (activated || enemies.Count == 0) return;
         Debug.Log("Room activated");
-        foreach (GameObject enemy in enemies)
-        {
-            enemy.GetComponent<EnemyCountHandler>().master = this;
-            enemy.SetActive(true);
-        }
+
         SetDoors(true);
+        SetEnemies(true);
+
         if (navmeshLinkHost != null) navmeshLinkHost.SetActive(true);
 
         activated = true;
+    }
+
+    public void DisableCombatZones()
+    {
+        //Code to activate room clear
+        SetDoors(false);
+
+        if (navmeshLinkHost != null) navmeshLinkHost.SetActive(false);
+        Debug.Log("Combat Zone Disabled");
+
+        GameManager._.Master.itemMaster.onRoomClearHandler.OnRoomClear();
+        if (bossRoom != null) bossRoom.OnBossKill();
     }
 
     private void SetDoors(bool state)
@@ -76,15 +96,25 @@ public class CombatZone : MonoBehaviour
         }
     }
 
-    public void DisableCombatZones()
+    private void SetLights(bool state)
     {
-        //Code to activate room clear
-        SetDoors(false);
-        if (navmeshLinkHost != null) navmeshLinkHost.SetActive(false);
-        Debug.Log("Combat Zone Disabled");
-        GameManager._.Master.itemMaster.onRoomClearHandler.OnRoomClear();
-        if (bossRoom != null) bossRoom.OnBossKill();
+        foreach (Light lights in RTLights)
+        {
+            lights.enabled = state;
+        }
     }
+
+
+    private void SetEnemies(bool state)
+    {
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EnemyCountHandler>().master = this;
+            enemy.SetActive(state);
+        }
+    }
+
+
 
     private void RevealMap()
     {
@@ -97,12 +127,17 @@ public class CombatZone : MonoBehaviour
         }
     }
 
+
+    #region Editor Methods
     public void AssignEnemies()
     {
         EnemyExclusive();
         UIExclusive();
+        LightExclusive();
 
     }
+
+
 
     private void EnemyExclusive()
     {
@@ -137,6 +172,13 @@ public class CombatZone : MonoBehaviour
         UICanvas.SetActive(false);
     }
 
+    private void LightExclusive()
+    {
+        if (lightHost == null) lightHost = transform.parent.parent.Find("---RTLight---").gameObject;
+        RTLights = lightHost.GetComponentsInChildren<Light>();
+        SetLights(false);
+    }
 
 
+    #endregion
 }
