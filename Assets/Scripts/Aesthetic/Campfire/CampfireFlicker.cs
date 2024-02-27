@@ -17,6 +17,7 @@ public class CampfireFlicker : MonoBehaviour
     private Vector3 movement = new Vector3(0,0,0);
     [SerializeField]
     private float speedRandomness = 1f;
+    [SerializeField] private bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class CampfireFlicker : MonoBehaviour
         float randomTime = Random.Range(-speedRandomness, speedRandomness);
         fire.intensity = intRange * Mathf.Sin((Time.time+randomTime) * flickerTime) + initInt;
         fire.range = ranRange * Mathf.Cos((Time.time + randomTime) * flickerTime) + initRan;
+        if (!canMove) return;
         movement.x = Mathf.Sin(Time.time*moveSpeed);
         movement.z = Mathf.Cos(Time.time*moveSpeed);
         transform.position += (movement*0.0005f);
