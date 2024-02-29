@@ -98,6 +98,7 @@ public class PlayerHealth : MonoBehaviour
     public void ResetFlesh()
     {
         flesh = fleshHealthMax;
+        itemMaster.MIN_Health = -itemMaster.Master.health+1;
     }
 
     #endregion

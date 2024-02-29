@@ -17,7 +17,10 @@ public class ItemMaster : MonoBehaviour
     public OnPassiveEffectHandler onPassiveEffectHandler;
 
 
-    public int M_Health;
+
+    public int Perm_Health;
+    public int M_Health => Perm_Health;
+
     public int MIN_Health = 1;
     public int M_OverHealth;
     public int M_DecayHealth;
@@ -31,15 +34,19 @@ public class ItemMaster : MonoBehaviour
     public int MAX_Pockets = 10;
     public float Perm_MoveSpeed;
     public float M_MoveSpeed => Perm_MoveSpeed + onKillItemHandler.BigBootsAdd();
+
     public float MIN_MoveSpeed = 0.1f;
     public float M_AirAcceleration;
     public float MIN_AirAcceleration = 0.1f;
     public float Perm_JumpPower;
     public float M_JumpPower => Perm_JumpPower;
+
     public float MIN_JumpPower = 0.1f;
     public int M_JumpCount;
     public int MIN_JumpCount = 1;
-    public float M_DashCooldown;
+    public float Perm_DashCooldown;
+    public float M_DashCooldown => Perm_DashCooldown;
+
     public float MIN_DashCooldown = 0.2f;
     public float M_DashSpeed;
     public float M_GoldRetention;
@@ -95,18 +102,18 @@ public class ItemMaster : MonoBehaviour
 
     public void ResetStats()
     {
-        M_Health = 0;           //1
-        Perm_DamageMult = 0;       //2
-        Perm_Haste = 0;            //3
-        M_Pockets = 0;          //4
-        Perm_MoveSpeed = 0;        //5
-        M_AirAcceleration = 0;  //6
-        Perm_JumpPower = 0;        //7
-        M_JumpCount = 0;        //8
-        M_DashCooldown = 0;     //9
-        M_DashSpeed = 0;        //10
-        M_GoldRetention = 0;    //11
-        M_GoldMultiplier = 0;   //12
+        Perm_Health = 0;
+        Perm_DamageMult = 0;
+        Perm_Haste = 0;
+        M_Pockets = 0;
+        Perm_MoveSpeed = 0;
+        M_AirAcceleration = 0;
+        Perm_JumpPower = 0;
+        M_JumpCount = 0;
+        Perm_DashCooldown = 0;
+        M_DashSpeed = 0;
+        M_GoldRetention = 0;
+        M_GoldMultiplier = 0;
     }
 
     public void CleanseItems()

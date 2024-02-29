@@ -36,7 +36,7 @@ public class OnPermanantBuffHandler : MonoBehaviour
             switch (stat.type)
             {
                 case StatType.Health:
-                    itemMaster.M_Health += (int)stat.change * stacks;
+                    itemMaster.Perm_Health += (int)stat.change * stacks;
                     break;
                 
                 case StatType.DamageMult:
@@ -69,7 +69,7 @@ public class OnPermanantBuffHandler : MonoBehaviour
                     break;
 
                 case StatType.DashCooldown:
-                    itemMaster.M_DashCooldown += origin.dashCooldown - (origin.dashCooldown * (1 - stat.change * stacks));
+                    itemMaster.Perm_DashCooldown += origin.dashCooldown - (origin.dashCooldown * (1 - stat.change * stacks));
                     break;
 
                 case StatType.DashSpeed:
