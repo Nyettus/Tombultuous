@@ -23,8 +23,8 @@ public class ChestCore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(itemCard!=null) itemToSpawn = GunBox.FindItem(itemCard);
-        if(weaponCard!=null)weaponToSpawn = GunBox.FindWeapon(weaponCard);
+        if(itemCard!=null) itemToSpawn = itemCard.ReturnItem();
+        if(weaponCard!=null)weaponToSpawn = weaponCard.ReturnWeapon();
 
     }
 

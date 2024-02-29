@@ -37,7 +37,7 @@ public class TestDeathState : EnemyStateBase
         ItemBase itemToSpawn;
         if (Random.value <= itemDropChange)
         {
-            itemToSpawn = GunBox.FindItem(spawnable);
+            itemToSpawn = spawnable.ReturnItem();
             Instantiate(itemToSpawn.prefab, CM.transform.position+offset, CM.transform.rotation);
         }
     }

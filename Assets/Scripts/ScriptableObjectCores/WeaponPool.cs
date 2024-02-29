@@ -9,5 +9,11 @@ public class WeaponPool : ScriptableObject
 
     public WeaponBase[] tier1;
 
+    public WeaponBase ReturnWeapon()
+    {
+        int randomIndex = Random.Range(0, tier1.Length - 1);
+        return tier1[randomIndex];
+    }
+
 }
 

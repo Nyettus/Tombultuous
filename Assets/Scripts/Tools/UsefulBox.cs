@@ -175,67 +175,7 @@ namespace UsefulBox
     }
 
 
-    public static class GunBox
-    {
-        public enum PoolTiers
-        {
-            Tier1,
-            Tier2
-        }
-        private static PoolTiers ReturnTier()
-        {
-            float random = Random.value;
-            if (random < 0.7) return PoolTiers.Tier1;
-            else return PoolTiers.Tier2;
-        }
 
-
-        public static ItemBase FindItem(ItemPools itemCard)
-        {
-            PoolTiers whichTier = ReturnTier();
-
-            int poolLength;
-            int whichItem;
-            ItemBase[] tierPool = null;
-
-            switch (whichTier)
-            {
-                case PoolTiers.Tier1:
-                    tierPool = itemCard.tier1;
-
-                    break;
-                case PoolTiers.Tier2:
-                    tierPool = itemCard.tier2;
-                    break;
-                default:
-                    Debug.LogError("Invalid Tier");
-                    break;
-            }
-
-            if (tierPool != null)
-            {
-                poolLength = tierPool.Length;
-                whichItem = Random.Range(0, poolLength);
-                return tierPool[whichItem];
-            }
-            else
-            {
-                Debug.LogError("Could not find item to spawn");
-                return null;
-            }
-        }
-
-        public static WeaponBase FindWeapon(WeaponPool weaponCard)
-        {
-            int value = Random.Range(0, weaponCard.tier1.Length);
-            return weaponCard.tier1[value];
-
-        }
-
-
-
-
-    }
 
 
 }
