@@ -8,7 +8,9 @@ public class ItemBase : ScriptableObject
 {
   
     public string itemName;
+    public string itemLore;
     public string itemDesc;
+
     public GameObject prefab;
 
 }
