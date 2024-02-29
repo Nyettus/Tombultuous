@@ -31,7 +31,7 @@ public class OnPassiveEffectHandler : MonoBehaviour
         LRodDamage = 0;
     }
 
-    private void LRodCalculate()
+    private void LightningRodCalculate()
     {
         int LRodCount = master.GetItemCount(LRodCard);
         if (LRodCount == 0) return;
@@ -61,10 +61,38 @@ public class OnPassiveEffectHandler : MonoBehaviour
 
     #endregion
 
+    #region PatientStatue
+    public PatientStatue PSCard;
+    public float PSDamage = 0;
+    private void PatientStatueCalculate()
+    {
+        int patientStatueCount = master.GetItemCount(PSCard);
+        if (patientStatueCount == 0) return;
+        float currentSpeed = master.Master.movementMaster.rb.velocity.magnitude;
+
+        float baseMaxSpeed = master.Master.moveSpeed;
+        float currentMaxSpeed = master.Master.movementMaster.moveSpeed;
+        float newMaxDamage = (baseMaxSpeed / currentMaxSpeed)*PSCard.maxBaseDamage;
+
+        float gradient = -newMaxDamage / currentMaxSpeed;
+
+        // what should be c in y=mx+c is simplified to max damage
+        PSDamage = gradient * currentSpeed + newMaxDamage;
+
+        
+
+
+
+
+
+    }
+
+    #endregion
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        LRodCalculate();
+        LightningRodCalculate();
+        PatientStatueCalculate();
     }
 }

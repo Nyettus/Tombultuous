@@ -12,6 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d81a239b6a026409366d293a2548f1, type: 3}
   m_Name: ItemPool
   m_EditorClassIdentifier: 
+  Odds:
+    serializedVersion: 2
+    key0: {r: 0, g: 0, b: 0, a: 1}
+    key1: {r: 0, g: 0, b: 0, a: 1}
+    key2: {r: 0.2, g: 0, b: 0, a: 0}
+    key3: {r: 0.4, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 26214
+    ctime2: 52428
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 1
+    m_ColorSpace: -1
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  tierThresholds:
+  - 0
+  - 0.2
+  - 0.4
+  - 0.6
   tier1:
   - {fileID: 11400000, guid: c9d44fa73a15d3c4da8c590160ab20fb, type: 2}
   - {fileID: 11400000, guid: f636db9fa19e5ce419377c35fea770b9, type: 2}
@@ -20,10 +55,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66f8d9661da95cb42b0abd4d08a9537b, type: 2}
   - {fileID: 11400000, guid: abb91ba5e4b073742bc5e3c5aad3ebe8, type: 2}
   - {fileID: 11400000, guid: 36d3a3a7b28e7444684c7dee6f1a3e26, type: 2}
+  - {fileID: 11400000, guid: 4d387ab56c7b65b4d955bfbf2aa948f2, type: 2}
+  - {fileID: 11400000, guid: 094ec9a921d86b946bc09280ac37a6af, type: 2}
   tier2:
   - {fileID: 11400000, guid: bc367c6b5cfdfff489d8d0277675a61b, type: 2}
   - {fileID: 11400000, guid: 27ede7df8d97ed242aef24f5864ad644, type: 2}
   - {fileID: 11400000, guid: 4c049b0c60dc8e0479c96e95a1ba4e06, type: 2}
   - {fileID: 11400000, guid: 34eb17eeaf023ed4d8f05459a545eab0, type: 2}
-  - {fileID: 11400000, guid: 5bc04247ad25f4b4b9835e25caa9b152, type: 2}
   - {fileID: 11400000, guid: b18608b4bf51c414aabfdd43b7e98631, type: 2}
+  - {fileID: 11400000, guid: 1b2a513664951184ea5a5e3bf3ee4e71, type: 2}
+  - {fileID: 11400000, guid: cf32a69e67776fc4b9aa988c61a9834c, type: 2}
+  - {fileID: 11400000, guid: c784763ed85c5aa4fba38033ece01d67, type: 2}
+  tier3:
+  - {fileID: 11400000, guid: 5bc04247ad25f4b4b9835e25caa9b152, type: 2}
+  tier4: []
