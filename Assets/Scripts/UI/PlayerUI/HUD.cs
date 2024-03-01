@@ -92,7 +92,7 @@ public class HUD : MonoBehaviour
     private void UpdateGoldCounter()
     {
         if (GameManager._.goldManager == null) return;
-        if (SceneManager.GetActiveScene().name == "Hub")
+        if (SceneManager.GetActiveScene().buildIndex == (int)Scenes.Hub)
             goldCounter.text = "" + PlayerPrefs.GetInt("PermGold", 0)+"g";
         else
             goldCounter.text = "" + GameManager._.goldManager.gold + "g";

@@ -47,4 +47,10 @@ public class HubManager : MonoBehaviour
     }
 
 
+    public Canvas VaultShop;
+    public void VaultKeeperShop(bool state)
+    {
+        VaultShop.enabled = state;
+    }
+
 }
