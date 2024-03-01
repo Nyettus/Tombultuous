@@ -20,7 +20,7 @@ public class OnPassiveEffectHandler : MonoBehaviour
         if (LRodDamage == 0) return;
         Collider[] colliderArray = Physics.OverlapSphere(location, LRodCard.radius * LRodDamage);
         LRDebug(location);
-        
+
         foreach (Collider collider in colliderArray)
         {
             if (collider.TryGetComponent(out EnemyHealth health))
@@ -42,8 +42,8 @@ public class OnPassiveEffectHandler : MonoBehaviour
         }
         else
         {
-            LRodExplosion(transform.position-((GameManager._.Master.movementMaster.height/2)*Vector3.up));
-            
+            LRodExplosion(transform.position - ((GameManager._.Master.movementMaster.height / 2) * Vector3.up));
+
         }
 
 
@@ -54,8 +54,8 @@ public class OnPassiveEffectHandler : MonoBehaviour
     private GameObject LRDebugShape;
     private void LRDebug(Vector3 location)
     {
-        var item = Instantiate(LRDebugShape, location,Quaternion.identity);
-        var size = LRodDamage * LRodCard.radius*2;
+        var item = Instantiate(LRDebugShape, location, Quaternion.identity);
+        var size = LRodDamage * LRodCard.radius * 2;
         item.transform.localScale = new Vector3(size, size, size);
     }
 
@@ -72,14 +72,14 @@ public class OnPassiveEffectHandler : MonoBehaviour
 
         float baseMaxSpeed = master.Master.moveSpeed;
         float currentMaxSpeed = master.Master.movementMaster.moveSpeed;
-        float newMaxDamage = (baseMaxSpeed / currentMaxSpeed)*PSCard.maxBaseDamage;
+        float newMaxDamage = (baseMaxSpeed / currentMaxSpeed) * PSCard.maxBaseDamage;
 
         float gradient = -newMaxDamage / currentMaxSpeed;
 
         // what should be c in y=mx+c is simplified to max damage
         PSDamage = gradient * currentSpeed + newMaxDamage;
 
-        
+
 
 
 
@@ -89,10 +89,39 @@ public class OnPassiveEffectHandler : MonoBehaviour
 
     #endregion
 
+    #region Frenzied Statue
+    public FrenziedStatue FSCard;
+    public float FSDamage;
+    private void FrenziedStatueCalculate()
+    {
+        int frenziedStatueCount = master.GetItemCount(FSCard);
+        if (frenziedStatueCount == 0) return;
+        float currentSpeed = master.Master.movementMaster.rb.velocity.magnitude;
+
+        float baseMaxSpeed = master.Master.moveSpeed;
+        float currentMaxSpeed = master.Master.movementMaster.moveSpeed;
+        float speedRatio = currentMaxSpeed / baseMaxSpeed;
+
+        float modStillRate = FSCard.stillRate * (1 / (speedRatio*speedRatio));
+        float newMaxDamage = speedRatio * FSCard.maxBaseDamage;
+
+
+        float gradient = (newMaxDamage / currentMaxSpeed) * (1 + modStillRate);
+        float offset = -newMaxDamage * modStillRate;
+
+        Debug.Log(newMaxDamage);
+
+        FSDamage = gradient * currentSpeed + offset;
+    }
+
+
+    #endregion
+
     // Update is called once per frame
     void FixedUpdate()
     {
         LightningRodCalculate();
         PatientStatueCalculate();
+        FrenziedStatueCalculate();
     }
 }
