@@ -11,7 +11,7 @@ public class CameraEffects : MonoBehaviour
     [SerializeField]
     private CinemachineBasicMultiChannelPerlin perlin;
     private CinemachinePOV freelook;
-    private float lookSens;
+    public float lookSens;
 
     private void Awake()
     {

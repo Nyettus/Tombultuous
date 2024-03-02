@@ -20,8 +20,4 @@ public class Buttons : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void GoToMobility()
-    {
-        SceneManager.LoadScene(1);
-    }
 }

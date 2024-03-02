@@ -22,7 +22,7 @@ public class DeathManager : MonoBehaviour
 
         GoldManager quickRef = GameManager._.goldManager;
         int totalGold = quickRef.gold;
-        int remainGold = quickRef.FinalGold(false);
+        int remainGold = quickRef.FinalGold(false,false);
         float retain = quickRef.goldRetention;
 
         runGold.text = "<s>" + totalGold+"g</s>";

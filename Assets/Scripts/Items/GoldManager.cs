@@ -34,7 +34,7 @@ public class GoldManager : MonoBehaviour
         OnGoldChangeEvent();
     }
 
-    public int FinalGold(bool win)
+    public int FinalGold(bool win, bool reset = true)
     {
         int final = 0;
         if (win)
@@ -46,7 +46,7 @@ public class GoldManager : MonoBehaviour
             final = Mathf.RoundToInt(gold * goldRetention);
 
         }
-        gold = 0;
+        if(reset)gold = 0;
         return final;
     }
 

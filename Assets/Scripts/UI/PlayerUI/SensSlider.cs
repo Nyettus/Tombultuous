@@ -12,26 +12,26 @@ public class SensSlider : MonoBehaviour
     private TextMeshProUGUI text;
 
     [SerializeField]
-    private CameraControls cameraControl;
+    private CameraEffects cameraControl;
     // Start is called before the first frame update
     void Start()
     {
-        //SetSensitity();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        SetSensitity();
     }
 
     private void SetSensitity()
     {
-        cameraControl = GameManager._.Master.GetComponentInChildren<CameraControls>();
+        cameraControl = GameManager._.Master.cameraEffects;
         sensSlider.onValueChanged.AddListener((v) =>
         {
             text.text = v.ToString("0.00");
-            cameraControl.sens = v;
+            cameraControl.lookSens = v/10;
         });
     }
 
