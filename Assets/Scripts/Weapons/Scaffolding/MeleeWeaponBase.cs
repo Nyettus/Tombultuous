@@ -21,7 +21,7 @@ public class MeleeWeaponBase : WeaponCore
     protected float hitboxTime;
     protected float hitboxDuration = 0.3f;
 
-    private bool swingHit = false;
+    [SerializeField] private bool swingHit = false;
 
 
     protected override void Start()
@@ -37,7 +37,8 @@ public class MeleeWeaponBase : WeaponCore
         if (hitboxTime < Time.time && quickRef.enabled)
         {
             quickRef.enabled = false;
-            if (!swingHit) GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(transform.position+transform.forward*hitboxLength);
+            if (!swingHit) GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(transform.position + transform.forward * hitboxLength);
+            swingHit = false;
         }
     }
 
@@ -107,6 +108,7 @@ public class MeleeWeaponBase : WeaponCore
     private void OnDisable()
     {
         GameManager._.Master.weaponMaster.meleeHitbox.enabled = false;
+        swingHit = false;
     }
 
 

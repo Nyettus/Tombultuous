@@ -6,7 +6,7 @@ public class BarrelKin_RoughChase : TestRoughChaseState
 {
     private float timeToCheck = 2f;
     private float timer;
-    private float randomChance = 0.4f;
+    private float randomChance = 0.8f;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
