@@ -17,7 +17,11 @@ public class Buttons : MonoBehaviour
 
     public void GoToHub()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene((int)Scenes.Hub);
+    }
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene((int)Scenes.MainMenu);
     }
 
 }
