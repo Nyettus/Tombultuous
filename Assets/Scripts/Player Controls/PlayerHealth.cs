@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public ItemMaster itemMaster;
+    public DeathManager deathMaster;
     public int lastDamageInstance;
     public int flesh;
     public int fleshHealthMax => itemMaster.Master.health + itemMaster.M_Health;
@@ -82,7 +83,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public void Death()
     {
-        GameManager._.EndGame(false);
+        deathMaster.Initialise();
     }
     #endregion
 

@@ -18,6 +18,11 @@ public class GameManager : SingletonPersist<GameManager>
     public GoldManager goldManager;
     #endregion
 
+    #region Freeze inputs
+    public bool inMenu = false;
+    public Canvas whichMenu;
+    public bool isDead = false;
+    #endregion
 
     //Basic menu
     public bool paused = false;
@@ -57,10 +62,15 @@ public class GameManager : SingletonPersist<GameManager>
 
     public void PauseCommand(InputAction.CallbackContext context)
     {
-        Debug.Log("Pause Pressed");
         bool convoBool = false;
         if (ConversationManager.Instance != null) convoBool = ConversationManager.Instance.IsConversationActive;
+        if (inMenu)
+        {
+            CloseMenu();
+            return;
+        }
         if (Master == null || convoBool) return;
+
 
         if (context.performed)
         {
@@ -92,9 +102,17 @@ public class GameManager : SingletonPersist<GameManager>
         }
         else
         {
-            return (paused || ConversationManager.Instance.IsConversationActive);
+            return (paused || ConversationManager.Instance.IsConversationActive || inMenu || isDead);
         }
 
+    }
+    public void CloseMenu()
+    {
+        if (!inMenu) return;
+        Debug.Log("CloseMenuTriggered");
+        whichMenu.enabled = false;
+        inMenu = false;
+        ShowMouse(false);
     }
 
     public void EndGame(bool win)

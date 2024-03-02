@@ -157,11 +157,12 @@ namespace DialogueEditor
 
         public void EndConversation()
         {
+            GameManager._.ShowMouse(false);
             SetState(eState.TransitioningDialogueOff);
 
             if (OnConversationEnded != null)
                 OnConversationEnded.Invoke();
-            GameManager._.ShowMouse(false);
+
 
         }
 
@@ -343,7 +344,7 @@ namespace DialogueEditor
 
         private void ScrollingText_Update()
         {
-            const float charactersPerSecond = 1500;
+            const float charactersPerSecond = 3000;
             float timePerChar = (60.0f / charactersPerSecond);
             timePerChar *= ScrollSpeed;
 

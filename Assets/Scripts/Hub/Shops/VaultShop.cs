@@ -4,14 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using UsefulBox;
 using TMPro;
+using DialogueEditor;
 
 public class VaultShop : MonoBehaviour
 {
 
     public VaultShopPrices card;
+    [SerializeField] public Canvas VKCanvas;
     private void Start()
     {
         SetupOptions();
+        VKCanvas = GetComponent<Canvas>();
     }
 
     private void SetupOptions()
@@ -20,6 +23,20 @@ public class VaultShop : MonoBehaviour
         TestIncrementSetup();
     }
 
+    public void SetMenu(bool state)
+    {
+
+        GameManager._.ShowMouse(true);
+
+        VKCanvas.enabled = state;
+        GameManager._.inMenu = state;
+        GameManager._.whichMenu = VKCanvas;
+
+    }
+    public void FixedUpdate()
+    {
+        if(VKCanvas.enabled) GameManager._.ShowMouse(true);
+    }
 
     #region Split Setup
     [SerializeField] private TextMeshProUGUI recyclePriceText;
@@ -84,7 +101,7 @@ public class VaultShop : MonoBehaviour
 
 
     #region Skeleton Purchasing
-    private void RawPurchase(string tag,int price, int value)
+    private void RawPurchase(string tag, int price, int value)
     {
         int money = PlayerPrefs.GetInt("PermGold", 0);
         int remainingMoney = money - price;
@@ -136,7 +153,7 @@ public class VaultShop : MonoBehaviour
             }
             else
             {
-                RawPurchase(tag, price[currentLevel], currentLevel+1);
+                RawPurchase(tag, price[currentLevel], currentLevel + 1);
             }
         }
     }
