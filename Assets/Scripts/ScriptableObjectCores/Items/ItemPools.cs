@@ -61,7 +61,7 @@ public class ItemPools : ScriptableObject
     public ItemBase ReturnItem()
     {
         var whichPool = ReturnArray();
-        int randomIndex = Random.Range(0, whichPool.Length - 1);
+        int randomIndex = Random.Range(0, whichPool.Length);
         return whichPool[randomIndex];
     }
 

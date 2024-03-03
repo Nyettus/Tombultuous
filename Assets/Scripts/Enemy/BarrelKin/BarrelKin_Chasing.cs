@@ -10,12 +10,13 @@ public class BarrelKin_Chasing : TestChasingState
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-
+        CM.enemyNavMesh.speed = CM.defaultWalkSpeed;
         
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
+    { 
+        if(CM.enemyNavMesh.speed != CM.defaultWalkSpeed) CM.enemyNavMesh.speed = CM.defaultWalkSpeed;
         base.OnStateUpdate(animator, stateInfo, layerIndex);
         CheckCharge(animator);
     }
