@@ -5,22 +5,25 @@ using UnityEngine;
 public class EnemyDamage : MonoBehaviour
 {
     [SerializeField]
-    private int damage;
+    protected int damage;
     [SerializeField]
     private float magnitude;
 
     [SerializeField]
-    private EnemyComponentMaster CM;
+    protected EnemyComponentMaster CM;
     private void Start()
     {
-
+        
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
         CM.enemyAttacks.DamagePlayer(damage,(GameManager._.Master.transform.position-transform.position+Vector3.up).normalized,magnitude);
 
 
     }
+
+
+
 }
