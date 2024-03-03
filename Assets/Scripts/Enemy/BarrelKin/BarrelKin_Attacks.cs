@@ -46,7 +46,7 @@ public class BarrelKin_Attacks : BaseEnemyAttacks
             quickref.transform.position + Vector3.up * (quickref.movementMaster.height / 4),
             quickref.movementMaster.rb.velocity,
             transform.position,
-            10,
+            20,
             randomLerp);
         FireProjectile("BK_Proj", targetLocation, spawnLocation.position);
 
