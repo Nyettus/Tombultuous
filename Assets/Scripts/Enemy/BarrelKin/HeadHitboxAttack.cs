@@ -11,10 +11,14 @@ public class HeadHitboxAttack : EnemyDamage
 
     protected override void OnTriggerEnter(Collider other)
     {
+        if (other.tag != "Player") return;
+
         if (CM.enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Charge"))
             damage = ChargeDamage;
         else
             damage = HeadbuttDamage;
+
         base.OnTriggerEnter(other);
+        damage = ChargeDamage;
     }
 }

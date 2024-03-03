@@ -64,6 +64,8 @@ public class PlayerHealth : MonoBehaviour
             flesh = 0;
             Death();
         }
+        float shakeAmount = Mathf.Clamp(amount*0.5f, 0, 5);
+        GameManager._.Master.cameraEffects.DashShake(shakeAmount);
         GameManager._.Master.movementMaster.KnockBack(direction, magnitude);
         OnHealthChangeEvent();
 
