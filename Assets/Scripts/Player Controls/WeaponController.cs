@@ -53,7 +53,7 @@ public class WeaponController : MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (equippedGuns[selectedWeapon] != null)
+        if (equippedGuns[selectedWeapon] != null && !GameManager._.ToggleInputs())
         {
             equippedGuns[selectedWeapon].shooting = context.performed;
 
@@ -63,7 +63,7 @@ public class WeaponController : MonoBehaviour
 
     public void OnSpecial(InputAction.CallbackContext context)
     {
-        if (context.performed && equippedGuns[selectedWeapon] != null)
+        if (context.performed && equippedGuns[selectedWeapon] != null && !GameManager._.ToggleInputs())
         {
             equippedGuns[selectedWeapon].Special();
 
@@ -73,7 +73,7 @@ public class WeaponController : MonoBehaviour
 
     public void OnSelect(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !GameManager._.ToggleInputs())
         {
             int val = (int)context.ReadValue<float>() - 1;
             if (equippedGuns.Length > val && equippedGuns[val] != null && val != selectedWeapon)
@@ -88,7 +88,7 @@ public class WeaponController : MonoBehaviour
 
     public void OnQuickSwitch(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !GameManager._.ToggleInputs())
         {
             if (previousWeapon != -1)
             {
@@ -104,7 +104,7 @@ public class WeaponController : MonoBehaviour
 
     public void OnReload(InputAction.CallbackContext context)
     {
-        if (context.performed && equippedGuns[selectedWeapon] != null && equippedGuns[selectedWeapon].TryGetComponent(out RangedWeaponBase yep))
+        if (context.performed && equippedGuns[selectedWeapon] != null && equippedGuns[selectedWeapon].TryGetComponent(out RangedWeaponBase yep) && !GameManager._.ToggleInputs())
         {
             if (yep.requireReload && (yep.curMag != yep.magSize))
             {
