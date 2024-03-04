@@ -6229,8 +6229,16 @@ PrefabInstance:
       value: KeyboardMap/Heal[/Keyboard/f]
       objectReference: {fileID: 0}
     - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -6238,6 +6246,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5408543923550611624}
+    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 5408543923550611624}
     - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
@@ -6249,16 +6261,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5352203576678490461}
     - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Recycle
       objectReference: {fileID: 0}
     - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: UseHealingPot
       objectReference: {fileID: 0}
     - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Interactable, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerHealth, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -6308,6 +6336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healingCharges: 0
+  canRecycle: 0
 --- !u!114 &5352203576678490461 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6999005006463531252, guid: 190f11cca20d0e145b632078efb8e068, type: 3}

@@ -80,4 +80,10 @@ public class ItemCore : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    public void OnRecycle()
+    {
+        GameManager._.goldManager.GetGold(200);
+        Destroy(this.gameObject);
+    }
+
 }

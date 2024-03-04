@@ -48,4 +48,21 @@ public class Interactable : MonoBehaviour
             }
         }
     }
+
+
+
+    public void Recycle(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        if (!GameManager._.Master.persistentManager.canRecycle) return;
+        float range = 0.5f;
+        Collider[] colliderArray = Physics.OverlapSphere(transform.position + transform.forward * 2f, range);
+        foreach(Collider collider in colliderArray)
+        {
+            if(collider.TryGetComponent(out ItemCore itemcore))
+            {
+                itemcore.OnRecycle();
+            }
+        }
+    }
 }
