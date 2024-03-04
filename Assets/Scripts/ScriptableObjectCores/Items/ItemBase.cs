@@ -13,5 +13,6 @@ public class ItemBase : ScriptableObject
 
     public GameObject prefab;
     public bool unlocked = true;
+    public int tier;
 
 }

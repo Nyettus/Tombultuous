@@ -27,7 +27,8 @@ public class OnMissEffectHandler : MonoBehaviour
         int MLamentCount = itemMaster.GetItemCount(MLamentCard);
         if (MLamentCount == 0 || MLamentDamage >= MLamentCard.MaxiumumDamage) return;
         MLamentDamage += MLamentCard.IncrementalDamage * MLamentCount;
-        if (MLamentDamage <= MLamentCard.MaxiumumDamage) UIManager._.WriteToNotification("Marksman's Lament Grows, +" + MLamentCard.IncrementalDamage * MLamentCount * 100 + "% damage", 5f);
+        if (MLamentDamage >= MLamentCard.MaxiumumDamage*0.5) UIManager._.WriteToNotification("Marksman's Lament at half power",2);
+        if(MLamentDamage >= MLamentCard.MaxiumumDamage) UIManager._.WriteToNotification("Marksman's Lament at full power",2);
 
     }
 

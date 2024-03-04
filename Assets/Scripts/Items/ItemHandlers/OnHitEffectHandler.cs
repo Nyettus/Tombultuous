@@ -14,7 +14,8 @@ public class OnHitEffectHandler : MonoBehaviour
         int MCoinCount = itemMaster.GetItemCount(MCoinCard);
         if (MCoinCount == 0 || MCoinDamage >= MCoinCard.MaxiumumDamage) return;
         MCoinDamage += MCoinCard.IncrementalDamage * MCoinCount;
-        if (MCoinDamage <= MCoinCard.MaxiumumDamage) UIManager._.WriteToNotification("Marksman's Coin increased damage by " + MCoinCard.IncrementalDamage * MCoinCount * 100 + "%",5f);
+        if (MCoinDamage >= MCoinCard.MaxiumumDamage*0.48f && MCoinDamage <= MCoinCard.MaxiumumDamage * 0.52f) UIManager._.WriteToNotification("Marksman's Coin reached half power",2);
+        if (MCoinDamage >= MCoinCard.MaxiumumDamage) UIManager._.WriteToNotification("Marksman's Coin reached full power",2);
     }
     #endregion
 
@@ -26,7 +27,6 @@ public class OnHitEffectHandler : MonoBehaviour
         int MLamentCount = itemMaster.GetItemCount(MLamentCard);
         if (MLamentCount == 0 || itemMaster.onMissEffectHandler.MLamentDamage == 0) return;
         itemMaster.onMissEffectHandler.MLamentDamage = 0;
-        UIManager._.WriteToNotification("Marksman's Lament relieved");
     }
 
     #endregion
