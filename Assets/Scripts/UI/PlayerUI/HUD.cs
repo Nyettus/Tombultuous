@@ -82,6 +82,7 @@ public class HUD : MonoBehaviour
 
     public void UpdateHealPots()
     {
+        healPots.enabled = (GameManager._.healingCharges != 0);
         healPots.text = "Heal Pots: " + GameManager._.healingCharges;
     }
 
