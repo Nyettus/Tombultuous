@@ -93,6 +93,7 @@ public class PlayerHealth : MonoBehaviour
     #region Heal Health
     public void HealFlesh(int amount)
     {
+        if (amount < 0) return;
         if (fleshHealthMax - flesh < amount)
             flesh = fleshHealthMax;
         else
