@@ -58,6 +58,7 @@ public class ItemCore : MonoBehaviour
     public void OnPickup()
     {
         Debug.Log("Item picked up");
+        UIManager._.ItemNotification(baseItems[0]);
         foreach(ItemBase item in baseItems)
         {
             if(item is PermanentBuffItem)
