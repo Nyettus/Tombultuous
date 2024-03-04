@@ -49,8 +49,5 @@ public class Shovel : MeleeWeaponBase
         IM.SetShovel(false, blockDuration);
         anim.StopPlayback();
     }
-    public void OnEnable()
-    {
-        anim.Play("Idle");
-    }
+
 }

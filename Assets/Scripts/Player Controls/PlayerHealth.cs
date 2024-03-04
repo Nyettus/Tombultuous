@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -120,6 +121,28 @@ public class PlayerHealth : MonoBehaviour
         }
 
     }
+    #endregion
+
+
+    #region Healing Pot
+    public int healingCharges
+    {
+        get { return GameManager._.healingCharges; }
+        set { GameManager._.healingCharges = value; }
+    }
+    public int healingChargeAmount = 50;
+    public void UseHealingPot(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        if (healingCharges > 0 && flesh != fleshHealthMax)
+        {
+            HealFlesh(healingChargeAmount);
+            healingCharges--;
+        }
+        UIManager._.ChangeHealthPot();
+
+    }
+
     #endregion
 
 }

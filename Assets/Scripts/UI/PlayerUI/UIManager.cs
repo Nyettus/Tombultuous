@@ -10,6 +10,8 @@ public class UIManager : SingletonPersist<UIManager>
     [SerializeField]
     public InputActionAsset InputMap;
 
+    public HUD hudScript;
+
 
     private InputActionMap UIMap => InputMap.FindActionMap("UIMap");
     private GameManager gm => GameManager._;
@@ -52,6 +54,13 @@ public class UIManager : SingletonPersist<UIManager>
         gm.Master.itemMaster.M_DecayHealth };
     }
 
+    #endregion
+
+    #region Heal Pot Update
+    public void ChangeHealthPot()
+    {
+        hudScript.UpdateHealPots();
+    }
     #endregion
 
     #region AmmoUpdate

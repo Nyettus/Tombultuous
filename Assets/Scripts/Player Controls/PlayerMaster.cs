@@ -40,6 +40,8 @@ public class PlayerMaster : MonoBehaviour
 
     [Header("Effects")]
     public CameraEffects cameraEffects;
+    [Header("Persistence Manager")]
+    public PersistentManager persistentManager;
 
 
 

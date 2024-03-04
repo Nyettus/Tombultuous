@@ -6,6 +6,6 @@ using UnityEngine;
 public class VaultShopPrices : ScriptableObject
 {
     public int recyclePrice;
-    public int[] layerPrice;
+    public int[] healingPrice;
 
 }

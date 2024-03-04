@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class HUD : MonoBehaviour
 {
 
-    public TextMeshProUGUI health, ammo, special, dash, reload, bossHealthName, goldCounter;
+    public TextMeshProUGUI health, ammo, special, dash, reload, bossHealthName, goldCounter,healPots;
     public GameObject bossHealthHolder;
 
     public Image reloadBar, specialBar, dashBar, bossHealthBar;
@@ -27,6 +27,11 @@ public class HUD : MonoBehaviour
         reloadBar.enabled = false;
         specialBar.enabled = false;
         bossHealthHolder.SetActive(false);
+    }
+    private void Start()
+    {
+        UIManager._.hudScript = this;
+        UpdateHealPots();
     }
 
 
@@ -73,6 +78,11 @@ public class HUD : MonoBehaviour
     {
         StandardPercentage(UIManager._.reloadBreakdown, reload);
         ConvertToBar(UIManager._.reloadBreakdown, reloadBar);
+    }
+
+    public void UpdateHealPots()
+    {
+        healPots.text = "Heal Pots: " + GameManager._.healingCharges;
     }
 
     private void UpdateBossHealth(float[] healthAmount, string name)

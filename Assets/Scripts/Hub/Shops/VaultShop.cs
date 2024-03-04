@@ -20,7 +20,7 @@ public class VaultShop : MonoBehaviour
     private void SetupOptions()
     {
         RecycleSetup();
-        TestIncrementSetup();
+        HealingChargeSetup();
     }
 
     public void SetMenu(bool state)
@@ -35,7 +35,7 @@ public class VaultShop : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        if(VKCanvas.enabled) GameManager._.ShowMouse(true);
+        if (VKCanvas.enabled) GameManager._.ShowMouse(true);
     }
 
     #region Split Setup
@@ -58,21 +58,23 @@ public class VaultShop : MonoBehaviour
     }
 
 
-    [SerializeField] private TextMeshProUGUI testIncrementTest;
-    [SerializeField] private Button testIncrementButton;
-    private void TestIncrementSetup()
+    [SerializeField] private TextMeshProUGUI healingChargeText;
+    [SerializeField] private Button healingChargeButton;
+    [SerializeField] private Image healingChargeUpgradeBar;
+    private void HealingChargeSetup()
     {
-        int state = PlayerPrefs.GetInt("VK_Shop_IncTest", 0);
-        if (state < card.layerPrice.Length)
+        int state = PlayerPrefs.GetInt("VK_Shop_HealingCharge", 0);
+        if (state < card.healingPrice.Length)
         {
-            testIncrementButton.interactable = true;
-            testIncrementTest.text = "" + card.layerPrice[state] + "g";
+            healingChargeButton.interactable = true;
+            healingChargeText.text = "" + card.healingPrice[state] + "g";
         }
         else
         {
-            testIncrementButton.interactable = false;
-            testIncrementTest.text = "Bought";
+            healingChargeButton.interactable = false;
+            healingChargeText.text = "Bought";
         }
+        healingChargeUpgradeBar.fillAmount = (float)state / card.healingPrice.Length;
     }
 
     #endregion
@@ -86,12 +88,15 @@ public class VaultShop : MonoBehaviour
 
     }
 
-    public void PurchaseTestIncremental()
+    public void PurchaseHealingCharges()
     {
-        string testTag = "VK_Shop_IncTest";
-        int value = PlayerPrefs.GetInt(testTag, 0);
-        if (value > card.layerPrice.Length) return;
-        PurchaseIncremental(testTag, card.layerPrice);
+        string healTag = "VK_Shop_HealingCharge";
+        int state = PlayerPrefs.GetInt(healTag, 0);
+        if (state > card.healingPrice.Length) return;
+        PurchaseIncremental(healTag, card.healingPrice);
+        state = PlayerPrefs.GetInt(healTag, 0);
+        healingChargeUpgradeBar.fillAmount = (float)state / card.healingPrice.Length;
+
     }
 
 

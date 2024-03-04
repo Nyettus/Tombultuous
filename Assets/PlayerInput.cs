@@ -116,6 +116,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Heal"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3dbda0b-a879-4eb2-a124-5eb76434b526"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -382,6 +391,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""QuickSwitch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08d10fe9-2128-4a99-bfaf-439bbc13f871"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -448,6 +468,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_KeyboardMap_Reload = m_KeyboardMap.FindAction("Reload", throwIfNotFound: true);
         m_KeyboardMap_WeaponSwitch = m_KeyboardMap.FindAction("Weapon Switch", throwIfNotFound: true);
         m_KeyboardMap_QuickSwitch = m_KeyboardMap.FindAction("QuickSwitch", throwIfNotFound: true);
+        m_KeyboardMap_Heal = m_KeyboardMap.FindAction("Heal", throwIfNotFound: true);
         // UIMap
         m_UIMap = asset.FindActionMap("UIMap", throwIfNotFound: true);
         m_UIMap_Pause = m_UIMap.FindAction("Pause", throwIfNotFound: true);
@@ -523,6 +544,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMap_Reload;
     private readonly InputAction m_KeyboardMap_WeaponSwitch;
     private readonly InputAction m_KeyboardMap_QuickSwitch;
+    private readonly InputAction m_KeyboardMap_Heal;
     public struct KeyboardMapActions
     {
         private @PlayerInput m_Wrapper;
@@ -537,6 +559,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Reload => m_Wrapper.m_KeyboardMap_Reload;
         public InputAction @WeaponSwitch => m_Wrapper.m_KeyboardMap_WeaponSwitch;
         public InputAction @QuickSwitch => m_Wrapper.m_KeyboardMap_QuickSwitch;
+        public InputAction @Heal => m_Wrapper.m_KeyboardMap_Heal;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -576,6 +599,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @QuickSwitch.started += instance.OnQuickSwitch;
             @QuickSwitch.performed += instance.OnQuickSwitch;
             @QuickSwitch.canceled += instance.OnQuickSwitch;
+            @Heal.started += instance.OnHeal;
+            @Heal.performed += instance.OnHeal;
+            @Heal.canceled += instance.OnHeal;
         }
 
         private void UnregisterCallbacks(IKeyboardMapActions instance)
@@ -610,6 +636,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @QuickSwitch.started -= instance.OnQuickSwitch;
             @QuickSwitch.performed -= instance.OnQuickSwitch;
             @QuickSwitch.canceled -= instance.OnQuickSwitch;
+            @Heal.started -= instance.OnHeal;
+            @Heal.performed -= instance.OnHeal;
+            @Heal.canceled -= instance.OnHeal;
         }
 
         public void RemoveCallbacks(IKeyboardMapActions instance)
@@ -693,6 +722,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnWeaponSwitch(InputAction.CallbackContext context);
         void OnQuickSwitch(InputAction.CallbackContext context);
+        void OnHeal(InputAction.CallbackContext context);
     }
     public interface IUIMapActions
     {

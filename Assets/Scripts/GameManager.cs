@@ -16,6 +16,7 @@ public class GameManager : SingletonPersist<GameManager>
     public Dictionary<ItemBase, ItemStack> itemList = new Dictionary<ItemBase, ItemStack>();
     public List<WeaponStorage> weaponStorage = new List<WeaponStorage>();
     public GoldManager goldManager;
+    public int healingCharges;
     #endregion
 
     #region Freeze inputs
