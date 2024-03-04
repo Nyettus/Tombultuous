@@ -35,7 +35,6 @@ public class ChangePlayer : MonoBehaviour
         foreach (WeaponBase weapon in character.startingWeapons)
         {
             var currentWep = Instantiate(weapon.prefab);
-            Debug.Log("I spawned a weapon");
             var currentCore = currentWep.GetComponent<WeaponCore>();
             yield return new WaitForSeconds(0.1f);
             currentCore.pickUpWeapon();

@@ -21,7 +21,7 @@ public class MenuButton : MonoBehaviour
         PlayerPrefs.SetInt("WinCount", 0);
         PlayerPrefs.SetInt("NPC_Hat", 0);
         PlayerPrefs.SetInt("VK_Shop_Recycle", 0);
-        PlayerPrefs.SetInt("VK_Shop_IncTest", 0);
+        PlayerPrefs.SetInt("VK_Shop_HealingCharge", 0);
     }
 
 }

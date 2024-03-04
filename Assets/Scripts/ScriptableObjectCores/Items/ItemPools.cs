@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 public enum PoolTiers
@@ -61,8 +62,9 @@ public class ItemPools : ScriptableObject
     public ItemBase ReturnItem()
     {
         var whichPool = ReturnArray();
-        int randomIndex = Random.Range(0, whichPool.Length);
-        return whichPool[randomIndex];
+        var filteredArray = whichPool.Where(item => item.unlocked == true).ToArray();
+        int randomIndex = Random.Range(0, filteredArray.Length);
+        return filteredArray[randomIndex];
     }
 
 }
