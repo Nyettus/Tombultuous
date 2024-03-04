@@ -12,5 +12,6 @@ public class ItemBase : ScriptableObject
     public string itemDesc;
 
     public GameObject prefab;
+    public bool unlocked = true;
 
 }
