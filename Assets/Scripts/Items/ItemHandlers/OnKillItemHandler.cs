@@ -53,6 +53,19 @@ public class OnKillItemHandler : MonoBehaviour
 
     #endregion
 
+    #region Adrenaline
+    public Adrenaline adrenalineCard;
+    private void AdrenalineActivate()
+    {
+        int adrenalineCount = itemMaster.GetItemCount(adrenalineCard);
+        if (adrenalineCount == 0) return;
+        if(Random.value < adrenalineCard.healChance)
+        {
+            GameManager._.Master.healthMaster.HealFlesh(adrenalineCard.healAmount);
+        }
+    }
+    #endregion
+
     #region Second Wings
     public SecondWings secondWingsCard;
     private void SecondWingsActivate()
@@ -69,6 +82,7 @@ public class OnKillItemHandler : MonoBehaviour
     {
         EnableBoots();
         SecondWingsActivate();
+        AdrenalineActivate();
     }
 
 }
