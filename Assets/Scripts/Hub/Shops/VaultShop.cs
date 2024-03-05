@@ -6,37 +6,23 @@ using UsefulBox;
 using TMPro;
 using DialogueEditor;
 
-public class VaultShop : MonoBehaviour
+public class VaultShop : HubMenuBase
 {
 
     public VaultShopPrices card;
-    [SerializeField] public Canvas VKCanvas;
-    private void Start()
+    protected override void Start()
     {
-        SetupOptions();
-        VKCanvas = GetComponent<Canvas>();
-    }
 
+        SetupOptions();
+        base.Start();
+    }
     private void SetupOptions()
     {
         RecycleSetup();
         HealingChargeSetup();
     }
 
-    public void SetMenu(bool state)
-    {
 
-        GameManager._.ShowMouse(true);
-
-        VKCanvas.enabled = state;
-        GameManager._.inMenu = state;
-        GameManager._.whichMenu = VKCanvas;
-
-    }
-    public void FixedUpdate()
-    {
-        if (VKCanvas.enabled) GameManager._.ShowMouse(true);
-    }
 
     #region Split Setup
     [SerializeField] private TextMeshProUGUI recyclePriceText;
