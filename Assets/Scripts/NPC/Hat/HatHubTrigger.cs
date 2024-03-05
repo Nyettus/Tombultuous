@@ -43,6 +43,7 @@ public class HatHubTrigger : DialogueTrigger
         int newScrap = totalScrap - 5;
         PlayerPrefs.SetInt("Hat_Shop_ItemScrap", newScrap);
         PlayerPrefs.SetInt("NPC_Hat", 2);
+        GameManager._.goldManager.OnGoldChangeEvent();
     }
 
 
