@@ -13,9 +13,34 @@ public class AssignItemTier : Editor
         
         if (GUILayout.Button("Assign Item Tiers"))
         {
-            zone.AssignTiers();
+            SetTiers(zone);            
         }
 
 
+    }
+
+
+    private void SetTiers(ItemPools itemPools)
+    {
+        foreach (ItemBase item in itemPools.tier1)
+        {
+            item.tier = (int)PoolTiers.Tier1 + 1;
+            EditorUtility.SetDirty(item);
+        }
+        foreach (ItemBase item in itemPools.tier2)
+        {
+            item.tier = (int)PoolTiers.Tier2 + 1;
+            EditorUtility.SetDirty(item);
+        }
+        foreach (ItemBase item in itemPools.tier3)
+        {
+            item.tier = (int)PoolTiers.Tier3 + 1;
+            EditorUtility.SetDirty(item);
+        }
+        foreach (ItemBase item in itemPools.tier4)
+        {
+            item.tier = (int)PoolTiers.Tier4 + 1;
+            EditorUtility.SetDirty(item);
+        }
     }
 }

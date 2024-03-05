@@ -67,26 +67,6 @@ public class ItemPools : ScriptableObject
         return filteredArray[randomIndex];
     }
 
-    //Returns the tier as a number eg, tier 1 = 1
-    public void AssignTiers()
-    {
-        foreach(ItemBase item in tier1)
-        {
-            item.tier = (int)PoolTiers.Tier1+1;
-        }
-        foreach (ItemBase item in tier2)
-        {
-            item.tier = (int)PoolTiers.Tier2+1;
-        }
-        foreach (ItemBase item in tier3)
-        {
-            item.tier = (int)PoolTiers.Tier3+1;
-        }
-        foreach (ItemBase item in tier4)
-        {
-            item.tier = (int)PoolTiers.Tier4+1;
-        }
 
-    }
 
 }

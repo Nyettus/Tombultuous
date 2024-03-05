@@ -82,7 +82,11 @@ public class ItemCore : MonoBehaviour
 
     public void OnRecycle()
     {
-        GameManager._.goldManager.GetGold(200);
+        string key = "Hat_Shop_ItemScrap";
+        int currentScrap = PlayerPrefs.GetInt(key);
+        int newTotalScrap = currentScrap+baseItems[0].tier;
+        PlayerPrefs.SetInt(key, newTotalScrap);
+        UIManager._.WriteToNotification("+" + baseItems[0].tier + " Scrap recovered");
         Destroy(this.gameObject);
     }
 
