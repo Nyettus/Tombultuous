@@ -38,7 +38,7 @@ public class HubManager : MonoBehaviour
     {
         if (!HatShop.CheckIncomplete())
         {
-            bool Hat = PlayerPrefs.GetInt("NPC_Hat", 0) == 1;
+            bool Hat = PlayerPrefs.GetInt("NPC_Hat", 0) >0;
             HatShop.SetState(Hat);
         }
 

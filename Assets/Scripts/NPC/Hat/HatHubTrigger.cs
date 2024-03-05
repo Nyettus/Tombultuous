@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class HatHubTrigger : DialogueTrigger
 {
+
     public override void StartConvo()
     {
+        CheckInit();
         base.StartConvo();
-        Debug.Log(Mathf.Clamp(timesSpoken + 1, 0, 1));
 
-        if (timesSpoken != 3)
+        if (timesSpoken <= 3)
         {
             timesSpoken++;
             timesSpoken = Mathf.Clamp(timesSpoken, 0, convo.Length - 2);
@@ -21,4 +22,28 @@ public class HatHubTrigger : DialogueTrigger
     {
         timesSpoken = 3;
     }
+
+    private void CheckInit()
+    {
+        if (PlayerPrefs.GetInt("NPC_Hat", 0) == 2)
+        {
+            timesSpoken = 4;
+        }
+
+        int scrapState = PlayerPrefs.GetInt("Hat_Shop_ItemScrap",0);
+        if (scrapState >= 5)
+            convoInit = 1;
+    }
+
+    public void EnableShop()
+    {
+        if (PlayerPrefs.GetInt("NPC_Hat", 0) == 2)
+            return;
+        int totalScrap = PlayerPrefs.GetInt("Hat_Shop_ItemScrap", 0);
+        int newScrap = totalScrap - 5;
+        PlayerPrefs.SetInt("Hat_Shop_ItemScrap", newScrap);
+        PlayerPrefs.SetInt("NPC_Hat", 2);
+    }
+
+
 }
