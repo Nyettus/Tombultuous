@@ -27,7 +27,12 @@ public class HatHubTrigger : DialogueTrigger
     {
         if (PlayerPrefs.GetInt("NPC_Hat", 0) == 2)
         {
+            timesSpoken = 5;
+        }
+        if (transform.parent.name == "--InConstruction--")
+        {
             timesSpoken = 4;
+            Debug.Log("Is still in progress");
         }
 
         int scrapState = PlayerPrefs.GetInt("Hat_Shop_ItemScrap",0);

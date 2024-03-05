@@ -3,31 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class StructurePairs
+public class Structures
 {
-    public GameObject available = null;
-    public GameObject unavailable = null;
-    public void SetState(bool state)
+    public GameObject[] versions;
+    public void SetState(int state)
     {
-        available.SetActive(state);
-        unavailable.SetActive(!state);
-    }
-    public bool CheckIncomplete()
-    {
-        bool returnState = (available == null || unavailable == null);
-        return returnState;
+        int clampedVersion = Mathf.Clamp(state, 0, versions.Length);
+        foreach (GameObject version in versions)
+        {
+            version.SetActive(false);
+        }
+        versions[clampedVersion].SetActive(true);
     }
 
-    public StructurePairs(GameObject avail, GameObject unavail)
+
+    public Structures(GameObject[] versions)
     {
-        available = avail;
-        unavailable = unavail;
+        this.versions = versions;
     }
 
 }
 public class HubManager : MonoBehaviour
 {
-    [SerializeField] private StructurePairs HatShop;
+    [SerializeField] private Structures HatShop;
+
 
     void Start()
     {
@@ -36,11 +35,10 @@ public class HubManager : MonoBehaviour
 
     private void EnableStructures()
     {
-        if (!HatShop.CheckIncomplete())
-        {
-            bool Hat = PlayerPrefs.GetInt("NPC_Hat", 0) >0;
-            HatShop.SetState(Hat);
-        }
+
+        int Hat = PlayerPrefs.GetInt("NPC_Hat", 0);
+        HatShop.SetState(Hat);
+
 
 
 
