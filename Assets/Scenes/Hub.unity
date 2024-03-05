@@ -11177,6 +11177,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hat_HUB
       objectReference: {fileID: 0}
+    - target: {fileID: 576393531016458495, guid: 7d678c53d4e731246a47cb229c2917fb, type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2098781677}
     - target: {fileID: 1249606179106598335, guid: 7d678c53d4e731246a47cb229c2917fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.57
@@ -11217,6 +11221,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1672751256817786239, guid: 7d678c53d4e731246a47cb229c2917fb, type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2098781677}
     - target: {fileID: 2003738577268147063, guid: 7d678c53d4e731246a47cb229c2917fb, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -49382,11 +49390,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 6
-  json: '{"Options":[{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":301,"yPos":172},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Yes","parentUIDs":[1],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":4}],"EditorInfo":{"isRoot":false,"xPos":576,"yPos":173},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"No","parentUIDs":[1],"SpeechUID":-1}],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":true,"xPos":458,"yPos":-37},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Sksks,
+  json: '{"Options":[{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":206,"yPos":231},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Yes","parentUIDs":[1],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":4}],"EditorInfo":{"isRoot":false,"xPos":481,"yPos":232},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"No","parentUIDs":[1],"SpeechUID":-1}],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":true,"xPos":363,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Sksks,
     you got some money now I see.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Vault
-    Keeper","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":false,"xPos":458,"yPos":61},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Step
+    Keeper","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":false,"xPos":363,"yPos":120},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Step
     right up, I can convert your gold into strength","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Vault
-    Keeper","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":574,"yPos":281},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"Suit
+    Keeper","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":479,"yPos":340},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"Suit
     yourself","parentUIDs":[3],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Vault
     Keeper","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
@@ -49403,7 +49411,19 @@ MonoBehaviour:
   EndConversationFont: {fileID: 0}
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1793964320}
+        m_TargetAssemblyTypeName: VaultShop, Assembly-CSharp
+        m_MethodName: SetMenu
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!43 &1248152439
 Mesh:
   m_ObjectHideFlags: 0
@@ -80953,6 +80973,7 @@ GameObject:
   - component: {fileID: 2098781676}
   - component: {fileID: 2098781675}
   - component: {fileID: 2098781674}
+  - component: {fileID: 2098781677}
   m_Layer: 5
   m_Name: HatShop
   m_TagString: Untagged
@@ -81044,6 +81065,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2098781677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098781672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f207bcc2866b5854a992a0c518d3668f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisCanvas: {fileID: 0}
 --- !u!4 &2108860246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6801471500401014581, guid: 08e1ce4870034b94ebcf76cf298bc169, type: 3}
