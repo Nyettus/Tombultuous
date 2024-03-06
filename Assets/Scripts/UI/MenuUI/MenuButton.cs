@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class MenuButton : MonoBehaviour
 {
+    private void Start()
+    {
+        GameManager._.paused = false;
+        Time.timeScale = 1;
+    }
     public void EndGame()
     {
         Application.Quit();
