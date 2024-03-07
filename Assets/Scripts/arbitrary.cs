@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class arbitrary : MonoBehaviour
+public class Arbitrary : SingletonPersist<Arbitrary>
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        Destroy(gameObject, 1f);
+        Startup(this);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
     {
-        
+# if UNITY_EDITOR
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SaveManager._.SaveUserDataToFile();
+        }
+# endif 
     }
 }

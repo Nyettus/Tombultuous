@@ -62,7 +62,7 @@ public class ItemPools : ScriptableObject
     public ItemBase ReturnItem()
     {
         var whichPool = ReturnArray();
-        var filteredArray = whichPool.Where(item => item.unlocked == true).ToArray();
+        var filteredArray = whichPool.Where(item => item.unlocked).ToArray();
         int randomIndex = Random.Range(0, filteredArray.Length);
         return filteredArray[randomIndex];
     }
