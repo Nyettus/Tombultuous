@@ -50,7 +50,6 @@ public class SaveManager : SingletonPersist<SaveManager>
     /// <param name="playerData"></param>
     public void LoadSaveDataIntoCache(PlayerData playerData)
     {
-        if (playerData.unlockedItems==null) return;
         unlockedItems = playerData.unlockedItems.ToDict();
         //Loop Through all ItemBases and set unlocked
         var masterItemList = ReturnMasterList();
@@ -105,9 +104,7 @@ public class SaveManager : SingletonPersist<SaveManager>
                 item.unlocked = !isChecked;
             }
         }
-        string emptyJson = "{}";
-        using StreamWriter writer = new StreamWriter(savePath);
-        writer.Write(emptyJson);
+        File.Delete(savePath);
 
     }
 
