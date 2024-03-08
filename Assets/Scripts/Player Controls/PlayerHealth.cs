@@ -69,6 +69,7 @@ public class PlayerHealth : MonoBehaviour
         GameManager._.Master.cameraEffects.DashShake(shakeAmount);
         GameManager._.Master.movementMaster.KnockBack(direction, magnitude);
         OnHealthChangeEvent();
+        itemMaster.onHurtEffectHandler.OnHurtEffect();
 
     }
 

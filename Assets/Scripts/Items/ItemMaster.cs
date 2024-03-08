@@ -15,6 +15,7 @@ public class ItemMaster : MonoBehaviour
     public OnHitEffectHandler onHitEffectHandler;
     public OnMissEffectHandler onMissEffectHandler;
     public OnPassiveEffectHandler onPassiveEffectHandler;
+    public OnHurtEffectHandler onHurtEffectHandler;
 
 
 
@@ -33,7 +34,7 @@ public class ItemMaster : MonoBehaviour
     public int MIN_Pockets = 1;
     public int MAX_Pockets = 10;
     public float Perm_MoveSpeed;
-    public float M_MoveSpeed => Perm_MoveSpeed + onKillItemHandler.BigBootsAdd();
+    public float M_MoveSpeed => Perm_MoveSpeed + onKillItemHandler.BigBootsAdd()+onHurtEffectHandler.LaudAdd();
 
     public float MIN_MoveSpeed = 0.1f;
     public float M_AirAcceleration;
