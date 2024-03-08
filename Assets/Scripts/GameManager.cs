@@ -111,6 +111,7 @@ public class GameManager : SingletonPersist<GameManager>
     {
         if (!inMenu) return;
         Debug.Log("CloseMenuTriggered");
+        SaveManager._.SaveUserDataToFile();
         whichMenu.enabled = false;
         inMenu = false;
         ShowMouse(false);
