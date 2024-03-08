@@ -22,11 +22,13 @@ public class MenuButton : MonoBehaviour
     public void ResetProgress()
     {
         PlayerPrefs.SetInt("PermGold", 0);
+        PlayerPrefs.SetInt("Hat_Shop_ItemScrap",0);
         PlayerPrefs.SetInt("LossCount", 0);
         PlayerPrefs.SetInt("WinCount", 0);
         PlayerPrefs.SetInt("NPC_Hat", 0);
         PlayerPrefs.SetInt("VK_Shop_Recycle", 0);
         PlayerPrefs.SetInt("VK_Shop_HealingCharge", 0);
+        SaveManager._.DeleteSaveData();
     }
 
 }
