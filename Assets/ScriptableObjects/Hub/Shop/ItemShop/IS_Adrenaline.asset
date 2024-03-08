@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d23ed0735df7848967bf470c78de89, type: 3}
-  m_Name: ItemBase
+  m_Script: {fileID: 11500000, guid: f185b348b72437e48a8e029c00bee036, type: 3}
+  m_Name: IS_Adrenaline
   m_EditorClassIdentifier: 
-  ID: 45a8165f-d010-4c07-96ef-18e473d3e150
-  unlocked: 0
-  itemName: 
-  itemLore: 
-  itemDesc: 
-  prefab: {fileID: 0}
-  tier: 0
+  itemToUnlock: {fileID: 11400000, guid: 5de6f34b2679f524b92b66c44832f117, type: 2}
+  goldCost: 1000
+  scrapCost: 5

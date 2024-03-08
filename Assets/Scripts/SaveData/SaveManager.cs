@@ -50,7 +50,7 @@ public class SaveManager : SingletonPersist<SaveManager>
     /// <param name="playerData"></param>
     public void LoadSaveDataIntoCache(PlayerData playerData)
     {
-        if (playerData.unlockedItems.Length==0) return;
+        if (playerData.unlockedItems==null) return;
         unlockedItems = playerData.unlockedItems.ToDict();
         //Loop Through all ItemBases and set unlocked
         var masterItemList = ReturnMasterList();
