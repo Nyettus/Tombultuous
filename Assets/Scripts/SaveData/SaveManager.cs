@@ -131,4 +131,10 @@ public class SaveManager : SingletonPersist<SaveManager>
         var returnList = masterPool.tier1.Concat(masterPool.tier2).Concat(masterPool.tier3).Concat(masterPool.tier4);
         return returnList;
     }
+
+    public void BuyItem(ItemBase ItemToBuy)
+    {
+        ItemToBuy.unlocked = true;
+        unlockedItems.Add(ItemToBuy.ID, true);
+    }
 }
