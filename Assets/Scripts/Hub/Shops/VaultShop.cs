@@ -86,13 +86,6 @@ public class VaultShop : HubMenuBase
     }
 
 
-    public ItemBase itemToBuy;
-    public void BuyItem()
-    {
-        itemToBuy.unlocked = true;
-        SaveManager._.unlockedItems.Add(itemToBuy.ID, true);
-        //the save goes onto the confirm purchase button
-    }
 
 
 

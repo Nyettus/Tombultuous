@@ -61,7 +61,7 @@ public class OnKillItemHandler : MonoBehaviour
         if (adrenalineCount == 0) return;
         if(Random.value < adrenalineCard.healChance)
         {
-            GameManager._.Master.healthMaster.HealFlesh(adrenalineCard.healAmount);
+            GameManager._.Master.healthMaster.HealFlesh(adrenalineCard.healAmount*adrenalineCount);
         }
     }
     #endregion

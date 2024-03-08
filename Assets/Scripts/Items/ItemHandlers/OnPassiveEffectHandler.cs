@@ -77,7 +77,7 @@ public class OnPassiveEffectHandler : MonoBehaviour
         float gradient = -newMaxDamage / currentMaxSpeed;
 
         // what should be c in y=mx+c is simplified to max damage
-        PSDamage = gradient * currentSpeed + newMaxDamage;
+        PSDamage = (gradient * currentSpeed + newMaxDamage)*patientStatueCount;
 
 
 
@@ -111,7 +111,7 @@ public class OnPassiveEffectHandler : MonoBehaviour
 
         Debug.Log(newMaxDamage);
 
-        FSDamage = gradient * currentSpeed + offset;
+        FSDamage = (gradient * currentSpeed + offset)*frenziedStatueCount;
     }
 
 
