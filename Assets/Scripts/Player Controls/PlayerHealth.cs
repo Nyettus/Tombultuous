@@ -38,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
 
     #region Damage
 
-    public void takeDamage(int amount, Vector3 direction, float magnitude)
+    public void takeDamage(int amount, Vector3 direction, float magnitude, EnemyComponentMaster CM = null)
     {
         if (GameManager._.Master.invuln)
         {
@@ -69,7 +69,7 @@ public class PlayerHealth : MonoBehaviour
         GameManager._.Master.cameraEffects.DashShake(shakeAmount);
         GameManager._.Master.movementMaster.KnockBack(direction, magnitude);
         OnHealthChangeEvent();
-        itemMaster.onHurtEffectHandler.OnHurtEffect();
+        itemMaster.onHurtEffectHandler.OnHurtEffect(amount,CM);
 
     }
 

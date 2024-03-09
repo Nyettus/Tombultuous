@@ -47,9 +47,21 @@ public class OnHurtEffectHandler : MonoBehaviour
 
     #endregion
 
+    #region Steel Feather
+    public SteelFeather steelFeatherCard;
+    private void HandleSteelFeather(int damage,EnemyComponentMaster attacker)
+    {
+        int steelFeatherCount = itemMaster.GetItemCount(steelFeatherCard);
+        if (steelFeatherCount == 0 || attacker==null) return;
+        float reflectedDamage = damage * steelFeatherCard.reflectionPercent * steelFeatherCount;
+        attacker.enemyHealth.takeDamage(reflectedDamage);
+    }
 
-    public void OnHurtEffect()
+    #endregion
+
+    public void OnHurtEffect(int damageTaken,EnemyComponentMaster CM = null)
     {
         EnableLaudunum();
+        HandleSteelFeather(damageTaken, CM);
     }
 }

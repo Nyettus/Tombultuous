@@ -25,6 +25,7 @@ public class HatShopEntry : MonoBehaviour
         {
             SaveManager._.BuyItem(itemEntry.itemToUnlock);
             RefreshButtonState();
+            SaveManager._.SaveUserDataToFile();
         }
     }
 
@@ -45,6 +46,8 @@ public class HatShopEntry : MonoBehaviour
 
             int newTotalScrap = curScrap - scrapPrice;
             PlayerPrefs.SetInt("Hat_Shop_ItemScrap", newTotalScrap);
+
+            
             
             return true;
         }

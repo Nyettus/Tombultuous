@@ -24,10 +24,10 @@ public class BaseEnemyAttacks : MonoBehaviour
 
     }
 
-    public void DamagePlayer(int damage,Vector3 direction,float magnitude)
+    public void DamagePlayer(int damage,Vector3 direction,float magnitude,EnemyComponentMaster CM = null)
     {
         if (!canHit) return;
-        GameManager._.Master.healthMaster.takeDamage(damage, direction, magnitude);
+        GameManager._.Master.healthMaster.takeDamage(damage, direction, magnitude,CM);
         canHit = false;
         Debug.Log("Dealt: " + damage + " to the player");
     }

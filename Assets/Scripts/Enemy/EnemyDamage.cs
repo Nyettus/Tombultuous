@@ -19,7 +19,7 @@ public class EnemyDamage : MonoBehaviour
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
-        CM.enemyAttacks.DamagePlayer(damage,(GameManager._.Master.transform.position-transform.position+Vector3.up).normalized,magnitude);
+        CM.enemyAttacks.DamagePlayer(damage,(GameManager._.Master.transform.position-transform.position+Vector3.up).normalized,magnitude,CM);
 
 
     }
