@@ -71,12 +71,12 @@ public class HatShopEntry : MonoBehaviour
             if (curGold < itemEntry.goldCost || curScrap < itemEntry.scrapCost)
             {
                 buyButton.interactable = false;
-                buyButtonText.text = "<s>Puchase</s>";
+                buyButtonText.text = "<s> Purchase </s>";
             }
             else
             {
                 buyButton.interactable = true;
-                buyButtonText.text = "Purchase";
+                buyButtonText.text = " Purchase ";
             }
 
 
