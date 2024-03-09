@@ -15,7 +15,7 @@ public class Arbitrary : SingletonPersist<Arbitrary>
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            SaveManager._.SaveUserDataToFile();
+            SaveManager._.DeleteSaveData();
         }
 # endif 
     }

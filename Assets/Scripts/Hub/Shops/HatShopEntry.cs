@@ -7,7 +7,10 @@ using TMPro;
 public class HatShopEntry : MonoBehaviour
 {
     [SerializeField] private ItemShopEntry itemEntry;
-    [SerializeField] private TextMeshProUGUI itemName, goldCost, scrapCost, buyButtonText;
+    [SerializeField] private TextMeshProUGUI itemName, goldCost, scrapCost;
+
+    [SerializeField] private Image buttonImage;
+    [SerializeField] private Sprite[] buttonSprite;
     [SerializeField] private Button buyButton;
 
     private void Start()
@@ -62,21 +65,23 @@ public class HatShopEntry : MonoBehaviour
         if (itemEntry.itemToUnlock.unlocked)
         {
             buyButton.interactable = false;
-            buyButtonText.text = "BOUGHT";
+            buttonImage.sprite = buttonSprite[1];
+            
         }
         else
         {
             int curGold = PlayerPrefs.GetInt("PermGold", 0);
             int curScrap = PlayerPrefs.GetInt("Hat_Shop_ItemScrap", 0);
+            buttonImage.sprite = buttonSprite[0];
             if (curGold < itemEntry.goldCost || curScrap < itemEntry.scrapCost)
             {
                 buyButton.interactable = false;
-                buyButtonText.text = "<s> Purchase </s>";
+                
             }
             else
             {
                 buyButton.interactable = true;
-                buyButtonText.text = " Purchase ";
+                
             }
 
 
