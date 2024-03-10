@@ -65,11 +65,11 @@ public class PlayerHealth : MonoBehaviour
             flesh = 0;
             Death();
         }
-        float shakeAmount = Mathf.Clamp(amount*0.5f, 0, 5);
+        float shakeAmount = Mathf.Clamp(amount * 0.5f, 0, 5);
         GameManager._.Master.cameraEffects.DashShake(shakeAmount);
         GameManager._.Master.movementMaster.KnockBack(direction, magnitude);
         OnHealthChangeEvent();
-        itemMaster.onHurtEffectHandler.OnHurtEffect(amount,CM);
+        itemMaster.onHurtEffectHandler.OnHurtEffect(amount, CM);
 
     }
 
@@ -94,7 +94,15 @@ public class PlayerHealth : MonoBehaviour
     #region Heal Health
     public void HealFlesh(int amount)
     {
-        if (amount < 0) return;
+        if (amount < 0)
+        {
+            if (fleshHealthMax < flesh)
+            {
+                flesh = fleshHealthMax;
+                OnHealthChangeEvent();
+            }
+            return;
+        }
         if (fleshHealthMax - flesh < amount)
             flesh = fleshHealthMax;
         else
@@ -104,7 +112,7 @@ public class PlayerHealth : MonoBehaviour
     public void ResetFlesh()
     {
         flesh = fleshHealthMax;
-        itemMaster.MIN_Health = -itemMaster.Master.health+1;
+        itemMaster.MIN_Health = -itemMaster.Master.health + 1;
     }
 
     #endregion
