@@ -25,22 +25,29 @@ public class AssignItemTier : Editor
         foreach (ItemBase item in itemPools.tier1)
         {
             item.tier = (int)PoolTiers.Tier1 + 1;
-            EditorUtility.SetDirty(item);
+            CheckAndSave(item);
         }
         foreach (ItemBase item in itemPools.tier2)
         {
             item.tier = (int)PoolTiers.Tier2 + 1;
-            EditorUtility.SetDirty(item);
+            CheckAndSave(item);
+
         }
         foreach (ItemBase item in itemPools.tier3)
         {
             item.tier = (int)PoolTiers.Tier3 + 1;
-            EditorUtility.SetDirty(item);
+            CheckAndSave(item);
         }
         foreach (ItemBase item in itemPools.tier4)
         {
             item.tier = (int)PoolTiers.Tier4 + 1;
-            EditorUtility.SetDirty(item);
+            CheckAndSave(item);
         }
+    }
+
+    private void CheckAndSave(ItemBase item)
+    {
+        if (item.prefab == null) Debug.LogError("" + item.itemName + " does not have prefab equipped");
+        EditorUtility.SetDirty(item);
     }
 }

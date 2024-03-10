@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27e6f1fd5d3ec6b408e889fb0bdb0ee8, type: 3}
-  m_Name: PolarBearLiver
+  m_Name: Shackles
   m_EditorClassIdentifier: 
-  ID: 90ab23c2-c287-49bf-afbb-53e9b220e9a0
+  ID: 3ec17e71-e68b-4080-875a-9492a98aa0ef
   unlocked: 1
-  itemName: Polar Bear Liver
-  itemLore: Forbidden... Dangerous...
-  itemDesc: -20 Health<br>+30% Damage
-  prefab: {fileID: 329404720200771087, guid: c52f74bdca9a1ab40934a0e3f97b1376, type: 3}
-  tier: 1
+  itemName: Shackles
+  itemLore: Broken
+  itemDesc: -20% Haste<br>+45% Damage
+  prefab: {fileID: 2292268933954512595, guid: 61f95fedfbf696f4a891a9b2b4431f05, type: 3}
+  tier: 0
   buffs:
-  - type: 0
-    change: -20
+  - type: 4
+    change: -0.2
   - type: 3
-    change: 0.3
+    change: 0.45
