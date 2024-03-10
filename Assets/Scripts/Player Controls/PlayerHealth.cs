@@ -9,7 +9,9 @@ public class PlayerHealth : MonoBehaviour
     public DeathManager deathMaster;
     public int lastDamageInstance;
     public int flesh;
-    public int fleshHealthMax => itemMaster.Master.health + itemMaster.M_Health;
+    public int fleshHealthMax => Mathf.Clamp( itemMaster.Master.health + itemMaster.M_Health,
+        itemMaster.MIN_Health,
+        int.MaxValue);
     public int totalHealth => flesh + itemMaster.M_OverHealth + itemMaster.M_DecayHealth;
 
     // Start is called before the first frame update
@@ -112,7 +114,6 @@ public class PlayerHealth : MonoBehaviour
     public void ResetFlesh()
     {
         flesh = fleshHealthMax;
-        itemMaster.MIN_Health = -itemMaster.Master.health + 1;
     }
 
     #endregion
