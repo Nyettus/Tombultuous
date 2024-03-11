@@ -47,7 +47,7 @@ public class GameManager : SingletonPersist<GameManager>
     {
         base.RunOnce();
 
-        Application.targetFrameRate = 99999;
+        Application.targetFrameRate = 240;
     }
     // Start is called before the first frame update
     void Start()

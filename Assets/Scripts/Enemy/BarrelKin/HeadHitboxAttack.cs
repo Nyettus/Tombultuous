@@ -13,10 +13,10 @@ public class HeadHitboxAttack : EnemyDamage
     {
         if (other.tag != "Player") return;
 
-        if (CM.enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Charge"))
-            damage = ChargeDamage;
-        else
+        if (CM.enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack b"))
             damage = HeadbuttDamage;
+        else
+            damage = ChargeDamage;
 
         base.OnTriggerEnter(other);
         damage = ChargeDamage;
