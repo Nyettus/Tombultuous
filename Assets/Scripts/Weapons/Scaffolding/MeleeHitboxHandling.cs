@@ -26,10 +26,7 @@ public class MeleeHitboxHandling : MonoBehaviour
         {
             level.GotoNextLevel();
         }
-        else
-        {
-            Debug.Log("Nothing hit");
-        }
+
 
 
     }

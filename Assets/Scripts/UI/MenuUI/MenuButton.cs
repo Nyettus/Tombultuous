@@ -30,6 +30,7 @@ public class MenuButton : MonoBehaviour
         PlayerPrefs.SetInt("VK_Shop_Recycle", 0);
         PlayerPrefs.SetInt("VK_Shop_HealingCharge", 0);
         SaveManager._.DeleteSaveData();
+        ToggleResetMenu(false);
     }
 
     public void ToggleResetMenu()

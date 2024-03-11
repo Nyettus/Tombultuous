@@ -95,7 +95,6 @@ public class MeleeWeaponBase : WeaponCore
         quickRef.enabled = false;
         quickRef.enabled = true;
         hitboxTime = Time.time + hitboxDuration;
-        Debug.Log("Swing");
     }
 
     public override void OnSwitch()
