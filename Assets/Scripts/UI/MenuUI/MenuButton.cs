@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MenuButton : MonoBehaviour
 {
+    public Canvas resetMenuCanvas;
     private void Start()
     {
         GameManager._.paused = false;
@@ -29,6 +30,17 @@ public class MenuButton : MonoBehaviour
         PlayerPrefs.SetInt("VK_Shop_Recycle", 0);
         PlayerPrefs.SetInt("VK_Shop_HealingCharge", 0);
         SaveManager._.DeleteSaveData();
+    }
+
+    public void ToggleResetMenu()
+    {
+        var state = resetMenuCanvas.enabled;
+        resetMenuCanvas.enabled = !state;
+    }
+
+    public void ToggleResetMenu(bool state)
+    {
+        resetMenuCanvas.enabled = state;
     }
 
 }
