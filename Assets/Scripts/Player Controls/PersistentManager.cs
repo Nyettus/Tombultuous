@@ -14,7 +14,7 @@ public class PersistentManager : MonoBehaviour
     }
 
 
-    private void GetPersVars()
+    public void GetPersVars()
     {
         healingCharges = PlayerPrefs.GetInt("VK_Shop_HealingCharge",0);
 
