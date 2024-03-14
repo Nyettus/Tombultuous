@@ -187,34 +187,34 @@ public class PrefabLightmapData : MonoBehaviour
             instance.m_LightInfo = lightsInfos.ToArray();
             instance.m_ShadowMasks = shadowMasks.ToArray();
 #if UNITY_2018_3_OR_NEWER
-            var targetPrefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(instance.gameObject) as GameObject;
-            if (targetPrefab != null)
-            {
-                GameObject root = PrefabUtility.GetOutermostPrefabInstanceRoot(instance.gameObject);// 根结点
-                //如果当前预制体是是某个嵌套预制体的一部分（IsPartOfPrefabInstance）
-                if (root != null)
-                {
-                    GameObject rootPrefab = PrefabUtility.GetCorrespondingObjectFromSource(instance.gameObject);
-                    string rootPath = AssetDatabase.GetAssetPath(rootPrefab);
-                    //打开根部预制体
-                    PrefabUtility.UnpackPrefabInstanceAndReturnNewOutermostRoots(root, PrefabUnpackMode.OutermostRoot);
-                    try
-                    {
-                        //Apply各个子预制体的改变
-                        PrefabUtility.ApplyPrefabInstance(instance.gameObject, InteractionMode.AutomatedAction);
-                    }
-                    catch { }
-                    finally
-                    {
-                        //重新更新根预制体
-                        PrefabUtility.SaveAsPrefabAssetAndConnect(root, rootPath, InteractionMode.AutomatedAction);
-                    }
-                }
-                else
-                {
-                    PrefabUtility.ApplyPrefabInstance(instance.gameObject, InteractionMode.AutomatedAction);
-                }
-            }
+            //var targetPrefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(instance.gameObject) as GameObject;
+            //if (targetPrefab != null)
+            //{
+            //    GameObject root = PrefabUtility.GetOutermostPrefabInstanceRoot(instance.gameObject);// 根结点
+            //    //如果当前预制体是是某个嵌套预制体的一部分（IsPartOfPrefabInstance）
+            //    if (root != null)
+            //    {
+            //        GameObject rootPrefab = PrefabUtility.GetCorrespondingObjectFromSource(instance.gameObject);
+            //        string rootPath = AssetDatabase.GetAssetPath(rootPrefab);
+            //        //打开根部预制体
+            //        PrefabUtility.UnpackPrefabInstanceAndReturnNewOutermostRoots(root, PrefabUnpackMode.OutermostRoot);
+            //        try
+            //        {
+            //            //Apply各个子预制体的改变
+            //            PrefabUtility.ApplyPrefabInstance(instance.gameObject, InteractionMode.AutomatedAction);
+            //        }
+            //        catch { }
+            //        finally
+            //        {
+            //            //重新更新根预制体
+            //            PrefabUtility.SaveAsPrefabAssetAndConnect(root, rootPath, InteractionMode.AutomatedAction);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        PrefabUtility.ApplyPrefabInstance(instance.gameObject, InteractionMode.AutomatedAction);
+            //    }
+            //}
 #else
             var targetPrefab = UnityEditor.PrefabUtility.GetPrefabParent(gameObject) as GameObject;
             if (targetPrefab != null)
