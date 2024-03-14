@@ -18,7 +18,7 @@ public class HatShopEntry : MonoBehaviour
         if (itemEntry == null) Debug.LogError("Item Entry is null");
         itemName.text = itemEntry.itemToUnlock.itemName;
         goldCost.text = ""+itemEntry.goldCost+"g";
-        scrapCost.text = "" + itemEntry.scrapCost + "g";
+        scrapCost.text = "" + itemEntry.scrapCost + "s";
         RefreshButtonState();
     }
 
