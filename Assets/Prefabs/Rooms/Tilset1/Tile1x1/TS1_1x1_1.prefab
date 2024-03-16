@@ -4544,7 +4544,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 5.5, z: 0.5}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1866932834353506384}
   m_Father: {fileID: 3503774052988727135}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4136037160936982843
@@ -5077,7 +5078,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1120
+  m_VersionIndex: 1150
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5120,7 +5121,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048581214848019310}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -20129,6 +20130,68 @@ Transform:
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6672887106314248727, guid: d2bb9e24b66ee234d8c08e799ce665d1, type: 3}
   m_PrefabInstance: {fileID: 5429502599459207274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5680260280462595904
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6563990658107309684}
+    m_Modifications:
+    - target: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.5833325
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662842040477083050, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+      propertyPath: m_Name
+      value: MoonStatue
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+--- !u!4 &1866932834353506384 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6286175313074110224, guid: 18d97434fe77c1840be6b4b787f86fbb, type: 3}
+  m_PrefabInstance: {fileID: 5680260280462595904}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5885145814084674672
 PrefabInstance:
