@@ -24,6 +24,8 @@ public class RoomManager : Singleton<RoomManager>
     public Vector3 worldMidpoint;
     private CancellationTokenSource cancel;
 
+    [SerializeField] private Canvas loadingScreen;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -51,7 +53,7 @@ public class RoomManager : Singleton<RoomManager>
         RG.CreateBossRoom(TileSets);
         //SpawnTestRooms();
         await SpawnRooms(cancel.Token);
-        OpenDoors();
+        OpenDoors(cancel.Token);
         worldMidpoint = BigMapMidPoint();
 
     }
@@ -146,8 +148,9 @@ public class RoomManager : Singleton<RoomManager>
 
 
 
-    private void OpenDoors()
+    private void OpenDoors(CancellationToken cancel)
     {
+        if (cancel.IsCancellationRequested) return;
         SummonPlayer playerSummon = GetComponent<SummonPlayer>();
         foreach (GameObject room in allRooms)
         {
@@ -171,7 +174,7 @@ public class RoomManager : Singleton<RoomManager>
 
         }
         playerSummon.OpenDoors();
-
+        loadingScreen.enabled = false;
 
     }
     public void SpawnAndRotate(GameObject room, RoomGrid position)
