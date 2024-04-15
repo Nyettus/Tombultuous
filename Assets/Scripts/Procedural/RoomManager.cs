@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using UsefulBox;
+using System.Threading.Tasks;
 
 
 public class RoomManager : Singleton<RoomManager>
@@ -40,13 +41,26 @@ public class RoomManager : Singleton<RoomManager>
 
 
 
-    private void Generation()
+    private async void Generation()
     {
 
+        await SetRooms();
+        RG.SetTreasureRooms();
+        RG.CreateBossRoom(TileSets);
+        //SpawnTestRooms();
+        await SpawnRooms ();
+        Invoke("OpenDoors", 0.1f);
+        worldMidpoint = BigMapMidPoint();
+
+    }
+
+    private async Task SetRooms()
+    {
         while (RoomCount > 0 && EmergencyStop > 0)
         {
             RoomCount += RG.SetNextRoom();
             EmergencyStop -= 1;
+            await Task.Yield();
         }
         if (EmergencyStop == 0)
         {
@@ -54,13 +68,6 @@ public class RoomManager : Singleton<RoomManager>
             ReloadScene();
 
         }
-        RG.SetTreasureRooms();
-        RG.CreateBossRoom(TileSets);
-        //SpawnTestRooms();
-        SpawnRooms();
-        Invoke("OpenDoors", 0.1f);
-        worldMidpoint = BigMapMidPoint();
-
     }
 
     public void ReloadScene()
@@ -86,7 +93,7 @@ public class RoomManager : Singleton<RoomManager>
         }
     }
 
-    public void SpawnRooms()
+    public async Task SpawnRooms()
     {
         GameObject roomToSpawn = null;
         int roomIndex;
@@ -128,6 +135,7 @@ public class RoomManager : Singleton<RoomManager>
                 roomToSpawn = TileSets._BossRooms[roomIndex];
                 SpawnAndRotate(roomToSpawn, room);
             }
+            await Task.Yield();
         }
     }
 
