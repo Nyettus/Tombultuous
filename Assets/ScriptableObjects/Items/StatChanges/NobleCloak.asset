@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e6f1fd5d3ec6b408e889fb0bdb0ee8, type: 3}
+  m_Name: NobleCloak
+  m_EditorClassIdentifier: 
+  ID: 24772e13-2a7f-431b-b4af-90995ead2a18
+  unlocked: 0
+  itemName: Noble's Cloak
+  itemLore: Wealth, but at what cost?
+  itemDesc: +200% Gold Multiplier<br>-50 Health<br>No gold retained on death
+  prefab: {fileID: 1638593699860967453, guid: b04aa9059349d8b4e86d1cfa19ac799f, type: 3}
+  tier: 3
+  buffs:
+  - type: 13
+    change: 2
+  - type: 12
+    change: -99999
+  - type: 0
+    change: -50

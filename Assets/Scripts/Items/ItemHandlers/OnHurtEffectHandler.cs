@@ -53,7 +53,7 @@ public class OnHurtEffectHandler : MonoBehaviour
     {
         int steelFeatherCount = itemMaster.GetItemCount(steelFeatherCard);
         if (steelFeatherCount == 0 || attacker==null) return;
-        float reflectedDamage = damage * steelFeatherCard.reflectionPercent * steelFeatherCount;
+        float reflectedDamage = damage * steelFeatherCard.reflectionPercent * steelFeatherCount * itemMaster.Master.weaponMaster.damageMult;
         attacker.enemyHealth.takeDamage(reflectedDamage);
     }
 

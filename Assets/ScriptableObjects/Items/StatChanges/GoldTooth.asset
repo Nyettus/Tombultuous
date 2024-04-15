@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e6f1fd5d3ec6b408e889fb0bdb0ee8, type: 3}
+  m_Name: GoldTooth
+  m_EditorClassIdentifier: 
+  ID: 3d2e5896-01d3-411f-bc6f-326bd22b25c3
+  unlocked: 1
+  itemName: Gold Tooth
+  itemLore: Shiny
+  itemDesc: +10% Gold Retention<br>+10% Gold Multiplier
+  prefab: {fileID: 6857054975793935806, guid: 1fae1de4a9a74f9448f8ea03a49a1c01, type: 3}
+  tier: 2
+  buffs:
+  - type: 13
+    change: 0.1
+  - type: 12
+    change: 0.1
