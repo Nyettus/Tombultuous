@@ -32,14 +32,17 @@ public class SummonPlayer : MonoBehaviour
         }
         else if (!once)
         {
-            if (spawnRoomDoors != null) spawnRoomDoors.OpenDoors();
+
             StartCoroutine("GiveWeapon");
         }
 
 
     }
 
-
+    public void OpenDoors()
+    {
+        if (spawnRoomDoors != null) spawnRoomDoors.OpenDoors();
+    }
     public void Summon()
     {
         var temp = Instantiate(GameManager._.playerPrefab);
@@ -67,8 +70,6 @@ public class SummonPlayer : MonoBehaviour
             currentCore.pickUpWeapon();
             currentCore.specialTime = weapon.specialRemaining + Time.time;
         }
-        Destroy(this);
-
     }
 
 }

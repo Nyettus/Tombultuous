@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using UsefulBox;
 using System.Threading.Tasks;
+using System.Threading;
 
 
 public class RoomManager : Singleton<RoomManager>
@@ -21,6 +22,7 @@ public class RoomManager : Singleton<RoomManager>
     private List<GameObject> allRooms = new List<GameObject>();
 
     public Vector3 worldMidpoint;
+    private CancellationTokenSource cancel;
 
 
     // Start is called before the first frame update
@@ -43,20 +45,20 @@ public class RoomManager : Singleton<RoomManager>
 
     private async void Generation()
     {
-
-        await SetRooms();
+        cancel = new CancellationTokenSource();
+        await SetRooms(cancel.Token);
         RG.SetTreasureRooms();
         RG.CreateBossRoom(TileSets);
         //SpawnTestRooms();
-        await SpawnRooms ();
-        Invoke("OpenDoors", 0.1f);
+        await SpawnRooms(cancel.Token);
+        OpenDoors();
         worldMidpoint = BigMapMidPoint();
 
     }
 
-    private async Task SetRooms()
+    private async Task SetRooms(CancellationToken cancel)
     {
-        while (RoomCount > 0 && EmergencyStop > 0)
+        while (RoomCount > 0 && EmergencyStop > 0 && !cancel.IsCancellationRequested)
         {
             RoomCount += RG.SetNextRoom();
             EmergencyStop -= 1;
@@ -66,12 +68,13 @@ public class RoomManager : Singleton<RoomManager>
         {
             Debug.Log("Emergency stop hit");
             ReloadScene();
-
+            
         }
     }
 
     public void ReloadScene()
     {
+        cancel?.Cancel();
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentScene);
 
@@ -93,12 +96,13 @@ public class RoomManager : Singleton<RoomManager>
         }
     }
 
-    public async Task SpawnRooms()
+    public async Task SpawnRooms(CancellationToken cancel)
     {
         GameObject roomToSpawn = null;
         int roomIndex;
         foreach (RoomGrid room in RG.activeGrid)
         {
+            if (cancel.IsCancellationRequested) return;
             if (room.state == RoomGrid.State.Occupied && room.type == RoomGrid.Type.Standard)
             {
                 if (room.shape == RoomGrid.Shape._1x1)
@@ -144,7 +148,7 @@ public class RoomManager : Singleton<RoomManager>
 
     private void OpenDoors()
     {
-
+        SummonPlayer playerSummon = GetComponent<SummonPlayer>();
         foreach (GameObject room in allRooms)
         {
             if (room.TryGetComponent<SetDoors>(out SetDoors script))
@@ -166,6 +170,7 @@ public class RoomManager : Singleton<RoomManager>
             }
 
         }
+        playerSummon.OpenDoors();
 
 
     }
