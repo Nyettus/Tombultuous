@@ -14,7 +14,7 @@ public class HubMenuBase : MonoBehaviour
     {
         if (thisCanvas.enabled) GameManager._.ShowMouse(true);
     }
-    public void SetMenu(bool state)
+    public virtual void SetMenu(bool state)
     {
 
         GameManager._.ShowMouse(true);
