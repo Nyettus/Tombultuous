@@ -131,10 +131,9 @@ public class CombatZone : MonoBehaviour
     #region Editor Methods
     public void AssignEnemies()
     {
-        EnemyExclusive();
         UIExclusive();
         LightExclusive();
-
+        EnemyExclusive();
     }
 
 
@@ -179,7 +178,7 @@ public class CombatZone : MonoBehaviour
         int exludeLayer = ~(1 << 3 | 1 << 15);
         LayerMask finalMask = allLayer & exludeLayer;
         RTLights = lightHost.GetComponentsInChildren<Light>();
-        foreach(Light light in RTLights)
+        foreach (Light light in RTLights)
         {
             light.cullingMask = finalMask;
         }
