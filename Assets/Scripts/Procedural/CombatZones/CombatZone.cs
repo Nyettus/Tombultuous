@@ -140,7 +140,14 @@ public class CombatZone : MonoBehaviour
 
     private void EnemyExclusive()
     {
-        if (enemy == null) enemy = transform.parent.Find("--- Enemies ---").gameObject;
+        if (enemy == null)
+        {
+            var cachedTransform = transform.parent.Find("--- Enemies ---");
+            if (cachedTransform != null)
+                enemy = cachedTransform.gameObject;
+            else
+                enemy = null;
+        }
         if (enemy == null)
         {
 
