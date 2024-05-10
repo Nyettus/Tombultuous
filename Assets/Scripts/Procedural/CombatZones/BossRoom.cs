@@ -24,7 +24,7 @@ public class BossRoom : MonoBehaviour
 
     public bool ReturnSpecial(string prefName)
     {
-        return PlayerPrefs.GetInt(prefName, 0) == 1;
+        return PlayerPrefs.GetInt(prefName, 0) >= 1;
 
 
     }
