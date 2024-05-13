@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IEnemyDamageable
 {
     public float health = 100f;
     public int goldAmount;
@@ -40,7 +40,7 @@ public class EnemyHealth : MonoBehaviour
     public void FindHitboxes()
     {
         var allHitbox = GetComponentsInChildren<EnemyHitbox>();
-        if (allHitbox == null)
+        if (allHitbox.Length == 0)
         {
             Debug.LogWarning("No Hitboxes found");
             return;

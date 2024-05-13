@@ -10,7 +10,7 @@ public class AssignHitboxes : Editor
     {
         base.OnInspectorGUI();
         EnemyHealth zone = (EnemyHealth)target;
-        if (GUILayout.Button("Assign Enemies"))
+        if (GUILayout.Button("Assign Hitboxes"))
         {
             zone.FindHitboxes();
         }

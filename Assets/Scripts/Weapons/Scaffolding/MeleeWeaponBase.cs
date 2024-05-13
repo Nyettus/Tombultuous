@@ -71,13 +71,15 @@ public class MeleeWeaponBase : WeaponCore
         }
     }
 
-    public override void OnMeleeHit(EnemyHealth HealthScript, float additive = 0)
+    public override void OnMeleeHit(IEnemyDamageable HealthScript, float additive = 0)
     {
         float damage = (this.damage + additive) * GameManager._.Master.weaponMaster.damageMult;
         HealthScript.TakeDamage(damage);
-        GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(HealthScript.transform.position);
+        var casted = (MonoBehaviour)HealthScript;
+        GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(casted.transform.position);
         swingHit = true;
     }
+
 
     public override void Special()
     {

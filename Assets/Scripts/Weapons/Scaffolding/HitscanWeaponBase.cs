@@ -42,8 +42,17 @@ public class HitscanWeaponBase : RangedWeaponBase
     {
         if (hit.transform.tag == "Enemy")
         {
+            Debug.Log(hit.transform.gameObject.name);
             float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult;
-            hit.transform.GetComponent<EnemyHealth>().TakeDamage(damage);
+            
+            if(hit.collider.transform.TryGetComponent(out IEnemyDamageable hitboxHealth))
+            {
+                hitboxHealth.TakeDamage(damage);
+            }
+            else
+            {
+                Debug.LogError("NO HITBOX OF ANY SORT FOUND");
+            }
             GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(hit.point);
         }
         else if (hit.transform.tag == "ItemChest")

@@ -9,9 +9,9 @@ public class Shovel : MeleeWeaponBase
     [SerializeField] private Animator anim;
     private int damageAculm { get => IM.shovelAcculm; set => IM.shovelAcculm = value; }
 
-    public override void OnMeleeHit(EnemyHealth HealthScript, float additive)
+    public override void OnMeleeHit(IEnemyDamageable HealthScript, float additive)
     {
-
+        
         base.OnMeleeHit(HealthScript, damageAculm);
         damageAculm = 0;
 

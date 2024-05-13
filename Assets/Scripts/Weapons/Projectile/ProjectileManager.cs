@@ -47,13 +47,8 @@ public class ProjectileManager : MonoBehaviour
     {
         if (other.gameObject.layer != 2)
         {
-            Debug.Log(other.name);
-
-
             OnTargetHit(other);
             OnGroundHit(other);
-
-
         }
 
     }
@@ -98,13 +93,24 @@ public class ProjectileManager : MonoBehaviour
     private void OnTargetHit(Collider other)
     {
         bool hasHit = false;
-        if (other.TryGetComponent(out EnemyHealth enemyScript) && card.ally)
+        if (card.ally)
         {
-            card.ProjDamage(enemyScript);
+            if(other.TryGetComponent(out EnemyHitbox hitboxHealth))
+            {
+                card.ProjDamage(hitboxHealth);
 
-            GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(transform.position);
-            hasHit = true;
+                GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(transform.position);
+                hasHit = true;
+            }
+            else if (other.TryGetComponent(out EnemyHealth rawHealth))
+            {
+                card.ProjDamage(rawHealth);
+
+                GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(transform.position);
+                hasHit = true;
+            }
         }
+
         if (other.TryGetComponent(out PlayerHealth playerScript) && !card.ally)
         {
             card.ProjDamage(this.transform, playerScript);
