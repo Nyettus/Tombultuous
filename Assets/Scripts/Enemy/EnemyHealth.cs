@@ -36,6 +36,11 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
         }
 
     }
+    public EnemyHealth GetEnemyHealthScript()
+    {
+        return this;
+    }
+
 
     public void FindHitboxes()
     {
@@ -47,10 +52,12 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
         }
 
         Debug.Log("" + allHitbox.Length + " Hitboxes Found");
-        foreach(EnemyHitbox hitbox in allHitbox)
+        foreach (EnemyHitbox hitbox in allHitbox)
         {
             hitbox.host = this;
         }
 
     }
+
+
 }

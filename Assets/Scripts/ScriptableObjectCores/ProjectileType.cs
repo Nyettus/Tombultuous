@@ -27,18 +27,6 @@ public class ProjectileType : ScriptableObject
     }
 
 
-    public void ProjDamage(EnemyHealth enemyHealth = null)
-    {
-        if (!ally) return;
-        if (enemyHealth == null)
-        {
-            Debug.LogError("Enemy health is null");
-            return;
-        }
-        enemyHealth.TakeDamage(baseDamage * GameManager._.Master.weaponMaster.damageMult);
-
-
-    }
     public void ProjDamage(IEnemyDamageable enemyHitbox = null)
     {
         if (!ally) return;
@@ -48,7 +36,6 @@ public class ProjectileType : ScriptableObject
             return;
         }
         enemyHitbox.TakeDamage(baseDamage * GameManager._.Master.weaponMaster.damageMult);
-
 
     }
 

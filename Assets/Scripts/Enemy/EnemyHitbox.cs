@@ -7,6 +7,11 @@ public class EnemyHitbox : MonoBehaviour, IEnemyDamageable
     public EnemyHealth host;
     public float multiplier = 1f;
 
+    public EnemyHealth GetEnemyHealthScript()
+    {
+        return host;
+    }
+
     public void TakeDamage(float damage)
     {
         if (host == null)
@@ -17,4 +22,6 @@ public class EnemyHitbox : MonoBehaviour, IEnemyDamageable
         Debug.Log("Hitbox hit at x" + multiplier + " damage");
         host.TakeDamage(damage * multiplier);
     }
+
+    
 }
