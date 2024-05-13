@@ -35,7 +35,7 @@ public class ProjectileType : ScriptableObject
             Debug.LogError("Enemy health is null");
             return;
         }
-        enemyHealth.takeDamage(baseDamage * GameManager._.Master.weaponMaster.damageMult);
+        enemyHealth.TakeDamage(baseDamage * GameManager._.Master.weaponMaster.damageMult);
 
 
     }

@@ -74,7 +74,7 @@ public class MeleeWeaponBase : WeaponCore
     public override void OnMeleeHit(EnemyHealth HealthScript, float additive = 0)
     {
         float damage = (this.damage + additive) * GameManager._.Master.weaponMaster.damageMult;
-        HealthScript.takeDamage(damage);
+        HealthScript.TakeDamage(damage);
         GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(HealthScript.transform.position);
         swingHit = true;
     }

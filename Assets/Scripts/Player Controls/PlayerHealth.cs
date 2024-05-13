@@ -40,12 +40,12 @@ public class PlayerHealth : MonoBehaviour
 
     #region Damage
 
-    public void takeDamage(int amount, Vector3 direction, float magnitude, EnemyComponentMaster CM = null)
+    public bool takeDamage(int amount, Vector3 direction, float magnitude, EnemyComponentMaster CM = null)
     {
         if (GameManager._.Master.invuln)
         {
             lastDamageInstance = amount;
-            return;
+            return false;
         }
 
         if (itemMaster.M_OverHealth + itemMaster.M_DecayHealth > 0)
@@ -72,6 +72,7 @@ public class PlayerHealth : MonoBehaviour
         GameManager._.Master.movementMaster.KnockBack(direction, magnitude);
         OnHealthChangeEvent();
         itemMaster.onHurtEffectHandler.OnHurtEffect(amount, CM);
+        return true;
 
     }
 

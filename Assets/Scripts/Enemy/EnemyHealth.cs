@@ -17,7 +17,7 @@ public class EnemyHealth : MonoBehaviour
         countHandler = GetComponent<EnemyCountHandler>();
         if (TryGetComponent<EnemyComponentMaster>(out EnemyComponentMaster C)) CM = C;
     }
-    public void takeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
         if (CM.enemyBoss != null) CM.enemyBoss.OnBossHealthChangeEvent();
@@ -37,4 +37,20 @@ public class EnemyHealth : MonoBehaviour
 
     }
 
+    public void FindHitboxes()
+    {
+        var allHitbox = GetComponentsInChildren<EnemyHitbox>();
+        if (allHitbox == null)
+        {
+            Debug.LogWarning("No Hitboxes found");
+            return;
+        }
+
+        Debug.Log("" + allHitbox.Length + " Hitboxes Found");
+        foreach(EnemyHitbox hitbox in allHitbox)
+        {
+            hitbox.host = this;
+        }
+
+    }
 }

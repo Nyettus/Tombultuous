@@ -18,7 +18,7 @@ public class Rifle : HitscanWeaponBase
                 if (hit.transform.tag == "Enemy")
                 {
                     float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult*2f;
-                    hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
+                    hit.transform.GetComponent<EnemyHealth>().TakeDamage(damage);
 
                 }
 
