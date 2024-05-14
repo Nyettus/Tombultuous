@@ -14,14 +14,17 @@ public class EnemyHitbox : MonoBehaviour, IEnemyDamageable
 
     public void TakeDamage(float damage)
     {
+    }
+
+    public void TakeDamage(DamageInstance damage)
+    {
         if (host == null)
         {
             Debug.LogError("Hitbox Host Not Assigned");
             return;
         }
         Debug.Log("Hitbox hit at x" + multiplier + " damage");
-        host.TakeDamage(damage * multiplier);
+        damage.multipliers *= multiplier;
+        host.TakeDamage(damage);
     }
-
-    
 }

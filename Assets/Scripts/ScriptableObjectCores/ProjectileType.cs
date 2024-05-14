@@ -35,7 +35,12 @@ public class ProjectileType : ScriptableObject
             Debug.LogError("Enemy health is null");
             return;
         }
-        enemyHitbox.TakeDamage(baseDamage * GameManager._.Master.weaponMaster.damageMult);
+        var dmg = new DamageInstance(baseDamage)
+        {
+            multipliers = GameManager._.Master.weaponMaster.damageMult,
+            damageType = DamageType.Projectile
+        };
+        enemyHitbox.TakeDamage(dmg);
 
     }
 
