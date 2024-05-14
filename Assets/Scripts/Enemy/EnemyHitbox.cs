@@ -12,10 +12,6 @@ public class EnemyHitbox : MonoBehaviour, IEnemyDamageable
         return host;
     }
 
-    public void TakeDamage(float damage)
-    {
-    }
-
     public void TakeDamage(DamageInstance damage)
     {
         if (host == null)
