@@ -6,6 +6,7 @@ using UsefulBox;
 
 public abstract class EnemyStateBase : StateMachineBehaviour
 {
+    public bool UsesRootMotion = false;
     protected EnemyComponentMaster CM;
     protected Transform thisTransform;
 
@@ -19,6 +20,7 @@ public abstract class EnemyStateBase : StateMachineBehaviour
         if (CM.enemyNavMesh.speed != CM.defaultWalkSpeed) CM.enemyNavMesh.speed = CM.defaultWalkSpeed;
         thisTransform = animator.gameObject.transform;
         CM.enemyNavMesh.isStopped = false;
+        CM.SetRootMotion(UsesRootMotion);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

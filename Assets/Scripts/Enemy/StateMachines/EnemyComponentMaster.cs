@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public struct NavMeshAgentValues
+{
+    public float angularSpeed;
+    public float acceleration;
+    public NavMeshAgentValues(float aSpeed, float accel)
+    {
+        angularSpeed = aSpeed;
+        acceleration = accel;
+    }
+}
+
 public class EnemyComponentMaster : MonoBehaviour
 {
     public EnemyBaseStats card;
@@ -24,6 +35,7 @@ public class EnemyComponentMaster : MonoBehaviour
 
     public float defaultWalkSpeed = -1;
     private Vector3 navmeshVelocity = Vector3.zero;
+    private NavMeshAgentValues storedValues;
 
     [Header("Airborne")]
     public bool canBeAirborne = false;
@@ -42,7 +54,11 @@ public class EnemyComponentMaster : MonoBehaviour
             enemyNavMesh = navCompono;
             enemyNavMesh.speed = card.moveSpeed;
         }
-        if (TryGetComponent<Animator>(out Animator animCompono)) enemyAnimator = animCompono;
+        if (TryGetComponent<Animator>(out Animator animCompono))
+        {
+            enemyAnimator = animCompono;
+            enemyAnimator.applyRootMotion = false;
+        }
         if (TryGetComponent<BaseEnemyAttacks>(out BaseEnemyAttacks damCompono)) enemyAttacks = damCompono;
         if (TryGetComponent<Rigidbody>(out Rigidbody RBCompono)) enemyRB = RBCompono;
         if (TryGetComponent<Collider>(out Collider ColCompono)) enemyCollider = ColCompono;
@@ -61,6 +77,46 @@ public class EnemyComponentMaster : MonoBehaviour
 
     }
 
+    private void OnAnimatorMove()
+    {
+        if (enemyAnimator.applyRootMotion)
+        {
+            Debug.Log("Is using special");
+            enemyNavMesh.updatePosition = false;
+            Vector3 rootPos = enemyAnimator.rootPosition;
+            rootPos.y = enemyNavMesh.nextPosition.y;
+            transform.position = rootPos;
+            enemyNavMesh.nextPosition = rootPos;
+        }
+        else
+        {
+            enemyNavMesh.updatePosition = true;
+        }
+
+
+    }
+
+
+    public void SetRootMotion(bool state)
+    {
+        if (storedValues.acceleration == 0 || storedValues.angularSpeed ==0)
+        {
+            storedValues = new NavMeshAgentValues(enemyNavMesh.angularSpeed, enemyNavMesh.acceleration);
+        }
+        if (state)
+        {
+
+            enemyNavMesh.angularSpeed = 0;
+            enemyNavMesh.acceleration = 0;
+        }
+        else
+        {
+            enemyNavMesh.angularSpeed = storedValues.angularSpeed;
+            enemyNavMesh.acceleration = storedValues.acceleration;
+        }
+        enemyAnimator.applyRootMotion = state;
+
+    }
 
     public void SetAnimBool(string name, bool set)
     {
@@ -123,7 +179,7 @@ public class EnemyComponentMaster : MonoBehaviour
         {
             if (collider.tag == "WeaponHitbox") continue;
             collider.enabled = state;
-            collider.excludeLayers = 1 << 6 | 1<<12;
+            collider.excludeLayers = 1 << 6 | 1 << 12;
         }
         foreach (var rb in ragdollRB)
         {
@@ -134,7 +190,7 @@ public class EnemyComponentMaster : MonoBehaviour
 
         enemyAnimator.enabled = !state;
         enemyRB.detectCollisions = !state;
-        if(enemyCollider!=null)
+        if (enemyCollider != null)
             enemyCollider.enabled = !state;
 
     }
