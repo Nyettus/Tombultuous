@@ -6,9 +6,11 @@ using UsefulBox;
 
 public class BarrelKin_Attacks : BaseEnemyAttacks
 {
+    [SerializeField] private EnemyDamageNumbers damageValues;
     [SerializeField] private Transform spawnLocation;
     [SerializeField] private ParticleSystem projectileParticles;
     [SerializeField] private GameObject falseProj;
+    //[SerializeField] private 
     private float falseProjSize;
     private bool attackCharging = false;
 
@@ -16,7 +18,7 @@ public class BarrelKin_Attacks : BaseEnemyAttacks
     private float rate = 1.5f;
     private void Start()
     {
-        falseProjSize = falseProj.transform.localScale.x;        
+        falseProjSize = falseProj.transform.localScale.x;
     }
 
     public void BK_ProjectileStart()
@@ -53,4 +55,45 @@ public class BarrelKin_Attacks : BaseEnemyAttacks
         attackCharging = false;
         newSize = 0;
     }
+    public void BK_KickAttack_ON()
+    {
+        EnemyDamage hitbox = base.Hitboxes[0];
+        hitbox.AssignValues(damageValues.damageArray[0]);
+        hitbox.hitbox.enabled = true;
+    }
+
+
+    public void BK_KickAttack_OFF()
+    {
+        EnemyDamage hitbox = base.Hitboxes[0];
+        hitbox.hitbox.enabled = false;
+        canHit = true;
+    }
+
+    public void BK_HeadbuttAttack_ON()
+    {
+        EnemyDamage hitbox = base.Hitboxes[1];
+        hitbox.AssignValues(damageValues.damageArray[1]);
+        hitbox.hitbox.enabled = true;
+    }
+
+    public void BK_Charge_ON()
+    {
+        EnemyDamage hitbox = base.Hitboxes[1];
+        hitbox.AssignValues(damageValues.damageArray[2]);
+        hitbox.hitbox.enabled = true;
+    }
+
+    public void BK_Headhitbox_OFF()
+    {
+        EnemyDamage hitbox = base.Hitboxes[1];
+        hitbox.hitbox.enabled = false;
+        canHit = true;
+    }
+
+
+
+
+
+
 }

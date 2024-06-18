@@ -493,6 +493,7 @@ MonoBehaviour:
   enemyRB: {fileID: 0}
   enemyCollider: {fileID: 0}
   enemyBoss: {fileID: 0}
+  enemyRootMotion: {fileID: 0}
   model: {fileID: 6792235105348767866}
   ragdollCollider: []
   ragdollRB: []
@@ -675,6 +676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 40
   magnitude: 20
+  hitbox: {fileID: 0}
   CM: {fileID: 7254417408236042957}
 --- !u!1 &4487843442451868394
 GameObject:
@@ -6166,7 +6168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6164648888651015200}
   - component: {fileID: 2862010314439388929}
-  - component: {fileID: 8019448255468702560}
+  - component: {fileID: 8712458374147385246}
   m_Layer: 2
   m_Name: HeadbuttHitbox
   m_TagString: Untagged
@@ -6210,7 +6212,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5, y: 0.2, z: 0.2}
   m_Center: {x: -0.76, y: 0, z: 0}
---- !u!114 &8019448255468702560
+--- !u!114 &8712458374147385246
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6219,14 +6221,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7876213663710577234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08d1910191334ff48b01f10d8f6901fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c784e918a76ae54bbe189548e1effe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
-  magnitude: 0
+  magnitude: 2
+  hitbox: {fileID: 0}
   CM: {fileID: 7254417408236042957}
-  HeadbuttDamage: 50
-  ChargeDamage: 5
 --- !u!1 &8097407035646055729
 GameObject:
   m_ObjectHideFlags: 0

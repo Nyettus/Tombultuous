@@ -6,16 +6,19 @@ public class EnemyDamage : MonoBehaviour
 {
     public int damage;
     public float magnitude;
-
-    [SerializeField]
-    private BoxCollider hitbox;
+    public BoxCollider hitbox;
 
     public EnemyComponentMaster CM;
     private void Start()
     {
-        hitbox = GetComponent<BoxCollider>();
-    }
+        if(hitbox == null) hitbox = GetComponent<BoxCollider>();
 
+    }
+    public void AssignValues(DamagePairs source)
+    {
+        damage = source.damage;
+        magnitude = source.magnitude;
+    }
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
@@ -23,7 +26,6 @@ public class EnemyDamage : MonoBehaviour
 
 
     }
-
 
 
 }
