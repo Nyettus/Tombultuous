@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyRootMotion : EnemyStateBase
 {
-    public string variableName = null;
+    public string variableName = "";
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        if(variableName != null)
+        if(variableName != "")
         {
             animator.SetFloat(variableName, Random.value);
         }

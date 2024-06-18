@@ -25,6 +25,7 @@ public class EnemyComponentMaster : MonoBehaviour
     public Rigidbody enemyRB;
     public Collider enemyCollider;
     public BossHandler enemyBoss;
+    public EnemyRootMotionHandler enemyRootMotion;
 
     [SerializeField]
     private GameObject model;
@@ -73,32 +74,21 @@ public class EnemyComponentMaster : MonoBehaviour
             ragdollCollider = model.GetComponentsInChildren<Collider>();
             ActivateRagdoll(false);
         }
-
-
-    }
-
-    private void OnAnimatorMove()
-    {
-        if (enemyAnimator.applyRootMotion)
+        if (TryGetComponent<EnemyRootMotionHandler>(out EnemyRootMotionHandler enemyRootCompono))
         {
-            enemyNavMesh.updatePosition = false;
-            Vector3 rootPos = enemyAnimator.rootPosition;
-            rootPos.y = enemyNavMesh.nextPosition.y;
-            transform.position = rootPos;
-            enemyNavMesh.nextPosition = rootPos;
-        }
-        else
-        {
-            enemyNavMesh.updatePosition = true;
+            enemyRootMotion = enemyRootCompono;
+            enemyRootCompono.CM = this;
         }
 
 
     }
+
+
 
 
     public void SetRootMotion(bool state)
     {
-        if (storedValues.acceleration == 0 || storedValues.angularSpeed ==0)
+        if (storedValues.acceleration == 0 || storedValues.angularSpeed == 0)
         {
             storedValues = new NavMeshAgentValues(enemyNavMesh.angularSpeed, enemyNavMesh.acceleration);
         }

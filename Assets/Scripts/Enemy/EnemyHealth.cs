@@ -55,7 +55,9 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
         foreach (EnemyHitbox hitbox in allHitbox)
         {
             hitbox.host = this;
+            
         }
+
 
     }
 
