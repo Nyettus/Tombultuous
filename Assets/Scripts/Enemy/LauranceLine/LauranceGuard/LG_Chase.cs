@@ -2,26 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRootMotion : EnemyStateBase
+public class LG_Chase : TestChasingState
 {
-    public string variableName = null;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        if(variableName != null)
-        {
-            animator.SetFloat(variableName, Random.value);
-        }
-        
+        animator.SetFloat("DecisionFloat", Random.value);
+        Debug.Log("LG Chasing stat");
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        base.OnStateUpdate(animator, stateInfo, layerIndex);
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        base.OnStateExit(animator, stateInfo, layerIndex);
     }
 }

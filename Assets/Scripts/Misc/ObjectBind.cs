@@ -9,7 +9,13 @@ public class ObjectBind : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MatchLocation();
+    }
+
+    public void MatchLocation()
+    {
         transform.position = toFollow.position;
         transform.rotation = toFollow.rotation;
     }
+
 }

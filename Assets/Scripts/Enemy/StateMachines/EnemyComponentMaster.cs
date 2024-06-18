@@ -81,7 +81,6 @@ public class EnemyComponentMaster : MonoBehaviour
     {
         if (enemyAnimator.applyRootMotion)
         {
-            Debug.Log("Is using special");
             enemyNavMesh.updatePosition = false;
             Vector3 rootPos = enemyAnimator.rootPosition;
             rootPos.y = enemyNavMesh.nextPosition.y;
