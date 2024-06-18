@@ -9,11 +9,7 @@ public class LG_Attacks : BaseEnemyAttacks
     {
         CM = GetComponent<EnemyComponentMaster>();
     }
-    public void LG_Charge(int state)
-    {
-        bool asBool = state != 0;
-        CM.SetAnimBool("DecisionBool", asBool);
-    }
+
 
 
 

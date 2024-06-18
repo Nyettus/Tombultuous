@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
-    [SerializeField]
-    protected int damage;
-    [SerializeField]
-    private float magnitude;
+    public int damage;
+    public float magnitude;
 
     [SerializeField]
-    protected EnemyComponentMaster CM;
+    private BoxCollider hitbox;
+
+    public EnemyComponentMaster CM;
     private void Start()
     {
-        
+        hitbox = GetComponent<BoxCollider>();
     }
 
     protected virtual void OnTriggerEnter(Collider other)
