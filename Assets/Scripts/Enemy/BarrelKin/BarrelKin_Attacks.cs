@@ -19,14 +19,6 @@ public class BarrelKin_Attacks : BaseEnemyAttacks
         falseProjSize = falseProj.transform.localScale.x;
     }
 
-    public void BK_ProjectileStart()
-    {
-
-        falseProj.transform.localScale = Vector3.zero;
-        projectileParticles.Play();
-        falseProj.SetActive(true);
-        attackCharging = true;
-    }
 
 
     private void Update()
@@ -37,6 +29,17 @@ public class BarrelKin_Attacks : BaseEnemyAttacks
             falseProj.transform.localScale = new Vector3(newSize, newSize, newSize);
         }
     }
+    #region Projectile Attack
+    public void BK_ProjectileStart()
+    {
+
+        falseProj.transform.localScale = Vector3.zero;
+        projectileParticles.Play();
+        falseProj.SetActive(true);
+        attackCharging = true;
+    }
+
+
     public void BK_ProjectileAttack()
     {
         falseProj.SetActive(false);
@@ -53,6 +56,9 @@ public class BarrelKin_Attacks : BaseEnemyAttacks
         attackCharging = false;
         newSize = 0;
     }
+    #endregion
+
+    #region Kick attack
     public void BK_KickAttack_ON()
     {
         GenericAttackON(0, 0);
@@ -65,7 +71,9 @@ public class BarrelKin_Attacks : BaseEnemyAttacks
         hitbox.hitbox.enabled = false;
 
     }
+    #endregion
 
+    #region head based attacks
     public void BK_HeadbuttAttack_ON()
     {
         GenericAttackON(1, 1);
@@ -82,7 +90,7 @@ public class BarrelKin_Attacks : BaseEnemyAttacks
         hitbox.hitbox.enabled = false;
 
     }
-
+    #endregion
 
 
 
