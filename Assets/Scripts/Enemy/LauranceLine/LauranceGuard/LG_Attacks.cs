@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class LG_Attacks : BaseEnemyAttacks
 {
-    EnemyComponentMaster CM;
-    private void Start()
+    [SerializeField] private EnemyDamageNumbers LG_Damage;
+    public void LG_NeutralKick_ON()
     {
-        CM = GetComponent<EnemyComponentMaster>();
+
     }
 
+    public void LG_NeutralKick_OFF()
+    {
+
+    }
 
 
 

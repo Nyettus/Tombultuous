@@ -7,6 +7,8 @@ public class EnemyDamage : MonoBehaviour
     public int damage;
     public float magnitude;
     public BoxCollider hitbox;
+    public bool canHit = true;
+    private Vector3 knockbackDir;
 
     public EnemyComponentMaster CM;
     private void Start()
@@ -18,11 +20,18 @@ public class EnemyDamage : MonoBehaviour
     {
         damage = source.damage;
         magnitude = source.magnitude;
+        knockbackDir = (GameManager._.Master.transform.position - transform.position + Vector3.up).normalized;
+    }
+    public void AssignValues(DamagePairs source, Vector3 customDir)
+    {
+        AssignValues(source);
+        knockbackDir = customDir;
     }
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player") return;
-        CM.enemyAttacks.DamagePlayer(damage,(GameManager._.Master.transform.position-transform.position+Vector3.up).normalized,magnitude,CM);
+        if (other.tag != "Player" || !canHit) return;
+        CM.enemyAttacks.DamagePlayer(damage,knockbackDir,magnitude,CM);
+        canHit = false;
 
 
     }

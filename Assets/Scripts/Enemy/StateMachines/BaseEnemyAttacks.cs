@@ -20,6 +20,7 @@ public struct DamagePairs
 public class BaseEnemyAttacks : MonoBehaviour
 {
     public EnemyDamage[] Hitboxes;
+    public EnemyDamageNumbers damageValues;
 
     public bool canHit = true;
 
@@ -40,7 +41,7 @@ public class BaseEnemyAttacks : MonoBehaviour
 
     public void DamagePlayer(int damage,Vector3 direction,float magnitude,EnemyComponentMaster CM = null)
     {
-        if (!canHit) return;
+        //if (!canHit) return;
         GameManager._.Master.healthMaster.takeDamage(damage, direction, magnitude,CM);
         canHit = false;
         Debug.Log("Dealt: " + damage + " to the player");
@@ -57,7 +58,15 @@ public class BaseEnemyAttacks : MonoBehaviour
     }
 
 
+    protected EnemyDamage GenericAttackON(int hitboxIndex, int damageIndex)
+    {
+        EnemyDamage hitbox = Hitboxes[hitboxIndex];
+        hitbox.AssignValues(damageValues.damageArray[damageIndex]);
+        hitbox.canHit = true;
+        hitbox.hitbox.enabled = true;
+        return hitbox;
 
+    }
 
 
 }
