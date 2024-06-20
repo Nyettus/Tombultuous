@@ -6,14 +6,14 @@ public class EnemyDamage : MonoBehaviour
 {
     public int damage;
     public float magnitude;
-    public BoxCollider hitbox;
+    public Collider hitbox;
     public bool canHit = true;
     private Vector3 knockbackDir;
 
     public EnemyComponentMaster CM;
     private void Start()
     {
-        if(hitbox == null) hitbox = GetComponent<BoxCollider>();
+        if(hitbox == null) hitbox = GetComponent<Collider>();
 
     }
     public void AssignValues(DamagePairs source)

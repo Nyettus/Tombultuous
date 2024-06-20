@@ -61,14 +61,13 @@ public class BarrelKin_Attacks : BaseEnemyAttacks
     #region Kick attack
     public void BK_KickAttack_ON()
     {
-        GenericAttackON(0, 0);
+        GenericAttack_ON(0, 0);
     }
 
 
     public void BK_KickAttack_OFF()
     {
-        EnemyDamage hitbox = base.Hitboxes[0];
-        hitbox.hitbox.enabled = false;
+        GenericAttack_OFF(0);
 
     }
     #endregion
@@ -76,18 +75,17 @@ public class BarrelKin_Attacks : BaseEnemyAttacks
     #region head based attacks
     public void BK_HeadbuttAttack_ON()
     {
-        GenericAttackON(1, 1);
+        GenericAttack_ON(1, 1);
     }
 
     public void BK_Charge_ON()
     {
-        GenericAttackON(1, 2);
+        GenericAttack_ON(1, 2);
     }
 
     public void BK_Headhitbox_OFF()
     {
-        EnemyDamage hitbox = base.Hitboxes[1];
-        hitbox.hitbox.enabled = false;
+        GenericAttack_OFF(1);
 
     }
     #endregion
