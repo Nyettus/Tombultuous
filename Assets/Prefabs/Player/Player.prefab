@@ -216,6 +216,7 @@ MonoBehaviour:
   grounded: 0
   dashing: 0
   cameraEffects: {fileID: 0}
+  persistentManager: {fileID: 0}
 --- !u!114 &6556023140287419092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,6 +447,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 995ddbc3-7b15-42cd-8b9e-03ff19c0fb3c
     m_ActionName: UIMap/BigMap[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d3dbda0b-a879-4eb2-a124-5eb76434b526
+    m_ActionName: KeyboardMap/Heal[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: KeyboardMap
@@ -493,6 +498,7 @@ MonoBehaviour:
   onHitEffectHandler: {fileID: 2670714574181997947}
   onMissEffectHandler: {fileID: 6914522918936317167}
   onPassiveEffectHandler: {fileID: 7029558961824609198}
+  onHurtEffectHandler: {fileID: 0}
   Perm_Health: 0
   MIN_Health: 1
   M_OverHealth: 0
@@ -534,6 +540,7 @@ MonoBehaviour:
   deathMaster: {fileID: 0}
   lastDamageInstance: 0
   flesh: 0
+  healingChargeAmount: 50
 --- !u!114 &2582484312504561768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,7 +656,10 @@ MonoBehaviour:
   bigBootsTimer: 0
   bigBootsEnabled: 0
   bootsCard: {fileID: 11400000, guid: bc367c6b5cfdfff489d8d0277675a61b, type: 2}
+  adrenalineCard: {fileID: 11400000, guid: 5de6f34b2679f524b92b66c44832f117, type: 2}
   secondWingsCard: {fileID: 11400000, guid: b18608b4bf51c414aabfdd43b7e98631, type: 2}
+  copperHeartCard: {fileID: 11400000, guid: a8ea983d53c284e4da764355fbf9b18e, type: 2}
+  copperHeartHealthIncrease: 0
 --- !u!114 &4600402424540949857
 MonoBehaviour:
   m_ObjectHideFlags: 0

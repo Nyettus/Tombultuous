@@ -85,9 +85,10 @@ public class OnKillItemHandler : MonoBehaviour
     private void CopperHeartActivated()
     {
         int heartCount = itemMaster.GetItemCount(copperHeartCard);
-        if (heartCount == 0) return;
-        Mathf.Clamp(copperHeartHealthIncrease+=(copperHeartCard.healthIncrease*heartCount),0,copperHeartCard.maxHealthIncrease);
-
+        if (heartCount == 0 || copperHeartHealthIncrease<=copperHeartCard.maxHealthIncrease) return;
+        int healthAmount = copperHeartCard.healthIncrease * heartCount;
+        Mathf.Clamp(copperHeartHealthIncrease+= healthAmount, 0,copperHeartCard.maxHealthIncrease);
+        GameManager._.Master.healthMaster.HealFlesh(healthAmount);
     }
 
     #endregion
