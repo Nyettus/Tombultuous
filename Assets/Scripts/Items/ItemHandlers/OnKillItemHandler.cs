@@ -78,11 +78,26 @@ public class OnKillItemHandler : MonoBehaviour
 
     #endregion
 
+
+    #region Copper Heart
+    public CopperHeart copperHeartCard;
+    public int copperHeartHealthIncrease = 0;
+    private void CopperHeartActivated()
+    {
+        int heartCount = itemMaster.GetItemCount(copperHeartCard);
+        if (heartCount == 0) return;
+        Mathf.Clamp(copperHeartHealthIncrease+=(copperHeartCard.healthIncrease*heartCount),0,copperHeartCard.maxHealthIncrease);
+
+    }
+
+    #endregion
+
     public void OnKill()
     {
         EnableBoots();
         SecondWingsActivate();
         AdrenalineActivate();
+        CopperHeartActivated();
     }
 
 }
