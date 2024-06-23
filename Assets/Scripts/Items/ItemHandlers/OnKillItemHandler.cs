@@ -93,8 +93,29 @@ public class OnKillItemHandler : MonoBehaviour
 
     #endregion
 
+
+    #region Marrow Extractor
+    [SerializeField] private int marrowMax = 10;
+    private void MarrowExtractorActivated()
+    {
+        if (GameManager._.healingCharges >= GameManager._.Master.persistentManager.healingCharges || !GameManager._.Master.persistentManager.canMarrow) return;
+        GameManager._.marrowProgress++;
+ 
+        if(GameManager._.marrowProgress >= marrowMax)
+        {
+            GameManager._.healingCharges++;
+            GameManager._.marrowProgress = 0;
+            UIManager._.ChangeHealthPot();
+        }
+        
+    }
+
+    #endregion
+
+
     public void OnKill()
     {
+        MarrowExtractorActivated();
         EnableBoots();
         SecondWingsActivate();
         AdrenalineActivate();

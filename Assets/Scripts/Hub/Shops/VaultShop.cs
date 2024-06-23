@@ -20,6 +20,7 @@ public class VaultShop : HubMenuBase
     {
         RecycleSetup();
         HealingChargeSetup();
+        MarrowExtractorSetup();
     }
 
 
@@ -63,6 +64,23 @@ public class VaultShop : HubMenuBase
         healingChargeUpgradeBar.fillAmount = (float)state / card.healingPrice.Length;
     }
 
+    [SerializeField] private TextMeshProUGUI marrowExtractorText;
+    [SerializeField] private Button marrowExtractorButton;
+    private void MarrowExtractorSetup()
+    {
+        int state = PlayerPrefs.GetInt("VK_Shop_MarrowExtractor");
+        if (state == 0)
+        {
+            marrowExtractorButton.interactable = true;
+            marrowExtractorText.text = "" + card.boneMarrowPrice + "g";
+        }
+        else
+        {
+            marrowExtractorButton.interactable = false;
+            marrowExtractorText.text = "Bought";
+        }
+    }
+
     #endregion
 
     public void PurchaseRecycle()
@@ -85,7 +103,13 @@ public class VaultShop : HubMenuBase
 
     }
 
-
+    public void PurchaseMarrowExtractor()
+    {
+        string marrowTag = "VK_Shop_MarrowExtractor";
+        int value = PlayerPrefs.GetInt(marrowTag, 0);
+        if (value > 0) return;
+        PurchaseSingular(marrowTag, card.boneMarrowPrice);
+    }
 
 
 

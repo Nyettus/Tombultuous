@@ -17,6 +17,7 @@ public class GameManager : SingletonPersist<GameManager>
     public List<WeaponStorage> weaponStorage = new List<WeaponStorage>();
     public GoldManager goldManager;
     public int healingCharges;
+    public int marrowProgress = 0;
     #endregion
 
     #region Freeze inputs
