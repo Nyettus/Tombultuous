@@ -59,9 +59,31 @@ public class OnHurtEffectHandler : MonoBehaviour
 
     #endregion
 
+    #region Amoral Compass
+    public AmoralCompass amoralCard;
+    public GameObject amoralExplosion;
+    private void HandleAmoral(int damage)
+    {
+        int amoralCount = itemMaster.GetItemCount(amoralCard);
+        if (amoralCount == 0) return;
+        float damageMultiplier = (amoralCard.baseDamage + amoralCard.damageIncrement * (amoralCount - 1))*GameManager._.Master.itemMaster.M_DamageMult;
+        float explosionDamage = damage * damageMultiplier; 
+        Collider[] colliderArray = Physics.OverlapSphere(GameManager._.Master.transform.position, amoralCard.radius);
+        foreach (Collider collider in colliderArray)
+        {
+            if (collider.TryGetComponent(out EnemyHealth health))
+            {
+                health.TakeDamage(explosionDamage);
+                Debug.Log("Dealt amoral damage");
+            }
+        }
+    }
+
+    #endregion
     public void OnHurtEffect(int damageTaken,EnemyComponentMaster CM = null)
     {
         EnableLaudunum();
         HandleSteelFeather(damageTaken, CM);
+        HandleAmoral(damageTaken);
     }
 }
