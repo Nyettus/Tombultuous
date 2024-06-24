@@ -25,7 +25,7 @@ public class OnPassiveEffectHandler : MonoBehaviour
         {
             if (collider.TryGetComponent(out EnemyHealth health))
             {
-                health.TakeDamage(LRodCard.explosionDamage * master.M_DamageMult);
+                health.TakeDamage(LRodCard.explosionDamage * GameManager._.Master.weaponMaster.damageMult);
             }
         }
         LRodDamage = 0;

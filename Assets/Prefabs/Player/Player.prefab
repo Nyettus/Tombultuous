@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 6999005006463531252}
   - component: {fileID: 2582484312504561768}
   - component: {fileID: 5089366816172395837}
+  - component: {fileID: 8038330803771563050}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -216,7 +217,7 @@ MonoBehaviour:
   grounded: 0
   dashing: 0
   cameraEffects: {fileID: 0}
-  persistentManager: {fileID: 0}
+  persistentManager: {fileID: 8038330803771563050}
 --- !u!114 &6556023140287419092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +394,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Interactable, Assembly-CSharp
+        m_MethodName: Recycle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 73515985-de75-4549-ae4f-f939a08bf0f2
     m_ActionName: KeyboardMap/Reload[/Keyboard/r]
   - m_PersistentCalls:
@@ -448,7 +461,19 @@ MonoBehaviour:
     m_ActionId: 995ddbc3-7b15-42cd-8b9e-03ff19c0fb3c
     m_ActionName: UIMap/BigMap[/Keyboard/tab]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6999005006463531252}
+        m_TargetAssemblyTypeName: PlayerHealth, Assembly-CSharp
+        m_MethodName: UseHealingPot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d3dbda0b-a879-4eb2-a124-5eb76434b526
     m_ActionName: KeyboardMap/Heal[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
@@ -498,7 +523,7 @@ MonoBehaviour:
   onHitEffectHandler: {fileID: 2670714574181997947}
   onMissEffectHandler: {fileID: 6914522918936317167}
   onPassiveEffectHandler: {fileID: 7029558961824609198}
-  onHurtEffectHandler: {fileID: 0}
+  onHurtEffectHandler: {fileID: 1306591184959047398}
   Perm_Health: 0
   MIN_Health: 1
   M_OverHealth: 0
@@ -540,7 +565,6 @@ MonoBehaviour:
   deathMaster: {fileID: 0}
   lastDamageInstance: 0
   flesh: 0
-  healingChargeAmount: 50
 --- !u!114 &2582484312504561768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,6 +593,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 0
+--- !u!114 &8038330803771563050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576962046979082319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e345e23f292c818458e1e74b6a4357c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healingCharges: 0
+  canRecycle: 0
+  canMarrow: 0
 --- !u!1 &7830110446836863621
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +656,7 @@ GameObject:
   - component: {fileID: 2670714574181997947}
   - component: {fileID: 6914522918936317167}
   - component: {fileID: 7029558961824609198}
+  - component: {fileID: 1306591184959047398}
   m_Layer: 6
   m_Name: Handlers
   m_TagString: Untagged
@@ -660,6 +700,7 @@ MonoBehaviour:
   secondWingsCard: {fileID: 11400000, guid: b18608b4bf51c414aabfdd43b7e98631, type: 2}
   copperHeartCard: {fileID: 11400000, guid: a8ea983d53c284e4da764355fbf9b18e, type: 2}
   copperHeartHealthIncrease: 0
+  marrowMax: 10
 --- !u!114 &4600402424540949857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,6 +782,23 @@ MonoBehaviour:
   PSDamage: 0
   FSCard: {fileID: 11400000, guid: 27347d87b3194004a88bf0a3ab141595, type: 2}
   FSDamage: 0
+--- !u!114 &1306591184959047398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890854250324370136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f81cc7d0153bd41a2665c2ad7e012d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemMaster: {fileID: 975944647800130588}
+  laudCard: {fileID: 11400000, guid: 32fd53f9ce0472e42903ab391fac03c8, type: 2}
+  steelFeatherCard: {fileID: 11400000, guid: 61395beba6a87b547b49be9dd0cee189, type: 2}
+  amoralCard: {fileID: 0}
+  amoralExplosion: {fileID: 0}
 --- !u!1 &9075218459221532613
 GameObject:
   m_ObjectHideFlags: 0
