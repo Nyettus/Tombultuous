@@ -18,12 +18,13 @@ public class EnemyComponentMaster : MonoBehaviour
 {
     public EnemyBaseStats card;
 
-    public EnemyHealth enemyHealth;
     public NavMeshAgent enemyNavMesh;
     public Animator enemyAnimator;
-    public BaseEnemyAttacks enemyAttacks;
     public Rigidbody enemyRB;
     public Collider enemyCollider;
+
+    public EnemyHealth enemyHealth;
+    public BaseEnemyAttacks enemyAttacks;
     public BossHandler enemyBoss;
     public EnemyRootMotionHandler enemyRootMotion;
 
@@ -60,7 +61,11 @@ public class EnemyComponentMaster : MonoBehaviour
             enemyAnimator = animCompono;
             enemyAnimator.applyRootMotion = false;
         }
-        if (TryGetComponent<BaseEnemyAttacks>(out BaseEnemyAttacks damCompono)) enemyAttacks = damCompono;
+        if (TryGetComponent<BaseEnemyAttacks>(out BaseEnemyAttacks damCompono))
+        {
+            enemyAttacks = damCompono;
+            enemyAttacks.CM = this;
+        }
         if (TryGetComponent<Rigidbody>(out Rigidbody RBCompono)) enemyRB = RBCompono;
         if (TryGetComponent<Collider>(out Collider ColCompono)) enemyCollider = ColCompono;
         if (TryGetComponent<BossHandler>(out BossHandler BossCompono))

@@ -8,6 +8,9 @@ public class LG_Attacks : BaseEnemyAttacks
     private bool isSpinning = false;
     private EnemyDamage[] spinHitboxes = new EnemyDamage[2];
 
+    public string phaseName;
+    public float phaseTransitionPercent;
+    private bool once = true;
 
 
     private void Start()
@@ -19,6 +22,22 @@ public class LG_Attacks : BaseEnemyAttacks
         ResetSpin();
         TripProjLerpFalse();
     }
+
+    public override void CheckHealthPercent()
+    {
+        if (!once) return;
+        float totalHealth = CM.card.health;
+        float currentHealth = CM.enemyHealth.health;
+        float healthPercent = currentHealth / totalHealth;
+        Debug.Log("Health percentage: " + healthPercent);
+        if (phaseTransitionPercent > healthPercent)
+        {
+            CM.enemyAnimator.SetBool(phaseName, true);
+            once = false;
+        }
+
+    }
+
 
     #region Neutral kick chain
     public void LG_NeutralKick_ON()

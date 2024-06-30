@@ -19,24 +19,16 @@ public struct DamagePairs
 
 public class BaseEnemyAttacks : MonoBehaviour
 {
+    public EnemyComponentMaster CM;
     public EnemyDamage[] Hitboxes;
     public string hasHitName;
     public EnemyDamageNumbers damageValues;
 
-    //public void SetHitbox(AnimationEvent eventer)
-    //{
-    //    bool theBool = eventer.intParameter != 0;
-    //    int index = (int)eventer.floatParameter;
-    //    if (Hitboxes[index] == null)
-    //    {
-    //        Debug.LogError("HitboxIndex null");
-    //        return;
-    //    }
-    //    Hitboxes[index].hitbox.enabled = theBool;
-    //    canHit = theBool;
 
+    public virtual void CheckHealthPercent()
+    {
 
-    //}
+    }
 
     public void DamagePlayer(int damage,Vector3 direction,float magnitude,EnemyComponentMaster CM = null)
     {

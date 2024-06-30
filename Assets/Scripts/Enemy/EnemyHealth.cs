@@ -21,6 +21,7 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
     {
         health -= damage;
         if (CM.enemyBoss != null) CM.enemyBoss.OnBossHealthChangeEvent();
+        CM.enemyAttacks.CheckHealthPercent();
         if (health <= 0 && once)
         {
             Debug.Log("im dead");
