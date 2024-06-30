@@ -24,14 +24,14 @@ public class HitscanWeaponBase : RangedWeaponBase
     public override void Shoot()
     {
         base.Shoot();
-        for(int i = 0; i < bullets; i++)
+        for (int i = 0; i < bullets; i++)
         {
             RaycastHit hit;
             Vector3 shootDir = bulletSpread(spread);
-            if (Physics.Raycast(Camera.main.transform.position,shootDir,out hit,100f,layerMask))
+            if (Physics.Raycast(Camera.main.transform.position, shootDir, out hit, 100f, layerMask))
             {
                 HitscanHit(hit);
-             
+
             }
 
         }
@@ -42,8 +42,18 @@ public class HitscanWeaponBase : RangedWeaponBase
     {
         if (hit.transform.tag == "Enemy")
         {
-            float damage = damageFalloff(hit.distance) * GameManager._.Master.weaponMaster.damageMult;
-            hit.transform.GetComponent<EnemyHealth>().takeDamage(damage);
+            Debug.Log(hit.transform.gameObject.name);
+            float damage = damageFalloff(hit.distance);
+
+            if (hit.collider.transform.TryGetComponent(out IEnemyDamageable hitboxHealth))
+            {
+                var dmg = new DamageInstance(damage) { multipliers = GameManager._.Master.weaponMaster.damageMult };
+                hitboxHealth.TakeDamage(dmg);
+            }
+            else
+            {
+                Debug.LogError("NO HITBOX OF ANY SORT FOUND");
+            }
             GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(hit.point);
         }
         else if (hit.transform.tag == "ItemChest")
@@ -54,7 +64,7 @@ public class HitscanWeaponBase : RangedWeaponBase
         {
             hit.transform.GetComponentInParent<MasterTomb>().DestroySelf();
         }
-        else if(hit.transform.TryGetComponent(out NextLevel level))
+        else if (hit.transform.TryGetComponent(out NextLevel level))
         {
             level.GotoNextLevel();
         }
@@ -87,7 +97,7 @@ public class HitscanWeaponBase : RangedWeaponBase
 
     public void rayLine(Vector3 endPos)
     {
-        Debug.DrawLine(Camera.main.transform.position, endPos,Color.red,2.5f);
+        Debug.DrawLine(Camera.main.transform.position, endPos, Color.red, 2.5f);
     }
 
 

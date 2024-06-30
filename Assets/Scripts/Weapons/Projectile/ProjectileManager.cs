@@ -7,6 +7,7 @@ public class ProjectileManager : MonoBehaviour
     public ProjectileType card;
     private Rigidbody RB;
     [SerializeField] private Collider bounceCollider;
+    private List<EnemyHealth> enemiesHit = new List<EnemyHealth>();
 
     private bool hasHit;
     private int pierceCount;
@@ -15,6 +16,7 @@ public class ProjectileManager : MonoBehaviour
     void OnEnable()
     {
         RB = GetComponent<Rigidbody>();
+        enemiesHit.Clear();
     }
 
 
@@ -47,13 +49,8 @@ public class ProjectileManager : MonoBehaviour
     {
         if (other.gameObject.layer != 2)
         {
-            Debug.Log(other.name);
-
-
             OnTargetHit(other);
             OnGroundHit(other);
-
-
         }
 
     }
@@ -98,13 +95,21 @@ public class ProjectileManager : MonoBehaviour
     private void OnTargetHit(Collider other)
     {
         bool hasHit = false;
-        if (other.TryGetComponent(out EnemyHealth enemyScript) && card.ally)
+
+        if (other.TryGetComponent(out IEnemyDamageable hitboxHealth) && card.ally)
         {
-            card.ProjDamage(enemyScript);
+            if (!enemiesHit.Contains(hitboxHealth.GetEnemyHealthScript()))
+            {
+                card.ProjDamage(hitboxHealth);
+                enemiesHit.Add(hitboxHealth.GetEnemyHealthScript());
+            }
+
 
             GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(transform.position);
             hasHit = true;
         }
+
+
         if (other.TryGetComponent(out PlayerHealth playerScript) && !card.ally)
         {
             card.ProjDamage(this.transform, playerScript);

@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class MeleeHitboxHandling : MonoBehaviour
 {
-    
     private void OnTriggerEnter(Collider other)
     {
         WeaponController quickRef = GameManager._.Master.weaponMaster;
         if (quickRef.equippedGuns[quickRef.selectedWeapon] == null) return;
-        if (other.TryGetComponent(out EnemyHealth script))
+        if (other.TryGetComponent(out IEnemyDamageable hitbox))
         {
-            quickRef.equippedGuns[quickRef.selectedWeapon].OnMeleeHit(script);
-
+            quickRef.equippedGuns[quickRef.selectedWeapon].OnMeleeHit(hitbox);
         }
-        else if(other.TryGetComponent(out ChestCore chest))
+        else if (other.TryGetComponent(out ChestCore chest))
         {
             chest.SpawnItem();
         }
-        else if(other.tag == "MasterTomb")
+        else if (other.tag == "MasterTomb")
         {
             other.transform.parent.GetComponent<MasterTomb>().DestroySelf();
         }
@@ -26,8 +24,5 @@ public class MeleeHitboxHandling : MonoBehaviour
         {
             level.GotoNextLevel();
         }
-
-
-
     }
 }

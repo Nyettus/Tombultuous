@@ -22,7 +22,7 @@ public class MeleeWeaponBase : WeaponCore
     protected float hitboxDuration = 0.3f;
 
     [SerializeField] private bool swingHit = false;
-
+    private List<EnemyHealth> enemiesHit = new List<EnemyHealth>();
 
     protected override void Start()
     {
@@ -37,6 +37,7 @@ public class MeleeWeaponBase : WeaponCore
         if (hitboxTime < Time.time && quickRef.enabled)
         {
             quickRef.enabled = false;
+            enemiesHit.Clear();
             if (!swingHit) GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(transform.position + transform.forward * hitboxLength);
             swingHit = false;
         }
@@ -71,13 +72,24 @@ public class MeleeWeaponBase : WeaponCore
         }
     }
 
-    public override void OnMeleeHit(EnemyHealth HealthScript, float additive = 0)
+    public override void OnMeleeHit(IEnemyDamageable HealthScript, float additive = 0)
     {
-        float damage = (this.damage + additive) * GameManager._.Master.weaponMaster.damageMult;
-        HealthScript.takeDamage(damage);
-        GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(HealthScript.transform.position);
+        if (!enemiesHit.Contains(HealthScript.GetEnemyHealthScript()))
+        {
+            var dmg = new DamageInstance(damage + additive)
+            {
+                multipliers = GameManager._.Master.weaponMaster.damageMult,
+                damageType = DamageType.Melee
+            };
+            HealthScript.TakeDamage(dmg);
+            enemiesHit.Add(HealthScript.GetEnemyHealthScript());
+        }
+
+        var casted = (MonoBehaviour)HealthScript;
+        GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(casted.transform.position);
         swingHit = true;
     }
+
 
     public override void Special()
     {
@@ -106,7 +118,8 @@ public class MeleeWeaponBase : WeaponCore
     }
     private void OnDisable()
     {
-        GameManager._.Master.weaponMaster.meleeHitbox.enabled = false;
+        quickRef.enabled = false;
+        enemiesHit.Clear();
         swingHit = false;
     }
 

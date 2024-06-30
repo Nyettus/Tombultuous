@@ -25,7 +25,13 @@ public class OnPassiveEffectHandler : MonoBehaviour
         {
             if (collider.TryGetComponent(out EnemyHealth health))
             {
-                health.takeDamage(LRodCard.explosionDamage * master.M_DamageMult);
+                var dmg = new DamageInstance(LRodCard.explosionDamage)
+                {
+                    multipliers = master.M_DamageMult,
+                    damageType = DamageType.Item,
+                };
+
+                health.TakeDamage(dmg);
             }
         }
         LRodDamage = 0;
@@ -77,7 +83,7 @@ public class OnPassiveEffectHandler : MonoBehaviour
         float gradient = -newMaxDamage / currentMaxSpeed;
 
         // what should be c in y=mx+c is simplified to max damage
-        PSDamage = (gradient * currentSpeed + newMaxDamage)*patientStatueCount;
+        PSDamage = (gradient * currentSpeed + newMaxDamage) * patientStatueCount;
 
 
 
@@ -102,7 +108,7 @@ public class OnPassiveEffectHandler : MonoBehaviour
         float currentMaxSpeed = master.Master.movementMaster.moveSpeed;
         float speedRatio = currentMaxSpeed / baseMaxSpeed;
 
-        float modStillRate = FSCard.stillRate * (1 / (speedRatio*speedRatio));
+        float modStillRate = FSCard.stillRate * (1 / (speedRatio * speedRatio));
         float newMaxDamage = speedRatio * FSCard.maxBaseDamage;
 
 
@@ -111,7 +117,7 @@ public class OnPassiveEffectHandler : MonoBehaviour
 
         Debug.Log(newMaxDamage);
 
-        FSDamage = (gradient * currentSpeed + offset)*frenziedStatueCount;
+        FSDamage = (gradient * currentSpeed + offset) * frenziedStatueCount;
     }
 
 

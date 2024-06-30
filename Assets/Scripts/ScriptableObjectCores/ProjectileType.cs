@@ -27,18 +27,21 @@ public class ProjectileType : ScriptableObject
     }
 
 
-    public void ProjDamage(EnemyHealth enemyHealth = null)
+    public void ProjDamage(IEnemyDamageable enemyHitbox = null)
     {
         if (!ally) return;
-        if (enemyHealth == null)
+        if (enemyHitbox == null)
         {
             Debug.LogError("Enemy health is null");
             return;
         }
-        enemyHealth.takeDamage(baseDamage * GameManager._.Master.weaponMaster.damageMult);
-
+        var dmg = new DamageInstance(baseDamage)
+        {
+            multipliers = GameManager._.Master.weaponMaster.damageMult,
+            damageType = DamageType.Projectile
+        };
+        enemyHitbox.TakeDamage(dmg);
 
     }
-
 
 }
