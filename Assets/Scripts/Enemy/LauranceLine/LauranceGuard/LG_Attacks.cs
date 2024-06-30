@@ -241,7 +241,6 @@ public class LG_Attacks : BaseEnemyAttacks
 
     #endregion
 
-
     #region Ground Pound
     [SerializeField] private ParticleSystem GroundPoundParticles;
     public void LG_GroundPound_ON()
@@ -256,5 +255,26 @@ public class LG_Attacks : BaseEnemyAttacks
     {
         GenericAttack_OFF(4);
     }
+    #endregion
+
+    #region Phase 2 Swipe
+    public void LG_Phase2SwipeP1_ON()
+    {
+        GenericAttack_ON(5, 8);
+    }
+    public void LG_Phase2SwipeP1_OFF()
+    {
+        GenericAttack_OFF(5);
+    }
+
+    public void LG_Phase2SwipeP2_ON()
+    {
+        GenericAttack_ON(5, 9);
+    }
+    public void LG_Phsae2SwipeP2_OFF()
+    {
+        GenericAttack_OFF(5);
+    }
+
     #endregion
 }
