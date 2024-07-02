@@ -8,19 +8,22 @@ public class LG_Attacks : BaseEnemyAttacks
     private bool isSpinning = false;
     private EnemyDamage[] spinHitboxes = new EnemyDamage[2];
 
-    public string phaseName;
-    public float phaseTransitionPercent;
-    private bool once = true;
+    [SerializeField] private string phaseName;
+    [SerializeField] private float phaseTransitionPercent;
+    [SerializeField] private bool isPhase2;
+    [SerializeField] private bool once = true;
 
 
     private void Start()
     {
         falseProjMaxSize = tripProjFalse[0].transform.localScale.x;
+        P2StartProjMaxSize = P2FalseOrb.transform.localScale.x;
     }
     private void LateUpdate()
     {
         ResetSpin();
         TripProjLerpFalse();
+        LG_Phase2LerpFalse();
     }
 
     public override void CheckHealthPercent()
@@ -29,10 +32,11 @@ public class LG_Attacks : BaseEnemyAttacks
         float totalHealth = CM.card.health;
         float currentHealth = CM.enemyHealth.health;
         float healthPercent = currentHealth / totalHealth;
-        Debug.Log("Health percentage: " + healthPercent);
         if (phaseTransitionPercent > healthPercent)
         {
             CM.enemyAnimator.SetBool(phaseName, true);
+            CM.enemyAnimator.SetTrigger(phaseName+"Trigger");
+            isPhase2 = true;
             once = false;
         }
 
@@ -153,15 +157,16 @@ public class LG_Attacks : BaseEnemyAttacks
 
     #region Triple Projectile Attack
     //Arrays fill from Right to Left (Attacker Perspective)
+    [Header("Triple Projectile Attack")]
     [SerializeField] private ProjectileType chosenProj;
     [SerializeField] private Transform[] tripProjLocation = new Transform[3];
     [SerializeField] private GameObject[] tripProjFalse = new GameObject[3];
     [SerializeField] private ParticleSystem[] tripProjEffect = new ParticleSystem[3];
-    private bool[] tripProjCharging = new bool[3];
+    private bool[] tripProjCharging = new bool[6];
 
     //False proj aesthetic rates
     private float falseProjMaxSize;
-    private float[] falseProjSize = new float[3];
+    private float[] falseProjSize = new float[6];
     private float rate = 1.5f;
 
     public void GenericStartTripProj(int index)
@@ -171,8 +176,9 @@ public class LG_Attacks : BaseEnemyAttacks
         tripProjEffect[index].Play();
         thisProj.SetActive(true);
         tripProjCharging[index] = true;
-
     }
+    
+
     public void GenericActivateTripProjAttack(int index, float accuracy)
     {
         GameObject thisProj = tripProjFalse[index];
@@ -206,11 +212,13 @@ public class LG_Attacks : BaseEnemyAttacks
     public void LG_StartTripProjR()
     {
         GenericStartTripProj(0);
+        if (isPhase2) GenericStartTripProj(3);
     }
 
     public void LG_FireTripProjR()
     {
         GenericActivateTripProjAttack(0, 0f);
+        if(isPhase2) GenericActivateTripProjAttack(3, 0.25f);
     }
     #endregion
 
@@ -218,11 +226,13 @@ public class LG_Attacks : BaseEnemyAttacks
     public void LG_StartTripProjC()
     {
         GenericStartTripProj(1);
+        if (isPhase2) GenericStartTripProj(4);
     }
 
     public void LG_FireTripProjC()
     {
         GenericActivateTripProjAttack(1, 1f);
+        if (isPhase2) GenericActivateTripProjAttack(4, 0.85f);
     }
     #endregion
 
@@ -230,11 +240,13 @@ public class LG_Attacks : BaseEnemyAttacks
     public void LG_StartTripProjL()
     {
         GenericStartTripProj(2);
+        if (isPhase2) GenericStartTripProj(5);
     }
 
     public void LG_FireTripProjL()
     {
         GenericActivateTripProjAttack(2, 0.5f);
+        if (isPhase2) GenericActivateTripProjAttack(5, 0.75f);
     }
     #endregion
 
@@ -242,19 +254,71 @@ public class LG_Attacks : BaseEnemyAttacks
     #endregion
 
     #region Ground Pound
-    [SerializeField] private ParticleSystem GroundPoundParticles;
+    [Header("Ground Pound")]
+    [SerializeField] private ParticleSystem groundPoundParticles;
+    [SerializeField] private int groundPoundShotNo;
+    [SerializeField] private Vector2 groundPoundXVariation;
+    [SerializeField] private Vector2 groundPoundZVariation;
+    [SerializeField] private Vector2 groundPoundYVariation;
+    private Vector3[] groundPoundShotSpawn;
+    [SerializeField] private float groundPoundInaccuracyAmount;
     public void LG_GroundPound_ON()
     {
         var hitbox = GenericAttack_ON(4, 7);
         var damagePair = damageValues.damageArray[7];
         hitbox.AssignValues(damagePair, Vector3.up);
-        GroundPoundParticles.Play();
+        groundPoundParticles.Play();
+
+        LG_GroundPoundPrimePhase2();
+
     }
 
     public void LG_GroundPound_OFF()
     {
         GenericAttack_OFF(4);
     }
+
+    #region Phase 2 Adjustments
+    private void LG_GroundPoundPrimePhase2()
+    {
+        if (!isPhase2) return;
+        Vector3 rootPos = CM.enemyAnimator.rootPosition;
+        groundPoundShotSpawn = new Vector3[groundPoundShotNo];
+        for(int i = 0; i<groundPoundShotSpawn.Length;i++)
+        {
+            float xOffset = Random.Range(groundPoundXVariation[0], groundPoundXVariation[1]);
+            float zOffset = Random.Range(groundPoundZVariation[0], groundPoundZVariation[1]);
+            float yOffset = Random.Range(groundPoundYVariation[0], groundPoundYVariation[1]);
+            groundPoundShotSpawn[i] = rootPos + new Vector3(xOffset, yOffset, zOffset);
+            var particles = ObjectPooler._.SpawnFromPool("RedProjParticles", groundPoundShotSpawn[i], Quaternion.identity);
+            particles.GetComponent<ParticleSystem>().Play();
+            
+        }
+        //theres not enough time in the animation to do another event
+        Invoke("LG_GroundPoundFirePhase2", 1f);
+    }
+
+    public void LG_GroundPoundFirePhase2()
+    {
+        Vector3[] targetLocation = new Vector3[groundPoundShotNo];
+        //1 perfectly accurate rest randomish
+        
+        Vector3 trueTarget = GameManager._.Master.transform.position + Vector3.up * (GameManager._.Master.movementMaster.height / 4);
+        for (int i = 0; i < targetLocation.Length-1; i++)
+        {
+            float lerpAmount = Random.value;
+            Vector3 randomAmount = new Vector3(
+                Random.Range(-groundPoundInaccuracyAmount, groundPoundInaccuracyAmount),
+                Random.Range(0, groundPoundInaccuracyAmount/2),
+                Random.Range(-groundPoundInaccuracyAmount, groundPoundInaccuracyAmount));
+            Vector3 target = trueTarget + randomAmount;
+            Vector3 predictedTarget = MurderBag.RoughPredictLocation(target, GameManager._.Master.movementMaster.rb.velocity, groundPoundShotSpawn[i], chosenProj.speed, lerpAmount);
+            FireProjectile("LG_Proj", predictedTarget, groundPoundShotSpawn[i]);
+        }
+        Vector3 perfectShot = MurderBag.RoughPredictLocation(trueTarget, GameManager._.Master.movementMaster.rb.velocity, groundPoundShotSpawn[groundPoundShotSpawn.Length-1], chosenProj.speed, 1);
+        FireProjectile("LG_Proj", perfectShot, groundPoundShotSpawn[groundPoundShotSpawn.Length-1]);
+    }
+    #endregion
     #endregion
 
     #region Phase 2 Swipe
@@ -274,6 +338,46 @@ public class LG_Attacks : BaseEnemyAttacks
     public void LG_Phsae2SwipeP2_OFF()
     {
         GenericAttack_OFF(5);
+    }
+
+    #endregion
+
+
+    #region Phase 2 Transition
+    [Header("Phase 2 Transition")]
+    [SerializeField] private ParticleSystem P2StartParticles;
+    [SerializeField] private GameObject P2FalseOrb;
+    [SerializeField] private float P2StartProjMaxSize;
+    [SerializeField] private float P2StartProjSize;
+    [SerializeField] private bool P2StartProjCharging = false;
+    [SerializeField] private float P2StartProjRate = 1.5f;
+    public void LG_Phase2FalseOrb_ON()
+    {
+        P2FalseOrb.transform.localScale = Vector3.zero;
+        P2StartParticles.Play();
+        P2FalseOrb.SetActive(true);
+        P2StartProjCharging = true;
+    }
+
+    public void LG_Phase2LerpFalse()
+    {
+        if (!P2StartProjCharging) return;
+        P2StartProjSize = Mathf.Lerp(P2StartProjSize, P2StartProjMaxSize, P2StartProjRate * Time.deltaTime);
+        P2FalseOrb.transform.localScale = new Vector3(P2StartProjSize, P2StartProjSize, P2StartProjSize);
+    }
+
+    [SerializeField] private GameObject P2TrueOrb;
+    [SerializeField] private GameObject P2Eyes;
+    [SerializeField] private ParticleSystem[] P2Particles;
+    public void LP_Phase2SwapOrb()
+    {
+        P2FalseOrb.SetActive(false);
+        P2TrueOrb.SetActive(true);
+        P2Eyes.SetActive(true);
+        foreach(ParticleSystem particle in P2Particles)
+        {
+            particle.Play();
+        }
     }
 
     #endregion
