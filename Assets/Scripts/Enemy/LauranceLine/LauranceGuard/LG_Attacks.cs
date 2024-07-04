@@ -16,13 +16,11 @@ public class LG_Attacks : BaseEnemyAttacks
 
     private void Start()
     {
-        falseProjMaxSize = tripProjFalse[0].transform.localScale.x;
-        P2StartProjMaxSize = P2FalseOrb.transform.localScale.x;
+
     }
     private void LateUpdate()
     {
         ResetSpin();
-        TripProjLerpFalse();
         LG_Phase2LerpFalse();
     }
 
@@ -160,30 +158,17 @@ public class LG_Attacks : BaseEnemyAttacks
     [Header("Triple Projectile Attack")]
     [SerializeField] private ProjectileType chosenProj;
     [SerializeField] private Transform[] tripProjLocation = new Transform[3];
-    [SerializeField] private GameObject[] tripProjFalse = new GameObject[3];
     [SerializeField] private ParticleSystem[] tripProjEffect = new ParticleSystem[3];
-    private bool[] tripProjCharging = new bool[6];
-
-    //False proj aesthetic rates
-    private float falseProjMaxSize;
-    private float[] falseProjSize = new float[6];
-    private float rate = 1.5f;
 
     public void GenericStartTripProj(int index)
     {
-        GameObject thisProj = tripProjFalse[index];
-        thisProj.transform.localScale = Vector3.zero;
         tripProjEffect[index].Play();
-        thisProj.SetActive(true);
-        tripProjCharging[index] = true;
     }
     
 
     public void GenericActivateTripProjAttack(int index, float accuracy)
     {
-        GameObject thisProj = tripProjFalse[index];
         Transform thisSpawn = tripProjLocation[index];
-        thisProj.SetActive(false);
 
         Vector3 targetLocal = GameManager._.Master.transform.position + Vector3.up * (GameManager._.Master.movementMaster.height / 4);
         Vector3 targetVel = GameManager._.Master.movementMaster.rb.velocity;
@@ -192,21 +177,12 @@ public class LG_Attacks : BaseEnemyAttacks
             targetVel,
             tripProjLocation[index].position
             ,chosenProj.speed,accuracy);
+        tripProjEffect[index].Clear();
         FireProjectile("LG_Proj", targetLocation, thisSpawn.position);
 
-        tripProjCharging[index] = false;
-        falseProjSize[index] = 0;
     }
 
-    private void TripProjLerpFalse()
-    {
-        for(int i = 0; i < falseProjSize.Length; i++)
-        {
-            if (!tripProjCharging[i]) continue;
-            falseProjSize[i] = Mathf.Lerp(falseProjSize[i], falseProjMaxSize, rate * Time.deltaTime);
-            tripProjFalse[i].transform.localScale = new Vector3(falseProjSize[i], falseProjSize[i], falseProjSize[i]);
-        }
-    }
+
 
     #region Fire Right
     public void LG_StartTripProjR()
