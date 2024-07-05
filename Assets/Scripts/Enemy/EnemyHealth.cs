@@ -31,6 +31,7 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
             if (CM != null)
             {
                 CM.enemyAnimator.SetTrigger("IsDead");
+                CM.enemyAnimator.SetBool("IsDeadBool", true);
 
             }
             once = false;

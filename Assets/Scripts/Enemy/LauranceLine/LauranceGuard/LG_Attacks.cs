@@ -33,7 +33,7 @@ public class LG_Attacks : BaseEnemyAttacks
         if (phaseTransitionPercent > healthPercent)
         {
             CM.enemyAnimator.SetBool(phaseName, true);
-            CM.enemyAnimator.SetTrigger(phaseName+"Trigger");
+            CM.enemyAnimator.SetTrigger(phaseName + "Trigger");
             isPhase2 = true;
             once = false;
         }
@@ -164,7 +164,7 @@ public class LG_Attacks : BaseEnemyAttacks
     {
         tripProjEffect[index].Play();
     }
-    
+
 
     public void GenericActivateTripProjAttack(int index, float accuracy)
     {
@@ -176,7 +176,7 @@ public class LG_Attacks : BaseEnemyAttacks
             targetLocal,
             targetVel,
             tripProjLocation[index].position
-            ,chosenProj.speed,accuracy);
+            , chosenProj.speed, accuracy);
         tripProjEffect[index].Clear();
         FireProjectile("LG_Proj", targetLocation, thisSpawn.position);
 
@@ -194,7 +194,7 @@ public class LG_Attacks : BaseEnemyAttacks
     public void LG_FireTripProjR()
     {
         GenericActivateTripProjAttack(0, 0f);
-        if(isPhase2) GenericActivateTripProjAttack(3, 0.25f);
+        if (isPhase2) GenericActivateTripProjAttack(3, 0.25f);
     }
     #endregion
 
@@ -236,7 +236,7 @@ public class LG_Attacks : BaseEnemyAttacks
     [SerializeField] private Vector2 groundPoundXVariation;
     [SerializeField] private Vector2 groundPoundZVariation;
     [SerializeField] private Vector2 groundPoundYVariation;
-    private Vector3[] groundPoundShotSpawn;
+    private GameObject[] groundPoundShotSpawn;
     [SerializeField] private float groundPoundInaccuracyAmount;
     public void LG_GroundPound_ON()
     {
@@ -259,16 +259,16 @@ public class LG_Attacks : BaseEnemyAttacks
     {
         if (!isPhase2) return;
         Vector3 rootPos = CM.enemyAnimator.rootPosition;
-        groundPoundShotSpawn = new Vector3[groundPoundShotNo];
-        for(int i = 0; i<groundPoundShotSpawn.Length;i++)
+        groundPoundShotSpawn = new GameObject[groundPoundShotNo];
+        for (int i = 0; i < groundPoundShotSpawn.Length; i++)
         {
             float xOffset = Random.Range(groundPoundXVariation[0], groundPoundXVariation[1]);
             float zOffset = Random.Range(groundPoundZVariation[0], groundPoundZVariation[1]);
             float yOffset = Random.Range(groundPoundYVariation[0], groundPoundYVariation[1]);
-            groundPoundShotSpawn[i] = rootPos + new Vector3(xOffset, yOffset, zOffset);
-            var particles = ObjectPooler._.SpawnFromPool("RedProjParticles", groundPoundShotSpawn[i], Quaternion.identity);
-            particles.GetComponent<ParticleSystem>().Play();
-            
+            var position = rootPos + new Vector3(xOffset, yOffset, zOffset);
+            groundPoundShotSpawn[i] = ObjectPooler._.SpawnFromPool("RedProjParticles", position, Quaternion.identity);
+            groundPoundShotSpawn[i].GetComponent<ParticleSystem>().Play();
+
         }
         //theres not enough time in the animation to do another event
         Invoke("LG_GroundPoundFirePhase2", 1f);
@@ -278,46 +278,26 @@ public class LG_Attacks : BaseEnemyAttacks
     {
         Vector3[] targetLocation = new Vector3[groundPoundShotNo];
         //1 perfectly accurate rest randomish
-        
+
         Vector3 trueTarget = GameManager._.Master.transform.position + Vector3.up * (GameManager._.Master.movementMaster.height / 4);
-        for (int i = 0; i < targetLocation.Length-1; i++)
+        for (int i = 0; i < targetLocation.Length - 1; i++)
         {
             float lerpAmount = Random.value;
             Vector3 randomAmount = new Vector3(
                 Random.Range(-groundPoundInaccuracyAmount, groundPoundInaccuracyAmount),
-                Random.Range(0, groundPoundInaccuracyAmount/2),
+                Random.Range(0, groundPoundInaccuracyAmount / 2),
                 Random.Range(-groundPoundInaccuracyAmount, groundPoundInaccuracyAmount));
             Vector3 target = trueTarget + randomAmount;
-            Vector3 predictedTarget = MurderBag.RoughPredictLocation(target, GameManager._.Master.movementMaster.rb.velocity, groundPoundShotSpawn[i], chosenProj.speed, lerpAmount);
-            FireProjectile("LG_Proj", predictedTarget, groundPoundShotSpawn[i]);
+            Vector3 predictedTarget = MurderBag.RoughPredictLocation(target, GameManager._.Master.movementMaster.rb.velocity, groundPoundShotSpawn[i].transform.position, chosenProj.speed, lerpAmount);
+            FireProjectile("LG_Proj", predictedTarget, groundPoundShotSpawn[i].transform.position);
+            groundPoundShotSpawn[i].GetComponent<ParticleSystem>().Clear();
         }
-        Vector3 perfectShot = MurderBag.RoughPredictLocation(trueTarget, GameManager._.Master.movementMaster.rb.velocity, groundPoundShotSpawn[groundPoundShotSpawn.Length-1], chosenProj.speed, 1);
-        FireProjectile("LG_Proj", perfectShot, groundPoundShotSpawn[groundPoundShotSpawn.Length-1]);
+        Vector3 perfectShot = MurderBag.RoughPredictLocation(trueTarget, GameManager._.Master.movementMaster.rb.velocity, groundPoundShotSpawn[groundPoundShotSpawn.Length - 1].transform.position, chosenProj.speed, 1);
+        FireProjectile("LG_Proj", perfectShot, groundPoundShotSpawn[groundPoundShotSpawn.Length - 1].transform.position);
+        groundPoundShotSpawn[groundPoundShotSpawn.Length - 1].GetComponent<ParticleSystem>().Clear();
     }
     #endregion
     #endregion
-
-    #region Phase 2 Swipe
-    public void LG_Phase2SwipeP1_ON()
-    {
-        GenericAttack_ON(5, 8);
-    }
-    public void LG_Phase2SwipeP1_OFF()
-    {
-        GenericAttack_OFF(5);
-    }
-
-    public void LG_Phase2SwipeP2_ON()
-    {
-        GenericAttack_ON(5, 9);
-    }
-    public void LG_Phsae2SwipeP2_OFF()
-    {
-        GenericAttack_OFF(5);
-    }
-
-    #endregion
-
 
     #region Phase 2 Transition
     [Header("Phase 2 Transition")]
@@ -350,11 +330,62 @@ public class LG_Attacks : BaseEnemyAttacks
         P2FalseOrb.SetActive(false);
         P2TrueOrb.SetActive(true);
         P2Eyes.SetActive(true);
-        foreach(ParticleSystem particle in P2Particles)
+        foreach (ParticleSystem particle in P2Particles)
         {
             particle.Play();
         }
     }
 
+    #endregion
+
+    #region Phase 2 Swipe
+    public void LG_Phase2SwipeP1_ON()
+    {
+        GenericAttack_ON(5, 8);
+    }
+    public void LG_Phase2SwipeP1_OFF()
+    {
+        GenericAttack_OFF(5);
+    }
+
+    public void LG_Phase2SwipeP2_ON()
+    {
+        GenericAttack_ON(5, 9);
+    }
+    public void LG_Phsae2SwipeP2_OFF()
+    {
+        GenericAttack_OFF(5);
+    }
+
+    #endregion
+
+
+
+
+    #region Death
+    [Header("Death Variables")]
+    [SerializeField] private ParticleSystem kneeParticles;
+    [SerializeField] private ParticleSystem lyingDownParticles;
+    public void LG_DeathGeneralDisable()
+    {
+        foreach (ParticleSystem particle in P2Particles)
+        {
+            particle.Stop();
+        }
+        P2StartParticles.Stop();
+        P2TrueOrb.SetActive(false);
+        P2Eyes.SetActive(false);
+
+    }
+    public void LG_DeathKneeDown()
+    {
+        kneeParticles.transform.rotation = Quaternion.Euler(new Vector3(90,0,0));
+        kneeParticles.Play();
+    }
+    public void LG_DeathLyingDown()
+    {
+        lyingDownParticles.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+        lyingDownParticles.Play();
+    }
     #endregion
 }
