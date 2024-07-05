@@ -366,6 +366,7 @@ public class LG_Attacks : BaseEnemyAttacks
     [Header("Death Variables")]
     [SerializeField] private ParticleSystem kneeParticles;
     [SerializeField] private ParticleSystem lyingDownParticles;
+    [SerializeField] private ParticleSystem descentParticles;
     public void LG_DeathGeneralDisable()
     {
         foreach (ParticleSystem particle in P2Particles)
@@ -386,6 +387,12 @@ public class LG_Attacks : BaseEnemyAttacks
     {
         lyingDownParticles.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
         lyingDownParticles.Play();
+    }
+
+    public void LG_DeathDescent()
+    {
+        descentParticles.Play();
+        Destroy(this.gameObject, 5);
     }
     #endregion
 }
