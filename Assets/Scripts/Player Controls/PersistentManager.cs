@@ -5,6 +5,7 @@ using UnityEngine;
 public class PersistentManager : MonoBehaviour
 {
     public int healingCharges = 0;
+    public int scrapRetention = 0;
     public bool canRecycle;
     public bool canMarrow;
 
@@ -18,6 +19,8 @@ public class PersistentManager : MonoBehaviour
     public void GetPersVars()
     {
         healingCharges = PlayerPrefs.GetInt("VK_Shop_HealingCharge",0);
+
+        scrapRetention = PlayerPrefs.GetInt("VK_Shop_ScrapRetention",0);
 
         int recycleState = PlayerPrefs.GetInt("VK_Shop_Recycle", 0);
         canRecycle = recycleState != 0;
