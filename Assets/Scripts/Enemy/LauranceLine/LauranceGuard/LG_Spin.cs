@@ -11,6 +11,7 @@ public class LG_Spin : BarrelKin_Charge
         base.OnStateEnter(animator, stateInfo, layerIndex);
         attacks = (LG_Attacks)CM.enemyAttacks;
         attacks.LG_Spin_ON();
+        animator.SetInteger("ConsecutiveAttacks", 0);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

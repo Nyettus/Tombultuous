@@ -5,7 +5,7 @@ using UsefulBox;
 
 public class LG_Attacks : BaseEnemyAttacks
 {
-    private bool isSpinning = false;
+    [SerializeField] private bool isSpinning = false;
     private EnemyDamage[] spinHitboxes = new EnemyDamage[2];
 
     [SerializeField] private string phaseName;

@@ -9,6 +9,8 @@ public class LG_TurnAttack : EnemyRootMotion
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
+        int currentConsecutive = animator.GetInteger("ConsecutiveAttacks");
+        animator.SetInteger("ConsecutiveAttacks", currentConsecutive + 1);
         Vector3 target = MurderBag.RoughPredictLocation(
             GameManager._.Master.transform.position,
             GameManager._.Master.movementMaster.rb.velocity,

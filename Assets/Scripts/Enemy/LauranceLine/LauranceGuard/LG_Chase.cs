@@ -8,7 +8,7 @@ public class LG_Chase : TestChasingState
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         animator.SetFloat("DecisionFloat", Random.value);
-        Debug.Log("LG Chasing stat");
+        animator.SetInteger("ConsecutiveAttacks", 0);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
