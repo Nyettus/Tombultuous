@@ -74,10 +74,14 @@ public class MeleeWeaponBase : WeaponCore
 
     public override void OnMeleeHit(IEnemyDamageable HealthScript, float additive = 0)
     {
-        float damage = (this.damage + additive) * GameManager._.Master.weaponMaster.damageMult;
         if (!enemiesHit.Contains(HealthScript.GetEnemyHealthScript()))
         {
-            HealthScript.TakeDamage(damage);
+            var dmg = new DamageInstance(damage + additive)
+            {
+                multipliers = GameManager._.Master.weaponMaster.damageMult,
+                damageType = DamageType.Melee
+            };
+            HealthScript.TakeDamage(dmg);
             enemiesHit.Add(HealthScript.GetEnemyHealthScript());
         }
 

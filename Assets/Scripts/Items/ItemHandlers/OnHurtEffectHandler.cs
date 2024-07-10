@@ -49,12 +49,13 @@ public class OnHurtEffectHandler : MonoBehaviour
 
     #region Steel Feather
     public SteelFeather steelFeatherCard;
-    private void HandleSteelFeather(int damage,EnemyComponentMaster attacker)
+    private void HandleSteelFeather(int damage, EnemyComponentMaster attacker)
     {
         int steelFeatherCount = itemMaster.GetItemCount(steelFeatherCard);
-        if (steelFeatherCount == 0 || attacker==null) return;
-        float reflectedDamage = damage * steelFeatherCard.reflectionPercent * steelFeatherCount * itemMaster.Master.weaponMaster.damageMult;
-        attacker.enemyHealth.TakeDamage(reflectedDamage);
+        if (steelFeatherCount == 0 || attacker == null) return;
+        float reflectedMultipliers = steelFeatherCard.reflectionPercent * steelFeatherCount * itemMaster.Master.weaponMaster.damageMult;
+        var dmg = new DamageInstance(damage) { multipliers = reflectedMultipliers, damageType = DamageType.Item };
+        attacker.enemyHealth.TakeDamage(dmg);
     }
 
     #endregion

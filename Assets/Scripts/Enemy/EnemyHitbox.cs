@@ -12,7 +12,7 @@ public class EnemyHitbox : MonoBehaviour, IEnemyDamageable
         return host;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(DamageInstance damage)
     {
         if (host == null)
         {
@@ -20,8 +20,7 @@ public class EnemyHitbox : MonoBehaviour, IEnemyDamageable
             return;
         }
         Debug.Log("Hitbox hit at x" + multiplier + " damage");
-        host.TakeDamage(damage * multiplier);
+        damage.multipliers *= multiplier;
+        host.TakeDamage(damage);
     }
-
-    
 }
