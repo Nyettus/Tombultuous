@@ -49,12 +49,48 @@ public class OnHurtEffectHandler : MonoBehaviour
 
     #region Steel Feather
     public SteelFeather steelFeatherCard;
-    private void HandleSteelFeather(int damage,EnemyComponentMaster attacker)
+    private void HandleSteelFeather(int damage, EnemyComponentMaster attacker)
     {
         int steelFeatherCount = itemMaster.GetItemCount(steelFeatherCard);
-        if (steelFeatherCount == 0 || attacker==null) return;
-        float reflectedDamage = damage * steelFeatherCard.reflectionPercent * steelFeatherCount * itemMaster.Master.weaponMaster.damageMult;
-        attacker.enemyHealth.TakeDamage(reflectedDamage);
+        if (steelFeatherCount == 0 || attacker == null) return;
+        float reflectedMultipliers = steelFeatherCard.reflectionPercent * steelFeatherCount * itemMaster.Master.weaponMaster.damageMult;
+        var dmg = new DamageInstance(damage) { multipliers = reflectedMultipliers, damageType = DamageType.Item };
+        attacker.enemyHealth.TakeDamage(dmg);
+    }
+
+    #endregion
+
+    #region Amoral Compass
+    public AmoralCompass amoralCard;
+    private void HandleAmoral(int damage)
+    {
+        int amoralCount = itemMaster.GetItemCount(amoralCard);
+        if (amoralCount == 0) return;
+        float damageMultiplier = (amoralCard.baseDamage + amoralCard.damageIncrement * (amoralCount - 1))*GameManager._.Master.weaponMaster.damageMult;
+        float explosionDamage = damage * damageMultiplier; 
+        Collider[] colliderArray = Physics.OverlapSphere(GameManager._.Master.transform.position, amoralCard.radius);
+        foreach (Collider collider in colliderArray)
+        {
+            if (collider.TryGetComponent(out EnemyHealth health))
+            {
+                health.TakeDamage(explosionDamage);
+            }
+        }
+    }
+
+    #endregion
+    #region Moral Compass
+    public MoralCompass moralCard;
+    private void HandleMoral(int damage)
+    {
+        int moralCount = itemMaster.GetItemCount(moralCard);
+        if (moralCount == 0) return;
+        float randomChance = Random.value;
+        if (randomChance > moralCard.procChance) return;
+        float healPercent = moralCard.healPercent + moralCard.incrementIncrease * (1 - moralCount);
+        int healAmount = Mathf.RoundToInt(damage * healPercent);
+        GameManager._.Master.healthMaster.HealFlesh(healAmount);
+        Debug.Log("Healed: " + healAmount);
     }
 
     #endregion
@@ -63,5 +99,7 @@ public class OnHurtEffectHandler : MonoBehaviour
     {
         EnableLaudunum();
         HandleSteelFeather(damageTaken, CM);
+        HandleAmoral(damageTaken);
+        HandleMoral(damageTaken);
     }
 }

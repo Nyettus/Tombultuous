@@ -17,6 +17,7 @@ public class GameManager : SingletonPersist<GameManager>
     public List<WeaponStorage> weaponStorage = new List<WeaponStorage>();
     public GoldManager goldManager;
     public int healingCharges;
+    public int marrowProgress = 0;
     #endregion
 
     #region Freeze inputs
@@ -120,9 +121,14 @@ public class GameManager : SingletonPersist<GameManager>
     public void EndGame(bool win)
     {
         var transitionGold = goldManager.FinalGold(win);
-        Debug.Log(transitionGold);
-        var newTotal = PlayerPrefs.GetInt("PermGold",0)+transitionGold;
-        PlayerPrefs.SetInt("PermGold",newTotal);
+        var goldTotal = PlayerPrefs.GetInt("PermGold",0)+transitionGold;
+        PlayerPrefs.SetInt("PermGold",goldTotal);
+
+        var transitionScrap = goldManager.FinalScrap(win);
+        var scrapTotal = PlayerPrefs.GetInt("Hat_Shop_ItemScrap", 0) + transitionScrap;
+        PlayerPrefs.SetInt("Hat_Shop_ItemScrap", scrapTotal);
+        Debug.Log(""+transitionGold+" "+transitionScrap);
+        
         if (win)
         {
             int victoryCount = PlayerPrefs.GetInt("WinCount", 0) + 1;

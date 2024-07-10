@@ -9,6 +9,8 @@ public class GoldManager : MonoBehaviour
     public float goldMultiplier => 1 + Mathf.Clamp(quick.M_GoldMultiplier, quick.MIN_GoldMultiplier, float.MaxValue);
     public float goldRetention => Mathf.Clamp(quick.M_GoldRetention, quick.MIN_GoldRetention, float.MaxValue);
 
+    public int scrapAmount;
+    public int scrapRetention => quick.Master.persistentManager.scrapRetention;
 
     public delegate void UpdateGold();
     public static event UpdateGold OnUpdateGold;
@@ -20,7 +22,7 @@ public class GoldManager : MonoBehaviour
             OnUpdateGold();
     }
 
-    
+
     public void Start()
     {
         GameManager._.goldManager = this;
@@ -46,7 +48,28 @@ public class GoldManager : MonoBehaviour
             final = Mathf.RoundToInt(gold * goldRetention);
 
         }
-        if(reset)gold = 0;
+        if (reset) gold = 0;
+        return final;
+    }
+
+
+    public void GetScrap(int amount)
+    {
+        scrapAmount += amount;
+        UIManager._.WriteToNotification("+" + amount + " Scrap recovered");
+    }
+    public int FinalScrap(bool win, bool reset = true)
+    {
+        int final = 0;
+        if (win)
+        {
+            final = scrapAmount;
+        }
+        else
+        {
+            final = Mathf.Clamp(scrapAmount, 0, scrapRetention);
+        }
+        if (reset) scrapAmount = 0;
         return final;
     }
 

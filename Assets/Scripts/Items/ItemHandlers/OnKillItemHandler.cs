@@ -78,11 +78,48 @@ public class OnKillItemHandler : MonoBehaviour
 
     #endregion
 
+
+    #region Copper Heart
+    public CopperHeart copperHeartCard;
+    public int copperHeartHealthIncrease = 0;
+    private void CopperHeartActivated()
+    {
+        int heartCount = itemMaster.GetItemCount(copperHeartCard);
+        if (heartCount == 0 || copperHeartHealthIncrease<=copperHeartCard.maxHealthIncrease) return;
+        int healthAmount = copperHeartCard.healthIncrease * heartCount;
+        Mathf.Clamp(copperHeartHealthIncrease+= healthAmount, 0,copperHeartCard.maxHealthIncrease);
+        GameManager._.Master.healthMaster.HealFlesh(healthAmount);
+    }
+
+    #endregion
+
+
+    #region Marrow Extractor
+    [SerializeField] private int marrowMax = 10;
+    private void MarrowExtractorActivated()
+    {
+        if (GameManager._.healingCharges >= GameManager._.Master.persistentManager.healingCharges || !GameManager._.Master.persistentManager.canMarrow) return;
+        GameManager._.marrowProgress++;
+ 
+        if(GameManager._.marrowProgress >= marrowMax)
+        {
+            GameManager._.healingCharges++;
+            GameManager._.marrowProgress = 0;
+            UIManager._.ChangeHealthPot();
+        }
+        
+    }
+
+    #endregion
+
+
     public void OnKill()
     {
+        MarrowExtractorActivated();
         EnableBoots();
         SecondWingsActivate();
         AdrenalineActivate();
+        CopperHeartActivated();
     }
 
 }

@@ -6168,18 +6168,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6365000463247316975}
     m_Modifications:
-    - target: {fileID: 975944647800130588, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: onHurtEffectHandler
+    - target: {fileID: 1306591184959047398, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: moralCard
       value: 
-      objectReference: {fileID: 2058891422698255712}
+      objectReference: {fileID: 11400000, guid: cc5770f754d94784cbffc64cfc28cf28, type: 2}
+    - target: {fileID: 1306591184959047398, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: amoralCard
+      value: 
+      objectReference: {fileID: 11400000, guid: e5af2ab1a600058429ca1c2aa3b85f2b, type: 2}
     - target: {fileID: 2109654757964489350, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: cameraEffects
       value: 
       objectReference: {fileID: 1284190945721609298}
-    - target: {fileID: 2109654757964489350, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: persistentManager
-      value: 
-      objectReference: {fileID: 2986177648773479998}
     - target: {fileID: 4209807935954776716, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6221,34 +6221,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_ActionId
-      value: d3dbda0b-a879-4eb2-a124-5eb76434b526
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_ActionName
-      value: KeyboardMap/Heal[/Keyboard/f]
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5408543923550611624}
@@ -6260,46 +6232,6 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 179709873381705850}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5352203576678490461}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Recycle
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UseHealingPot
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Interactable, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerHealth, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757563686712860111, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5869490413364379845, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      propertyPath: adrenalineCard
-      value: 
-      objectReference: {fileID: 11400000, guid: 5de6f34b2679f524b92b66c44832f117, type: 2}
     - target: {fileID: 6999005006463531252, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: deathMaster
       value: 
@@ -6311,82 +6243,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7576962046979082319, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2986177648773479998}
-    - targetCorrespondingSourceObject: {fileID: 7890854250324370136, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2058891422698255712}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
 --- !u!4 &1228237159052028709 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4209807935954776716, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
   m_PrefabInstance: {fileID: 3127658901559794089}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2804877594365613493 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 975944647800130588, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-  m_PrefabInstance: {fileID: 3127658901559794089}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4774215713307054566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31064f53ffcfa044298b7d35d3a62b13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4566215378155491247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1457435109499934214, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
   m_PrefabInstance: {fileID: 3127658901559794089}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4774215713307054566 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7576962046979082319, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-  m_PrefabInstance: {fileID: 3127658901559794089}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2986177648773479998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4774215713307054566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e345e23f292c818458e1e74b6a4357c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healingCharges: 0
-  canRecycle: 0
---- !u!1 &5108875354906852209 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7890854250324370136, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-  m_PrefabInstance: {fileID: 3127658901559794089}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2058891422698255712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5108875354906852209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73f81cc7d0153bd41a2665c2ad7e012d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemMaster: {fileID: 2804877594365613493}
-  laudCard: {fileID: 11400000, guid: 32fd53f9ce0472e42903ab391fac03c8, type: 2}
-  steelFeatherCard: {fileID: 11400000, guid: 61395beba6a87b547b49be9dd0cee189, type: 2}
---- !u!114 &5352203576678490461 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6999005006463531252, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
-  m_PrefabInstance: {fileID: 3127658901559794089}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4774215713307054566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 165207f983b59364895dc79fd1ce1eb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

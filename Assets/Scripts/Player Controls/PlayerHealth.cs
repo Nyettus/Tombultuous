@@ -137,12 +137,13 @@ public class PlayerHealth : MonoBehaviour
 
 
     #region Healing Pot
+    //Handling charges
     public int healingCharges
     {
         get { return GameManager._.healingCharges; }
         set { GameManager._.healingCharges = value; }
     }
-    public int healingChargeAmount = 50;
+    private int healingChargeAmount = 50;
     public void UseHealingPot(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
@@ -154,6 +155,8 @@ public class PlayerHealth : MonoBehaviour
         UIManager._.ChangeHealthPot();
 
     }
+
+    //Marrow extractor handled on OnKillItemHandler
 
     #endregion
 

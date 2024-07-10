@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class MeleeHitboxHandling : MonoBehaviour
 {
-
-
     private void OnTriggerEnter(Collider other)
     {
-
         WeaponController quickRef = GameManager._.Master.weaponMaster;
         if (quickRef.equippedGuns[quickRef.selectedWeapon] == null) return;
         if (other.TryGetComponent(out IEnemyDamageable hitbox))
@@ -27,8 +24,5 @@ public class MeleeHitboxHandling : MonoBehaviour
         {
             level.GotoNextLevel();
         }
-
-
-
     }
 }

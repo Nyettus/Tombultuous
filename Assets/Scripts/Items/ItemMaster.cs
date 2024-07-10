@@ -20,7 +20,7 @@ public class ItemMaster : MonoBehaviour
 
 
     public int Perm_Health;
-    public int M_Health => Perm_Health;
+    public int M_Health => Perm_Health + onKillItemHandler.copperHeartHealthIncrease;
 
     public int MIN_Health = 1;
     public int M_OverHealth;

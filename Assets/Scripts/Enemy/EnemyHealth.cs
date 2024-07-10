@@ -1,6 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum DamageType
+{
+    Unknown,
+    Melee,
+    Projectile,
+    Hitscan,
+    Item
+}
+
+public struct DamageInstance
+{
+    public float multipliers;
+    public float baseDamage;
+    public DamageType damageType;
+    public float time;
+    // Use parameter initialisation syntax to fill in arguements like mult after the ctor
+    public DamageInstance(float baseDamage)
+    {
+        multipliers = 1;
+        this.baseDamage = baseDamage;
+        damageType = DamageType.Unknown;
+        time = Time.time;
+    }
+}
 
 public class EnemyHealth : MonoBehaviour, IEnemyDamageable
 {
@@ -11,15 +37,15 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
     private bool once = true;
     private EnemyComponentMaster CM;
 
-
     private void Start()
     {
         countHandler = GetComponent<EnemyCountHandler>();
         if (TryGetComponent<EnemyComponentMaster>(out EnemyComponentMaster C)) CM = C;
     }
-    public void TakeDamage(float damage)
+
+     public void TakeDamage(DamageInstance damage)
     {
-        health -= damage;
+        health -= damage.baseDamage * damage.multipliers;
         if (CM.enemyBoss != null) CM.enemyBoss.OnBossHealthChangeEvent();
         CM.enemyAttacks.CheckHealthPercent();
         if (health <= 0 && once)
@@ -43,7 +69,6 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
         return this;
     }
 
-
     public void FindHitboxes()
     {
         var allHitbox = GetComponentsInChildren<EnemyHitbox>();
@@ -62,6 +87,5 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
 
 
     }
-
 
 }
