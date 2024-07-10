@@ -65,15 +65,18 @@ public class OnHurtEffectHandler : MonoBehaviour
     private void HandleAmoral(int damage)
     {
         int amoralCount = itemMaster.GetItemCount(amoralCard);
-        if (amoralCount == 0) return;
-        float damageMultiplier = (amoralCard.baseDamage + amoralCard.damageIncrement * (amoralCount - 1))*GameManager._.Master.weaponMaster.damageMult;
-        float explosionDamage = damage * damageMultiplier; 
+        if (amoralCount == 0) return; 
         Collider[] colliderArray = Physics.OverlapSphere(GameManager._.Master.transform.position, amoralCard.radius);
         foreach (Collider collider in colliderArray)
         {
             if (collider.TryGetComponent(out EnemyHealth health))
             {
-                health.TakeDamage(explosionDamage);
+                var instance = new DamageInstance(damage)
+                {
+                    multipliers = (amoralCard.baseDamage + amoralCard.damageIncrement * (amoralCount - 1)) * GameManager._.Master.weaponMaster.damageMult,
+                    damageType = DamageType.Item,
+                };
+                health.TakeDamage(instance);
             }
         }
     }
