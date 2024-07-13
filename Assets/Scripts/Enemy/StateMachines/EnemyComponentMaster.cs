@@ -7,10 +7,10 @@ public struct NavMeshAgentValues
 {
     public float angularSpeed;
     public float acceleration;
-    public NavMeshAgentValues(float aSpeed, float accel)
+    public NavMeshAgentValues(float AngularSpeed, float Accel)
     {
-        angularSpeed = aSpeed;
-        acceleration = accel;
+        angularSpeed = AngularSpeed;
+        acceleration = Accel;
     }
 }
 
