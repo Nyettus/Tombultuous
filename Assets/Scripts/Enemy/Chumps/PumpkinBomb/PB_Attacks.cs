@@ -6,6 +6,7 @@ public class PB_Attacks : BaseEnemyAttacks
 {
     [Header("Explosion Stats")]
     [SerializeField] private float range;
+
     
 
     //Linear lerp for distance (min damage 0)
@@ -18,6 +19,8 @@ public class PB_Attacks : BaseEnemyAttacks
     {
         BombPlayer();
         BombAlly();
+        var explosion = ObjectPooler._.SpawnFromPool("PumpkinExplosion", CM.enemyAnimator.rootPosition, Quaternion.identity);
+        explosion.GetComponent<ParticleSystem>().Play();
     }
 
 
