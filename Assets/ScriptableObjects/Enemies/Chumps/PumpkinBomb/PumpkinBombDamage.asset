@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 701b8cf6306de5f47a3df08bd967b378, type: 3}
-  m_Name: PumpkinBomb
+  m_Script: {fileID: 11500000, guid: e8d061a18d68ce44687b9475a79bff2a, type: 3}
+  m_Name: PumpkinBombDamage
   m_EditorClassIdentifier: 
-  enemyName: Pumpkin Bomb
-  desc: he went boom
-  health: 50
-  moveSpeed: 3
+  damageArray:
+  - name: Bomb
+    damage: 80
+    magnitude: 30
