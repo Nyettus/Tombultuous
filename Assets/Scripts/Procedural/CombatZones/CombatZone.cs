@@ -154,7 +154,6 @@ public class CombatZone : MonoBehaviour
             Debug.LogError("Couldn't find enemy folder");
             return;
         }
-        if (enemies.Count == enemy.transform.childCount) return;
 
         enemies.Clear();
         foreach (Transform transform in enemy.transform)

@@ -23,7 +23,7 @@ public class PB_Attacks : BaseEnemyAttacks
         explosion.GetComponent<ParticleSystem>().Play();
     }
 
-
+    //Deal double damage to other enemies
     private void BombAlly()
     {
         Collider[] colliderArray = Physics.OverlapSphere(gameObject.transform.position, range);
@@ -31,7 +31,7 @@ public class PB_Attacks : BaseEnemyAttacks
         {
             if (collider.TryGetComponent(out EnemyHealth health))
             {
-                var dmg = CalcDamage(health.gameObject.transform.position);
+                var dmg = CalcDamage(health.gameObject.transform.position)*2;
                 var dmgInstance = new DamageInstance(dmg);
                 health.TakeDamage(dmgInstance);
             }
