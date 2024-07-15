@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyRootMotionHandler : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class EnemyRootMotionHandler : MonoBehaviour
             CM.enemyNavMesh.updatePosition = false;
             Vector3 rootPos = CM.enemyAnimator.rootPosition;
             rootPos.y = CM.enemyNavMesh.nextPosition.y;
+            NavMeshHit hit;
+            if(NavMesh.SamplePosition(rootPos,out hit, 1.0f, NavMesh.AllAreas))
+            {
+                rootPos = hit.position;
+            }
             transform.position = rootPos;
             CM.enemyNavMesh.nextPosition = rootPos;
         }

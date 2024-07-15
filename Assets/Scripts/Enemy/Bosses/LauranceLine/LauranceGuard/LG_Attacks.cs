@@ -194,7 +194,7 @@ public class LG_Attacks : BaseEnemyAttacks
     public void LG_FireTripProjR()
     {
         GenericActivateTripProjAttack(0, 0f);
-        if (isPhase2) GenericActivateTripProjAttack(3, 0.25f);
+        if (isPhase2) GenericActivateTripProjAttack(3, 0.75f);
     }
     #endregion
 
@@ -208,7 +208,7 @@ public class LG_Attacks : BaseEnemyAttacks
     public void LG_FireTripProjC()
     {
         GenericActivateTripProjAttack(1, 1f);
-        if (isPhase2) GenericActivateTripProjAttack(4, 0.85f);
+        if (isPhase2) GenericActivateTripProjAttack(4, 0.25f);
     }
     #endregion
 
@@ -222,7 +222,7 @@ public class LG_Attacks : BaseEnemyAttacks
     public void LG_FireTripProjL()
     {
         GenericActivateTripProjAttack(2, 0.5f);
-        if (isPhase2) GenericActivateTripProjAttack(5, 0.75f);
+        if (isPhase2) GenericActivateTripProjAttack(5, 0.95f);
     }
     #endregion
 
