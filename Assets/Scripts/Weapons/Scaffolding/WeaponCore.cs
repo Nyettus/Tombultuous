@@ -153,4 +153,14 @@ public class WeaponCore : MonoBehaviour
         specialPercentage = Mathf.Clamp(neumerator / denominator, 0, 1);
     }
 
+    public void OnRecycle()
+    {
+        int scrapAmount = Random.Range(1, 2);
+        int goldAmount = Random.Range(50, 100);
+        var holding = GameManager._.goldManager;
+        holding.GetScrap(scrapAmount);
+        holding.GetGold(goldAmount);
+        Destroy(this.gameObject);
+    }
+
 }

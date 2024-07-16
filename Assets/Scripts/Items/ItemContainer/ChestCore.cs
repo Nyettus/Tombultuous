@@ -13,7 +13,6 @@ public class ChestCore : MonoBehaviour
     private WeaponBase weaponToSpawn;
     private GameObject itemToInstant = null;
 
-    private float weaponPercent = 0.50f;
 
     [SerializeField] private GameObject CustomSpawn;
     public bool CustomItem = false;
@@ -23,8 +22,8 @@ public class ChestCore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(itemCard!=null) itemToSpawn = itemCard.ReturnItem();
-        if(weaponCard!=null)weaponToSpawn = weaponCard.ReturnWeapon();
+        if (itemCard != null) itemToSpawn = itemCard.ReturnItem(itemCard.chestChance);
+        if (weaponCard != null) weaponToSpawn = weaponCard.ReturnWeapon();
 
     }
 
@@ -40,7 +39,7 @@ public class ChestCore : MonoBehaviour
         else
         {
             float chance = Random.value;
-            if (chance <= weaponPercent)
+            if (chance <= WeaponChance())
                 itemToInstant = weaponToSpawn.prefab;
             else
                 itemToInstant = itemToSpawn.prefab;
@@ -51,7 +50,21 @@ public class ChestCore : MonoBehaviour
 
     }
 
-
+    //Change chance of weapon drop
+    private float WeaponChance()
+    {
+        var holding = GameManager._.Master.weaponMaster.equippedGuns;
+        int numberOfWeapon = 0;
+        foreach (var weapon in holding)
+        {
+            if (weapon == null) continue;
+            numberOfWeapon++;
+        }
+        if (numberOfWeapon == holding.Length)
+            return 0.3f;
+        else
+            return 0.8f;
+    }
 
 
 

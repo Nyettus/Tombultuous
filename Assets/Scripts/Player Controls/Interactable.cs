@@ -63,6 +63,10 @@ public class Interactable : MonoBehaviour
             {
                 itemcore.OnRecycle();
             }
+            else if(collider.TryGetComponent(out WeaponCore weaponCore))
+            {
+                weaponCore.OnRecycle();
+            }
         }
     }
 }

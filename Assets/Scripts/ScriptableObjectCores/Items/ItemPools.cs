@@ -16,7 +16,8 @@ public enum PoolTiers
 [CreateAssetMenu(fileName = "new Object Pool", menuName = "Pools/Item Pool")]
 public class ItemPools : ScriptableObject
 {
-    public Gradient Odds;
+    public Gradient defaultChance;
+    public Gradient chestChance;
     public float[] tierThresholds = { 0f, 0.2f, 0.4f, 0.6f };
 
     public ItemBase[] tier1;
@@ -26,10 +27,10 @@ public class ItemPools : ScriptableObject
 
 
     //Red value determines rarity
-    private PoolTiers ReturnTier()
+    private PoolTiers ReturnTier(Gradient dropChances)
     {
         float r = Random.value;
-        float rVal = Odds.Evaluate(r).r;
+        float rVal = dropChances.Evaluate(r).r;
 
         for (int i = 0; i < tierThresholds.Length; i++)
         {
@@ -40,9 +41,9 @@ public class ItemPools : ScriptableObject
         return PoolTiers.Tier1;
     }
 
-    private ItemBase[] ReturnArray()
+    private ItemBase[] ReturnArray(Gradient dropChances)
     {
-        switch (ReturnTier())
+        switch (ReturnTier(dropChances))
         {
             case PoolTiers.Tier1:
                 return tier1;
@@ -59,9 +60,9 @@ public class ItemPools : ScriptableObject
         }
     }
 
-    public ItemBase ReturnItem()
+    public ItemBase ReturnItem(Gradient dropChances)
     {
-        var whichPool = ReturnArray();
+        var whichPool = ReturnArray(dropChances);
         var filteredArray = whichPool.Where(item => item.unlocked).ToArray();
         int randomIndex = Random.Range(0, filteredArray.Length);
         return filteredArray[randomIndex];

@@ -11,7 +11,7 @@ public class WeaponPool : ScriptableObject
 
     public WeaponBase ReturnWeapon()
     {
-        int randomIndex = Random.Range(0, tier1.Length - 1);
+        int randomIndex = Random.Range(0, tier1.Length);
         return tier1[randomIndex];
     }
 
