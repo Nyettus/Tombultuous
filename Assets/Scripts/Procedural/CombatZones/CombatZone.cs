@@ -42,6 +42,21 @@ public class CombatZone : MonoBehaviour
             OnRoomEnter(thisRoom);
     }
 
+    public delegate void CombatStarted(RoomGrid thisGrid);
+    public static event CombatStarted OnCombatStarted;
+    public void OnCombatStartedEvent()
+    {
+        if (OnCombatStarted != null)
+            OnCombatStarted(thisRoom);
+    }
+
+    public delegate void CombatEnded(RoomGrid thisGrid);
+    public static event CombatEnded OnCombatEnded;
+    public void OnCombatEndedEvent()
+    {
+        if (OnCombatEnded != null)
+            OnCombatEnded(thisRoom);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -67,7 +82,7 @@ public class CombatZone : MonoBehaviour
 
         if (activated || enemies.Count == 0) return;
         Debug.Log("Room activated");
-
+        OnCombatStartedEvent();
         SetDoors(true);
         SetEnemies(true);
 
@@ -80,7 +95,7 @@ public class CombatZone : MonoBehaviour
     {
         //Code to activate room clear
         SetDoors(false);
-
+        OnCombatEndedEvent();
         if (navmeshLinkHost != null) navmeshLinkHost.SetActive(false);
         Debug.Log("Combat Zone Disabled");
 

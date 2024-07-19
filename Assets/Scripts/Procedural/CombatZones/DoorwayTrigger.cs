@@ -8,18 +8,23 @@ public class DoorwayTrigger : MonoBehaviour
     [SerializeField]
     private RoomGrid[] neighbours = new RoomGrid[2];
     public GameObject UICanvas;
+    public GameObject TestingDoor;
 
     private void Start()
     {
         FindNeighbours();
         UICanvas.SetActive(false);
         CombatZone.OnRoomEnter += EnableMiniMap;
-        
+        CombatZone.OnCombatStarted += CloseDoors;
+        CombatZone.OnCombatEnded += OpenDoors;
+
 
     }
     private void OnDestroy()
     {
         CombatZone.OnRoomEnter -= EnableMiniMap;
+        CombatZone.OnCombatStarted -= CloseDoors;
+        CombatZone.OnCombatEnded -= OpenDoors;
     }
 
     private void FindNeighbours()
@@ -36,12 +41,12 @@ public class DoorwayTrigger : MonoBehaviour
     {
         Vector2Int gridpos = PsychoticBox.ConvertWorldPosToGrid(worldPos);
         var initial = RoomManager._.RG.activeGrid.Find(room => room.position == gridpos);
-        if (initial.state == RoomGrid.State.Occupied || (initial.state == RoomGrid.State.MultiGrid && initial.shape == RoomGrid.Shape._1x1 && initial.position != new Vector2Int(0,0)))
+        if (initial.state == RoomGrid.State.Occupied || (initial.state == RoomGrid.State.MultiGrid && initial.shape == RoomGrid.Shape._1x1 && initial.position != new Vector2Int(0, 0)))
         {
             //Debug.Log("Returned occupied: " + initial.position);
             return initial;
         }
-        else if (initial.state == RoomGrid.State.MultiGrid && (initial.position != new Vector2Int(0,0)))
+        else if (initial.state == RoomGrid.State.MultiGrid && (initial.position != new Vector2Int(0, 0)))
         {
             RoomGrid multiHost = RoomManager._.RG.activeGrid.Find(room => (room.state == RoomGrid.State.Occupied && room.roomID == initial.roomID));
             //Debug.Log("Returned Multigrid: " + multiHost.position);
@@ -54,13 +59,30 @@ public class DoorwayTrigger : MonoBehaviour
         }
 
     }
-
+    private bool RelevantRoom(RoomGrid Grid)
+    {
+        return (Grid.position == neighbours[0].position || Grid.position == neighbours[1].position);
+    }
     private void EnableMiniMap(RoomGrid Grid)
     {
-        if (Grid.position == neighbours[0].position || Grid.position == neighbours[1].position)
-        {
-            UICanvas.SetActive(true);
-        }
+        if (!RelevantRoom(Grid)) return;
+
+        UICanvas.SetActive(true);
+
+    }
+
+    private void CloseDoors(RoomGrid Grid)
+    {
+        if (!RelevantRoom(Grid)) return;
+        TestingDoor.SetActive(true);
+
+    }
+
+    private void OpenDoors(RoomGrid Grid)
+    {
+        if (!RelevantRoom(Grid)) return;
+        TestingDoor.SetActive(false);
+
     }
 
 
