@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 630038158}
   - component: {fileID: 630038157}
   - component: {fileID: 630038156}
-  - component: {fileID: 630038160}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -230,19 +229,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &630038160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630038155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efcb57df65041884f8404081aa6bffa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particles: {fileID: 1401254838}
 --- !u!1 &913175930
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,11 +455,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f52112a653e43c64599ee240ea75740c, type: 3}
   m_PrefabInstance: {fileID: 984047850}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1401254838 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1206850507846794744, guid: 9f99be6e25fa44c43923850390df0480, type: 3}
-  m_PrefabInstance: {fileID: 1762868654}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1762868654
 PrefabInstance:
