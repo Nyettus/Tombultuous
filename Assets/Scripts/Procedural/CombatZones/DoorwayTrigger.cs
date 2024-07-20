@@ -8,7 +8,9 @@ public class DoorwayTrigger : MonoBehaviour
     [SerializeField]
     private RoomGrid[] neighbours = new RoomGrid[2];
     public GameObject UICanvas;
-    public GameObject TestingDoor;
+    [SerializeField] private Animator anim;
+    [SerializeField] private ParticleSystem[] openParticles;
+    public ParticleSystem slamParticles;
 
     private void Start()
     {
@@ -59,8 +61,10 @@ public class DoorwayTrigger : MonoBehaviour
         }
 
     }
+    //Allow null for testing purposes
     private bool RelevantRoom(RoomGrid Grid)
     {
+        if (Grid == null) return true;
         return (Grid.position == neighbours[0].position || Grid.position == neighbours[1].position);
     }
     private void EnableMiniMap(RoomGrid Grid)
@@ -74,17 +78,29 @@ public class DoorwayTrigger : MonoBehaviour
     private void CloseDoors(RoomGrid Grid)
     {
         if (!RelevantRoom(Grid)) return;
-        TestingDoor.SetActive(true);
+        anim.Play("Close");
+
 
     }
+
 
     private void OpenDoors(RoomGrid Grid)
     {
         if (!RelevantRoom(Grid)) return;
-        TestingDoor.SetActive(false);
+        anim.Play("Open");
+        foreach (ParticleSystem par in openParticles)
+        {
+            par.Play();
+        }
 
     }
-
-
-
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.L))
+            OpenDoors(null);
+        if (Input.GetKey(KeyCode.K))
+            CloseDoors(null);
+    }
+#endif
 }
