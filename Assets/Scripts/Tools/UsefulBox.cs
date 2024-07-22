@@ -149,7 +149,11 @@ namespace UsefulBox
         /// <returns></returns>
         public static int WrapIndex(int input, int maximum)
         {
-
+            if (maximum == 0)
+            {
+                Debug.LogWarning("Psychotic Box: Wrap index maximum == 0");
+                return 0;
+            }
             int wrappedIndex = (input % maximum + maximum) % maximum;
             return wrappedIndex;
 

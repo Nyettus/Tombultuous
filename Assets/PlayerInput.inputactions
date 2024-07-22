@@ -87,6 +87,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Weapon Scroll",
+                    "type": "Value",
+                    "id": "79f0f0cf-7115-4280-96eb-c09088b929b1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "QuickSwitch",
                     "type": "Button",
                     "id": "d29a049d-ecf1-48fa-b6f5-e86e5c2c4c78",
@@ -378,6 +387,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Heal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5074d43a-9cbc-4c42-9b5e-68c2c46b09da",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Weapon Scroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

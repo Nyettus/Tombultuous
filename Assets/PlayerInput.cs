@@ -109,6 +109,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Weapon Scroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""79f0f0cf-7115-4280-96eb-c09088b929b1"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""QuickSwitch"",
                     ""type"": ""Button"",
                     ""id"": ""d29a049d-ecf1-48fa-b6f5-e86e5c2c4c78"",
@@ -402,6 +411,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Heal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5074d43a-9cbc-4c42-9b5e-68c2c46b09da"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Weapon Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -467,6 +487,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_KeyboardMap_Special = m_KeyboardMap.FindAction("Special", throwIfNotFound: true);
         m_KeyboardMap_Reload = m_KeyboardMap.FindAction("Reload", throwIfNotFound: true);
         m_KeyboardMap_WeaponSwitch = m_KeyboardMap.FindAction("Weapon Switch", throwIfNotFound: true);
+        m_KeyboardMap_WeaponScroll = m_KeyboardMap.FindAction("Weapon Scroll", throwIfNotFound: true);
         m_KeyboardMap_QuickSwitch = m_KeyboardMap.FindAction("QuickSwitch", throwIfNotFound: true);
         m_KeyboardMap_Heal = m_KeyboardMap.FindAction("Heal", throwIfNotFound: true);
         // UIMap
@@ -543,6 +564,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardMap_Special;
     private readonly InputAction m_KeyboardMap_Reload;
     private readonly InputAction m_KeyboardMap_WeaponSwitch;
+    private readonly InputAction m_KeyboardMap_WeaponScroll;
     private readonly InputAction m_KeyboardMap_QuickSwitch;
     private readonly InputAction m_KeyboardMap_Heal;
     public struct KeyboardMapActions
@@ -558,6 +580,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Special => m_Wrapper.m_KeyboardMap_Special;
         public InputAction @Reload => m_Wrapper.m_KeyboardMap_Reload;
         public InputAction @WeaponSwitch => m_Wrapper.m_KeyboardMap_WeaponSwitch;
+        public InputAction @WeaponScroll => m_Wrapper.m_KeyboardMap_WeaponScroll;
         public InputAction @QuickSwitch => m_Wrapper.m_KeyboardMap_QuickSwitch;
         public InputAction @Heal => m_Wrapper.m_KeyboardMap_Heal;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardMap; }
@@ -596,6 +619,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @WeaponSwitch.started += instance.OnWeaponSwitch;
             @WeaponSwitch.performed += instance.OnWeaponSwitch;
             @WeaponSwitch.canceled += instance.OnWeaponSwitch;
+            @WeaponScroll.started += instance.OnWeaponScroll;
+            @WeaponScroll.performed += instance.OnWeaponScroll;
+            @WeaponScroll.canceled += instance.OnWeaponScroll;
             @QuickSwitch.started += instance.OnQuickSwitch;
             @QuickSwitch.performed += instance.OnQuickSwitch;
             @QuickSwitch.canceled += instance.OnQuickSwitch;
@@ -633,6 +659,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @WeaponSwitch.started -= instance.OnWeaponSwitch;
             @WeaponSwitch.performed -= instance.OnWeaponSwitch;
             @WeaponSwitch.canceled -= instance.OnWeaponSwitch;
+            @WeaponScroll.started -= instance.OnWeaponScroll;
+            @WeaponScroll.performed -= instance.OnWeaponScroll;
+            @WeaponScroll.canceled -= instance.OnWeaponScroll;
             @QuickSwitch.started -= instance.OnQuickSwitch;
             @QuickSwitch.performed -= instance.OnQuickSwitch;
             @QuickSwitch.canceled -= instance.OnQuickSwitch;
@@ -721,6 +750,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnSpecial(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnWeaponSwitch(InputAction.CallbackContext context);
+        void OnWeaponScroll(InputAction.CallbackContext context);
         void OnQuickSwitch(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
     }

@@ -71,7 +71,6 @@ public class WeaponUI : MonoBehaviour
             {
                 slots[i].slotNo.fontSize = 50;
                 slots[i].slotNo.text = "" + (i + 1);
-                Debug.Log(master.equippedGuns.Length);
             }
             else
             {

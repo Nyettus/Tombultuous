@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UsefulBox;
 
 public class WeaponController : MonoBehaviour
 {
@@ -86,6 +87,38 @@ public class WeaponController : MonoBehaviour
 
             }
         }
+    }
+
+    public void OnScrollSelect(InputAction.CallbackContext context)
+    {
+        if (context.performed && !GameManager._.ToggleInputs())
+        {
+            Vector2 val = context.ReadValue<Vector2>();
+            int totalWeapons = 0;
+            foreach(WeaponCore weapon in equippedGuns)
+            {
+                if (weapon != null) totalWeapons++;
+            }
+            int change = 0;
+            
+            if (val.y < 0)
+            {
+                change = 1;
+            }
+            else
+            {
+                change = -1;
+            }
+            int toSwitch = PsychoticBox.WrapIndex(selectedWeapon + change,totalWeapons);
+            if (equippedGuns[toSwitch] != null && selectedWeapon != toSwitch)
+            {
+                previousWeapon = selectedWeapon;
+                selectedWeapon = toSwitch;
+                SelectWeapon();
+            }
+
+        }
+
     }
 
     public void OnQuickSwitch(InputAction.CallbackContext context)
