@@ -10,6 +10,7 @@ public class VaultShop : HubMenuBase
 {
 
     public VaultShopPrices card;
+    [SerializeField] private ScrollRect scrollValue;
     protected override void Start()
     {
 
@@ -23,7 +24,11 @@ public class VaultShop : HubMenuBase
         MarrowExtractorSetup();
         ScrapRetSetup();
     }
-
+    public override void SetMenu(bool state)
+    {
+        base.SetMenu(state);
+        scrollValue.enabled = state;
+    }
 
 
     #region Split Setup
