@@ -15,6 +15,7 @@ public class WeaponController : MonoBehaviour
     private int previousWeapon = -1;
     [SerializeField]
     public WeaponCore[] equippedGuns;
+    public WeaponUI weaponUI;
 
     public delegate void UpdateAmmo();
     public static event UpdateAmmo OnUpdateAmmo;
@@ -76,6 +77,7 @@ public class WeaponController : MonoBehaviour
         if (context.performed && !GameManager._.ToggleInputs())
         {
             int val = (int)context.ReadValue<float>() - 1;
+            weaponUI.UpdateVisiblity();
             if (equippedGuns.Length > val && equippedGuns[val] != null && val != selectedWeapon)
             {
                 previousWeapon = selectedWeapon;
@@ -90,6 +92,7 @@ public class WeaponController : MonoBehaviour
     {
         if (context.performed && !GameManager._.ToggleInputs())
         {
+            weaponUI.UpdateVisiblity();
             if (previousWeapon != -1)
             {
                 int temp = selectedWeapon;
@@ -143,6 +146,8 @@ public class WeaponController : MonoBehaviour
             if (i == selectedWeapon)
             {
                 weapon.gameObject.SetActive(true);
+                
+                weaponUI.UpdateHolding(equippedGuns[i].weaponName);
                 equippedGuns[i].OnSwitch();
 
             }
@@ -175,6 +180,7 @@ public class WeaponController : MonoBehaviour
             WeaponCore[] newArray = new WeaponCore[pockets];
             equippedGuns.CopyTo(newArray, 0);
             equippedGuns = newArray;
+            weaponUI.UpdatePockets();
         }
     }
 
