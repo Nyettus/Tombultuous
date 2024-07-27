@@ -8,6 +8,7 @@ public class WeaponCore : MonoBehaviour
     protected ObjectPooler ObjectPool => ObjectPooler._;
     private Transform modelHolder;
     protected LayerMask layerMask = ~(1 << 6 | 1 << 2);
+    [SerializeField] protected Animator anim;
 
     [Header("Lore Traits")]
     public string weaponName;
@@ -18,7 +19,7 @@ public class WeaponCore : MonoBehaviour
     [Header("Special Traits")]
     protected float specialCooldown;
     public float specialTime;
-    protected bool specialUsed=false;
+    protected bool specialUsed = false;
     private float specialStartTime;
     [HideInInspector]
     public float specialPercentage;
@@ -26,7 +27,7 @@ public class WeaponCore : MonoBehaviour
     [Header("Inventory Traits")]
     public bool equipped = false;
     public GameObject prefab;
-    
+
 
     protected virtual void Start()
     {
@@ -46,7 +47,16 @@ public class WeaponCore : MonoBehaviour
         GameManager._.Master.weaponMaster.OnSpecialChangeEvent();
         GameManager._.Master.weaponMaster.OnReloadChangeEvent();
     }
-    public virtual void OnMeleeHit(IEnemyDamageable damageScript,float additive = 0)
+    protected virtual void OnDisable()
+    {
+        shooting = false;
+        if (anim != null)
+        {
+            anim.StopPlayback();
+        }
+
+    }
+    public virtual void OnMeleeHit(IEnemyDamageable damageScript, float additive = 0)
     {
 
     }
@@ -80,7 +90,7 @@ public class WeaponCore : MonoBehaviour
     {
         bool ticked = false;
         WeaponController master = GameManager._.Master.weaponMaster;
-        for(int i = 0; i < master.equippedGuns.Length; i++)
+        for (int i = 0; i < master.equippedGuns.Length; i++)
         {
             if (master.equippedGuns[i] == null)
             {
@@ -104,7 +114,7 @@ public class WeaponCore : MonoBehaviour
             int index = master.selectedWeapon;
             GameObject replaced = master.equippedGuns[index].gameObject;
 
- 
+
             replaced.transform.SetParent(null);
             replaced.transform.position = transform.position;
             replaced.transform.rotation = transform.rotation;
@@ -130,10 +140,6 @@ public class WeaponCore : MonoBehaviour
 
     }
 
-    private void OnDisable()
-    {
-        shooting = false;
-    }
     private void LayerChange(GameObject go, string layerName)
     {
         go.layer = LayerMask.NameToLayer(layerName);
@@ -161,6 +167,22 @@ public class WeaponCore : MonoBehaviour
         holding.GetScrap(scrapAmount);
         holding.GetGold(goldAmount);
         Destroy(this.gameObject);
+    }
+
+
+    protected void SetAnimTrigger(string input,bool state = true)
+    {
+        if (anim == null) return;
+        if (state)
+            anim.SetTrigger(input);
+        else
+            anim.ResetTrigger(input);
+    }
+
+    protected void SetAnimInt(string input, int value)
+    {
+        if (anim == null) return;
+        anim.SetInteger(input, value);
     }
 
 }

@@ -144,8 +144,7 @@ public class WeaponController : MonoBehaviour
         {
             if (yep.requireReload && (yep.curMag != yep.magSize))
             {
-                yep.reloading = true;
-                yep.Invoke("Reload", yep.reloadTime * GameManager._.Master.weaponMaster.hasteMult);
+                yep.StartReload();
             }
 
         }

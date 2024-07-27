@@ -28,7 +28,7 @@ public class RangedWeaponBase : WeaponCore
     protected float shootSetTime;
     public int curMag;
     protected float reloadSetTime;
-    public bool reloading;
+    public bool reloading = false;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -88,7 +88,7 @@ public class RangedWeaponBase : WeaponCore
             FreeFire();
     }
 
-    public void Reload()
+    public virtual void Reload()
     {
         curMag = magSize;
         reloading = false;
@@ -132,11 +132,17 @@ public class RangedWeaponBase : WeaponCore
         }
         if (curMag <= 0 && !reloading)
         {
-            Invoke("Reload", reloadTime * (GameManager._.Master.weaponMaster.hasteMult));
-            reloading = true;
+            StartReload();
+
         }
     }
+    public virtual void StartReload()
+    {
+        if (reloading) return;
 
+        Invoke("Reload", reloadTime * (GameManager._.Master.weaponMaster.hasteMult));
+        reloading = true;
+    }
 
     protected Vector3 bulletSpread(float spread)
     {

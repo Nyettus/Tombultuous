@@ -116,11 +116,14 @@ public class MeleeWeaponBase : WeaponCore
         quickRef.size = new Vector3(hitboxWidth, hitboxWidth, hitboxLength);
 
     }
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        quickRef.enabled = false;
+        //the if statement fixes an editor issue
+        if (quickRef != null) quickRef.enabled = false;
         enemiesHit.Clear();
         swingHit = false;
+        base.OnDisable();
+
     }
 
 
