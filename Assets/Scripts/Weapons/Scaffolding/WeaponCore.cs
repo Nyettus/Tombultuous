@@ -184,5 +184,10 @@ public class WeaponCore : MonoBehaviour
         if (anim == null) return;
         anim.SetInteger(input, value);
     }
+    protected void SetAnimBool(string input, bool state)
+    {
+        if (anim == null) return;
+        anim.SetBool(input, state);
+    }
 
 }

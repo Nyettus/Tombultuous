@@ -34,18 +34,19 @@ public class Shardenfreude : HitscanWeaponBase
     public override void StartReload()
     {
         base.StartReload();
-        if(curMag != 0) SetAnimTrigger("Reload");
+        SetAnimBool("Reload",true);
         SetAnimInt("CurMag", curMag);
         
     }
     public override void Reload()
     {
         base.Reload();
-        SetAnimTrigger("Shoot", false);
+        SetAnimBool("Reload", false);
     }
 
     public override void Shoot()
     {
+        anim.speed = 1 / GameManager._.Master.weaponMaster.hasteMult;
         base.Shoot();
         SetAnimInt("CurMag", curMag);
         SetAnimTrigger("Shoot");

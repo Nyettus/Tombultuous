@@ -48,6 +48,7 @@ MonoBehaviour:
   meleeHitbox: {fileID: 7560450479699033355}
   selectedWeapon: 0
   equippedGuns: []
+  weaponUI: {fileID: 0}
 --- !u!1 &7100528226475897004
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,6 +477,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d3dbda0b-a879-4eb2-a124-5eb76434b526
     m_ActionName: KeyboardMap/Heal[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8264469731342221832}
+        m_TargetAssemblyTypeName: WeaponController, Assembly-CSharp
+        m_MethodName: OnScrollSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 79f0f0cf-7115-4280-96eb-c09088b929b1
+    m_ActionName: KeyboardMap/Weapon Scroll[/Mouse/scroll]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: KeyboardMap
@@ -593,6 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 0
+  scrapAmount: 0
 --- !u!114 &8038330803771563050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,6 +624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healingCharges: 0
+  scrapRetention: 0
   canRecycle: 0
   canMarrow: 0
 --- !u!1 &7830110446836863621
@@ -797,8 +816,8 @@ MonoBehaviour:
   itemMaster: {fileID: 975944647800130588}
   laudCard: {fileID: 11400000, guid: 32fd53f9ce0472e42903ab391fac03c8, type: 2}
   steelFeatherCard: {fileID: 11400000, guid: 61395beba6a87b547b49be9dd0cee189, type: 2}
-  amoralCard: {fileID: 0}
-  amoralExplosion: {fileID: 0}
+  amoralCard: {fileID: 11400000, guid: e5af2ab1a600058429ca1c2aa3b85f2b, type: 2}
+  moralCard: {fileID: 11400000, guid: cc5770f754d94784cbffc64cfc28cf28, type: 2}
 --- !u!1 &9075218459221532613
 GameObject:
   m_ObjectHideFlags: 0
