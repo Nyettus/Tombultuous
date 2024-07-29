@@ -67,16 +67,8 @@ public class WeaponUI : MonoBehaviour
         for (int i = 0; i < slots.Length; i++)
         {
             if (i >= master.equippedGuns.Length) return;
-            if (master.equippedGuns[i]!=null)
-            {
-                slots[i].slotNo.fontSize = 50;
-                slots[i].slotNo.text = "" + (i + 1);
-            }
-            else
-            {
-                slots[i].slotNo.fontSize = 20;
-                slots[i].slotNo.text = "Empty";
-            }
+            slots[i].slotNo.text = "" + (i + 1);
+
         }
 
     }
