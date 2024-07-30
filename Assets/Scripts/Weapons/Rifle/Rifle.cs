@@ -26,8 +26,14 @@ public class Rifle : HitscanWeaponBase
                 GameManager._.Master.cameraEffects.DashShake(10f);
                 base.Special();
             }
-
+            SetAnimTrigger("Special");
 
         }
+    }
+
+    public override void Shoot()
+    {
+        base.Shoot();
+        SetAnimTrigger("Shoot");
     }
 }
