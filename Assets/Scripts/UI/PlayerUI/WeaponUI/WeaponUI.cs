@@ -38,15 +38,6 @@ public class WeaponUI : MonoBehaviour
         {
             bool state = pockets > i;
             slots[i].WholeEnable(state);
-            if (i < master.equippedGuns.Length)
-            {
-                slots[i].slotNo.text = "" + (i + 1);
-            }
-            else
-            {
-                slots[i].slotNo.text = "";
-            }
-
         }
         UpdateVisiblity();
     }
@@ -57,7 +48,7 @@ public class WeaponUI : MonoBehaviour
         {
             slot.SetName(false);
         }
-
+        UpdateSprites();
         slots[selectedWeapon].SetName(true, name);
         UpdateVisiblity();
     }
@@ -85,6 +76,16 @@ public class WeaponUI : MonoBehaviour
             alpha = 0;
         }
 
+    }
+    private void UpdateSprites()
+    {
+        for(int i = 0; i < master.equippedGuns.Length; i++)
+        {
+            var curGun = master.equippedGuns[i];
+            if (curGun == null) continue;
+            slots[i].SetThumbnail(curGun.smallThumbnail, curGun.largeThumbnail);
+            
+        }
     }
 
 }

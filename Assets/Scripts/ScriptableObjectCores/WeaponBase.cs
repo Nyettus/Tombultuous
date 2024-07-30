@@ -11,6 +11,8 @@ public class WeaponBase : ScriptableObject
     public string normalDescription;
     public string specialDescription;
     public string lore;
+    public Sprite smallThumbnail;
+    public Sprite largeThumbnail;
 
     [Header("Special Move")]
     public float cooldown;

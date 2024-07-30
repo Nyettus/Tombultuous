@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class RangedWeaponBase : WeaponCore
 {
-    [Header("Card")]
-    public RangedGunBase card;
-
     [Header("Basic Weapon Traits")]
 
     protected int bullets;
@@ -34,30 +31,23 @@ public class RangedWeaponBase : WeaponCore
     protected override void Start()
     {
         base.Start();
-        Establish();
     }
 
 
 
-    protected virtual void Establish()
+    protected override void Establish()
     {
-        prefab = card.prefab;
-        weaponName = card.weaponName;
-        atkDesc = card.normalDescription;
-        spkDesc = card.specialDescription;
-        description = card.lore;
-
-
-        specialCooldown = card.cooldown;
-        bullets = card.bullets;
-        fireRate = card.fireRate;
-        spread = card.spread;
-        requireReload = card.requireReload;
-        fullAuto = card.fullAuto;
+        base.Establish();
+        var rangedCard = (RangedGunBase)card;
+        bullets = rangedCard.bullets;
+        fireRate = rangedCard.fireRate;
+        spread = rangedCard.spread;
+        requireReload = rangedCard.requireReload;
+        fullAuto = rangedCard.fullAuto;
         if (requireReload)
         {
-            magSize = card.magSize;
-            reloadTime = card.reloadTime;
+            magSize = rangedCard.magSize;
+            reloadTime = rangedCard.reloadTime;
             curMag = magSize;
         }
     }

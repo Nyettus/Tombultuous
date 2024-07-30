@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WeaponCore : MonoBehaviour
 {
+    [Header("Card")]
+    public WeaponBase card;
+
     public bool shooting;
     protected ObjectPooler ObjectPool => ObjectPooler._;
     private Transform modelHolder;
@@ -27,13 +30,27 @@ public class WeaponCore : MonoBehaviour
     [Header("Inventory Traits")]
     public bool equipped = false;
     public GameObject prefab;
+    public Sprite smallThumbnail;
+    public Sprite largeThumbnail;
 
 
     protected virtual void Start()
     {
         modelHolder = transform.GetChild(1);
+        Establish();
     }
 
+    protected virtual void Establish()
+    {
+        prefab = card.prefab;
+        weaponName = card.weaponName;
+        atkDesc = card.normalDescription;
+        spkDesc = card.specialDescription;
+        description = card.lore;
+        smallThumbnail = card.smallThumbnail;
+        largeThumbnail = card.largeThumbnail;
+        specialCooldown = card.cooldown;
+    }
 
     public virtual void Shoot()
     {

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class MeleeWeaponBase : WeaponCore
 {
-    [Header("Card")]
-    public MeleeWeapon card;
-
     [Header("Weapon Traits")]
     protected float damage;
     protected float swingSpeed;
@@ -27,7 +24,6 @@ public class MeleeWeaponBase : WeaponCore
     protected override void Start()
     {
         base.Start();
-        Establish();
     }
 
     public override void Update()
@@ -43,20 +39,15 @@ public class MeleeWeaponBase : WeaponCore
         }
     }
 
-    protected virtual void Establish()
+    protected override void Establish()
     {
-        prefab = card.prefab;
-        weaponName = card.weaponName;
-        atkDesc = card.normalDescription;
-        spkDesc = card.specialDescription;
-        description = card.lore;
+        base.Establish();
+        var meleeCard = (MeleeWeapon)card;
+        damage = meleeCard.damage;
+        swingSpeed = meleeCard.swingSpeed;
 
-        specialCooldown = card.cooldown;
-        damage = card.damage;
-        swingSpeed = card.swingSpeed;
-
-        hitboxWidth = card.hitboxWidth;
-        hitboxLength = card.hitBoxLength;
+        hitboxWidth = meleeCard.hitboxWidth;
+        hitboxLength = meleeCard.hitBoxLength;
 
     }
 
