@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Rifle : HitscanWeaponBase
 {
+    [SerializeField] private ParticleSystem particles;
     public override void Special()
     {
 
@@ -35,5 +36,6 @@ public class Rifle : HitscanWeaponBase
     {
         base.Shoot();
         SetAnimTrigger("Shoot");
+        particles.Play();
     }
 }
