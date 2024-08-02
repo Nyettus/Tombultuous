@@ -14,7 +14,7 @@ public class Interactable : MonoBehaviour
     {
         if (context.performed)
         {
-            float range = 0.5f;
+            float range = 0.75f;
             Collider[] colliderArray = Physics.OverlapSphere(transform.position + transform.forward * 2f, range);
 
             foreach (Collider collider in colliderArray)
