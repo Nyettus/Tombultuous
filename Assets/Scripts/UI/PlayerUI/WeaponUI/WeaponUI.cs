@@ -79,12 +79,17 @@ public class WeaponUI : MonoBehaviour
     }
     private void UpdateSprites()
     {
-        for(int i = 0; i < master.equippedGuns.Length; i++)
+        for (int i = 0; i < master.equippedGuns.Length; i++)
         {
             var curGun = master.equippedGuns[i];
-            if (curGun == null) continue;
+            if (curGun == null)
+            {
+                slots[i].SetThumbnail(null, null);
+                continue;
+            }
+
             slots[i].SetThumbnail(curGun.smallThumbnail, curGun.largeThumbnail);
-            
+
         }
     }
 
