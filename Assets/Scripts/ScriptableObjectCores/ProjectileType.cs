@@ -16,7 +16,6 @@ public class ProjectileType : ScriptableObject
 
     public void ProjDamage(Transform thisPos, PlayerHealth playerHealth = null)
     {
-        if (ally) return;
         if (playerHealth == null)
         {
             Debug.LogError("Player health is null");
@@ -29,7 +28,6 @@ public class ProjectileType : ScriptableObject
 
     public void ProjDamage(IEnemyDamageable enemyHitbox = null)
     {
-        if (!ally) return;
         if (enemyHitbox == null)
         {
             Debug.LogError("Enemy health is null");

@@ -9,7 +9,8 @@ public class ProjectileManager : MonoBehaviour
     [SerializeField] private Collider bounceCollider;
     private List<EnemyHealth> enemiesHit = new List<EnemyHealth>();
 
-    private bool hasHit;
+    [SerializeField] private bool isAlly;
+    [SerializeField] private bool hasHit;
     private int pierceCount;
     private int bounceCount;
 
@@ -25,11 +26,13 @@ public class ProjectileManager : MonoBehaviour
         RB.velocity = Vector3.zero;
         pierceCount = card.pierceCount;
         bounceCount = card.bounceCount;
+        isAlly = card.ally;
         RB.position = position;
         RB.rotation = rotation;
         RB.useGravity = card.useGravity;
         Vector3 velocity = transform.forward * card.speed;
         RB.AddForce(velocity, ForceMode.Impulse);
+        UpdateLayer();
 
     }
     private void Update()
@@ -61,7 +64,7 @@ public class ProjectileManager : MonoBehaviour
 
     private void OnGroundHit(Collider other)
     {
-        if (card.ally)
+        if (isAlly)
         {
             if (!hasHit)
             {
@@ -71,7 +74,7 @@ public class ProjectileManager : MonoBehaviour
             hasHit = false;
 
         }
-        if (!(other.TryGetComponent(out EnemyHealth enemyScript) || other.TryGetComponent(out PlayerHealth playerScript)))
+        if (!(other.TryGetComponent(out EnemyHealth enemyScript) || other.TryGetComponent(out PlayerHealth playerScript) || other.TryGetComponent(out MeleeHitboxHandling meleescript)))
         {
             if (other.gameObject.layer == 3)
             {
@@ -96,7 +99,7 @@ public class ProjectileManager : MonoBehaviour
     {
         bool hasHit = false;
 
-        if (other.TryGetComponent(out IEnemyDamageable hitboxHealth) && card.ally)
+        if (other.TryGetComponent(out IEnemyDamageable hitboxHealth) && isAlly)
         {
             if (!enemiesHit.Contains(hitboxHealth.GetEnemyHealthScript()))
             {
@@ -110,7 +113,7 @@ public class ProjectileManager : MonoBehaviour
         }
 
 
-        if (other.TryGetComponent(out PlayerHealth playerScript) && !card.ally)
+        if (other.TryGetComponent(out PlayerHealth playerScript) && !isAlly)
         {
             card.ProjDamage(this.transform, playerScript);
             hasHit = true;
@@ -128,13 +131,31 @@ public class ProjectileManager : MonoBehaviour
 
     }
 
+    public void MeleeDeflection()
+    {
+        if (isAlly) return;
+        isAlly = true;
+        RB.velocity = -RB.velocity;
+        UpdateLayer();
 
+    }
     protected virtual void DisableEffect()
     {
         gameObject.SetActive(false);
     }
 
+    private void UpdateLayer()
+    {
+        if (isAlly)
+        {
+            RB.excludeLayers = 6;
+        }
+        else
+        {
+            RB.excludeLayers = 13;
+        }
 
+    }
 
     private void OnDisable()
     {

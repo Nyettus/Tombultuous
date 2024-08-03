@@ -8,9 +8,14 @@ public class MeleeHitboxHandling : MonoBehaviour
     {
         WeaponController quickRef = GameManager._.Master.weaponMaster;
         if (quickRef.equippedGuns[quickRef.selectedWeapon] == null) return;
+
         if (other.TryGetComponent(out IEnemyDamageable hitbox))
         {
             quickRef.equippedGuns[quickRef.selectedWeapon].OnMeleeHit(hitbox);
+        }
+        else if (other.TryGetComponent(out ProjectileManager proj))
+        {
+            proj.MeleeDeflection();
         }
         else if (other.TryGetComponent(out ChestCore chest))
         {
