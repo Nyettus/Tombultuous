@@ -69,6 +69,8 @@ public class PlayerHealth : MonoBehaviour
         }
         float shakeAmount = Mathf.Clamp(amount * 0.5f, 0, 5);
         GameManager._.Master.cameraEffects.DashShake(shakeAmount);
+        if(CM!=null)    UIManager._.hudScript.damageIndicatorMaster.SpawnIncrement(amount, CM.transform.position);
+
         GameManager._.Master.movementMaster.KnockBack(direction, magnitude);
         OnHealthChangeEvent();
         itemMaster.onHurtEffectHandler.OnHurtEffect(amount, CM);

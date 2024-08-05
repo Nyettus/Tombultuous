@@ -13,6 +13,9 @@ public class HUD : MonoBehaviour
     public GameObject bossHealthHolder;
 
     public Image reloadBar, specialBar, dashBar, bossHealthBar;
+
+    public DamageIndicatorMaster damageIndicatorMaster;
+
     // Start is called before the first frame update
     void Awake()
     {

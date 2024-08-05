@@ -44,7 +44,7 @@ public class PB_Attacks : BaseEnemyAttacks
         var knockbackDir = (playerPos - transform.position + Vector3.up*2).normalized;
         var knockbackAmount = damageValues.damageArray[0].magnitude * DistAsPercent(playerPos);
         if ((int)dmg == 0) return;
-        DamagePlayer((int)dmg, knockbackDir, knockbackAmount);
+        DamagePlayer((int)dmg, knockbackDir, knockbackAmount,CM);
 
 
     }
