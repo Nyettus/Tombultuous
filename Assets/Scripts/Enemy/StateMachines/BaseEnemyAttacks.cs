@@ -46,7 +46,7 @@ public class BaseEnemyAttacks : MonoBehaviour
         Quaternion aimDirection = Quaternion.LookRotation(dir, Vector3.up);
 
         GameObject spawnedProjectile = ObjectPooler._.SpawnFromPool(tag, source, aimDirection);
-        spawnedProjectile.GetComponent<ProjectileManager>().Initialise(source, aimDirection);
+        spawnedProjectile.GetComponent<ProjectileManager>().Initialise(source, aimDirection,CM);
     }
 
 

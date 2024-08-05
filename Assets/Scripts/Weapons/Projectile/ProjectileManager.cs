@@ -8,6 +8,7 @@ public class ProjectileManager : MonoBehaviour
     private Rigidbody RB;
     [SerializeField] private Collider bounceCollider;
     private List<EnemyHealth> enemiesHit = new List<EnemyHealth>();
+    public EnemyComponentMaster ownerCM;
 
     [SerializeField] private bool isAlly;
     [SerializeField] private bool hasHit;
@@ -21,8 +22,9 @@ public class ProjectileManager : MonoBehaviour
     }
 
 
-    public void Initialise(Vector3 position, Quaternion rotation)
+    public void Initialise(Vector3 position, Quaternion rotation, EnemyComponentMaster CM = null)
     {
+        ownerCM = CM;
         RB.velocity = Vector3.zero;
         pierceCount = card.pierceCount;
         bounceCount = card.bounceCount;
@@ -103,7 +105,7 @@ public class ProjectileManager : MonoBehaviour
 
         if (other.TryGetComponent(out PlayerHealth playerScript) && !isAlly)
         {
-            card.ProjDamage(this.transform, playerScript);
+            card.ProjDamage(this.transform, playerScript,ownerCM);
             hasHit = true;
         }
         if (hasHit)
