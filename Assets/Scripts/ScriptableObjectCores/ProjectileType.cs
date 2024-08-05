@@ -14,22 +14,20 @@ public class ProjectileType : ScriptableObject
 
     public float baseDamage;
 
-    public void ProjDamage(Transform thisPos, PlayerHealth playerHealth = null)
+    public void ProjDamage(Transform thisPos, PlayerHealth playerHealth = null, EnemyComponentMaster CM = null)
     {
-        if (ally) return;
         if (playerHealth == null)
         {
             Debug.LogError("Player health is null");
             return;
         }
-        playerHealth.takeDamage((int)baseDamage, thisPos.position, 0);
+        playerHealth.takeDamage((int)baseDamage, thisPos.position, 0, CM);
 
     }
 
 
     public void ProjDamage(IEnemyDamageable enemyHitbox = null)
     {
-        if (!ally) return;
         if (enemyHitbox == null)
         {
             Debug.LogError("Enemy health is null");

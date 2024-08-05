@@ -78,6 +78,10 @@ public class WeaponCore : MonoBehaviour
 
     }
 
+    public virtual void OnProjDeflect()
+    {
+
+    }
 
     public virtual void Special()
     {

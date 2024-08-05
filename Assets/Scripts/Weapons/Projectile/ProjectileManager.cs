@@ -8,8 +8,10 @@ public class ProjectileManager : MonoBehaviour
     private Rigidbody RB;
     [SerializeField] private Collider bounceCollider;
     private List<EnemyHealth> enemiesHit = new List<EnemyHealth>();
+    public EnemyComponentMaster ownerCM;
 
-    private bool hasHit;
+    [SerializeField] private bool isAlly;
+    [SerializeField] private bool hasHit;
     private int pierceCount;
     private int bounceCount;
 
@@ -20,8 +22,11 @@ public class ProjectileManager : MonoBehaviour
     }
 
 
-    public void Initialise(Vector3 position, Quaternion rotation)
+    public void Initialise(Vector3 position, Quaternion rotation, EnemyComponentMaster CM = null)
     {
+        ownerCM = CM;
+        isAlly = card.ally;
+        UpdateLayer();
         RB.velocity = Vector3.zero;
         pierceCount = card.pierceCount;
         bounceCount = card.bounceCount;
@@ -61,17 +66,7 @@ public class ProjectileManager : MonoBehaviour
 
     private void OnGroundHit(Collider other)
     {
-        if (card.ally)
-        {
-            if (!hasHit)
-            {
-                GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(transform.position);
-
-            }
-            hasHit = false;
-
-        }
-        if (!(other.TryGetComponent(out EnemyHealth enemyScript) || other.TryGetComponent(out PlayerHealth playerScript)))
+        if (!(other.TryGetComponent(out EnemyHealth enemyScript) || other.TryGetComponent(out PlayerHealth playerScript) || other.TryGetComponent(out MeleeHitboxHandling meleescript)))
         {
             if (other.gameObject.layer == 3)
             {
@@ -94,9 +89,7 @@ public class ProjectileManager : MonoBehaviour
     }
     private void OnTargetHit(Collider other)
     {
-        bool hasHit = false;
-
-        if (other.TryGetComponent(out IEnemyDamageable hitboxHealth) && card.ally)
+        if (other.TryGetComponent(out IEnemyDamageable hitboxHealth) && isAlly)
         {
             if (!enemiesHit.Contains(hitboxHealth.GetEnemyHealthScript()))
             {
@@ -110,9 +103,9 @@ public class ProjectileManager : MonoBehaviour
         }
 
 
-        if (other.TryGetComponent(out PlayerHealth playerScript) && !card.ally)
+        if (other.TryGetComponent(out PlayerHealth playerScript) && !isAlly)
         {
-            card.ProjDamage(this.transform, playerScript);
+            card.ProjDamage(this.transform, playerScript,ownerCM);
             hasHit = true;
         }
         if (hasHit)
@@ -128,13 +121,39 @@ public class ProjectileManager : MonoBehaviour
 
     }
 
+    public void MeleeDeflection()
+    {
+        if (isAlly) return;
+        isAlly = true;
+        RB.velocity = -RB.velocity;
+        hasHit = true;
+        UpdateLayer();
 
+    }
     protected virtual void DisableEffect()
     {
+        if (!hasHit && isAlly)
+        {
+            GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(transform.position);
+        }
+        hasHit = false;
         gameObject.SetActive(false);
     }
 
+    private void UpdateLayer()
+    {
+        if (isAlly)
+        {
+            LayerMask a = 1 << 6;
+            RB.excludeLayers = a;
+        }
+        else
+        {
+            LayerMask b = 1 << 13;
+            RB.excludeLayers = b;
+        }
 
+    }
 
     private void OnDisable()
     {

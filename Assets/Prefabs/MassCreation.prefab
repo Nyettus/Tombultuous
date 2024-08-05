@@ -377,6 +377,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5043944082478303935}
+  - {fileID: 7536752278515223168}
   - {fileID: 6562404097187438744}
   - {fileID: 3181396220738831166}
   - {fileID: 8370196031855282020}
@@ -502,6 +503,7 @@ MonoBehaviour:
   specialBar: {fileID: 690455272044284543}
   dashBar: {fileID: 5043664382959657222}
   bossHealthBar: {fileID: 8454024676324817023}
+  damageIndicatorMaster: {fileID: 5624691357703457015}
 --- !u!114 &3980702468209659075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3410,6 +3412,56 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &4899525108189352671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7536752278515223168}
+  - component: {fileID: 5624691357703457015}
+  m_Layer: 5
+  m_Name: DamageController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7536752278515223168
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899525108189352671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 628717010943878987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5624691357703457015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899525108189352671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c7a8d7905c28844a8e5e1d0c666a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageIndicatorObject: {fileID: 2089907115239708263, guid: 9d97226776357ef409e1555d167b79e7, type: 3}
+  maxIncrements: 5
 --- !u!1 &4900844886148963687
 GameObject:
   m_ObjectHideFlags: 0
@@ -6944,6 +6996,10 @@ PrefabInstance:
       propertyPath: deathMaster
       value: 
       objectReference: {fileID: 1814806312927688843}
+    - target: {fileID: 7100528226475897004, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7576962046979082319, guid: 190f11cca20d0e145b632078efb8e068, type: 3}
       propertyPath: m_Name
       value: Player
