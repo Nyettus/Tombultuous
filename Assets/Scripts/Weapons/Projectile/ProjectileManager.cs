@@ -56,6 +56,7 @@ public class ProjectileManager : MonoBehaviour
         {
             OnTargetHit(other);
             OnGroundHit(other);
+            Debug.Log(other.gameObject.name);
         }
 
     }
@@ -76,7 +77,6 @@ public class ProjectileManager : MonoBehaviour
             }
             if (bounceCount <= 0)
             {
-                Debug.Log("Bounce disable");
                 DisableEffect();
             }
             else
@@ -89,6 +89,7 @@ public class ProjectileManager : MonoBehaviour
     }
     private void OnTargetHit(Collider other)
     {
+        bool validTarget = false;
         if (other.TryGetComponent(out IEnemyDamageable hitboxHealth) && isAlly)
         {
             if (!enemiesHit.Contains(hitboxHealth.GetEnemyHealthScript()))
@@ -100,6 +101,7 @@ public class ProjectileManager : MonoBehaviour
 
             GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(transform.position);
             hasHit = true;
+            validTarget = true;
         }
 
 
@@ -107,12 +109,14 @@ public class ProjectileManager : MonoBehaviour
         {
             card.ProjDamage(this.transform, playerScript,ownerCM);
             hasHit = true;
+            validTarget = true;
         }
-        if (hasHit)
+
+
+        if (hasHit && validTarget)
         {
             if (pierceCount <= 0)
             {
-                Debug.Log("Pierce disable");
                 DisableEffect();
             }
             pierceCount--;
