@@ -25,16 +25,16 @@ public class ProjectileManager : MonoBehaviour
     public void Initialise(Vector3 position, Quaternion rotation, EnemyComponentMaster CM = null)
     {
         ownerCM = CM;
+        isAlly = card.ally;
+        UpdateLayer();
         RB.velocity = Vector3.zero;
         pierceCount = card.pierceCount;
         bounceCount = card.bounceCount;
-        isAlly = card.ally;
         RB.position = position;
         RB.rotation = rotation;
         RB.useGravity = card.useGravity;
         Vector3 velocity = transform.forward * card.speed;
         RB.AddForce(velocity, ForceMode.Impulse);
-        UpdateLayer();
 
     }
     private void Update()
