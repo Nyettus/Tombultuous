@@ -16,6 +16,7 @@ public class MeleeHitboxHandling : MonoBehaviour
         else if (other.TryGetComponent(out ProjectileManager proj))
         {
             proj.MeleeDeflection();
+            quickRef.equippedGuns[quickRef.selectedWeapon].OnProjDeflect();
         }
         else if (other.TryGetComponent(out ChestCore chest))
         {

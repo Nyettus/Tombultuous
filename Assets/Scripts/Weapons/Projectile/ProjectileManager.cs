@@ -64,16 +64,6 @@ public class ProjectileManager : MonoBehaviour
 
     private void OnGroundHit(Collider other)
     {
-        if (isAlly)
-        {
-            if (!hasHit)
-            {
-                GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(transform.position);
-
-            }
-            hasHit = false;
-
-        }
         if (!(other.TryGetComponent(out EnemyHealth enemyScript) || other.TryGetComponent(out PlayerHealth playerScript) || other.TryGetComponent(out MeleeHitboxHandling meleescript)))
         {
             if (other.gameObject.layer == 3)
@@ -97,8 +87,6 @@ public class ProjectileManager : MonoBehaviour
     }
     private void OnTargetHit(Collider other)
     {
-        bool hasHit = false;
-
         if (other.TryGetComponent(out IEnemyDamageable hitboxHealth) && isAlly)
         {
             if (!enemiesHit.Contains(hitboxHealth.GetEnemyHealthScript()))
@@ -136,11 +124,17 @@ public class ProjectileManager : MonoBehaviour
         if (isAlly) return;
         isAlly = true;
         RB.velocity = -RB.velocity;
+        hasHit = true;
         UpdateLayer();
 
     }
     protected virtual void DisableEffect()
     {
+        if (!hasHit && isAlly)
+        {
+            GameManager._.Master.itemMaster.onMissEffectHandler.OnMissEffect(transform.position);
+        }
+        hasHit = false;
         gameObject.SetActive(false);
     }
 

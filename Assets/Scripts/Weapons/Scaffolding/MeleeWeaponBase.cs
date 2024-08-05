@@ -80,6 +80,10 @@ public class MeleeWeaponBase : WeaponCore
         GameManager._.Master.itemMaster.onHitEffectHandler.OnHitEffect(casted.transform.position);
         swingHit = true;
     }
+    public override void OnProjDeflect()
+    {
+        swingHit = true;
+    }
 
 
     public override void Special()
