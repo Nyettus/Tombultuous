@@ -144,11 +144,13 @@ public class ProjectileManager : MonoBehaviour
     {
         if (isAlly)
         {
-            RB.excludeLayers = 6;
+            LayerMask a = 1 << 6;
+            RB.excludeLayers = a;
         }
         else
         {
-            RB.excludeLayers = 13;
+            LayerMask b = 1 << 13;
+            RB.excludeLayers = b;
         }
 
     }
