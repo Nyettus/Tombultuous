@@ -5,7 +5,7 @@ using UsefulBox;
 
 public class TestDeathState : EnemyStateBase
 {
-    public ItemPools spawnable;
+    public GameObject itemToSpawn;
     public float itemDropChange = 1f;
     public Vector3 offset;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -34,11 +34,10 @@ public class TestDeathState : EnemyStateBase
 
     private void DropItem()
     {
-        ItemBase itemToSpawn;
+
         if (Random.value <= itemDropChange)
         {
-            itemToSpawn = spawnable.ReturnItem(spawnable.defaultChance);
-            Instantiate(itemToSpawn.prefab, CM.transform.position+offset, CM.transform.rotation);
+            Instantiate(itemToSpawn, CM.transform.position+offset, CM.transform.rotation);
         }
     }
 

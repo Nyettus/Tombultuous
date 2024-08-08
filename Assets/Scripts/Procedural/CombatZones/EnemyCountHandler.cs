@@ -8,13 +8,13 @@ public class EnemyCountHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
@@ -26,9 +26,14 @@ public class EnemyCountHandler : MonoBehaviour
             return;
         }
         master.enemies.Remove(this.gameObject);
-        if(master.enemies.Count <= 0)
+        if (master.enemies.Count <= 0)
         {
-            master.DisableCombatZones();
+            Invoke("DisableCombat", 0.1f);
         }
+    }
+
+    private void DisableCombat()
+    {
+        master.DisableCombatZones();
     }
 }
