@@ -25,8 +25,8 @@ public class EnemyCountHandler : MonoBehaviour
             Debug.LogError("Enemy has no host");
             return;
         }
-        master.enemies.Remove(this.gameObject);
-        if (master.enemies.Count <= 0)
+        master.enemyCount--;
+        if (master.enemyCount <= 0)
         {
             master.DisableCombatZoneAsInvoke();
         }

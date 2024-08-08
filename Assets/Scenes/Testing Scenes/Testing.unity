@@ -567,6 +567,54 @@ Transform:
   - {fileID: 115899747}
   m_Father: {fileID: 1879087431}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &48788846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 48788848}
+  - component: {fileID: 48788847}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &48788847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48788846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64eb31d6c5bbda4eb0301b673167b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  master: {fileID: 0}
+  enemies:
+  - {fileID: 3183158001709148139, guid: 809ba7d7154c3004381a899e5b2f2c10, type: 3}
+  - {fileID: 5609403859127013299}
+--- !u!4 &48788848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48788846}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.994335, y: 0.457451, z: 3.4317646}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &93914351
 GameObject:
   m_ObjectHideFlags: 0
@@ -46240,6 +46288,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9406bb81f2986484f94d4cdb8a890187, type: 3}
+--- !u!1 &5609403859127013299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1221252084711562659, guid: 9406bb81f2986484f94d4cdb8a890187, type: 3}
+  m_PrefabInstance: {fileID: 5609403859127013298}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &5611487159987121380
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -50118,3 +50171,4 @@ SceneRoots:
   - {fileID: 497107719}
   - {fileID: 2030558487}
   - {fileID: 772018613}
+  - {fileID: 48788848}
