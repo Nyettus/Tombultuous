@@ -102,6 +102,10 @@ public class CombatZone : MonoBehaviour
         GameManager._.Master.itemMaster.onRoomClearHandler.OnRoomClear();
         if (bossRoom != null) bossRoom.OnBossKill();
     }
+    public void DisableCombatZoneAsInvoke()
+    {
+        Invoke("DisableCombatZones", 0.1f);
+    }
 
     private void SetDoors(bool state)
     {

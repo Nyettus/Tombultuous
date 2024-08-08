@@ -28,12 +28,9 @@ public class EnemyCountHandler : MonoBehaviour
         master.enemies.Remove(this.gameObject);
         if (master.enemies.Count <= 0)
         {
-            Invoke("DisableCombat", 0.1f);
+            master.DisableCombatZoneAsInvoke();
         }
     }
 
-    private void DisableCombat()
-    {
-        master.DisableCombatZones();
-    }
+
 }
