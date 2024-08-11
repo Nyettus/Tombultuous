@@ -10,5 +10,6 @@ public class EnemyBaseStats : ScriptableObject
     public string desc;
     public float health;
     public float moveSpeed;
+    public int goldAmount;
 
 }
