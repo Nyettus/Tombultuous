@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UsefulBox;
 
 public class Shardenfreude : HitscanWeaponBase
 {
@@ -50,5 +51,6 @@ public class Shardenfreude : HitscanWeaponBase
         base.Shoot();
         SetAnimInt("CurMag", curMag);
         SetAnimTrigger("Shoot");
+        AudioBox.PlayOneShot("event:/DoorOpen", null);
     }
 }

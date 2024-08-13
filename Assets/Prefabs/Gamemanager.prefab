@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5612561662590659672}
   - component: {fileID: 9040731527418675476}
   - component: {fileID: 8534219187320000118}
+  - component: {fileID: 4567506131885227853}
   m_Layer: 0
   m_Name: Gamemanager
   m_TagString: Untagged
@@ -52,6 +53,11 @@ MonoBehaviour:
   playerPrefab: {fileID: 1855584577281793426, guid: 19da5e50ae876d544b9b263d1e8a3f4b, type: 3}
   weaponStorage: []
   goldManager: {fileID: 0}
+  healingCharges: 0
+  marrowProgress: 0
+  inMenu: 0
+  whichMenu: {fileID: 0}
+  isDead: 0
   paused: 0
 --- !u!114 &5612561662590659672
 MonoBehaviour:
@@ -92,3 +98,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InputMap: {fileID: -944628639613478452, guid: c2f90d284075130469418a5de64f04fe, type: 3}
+  hudScript: {fileID: 0}
+  healthBreakdown: 01000000010000000100000001000000
+  AmmoBreakdown: ffffffffffffffff
+  specialBreakdown: 1
+  dashBreakdown: 1
+  reloadBreakdown: 1
+  popUp: {fileID: 0}
+  itemPopUp: {fileID: 0}
+--- !u!114 &4567506131885227853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802469056682179075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0479c440a73d3341a65a0be42bf86ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
