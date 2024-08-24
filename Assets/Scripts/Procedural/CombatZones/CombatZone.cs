@@ -9,7 +9,10 @@ public class CombatZone : MonoBehaviour
     public GameObject sealedHost;
     public List<BoxCollider> sealedDoors = new List<BoxCollider>();
     public GameObject enemy;
-    public List<GameObject> enemies = new List<GameObject>();
+
+    public List<EnemySpawner> enemySpawners = new List<EnemySpawner>();
+    public int enemyCount = 0;
+
     public GameObject navmeshLinkHost;
     private bool activated = false;
     public RoomGrid thisRoom;
@@ -80,7 +83,7 @@ public class CombatZone : MonoBehaviour
     {
         SetLights(true);
 
-        if (activated || enemies.Count == 0) return;
+        if (activated || enemySpawners.Count == 0) return;
         Debug.Log("Room activated");
         OnCombatStartedEvent();
         SetDoors(true);
@@ -102,6 +105,10 @@ public class CombatZone : MonoBehaviour
         GameManager._.Master.itemMaster.onRoomClearHandler.OnRoomClear();
         if (bossRoom != null) bossRoom.OnBossKill();
     }
+    public void DisableCombatZoneAsInvoke()
+    {
+        Invoke("DisableCombatZones", 0.1f);
+    }
 
     private void SetDoors(bool state)
     {
@@ -122,10 +129,12 @@ public class CombatZone : MonoBehaviour
 
     private void SetEnemies(bool state)
     {
-        foreach (GameObject enemy in enemies)
+        enemyCount = 0;
+        foreach (EnemySpawner enemy in enemySpawners)
         {
-            enemy.GetComponent<EnemyCountHandler>().master = this;
-            enemy.SetActive(state);
+            enemy.master = this;
+            enemy.SpawnEnemy();
+            enemyCount++;
         }
     }
 
@@ -170,11 +179,11 @@ public class CombatZone : MonoBehaviour
             return;
         }
 
-        enemies.Clear();
+        enemySpawners.Clear();
         foreach (Transform transform in enemy.transform)
         {
-            enemies.Add(transform.gameObject);
-            transform.gameObject.SetActive(false);
+            enemySpawners.Add(transform.gameObject.GetComponent<EnemySpawner>());
+            transform.gameObject.SetActive(true);
         }
 
 

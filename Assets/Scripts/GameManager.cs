@@ -19,6 +19,7 @@ public class GameManager : SingletonPersist<GameManager>
     public int healingCharges;
     public int marrowProgress = 0;
     #endregion
+    
 
     #region Freeze inputs
     public bool inMenu = false;
@@ -78,6 +79,7 @@ public class GameManager : SingletonPersist<GameManager>
         {
             paused = !paused;
             ShowMouse(paused);
+            AudioManager._.UpdatePauseParams(paused);
             if (paused)
             {
                 Time.timeScale = 0;

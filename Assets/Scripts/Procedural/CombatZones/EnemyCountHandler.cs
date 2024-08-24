@@ -8,13 +8,13 @@ public class EnemyCountHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
@@ -25,10 +25,12 @@ public class EnemyCountHandler : MonoBehaviour
             Debug.LogError("Enemy has no host");
             return;
         }
-        master.enemies.Remove(this.gameObject);
-        if(master.enemies.Count <= 0)
+        master.enemyCount--;
+        if (master.enemyCount <= 0)
         {
-            master.DisableCombatZones();
+            master.DisableCombatZoneAsInvoke();
         }
     }
+
+
 }

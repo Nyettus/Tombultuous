@@ -31,7 +31,7 @@ public struct DamageInstance
 public class EnemyHealth : MonoBehaviour, IEnemyDamageable
 {
     public float health = 100f;
-    public int goldAmount;
+    public int goldAmount => CM.card.goldAmount;
 
     public EnemyCountHandler countHandler;
     private bool once = true;
@@ -51,7 +51,13 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
         if (health <= 0 && once)
         {
             Debug.Log("im dead");
-            if (GameManager._.goldManager != null) GameManager._.goldManager.GetGold(goldAmount);
+            if (GameManager._.goldManager != null)
+            {
+                GameManager._.goldManager.GetGold(goldAmount);
+                Vector3 pos = transform.position + Vector3.up * 2;
+                var coins = ObjectPooler._.SpawnFromPool("CoinsParticles", pos, transform.rotation);
+                coins.GetComponent<CoinParticles>().Initialise(goldAmount);
+            }
             GameManager._.Master.itemMaster.onKillItemHandler.OnKill();
             countHandler.RemoveFromMaster();
             if (CM != null)
