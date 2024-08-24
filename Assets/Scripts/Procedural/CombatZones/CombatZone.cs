@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 
@@ -130,7 +131,8 @@ public class CombatZone : MonoBehaviour
     private void SetEnemies(bool state)
     {
         enemyCount = 0;
-        foreach (EnemySpawner enemy in enemySpawners)
+        var filteredList = FilterEnemies();
+        foreach (EnemySpawner enemy in filteredList)
         {
             enemy.master = this;
             enemy.SpawnEnemy();
@@ -138,7 +140,22 @@ public class CombatZone : MonoBehaviour
         }
     }
 
+    private List<EnemySpawner> FilterEnemies()
+    {
+        //3 away we ramp to max spawning
+        if (thisRoom.position.magnitude >= 3) return enemySpawners;
+        float distAsPercent = 1-(thisRoom.position.magnitude / 3f);
+        Debug.Log(distAsPercent);
+        int numberToRemove = (int)(enemySpawners.Count * distAsPercent);
+        var spawnersToRemove = enemySpawners.OrderBy(x => System.Guid.NewGuid()).Take(numberToRemove).ToList();
+        var returnList = enemySpawners;
+        foreach(var spawner in spawnersToRemove)
+        {
+            returnList.Remove(spawner);
+        }
+        return returnList;
 
+    }
 
     private void RevealMap()
     {
