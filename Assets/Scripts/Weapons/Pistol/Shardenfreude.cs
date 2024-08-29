@@ -26,6 +26,7 @@ public class Shardenfreude : HitscanWeaponBase
             movement.KnockBack(Camera.main.transform.forward, (curMag * -3), knockbackState);
             curMag = 0;
             SetAnimTrigger("Special");
+            AudioBox.PlayOneShot("event:/Pistol/PistolShot_Special");
             base.Special();
 
         }
@@ -35,9 +36,9 @@ public class Shardenfreude : HitscanWeaponBase
     public override void StartReload()
     {
         base.StartReload();
-        SetAnimBool("Reload",true);
+        SetAnimBool("Reload", true);
         SetAnimInt("CurMag", curMag);
-        
+
     }
     public override void Reload()
     {
@@ -51,6 +52,14 @@ public class Shardenfreude : HitscanWeaponBase
         base.Shoot();
         SetAnimInt("CurMag", curMag);
         SetAnimTrigger("Shoot");
-        AudioBox.PlayOneShot("event:/DoorOpen", null);
+        if (curMag >= 2)
+        {
+            AudioBox.PlayOneShot("event:/Pistol/PistolShot");
+        }
+        else
+        {
+            AudioBox.PlayOneShot("event:/Pistol/PistolShot_low");
+        }
+
     }
 }

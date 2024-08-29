@@ -48,6 +48,10 @@ namespace UsefulBox
                 RuntimeUtils.DebugLogWarning("[FMOD] Event not found: " + path);
             }
         }
+        public static void PlayOneShot(string path)
+        {
+            PlayOneShot(path, null);
+        }
         public static void PlayOneShot(EventReference eventReference, FMODParam[] parameters, Vector3 position = new Vector3())
         {
             try
@@ -60,7 +64,28 @@ namespace UsefulBox
             }
         }
 
+        public static FMODParam CreateFMODParam(string path, float variable)
+        {
+            FMODParam param = new FMODParam(path, variable);
+            return param;
+        }
 
+        public static FMODParam[] CreateFMODParamArray(string[] paths, float[] variables)
+        {
+            if (paths.Length != variables.Length)
+            {
+                Debug.LogError("Tried to create param with unequivilant size");
+                return null;
+            }
+            FMODParam[] paramsArray = new FMODParam[paths.Length];
+            for (int i = 0; i < paths.Length; i++)
+            {
+                FMODParam holding = new FMODParam(paths[i], variables[i]);
+                paramsArray[i] = holding;
+            }
+            return paramsArray;
+
+        }
 
 
     }
