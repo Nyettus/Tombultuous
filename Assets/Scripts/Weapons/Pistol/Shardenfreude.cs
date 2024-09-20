@@ -51,6 +51,5 @@ public class Shardenfreude : HitscanWeaponBase
         base.Shoot();
         SetAnimInt("CurMag", curMag);
         SetAnimTrigger("Shoot");
-        AudioBox.PlayOneShot("event:/DoorOpen", null);
     }
 }
